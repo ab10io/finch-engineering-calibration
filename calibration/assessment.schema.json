@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Finch calibration assessment envelope",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["fixture_slug", "run", "model", "prompt_version", "snapshot_hash", "assessment"],
+  "properties": {
+    "fixture_slug": { "type": "string" },
+    "run": { "type": "integer", "minimum": 1, "maximum": 3 },
+    "model": { "type": "string" },
+    "prompt_version": { "const": "1.0" },
+    "snapshot_hash": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "assessment": {
+      "type": "object",
+      "description": "Must satisfy Finch's production validateAssessmentOutput contract."
+    }
+  }
+}
