@@ -1,0 +1,42 @@
+{
+  "fixture_slug": "human-ai-strong-review-assistant",
+  "title": "Review Assistant",
+  "summary": "A bounded assistant that helps benefits caseworkers locate supporting policy passages while preserving human decisions and uncertainty.",
+  "intended_users": "Public-benefit caseworkers reviewing complex eligibility documents with accountable human sign-off.",
+  "repository_url": "https://github.com/ab10io/finch-engineering-calibration",
+  "commit_sha": "ed2d083f86ff032ff9ba7c931e5208ad499627a8",
+  "demo_url": null,
+  "selected_track_slug": "human-scale-ai",
+  "diagram_type": "repository_path",
+  "diagram_text": null,
+  "diagram_path": "docs/decisions/001-human-authority.md",
+  "diagram_image_ref": null,
+  "design_decisions": [
+    {
+      "problem_or_constraint": "The project compares automated decisions with bounded suggestions and traces human authority through every state transition.",
+      "alternatives_considered": "The committed alternatives table compares benefits, rejected costs, and the condition that triggers reconsideration.",
+      "chosen_approach_and_rationale": "Model adapters, evidence normalization, policy, review state, and audit records have explicit boundaries.",
+      "accepted_trade_off": "The project cannot guarantee the factual quality or fairness of an externally configured model.",
+      "repository_evidence": "docs/decisions/001-human-authority.md, src/review/state-machine.js",
+      "validation_approach": "Reject acceptance attempts that lack an authorized human reviewer. Escalate a suggestion that lacks source provenance or bounded evidence. Remove identifying values nested inside otherwise allowed input structures.",
+      "reconsideration_conditions": "The project cannot guarantee the factual quality or fairness of an externally configured model. Domain-specific outcome evaluation remains the responsibility of each deploying organization."
+    }
+  ],
+  "testing_strategy": "Committed cross-boundary, negative, and boundary tests: test/review-state.test.js, test/review-policy.test.js, test/minimization.test.js. Their presence does not establish that they pass in Finch static review.",
+  "security_threat": "A model suggestion directly mutates a consequential review decision without human approval. Control: The model adapter can only create a proposal; a separate state machine requires an authorized human transition. Unnecessary identifying information is sent to the configured model adapter. Control: An allowlist-based minimizer removes direct and nested identity fields before adapter invocation.",
+  "production_limitation": "The project cannot guarantee the factual quality or fairness of an externally configured model. Domain-specific outcome evaluation remains the responsibility of each deploying organization.",
+  "technical_debt": "Complete deployment-specific runtime, performance, accessibility, and security evaluation before production use.",
+  "track_alignment_explanation": "AI is essential to producing bounded review suggestions while human authority, provenance, minimization, and escalation remain explicit.",
+  "ai_disclosure": {
+    "tools_used": [
+      "OpenAI Codex"
+    ],
+    "purposes": "Codex was used to author this deliberately synthetic calibration fixture and its structured submission answers.",
+    "substantially_generated_areas": "All fixture source, documentation, tests, and submission narratives are synthetic and AI-assisted.",
+    "review_validation": "The calibration operator reviews files for intended evidence strength, consistency, and absence of real secrets before pinning the commit.",
+    "rejected_or_changed_suggestion": "Generic claims of runtime correctness were rejected because Finch performs static evidence review only."
+  },
+  "ai_disclosure_narrative": "This entire project is synthetic AI-assisted test data. It represents no participant, deployed product, or real credential.",
+  "synthetic": true,
+  "leaderboard_eligible": false
+}
