@@ -41,7 +41,7 @@
 
 ### Why the pilot failed
 
-The five fixtures labelled strong were not strong enough to support their frozen 80–96 bands under the production evidence rubric. They contain thoughtful architecture, decision, security, and testing narratives, but only small representative source and test files. Across strong fixtures Codex consistently rated design reasoning around 3, architecture and security around 2, testing around 1–2, and documentation/operations around 1. The model did not treat a documented intention as proof that the corresponding implementation, test breadth, operational procedure, or dependency discipline exists.
+The six fixtures labelled strong were not strong enough to support their frozen 80–96 bands under the production evidence rubric. They contain thoughtful architecture, decision, security, and testing narratives, but only small representative source and test files. Across strong fixtures Codex consistently rated design reasoning around 3, architecture and security around 2, testing around 1–2, and documentation/operations around 1. The model did not treat a documented intention as proof that the corresponding implementation, test breadth, operational procedure, or dependency discipline exists.
 
 This is primarily a corpus and answer-key calibration defect, not evidence of random scorer behavior. The answer key awarded exceptional ratings for intended evidence quality, while the frozen repositories demonstrate much less implementation depth. The model's conservative interpretation is plausible and mostly stable. The answer key remains unchanged so the failure is visible rather than retroactively converted into a pass.
 
@@ -57,7 +57,7 @@ Zero critic rejections is a pipeline result, not proof of independent quality. S
 
 The calibration is **not accepted**. Do not seed these assessments into development or staging as representative graded projects, and do not enable the assessment worker.
 
-1. Expand the five strong fixture repositories with implementation and test evidence proportionate to their intended score bands, then pin new immutable commits as corpus version 2.
+1. Expand the six strong fixture repositories with implementation and test evidence proportionate to their intended score bands, then pin new immutable commits as corpus version 2.
 2. Resolve the Open Source track-definition mismatch before freezing the version-2 answer key.
 3. Add category-specific public anchors and a maximum-spread gate so one unstable fixture cannot be hidden by the median.
 4. Freeze a new answer key before rescoring, run the same three-pass protocol, and retain this failed version-1 report for comparison.
