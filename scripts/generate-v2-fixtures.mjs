@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url'
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const fixtureRoot = resolve(root, 'fixtures-v2')
 const spec = JSON.parse(await readFile(resolve(root, 'calibration/v2/fixture-spec.json'), 'utf8'))
-const strong = spec.fixtures.filter(({ pending_v2_commit: pending }) => pending)
+const strong = spec.fixtures.filter(({ branch }) => branch.startsWith('fixture/v2/'))
 
 const MIT = `MIT License
 

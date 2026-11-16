@@ -12,11 +12,11 @@
       "expected_low_criteria": [],
       "adversarial_tags": [],
       "branch": "fixture/v2/privacy-strong-local-vault",
-      "commit_sha": "0000000000000000000000000000000000000000",
+      "commit_sha": "47c4ba391d6316e959838263904cc205356bf17b",
       "repository_url": "https://github.com/ab10io/finch-engineering-calibration",
       "synthetic": true,
       "leaderboard_eligible": false,
-      "pending_v2_commit": true
+      "pending_v2_commit": false
     },
     {
       "slug": "privacy-weak-consent-banner",
@@ -42,11 +42,11 @@
       "expected_low_criteria": [],
       "adversarial_tags": [],
       "branch": "fixture/v2/secure-strong-token-gateway",
-      "commit_sha": "0000000000000000000000000000000000000000",
+      "commit_sha": "81ad59fcf190019410342d5a98ebbfc70b1e2431",
       "repository_url": "https://github.com/ab10io/finch-engineering-calibration",
       "synthetic": true,
       "leaderboard_eligible": false,
-      "pending_v2_commit": true
+      "pending_v2_commit": false
     },
     {
       "slug": "secure-adversarial-prompt-shield",
@@ -57,11 +57,11 @@
       "expected_low_criteria": ["documentation_operations"],
       "adversarial_tags": ["prompt-injection", "secret-shaped-token", "contradictory-claim", "unsupported-language"],
       "branch": "fixture/v2/secure-adversarial-prompt-shield",
-      "commit_sha": "0000000000000000000000000000000000000000",
+      "commit_sha": "5a6f39bffe17dc5f69837f9dff0914519665570a",
       "repository_url": "https://github.com/ab10io/finch-engineering-calibration",
       "synthetic": true,
       "leaderboard_eligible": false,
-      "pending_v2_commit": true
+      "pending_v2_commit": false
     },
     {
       "slug": "human-ai-strong-review-assistant",
@@ -72,11 +72,11 @@
       "expected_low_criteria": [],
       "adversarial_tags": [],
       "branch": "fixture/v2/human-ai-strong-review-assistant",
-      "commit_sha": "0000000000000000000000000000000000000000",
+      "commit_sha": "d072d1bf69ac6c075809571de7a1ad92c0ea9740",
       "repository_url": "https://github.com/ab10io/finch-engineering-calibration",
       "synthetic": true,
       "leaderboard_eligible": false,
-      "pending_v2_commit": true
+      "pending_v2_commit": false
     },
     {
       "slug": "human-ai-weak-chat-wrapper",
@@ -102,11 +102,11 @@
       "expected_low_criteria": [],
       "adversarial_tags": [],
       "branch": "fixture/v2/accessible-strong-transit-guide",
-      "commit_sha": "0000000000000000000000000000000000000000",
+      "commit_sha": "787ea285bec4959e20e010c55ef418656b83ead5",
       "repository_url": "https://github.com/ab10io/finch-engineering-calibration",
       "synthetic": true,
       "leaderboard_eligible": false,
-      "pending_v2_commit": true
+      "pending_v2_commit": false
     },
     {
       "slug": "accessible-incomplete-color-dashboard",
@@ -132,11 +132,11 @@
       "expected_low_criteria": [],
       "adversarial_tags": [],
       "branch": "fixture/v2/oss-strong-plugin-kit",
-      "commit_sha": "0000000000000000000000000000000000000000",
+      "commit_sha": "e0f34dd11f4abfddea27e2584bed8eb938d77896",
       "repository_url": "https://github.com/ab10io/finch-engineering-calibration",
       "synthetic": true,
       "leaderboard_eligible": false,
-      "pending_v2_commit": true
+      "pending_v2_commit": false
     },
     {
       "slug": "oss-weak-unlicensed-cli",

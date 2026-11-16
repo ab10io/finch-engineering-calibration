@@ -43,8 +43,9 @@ test('defines a methodology-1.1 v2 corpus without rewriting v1 commits', async (
     assert.equal(fixture.leaderboard_eligible, false)
     if (prior.quality_band === 'strong') {
       assert.equal(fixture.branch, `fixture/v2/${fixture.slug}`)
-      assert.equal(fixture.commit_sha, '0'.repeat(40))
-      assert.equal(fixture.pending_v2_commit, true)
+      assert.match(fixture.commit_sha, /^[0-9a-f]{40}$/)
+      assert.notEqual(fixture.commit_sha, '0'.repeat(40))
+      assert.equal(fixture.pending_v2_commit, false)
     } else {
       assert.equal(fixture.branch, prior.branch)
       assert.equal(fixture.commit_sha, prior.commit_sha)
@@ -74,7 +75,7 @@ test('freezes observable evidence contracts for all six substantive fixtures', a
     'excluded_runtime_claims',
   ])
 
-  const substantive = v2.fixtures.filter(({ pending_v2_commit: pending }) => pending)
+  const substantive = v2.fixtures.filter(({ branch }) => branch.startsWith('fixture/v2/'))
   assert.equal(substantive.length, 6)
   for (const fixture of substantive) {
     const contract = await json(`../calibration/v2/evidence-contracts/${fixture.slug}.json`)

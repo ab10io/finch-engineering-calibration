@@ -24,7 +24,7 @@ async function filesUnder(path, prefix = '') {
 
 test('materializes every required v2 evidence path with substantive source and tests', async () => {
   const spec = await json(resolve(root, 'calibration/v2/fixture-spec.json'))
-  const fixtures = spec.fixtures.filter(({ pending_v2_commit: pending }) => pending)
+  const fixtures = spec.fixtures.filter(({ branch }) => branch.startsWith('fixture/v2/'))
   for (const fixture of fixtures) {
     const projectRoot = resolve(root, 'fixtures-v2', fixture.slug)
     const contract = await json(resolve(root, 'calibration/v2/evidence-contracts', `${fixture.slug}.json`))
@@ -57,7 +57,7 @@ test('materializes every required v2 evidence path with substantive source and t
 
 test('executes each v2 project negative and boundary test suite locally', async () => {
   const spec = await json(resolve(root, 'calibration/v2/fixture-spec.json'))
-  for (const fixture of spec.fixtures.filter(({ pending_v2_commit: pending }) => pending)) {
+  for (const fixture of spec.fixtures.filter(({ branch }) => branch.startsWith('fixture/v2/'))) {
     const projectRoot = resolve(root, 'fixtures-v2', fixture.slug)
     const result = spawnSync(process.execPath, ['--test'], {
       cwd: projectRoot,
