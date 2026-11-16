@@ -1,0 +1,249 @@
+{
+  "fixture_slug": "privacy-weak-consent-banner",
+  "run": 1,
+  "model": "gpt-6.1-sol",
+  "critic_model": "gpt-6.1-terra",
+  "prompt_version": "2.0",
+  "snapshot_hash": "0abe2a43a8c8c227fb3dfb6830f333eceb244c4d0b60f5b2219a74f9b0513f7c",
+  "recorded_at": "2026-11-16",
+  "accepted": true,
+  "validation": {
+    "production_schema_valid": true,
+    "critic_valid": true,
+    "errors": []
+  },
+  "assessment": {
+    "categories": {
+      "design_reasoning": {
+        "score": 6.25,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "alternatives_and_tradeoffs",
+            "rating": 1,
+            "points_available": 25,
+            "points_awarded": 6.25,
+            "confidence": "medium",
+            "summary": "The local consent choice has limited implementation traceability, but no alternative is evaluated and the documented boolean gate is not implemented as a conditional check.",
+            "limitations": "The handler stores acceptance and calls analytics; this does not establish enforcement before other initialization paths.",
+            "evidence": [
+              {
+                "evidence_id": "3cd98ce55a550441c10a49f9576af009ab6b339280edadf815845790c5da6ba8",
+                "path": "docs/decisions.md",
+                "start_line": 3,
+                "end_line": 17,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "ed86539f73897bff1e7d442d5db06cf1fca34189a594d49fa251ef0e70c92865",
+                "path": "src/banner.tsx",
+                "start_line": 1,
+                "end_line": 5,
+                "symbol": "Banner"
+              }
+            ]
+          }
+        ]
+      },
+      "architecture_maintainability": {
+        "score": 5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "boundaries_and_coupling",
+            "rating": 1,
+            "points_available": 20,
+            "points_awarded": 5,
+            "confidence": "medium",
+            "summary": "Banner provides a minimal component boundary, but its acceptance handler directly couples browser storage to the global analytics loader.",
+            "limitations": "No adapter or change-isolation evidence is provided.",
+            "evidence": [
+              {
+                "evidence_id": "ed86539f73897bff1e7d442d5db06cf1fca34189a594d49fa251ef0e70c92865",
+                "path": "src/banner.tsx",
+                "start_line": 1,
+                "end_line": 5,
+                "symbol": "Banner"
+              }
+            ]
+          }
+        ]
+      },
+      "security_by_design": {
+        "score": 10,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "threat_model_and_mitigations",
+            "rating": 2,
+            "points_available": 20,
+            "points_awarded": 10,
+            "confidence": "medium",
+            "summary": "The bounded threat of analytics without consent maps to an acceptance-triggered loader call, with explicit gaps in tracker inventory, withdrawal, minimization, and consent integrity.",
+            "limitations": "This handler does not establish that analytics initialization elsewhere is prevented; no negative-test evidence is supplied.",
+            "evidence": [
+              {
+                "evidence_id": "04f3db08a28ae2341c09cd9307787eb516b8c1b5cd4189f3dac7cbd212bfac56",
+                "path": "docs/security.md",
+                "start_line": 3,
+                "end_line": 13,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "ed86539f73897bff1e7d442d5db06cf1fca34189a594d49fa251ef0e70c92865",
+                "path": "src/banner.tsx",
+                "start_line": 2,
+                "end_line": 5,
+                "symbol": "Banner"
+              }
+            ]
+          }
+        ]
+      },
+      "testing_evidence": {
+        "score": 0,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "test_strategy_and_coverage",
+            "rating": 0,
+            "points_available": 15,
+            "points_awarded": 0,
+            "confidence": "medium",
+            "summary": "Testing evidence consists of a reported manual acceptance click, explicitly without automated tests or negative-path records.",
+            "limitations": "The narrative provides no meaningful assertions or reproducible validation evidence.",
+            "evidence": [
+              {
+                "evidence_id": "62193ce3bbf1eb27f94b75af7e1fa8e2d84a09b028aa67c2a6ae40d12b007e87",
+                "path": "docs/testing.md",
+                "start_line": 1,
+                "end_line": 7,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "documentation_operations": {
+        "score": 0,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "operational_clarity",
+            "rating": 0,
+            "points_available": 10,
+            "points_awarded": 0,
+            "confidence": "medium",
+            "summary": "Documentation states purpose, an intended data flow, and a bypass limitation, but supplies no installation, configuration, or recovery instructions.",
+            "limitations": "The described localStorage read and conditional initialization are not demonstrated by the supplied component.",
+            "evidence": [
+              {
+                "evidence_id": "dc4487ca9af82914295982fe5d5791f2ead75673d962a3c714c3f2e5e6335e2b",
+                "path": "README.md",
+                "start_line": 1,
+                "end_line": 21,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "bbf31149b5bafc2451d939afafc549422764a83c4582c6b8ec528468d82fe079",
+                "path": "docs/architecture.md",
+                "start_line": 1,
+                "end_line": 13,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "ed86539f73897bff1e7d442d5db06cf1fca34189a594d49fa251ef0e70c92865",
+                "path": "src/banner.tsx",
+                "start_line": 1,
+                "end_line": 5,
+                "symbol": "Banner"
+              }
+            ]
+          }
+        ]
+      },
+      "repository_hygiene": {
+        "score": 0,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "dependency_and_repository_hygiene",
+            "rating": 0,
+            "points_available": 10,
+            "points_awarded": 0,
+            "confidence": "medium",
+            "summary": "The manifest declares no React dependency despite the component importing React, leaving basic dependency controls incomplete.",
+            "limitations": "The catalogue supplies no license, lockfile, automation, or artifact policy to assess.",
+            "evidence": [
+              {
+                "evidence_id": "89a673b46bccaebcd5a88930a77ddb2663f13fef43fd83c7589f97d848c60f0c",
+                "path": "package.json",
+                "start_line": 1,
+                "end_line": 7,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "ed86539f73897bff1e7d442d5db06cf1fca34189a594d49fa251ef0e70c92865",
+                "path": "src/banner.tsx",
+                "start_line": 1,
+                "end_line": 5,
+                "symbol": "Banner"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "core_score": 21.25,
+    "confidence": "medium",
+    "track_alignment": {
+      "status": "not_demonstrated",
+      "summary": "The stated product is a generic analytics dashboard. Its acceptance button invokes one analytics loader, but the evidence does not demonstrate that materially improving privacy is the product's primary purpose or that consent is enforced across collection paths.",
+      "evidence": [
+        {
+          "evidence_id": "dc4487ca9af82914295982fe5d5791f2ead75673d962a3c714c3f2e5e6335e2b",
+          "path": "README.md",
+          "start_line": 5,
+          "end_line": 13,
+          "symbol": ""
+        },
+        {
+          "evidence_id": "ed86539f73897bff1e7d442d5db06cf1fca34189a594d49fa251ef0e70c92865",
+          "path": "src/banner.tsx",
+          "start_line": 1,
+          "end_line": 5,
+          "symbol": "Banner"
+        },
+        {
+          "evidence_id": "04f3db08a28ae2341c09cd9307787eb516b8c1b5cd4189f3dac7cbd212bfac56",
+          "path": "docs/security.md",
+          "start_line": 3,
+          "end_line": 13,
+          "symbol": ""
+        },
+        {
+          "evidence_id": "62193ce3bbf1eb27f94b75af7e1fa8e2d84a09b028aa67c2a6ae40d12b007e87",
+          "path": "docs/testing.md",
+          "start_line": 1,
+          "end_line": 3,
+          "symbol": ""
+        }
+      ],
+      "questions_for_organizer": []
+    },
+    "not_tested": [
+      "Whether the project builds or starts",
+      "Whether tests pass",
+      "Runtime correctness",
+      "Performance, scaling, or reliability under load",
+      "Runtime accessibility behavior",
+      "Debugging ability",
+      "Ability to extend the system safely",
+      "Deployment correctness"
+    ]
+  },
+  "critic": {
+    "valid": true,
+    "errors": []
+  }
+}

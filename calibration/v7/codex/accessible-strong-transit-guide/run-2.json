@@ -1,0 +1,344 @@
+{
+  "fixture_slug": "accessible-strong-transit-guide",
+  "run": 2,
+  "model": "gpt-6.1-sol",
+  "critic_model": "gpt-6.1-terra",
+  "prompt_version": "2.0",
+  "snapshot_hash": "413a37936a54df83d58c1db0079e2d5c9948784be26519cbb30fcbdcc760a4b6",
+  "recorded_at": "2026-11-16",
+  "accepted": false,
+  "validation": {
+    "production_schema_valid": true,
+    "critic_valid": false,
+    "errors": [
+      "Architecture and maintainability is rated 3, but its anchor requires tests demonstrating change isolation across important paths. The cited comparative test covers presentation preferences only; the assessment itself notes that validator and disruption dependencies lack replacement tests."
+    ]
+  },
+  "assessment": {
+    "categories": {
+      "design_reasoning": {
+        "score": 18.75,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "alternatives_and_tradeoffs",
+            "rating": 3,
+            "points_available": 25,
+            "points_awarded": 18.75,
+            "confidence": "medium",
+            "summary": "The semantic-guide choice compares concrete alternatives and limitations, and traces presentation changes that preserve route facts through implementation and comparative tests.",
+            "limitations": "Reconsideration guidance is qualitative; semantic rendering and offline behavior are outside the demonstrated implementation.",
+            "evidence": [
+              {
+                "evidence_id": "e8f147865179ba64d023b80c6fa79ffea8a1246a79bc27c1fdb9c8809c9aba79",
+                "path": "docs/decisions/001-access-needs.md",
+                "start_line": 3,
+                "end_line": 13,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "1abb687855d7a1290efe7e18ae25054a8d18f41187f77ccdaeee7cf5b00fd17f",
+                "path": "src/guide/build-guide.js",
+                "start_line": 1,
+                "end_line": 2,
+                "symbol": "buildGuide"
+              },
+              {
+                "evidence_id": "36d905f81cc7d2977028d1e0cc6b7a0ab025dbc7b7ea96ca01f0fd0d73e0cf56",
+                "path": "test/preference-boundary.test.js",
+                "start_line": 5,
+                "end_line": 14,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "architecture_maintainability": {
+        "score": 15,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "boundaries_and_coupling",
+            "rating": 3,
+            "points_available": 20,
+            "points_awarded": 15,
+            "confidence": "medium",
+            "summary": "Validation, disruption policy, and guide composition have explicit module boundaries. Comparative tests vary presentation preferences within the same composition and assert preservation of route text, ordering, and outage availability.",
+            "limitations": "Isolation evidence is concentrated on presentation policy; validator and disruption dependencies are directly imported without replacement tests.",
+            "evidence": [
+              {
+                "evidence_id": "1abb687855d7a1290efe7e18ae25054a8d18f41187f77ccdaeee7cf5b00fd17f",
+                "path": "src/guide/build-guide.js",
+                "start_line": 1,
+                "end_line": 2,
+                "symbol": "buildGuide"
+              },
+              {
+                "evidence_id": "d0df984b1f9bd7c23098796dbdd9f5de364ad12f42eb7c862036ffd30bf1e135",
+                "path": "src/input/validate-route.js",
+                "start_line": 1,
+                "end_line": 1,
+                "symbol": "validateRoute"
+              },
+              {
+                "evidence_id": "e6c82b6d4c7e18ae820cd1f8a26220d68b156c342b68fd804176ce23ffbfbdd9",
+                "path": "src/guide/disruptions.js",
+                "start_line": 1,
+                "end_line": 1,
+                "symbol": "applyDisruptions"
+              },
+              {
+                "evidence_id": "36d905f81cc7d2977028d1e0cc6b7a0ab025dbc7b7ea96ca01f0fd0d73e0cf56",
+                "path": "test/preference-boundary.test.js",
+                "start_line": 5,
+                "end_line": 14,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "security_by_design": {
+        "score": 10,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "threat_model_and_mitigations",
+            "rating": 2,
+            "points_available": 20,
+            "points_awarded": 10,
+            "confidence": "medium",
+            "summary": "The threat model connects unsafe route text and sensitive preferences to validation and minimization, with explicit residual risks and negative tests for empty routes and markup.",
+            "limitations": "Validation does not bound lengths, enforce unique IDs, or validate disruption inputs. Object spreading preserves arbitrary step fields, and storesHistory:false alone does not establish comprehensive data minimization.",
+            "evidence": [
+              {
+                "evidence_id": "e17adba5a8a7ad9e07ed57f4204a9b89bec78fb96392c756612f25f1d72804c5",
+                "path": "docs/security/privacy-model.md",
+                "start_line": 3,
+                "end_line": 13,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "d0df984b1f9bd7c23098796dbdd9f5de364ad12f42eb7c862036ffd30bf1e135",
+                "path": "src/input/validate-route.js",
+                "start_line": 1,
+                "end_line": 1,
+                "symbol": "validateRoute"
+              },
+              {
+                "evidence_id": "1abb687855d7a1290efe7e18ae25054a8d18f41187f77ccdaeee7cf5b00fd17f",
+                "path": "src/guide/build-guide.js",
+                "start_line": 1,
+                "end_line": 2,
+                "symbol": "buildGuide"
+              },
+              {
+                "evidence_id": "06586d5d7e58bd631e00e9919d7319ff432015493cac30e28701b75a006dd340",
+                "path": "test/disruption-boundaries.test.js",
+                "start_line": 1,
+                "end_line": 3,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "testing_evidence": {
+        "score": 7.5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "test_strategy_and_coverage",
+            "rating": 2,
+            "points_available": 15,
+            "points_awarded": 7.5,
+            "confidence": "medium",
+            "summary": "Committed assertions cover nonvisual cues, preference metadata, outage warnings, empty and unsafe route rejection, and preservation of route facts across presentation preferences.",
+            "limitations": "Important orchestration failure coverage is incomplete: invalid routes are tested directly against the validator, while malformed disruptions, conflicting facts, and failure propagation through buildGuide lack assertions. Test execution is unverified.",
+            "evidence": [
+              {
+                "evidence_id": "5707ea4bbe45805b59a2b67810bcf9ac03c8a9ef0dcce7fc3d506d95f3240747",
+                "path": "test/access-needs.test.js",
+                "start_line": 1,
+                "end_line": 2,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "06586d5d7e58bd631e00e9919d7319ff432015493cac30e28701b75a006dd340",
+                "path": "test/disruption-boundaries.test.js",
+                "start_line": 1,
+                "end_line": 3,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "36d905f81cc7d2977028d1e0cc6b7a0ab025dbc7b7ea96ca01f0fd0d73e0cf56",
+                "path": "test/preference-boundary.test.js",
+                "start_line": 5,
+                "end_line": 14,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "documentation_operations": {
+        "score": 5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "operational_clarity",
+            "rating": 2,
+            "points_available": 10,
+            "points_awarded": 5,
+            "confidence": "medium",
+            "summary": "Documentation provides the Node prerequisite, installation and test commands, representative inputs and usage, and explicit prototype limitations.",
+            "limitations": "The usage example omits imports and a concrete route fixture. Recovery instructions reference rollback, stored state, and audit records without actionable project-specific procedures or corresponding implementation.",
+            "evidence": [
+              {
+                "evidence_id": "fb6ed02913e4241d3c3ef50ac4f62571eb9b4780dcc7f42babd56c8f4e19426a",
+                "path": "README.md",
+                "start_line": 7,
+                "end_line": 24,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "fb6ed02913e4241d3c3ef50ac4f62571eb9b4780dcc7f42babd56c8f4e19426a",
+                "path": "README.md",
+                "start_line": 30,
+                "end_line": 37,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "94af55266ea39a55e1e496e5ef8dc3d2dfd4442172bfc22e9e7ef40fb2595765",
+                "path": "docs/runbook.md",
+                "start_line": 3,
+                "end_line": 11,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "repository_hygiene": {
+        "score": 7.5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "dependency_and_repository_hygiene",
+            "rating": 3,
+            "points_available": 10,
+            "points_awarded": 7.5,
+            "confidence": "medium",
+            "summary": "The manifest and lock describe a dependency-free Node project with MIT licensing, read-only CI permissions and test automation, contribution expectations, and an explicit generated-artifact and secret policy.",
+            "limitations": "CI actions use version tags rather than immutable revisions, and the artifact policy lacks demonstrated automated enforcement. Release provenance and dependency-review automation are not evidenced.",
+            "evidence": [
+              {
+                "evidence_id": "feeb775c4ca0cd0c911dfbd3a3fe4d838487f6987b3835937767601bc7fb5b68",
+                "path": "package.json",
+                "start_line": 1,
+                "end_line": 13,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "f0c41dfa9f6c0f322692797b129f8beb16cd0546e72c924aea650812a443e0d5",
+                "path": "package-lock.json",
+                "start_line": 1,
+                "end_line": 16,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "a1f6f4dcb6b0174dd813443eebf8d4dd8bc892b9a2b4abecd98ec3e4942e3081",
+                "path": "LICENSE",
+                "start_line": 1,
+                "end_line": 13,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "a15029fc640a8bca652bf11756758e4269baae88ca614cdd108ddf2bd2ae7c55",
+                "path": ".github/workflows/ci.yml",
+                "start_line": 1,
+                "end_line": 15,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "66440dcc95d5eaa9e311c88c66a06c22718615535ac1daf5932a716d993b8f49",
+                "path": "CONTRIBUTING.md",
+                "start_line": 1,
+                "end_line": 3,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "46dabe5423aeac9c8c762453384f203a23512d928c5d549eb06904a76c361d62",
+                "path": ".artifact-policy.json",
+                "start_line": 1,
+                "end_line": 6,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "core_score": 63.75,
+    "confidence": "medium",
+    "track_alignment": {
+      "status": "demonstrated",
+      "summary": "The bounded prototype targets riders with visual and mobility access needs through ordered nonvisual text cues and explicit elevator-outage warnings, supported by implementation and committed assertions. Runtime assistive-technology behavior and user-facing rendering remain unverified.",
+      "evidence": [
+        {
+          "evidence_id": "45bd6d615aaf58daecbcfe1c312b68e90a8a995c6ea14cc770d80ae0c169061b",
+          "path": "submission://intended_users",
+          "start_line": 1,
+          "end_line": 1,
+          "symbol": ""
+        },
+        {
+          "evidence_id": "1abb687855d7a1290efe7e18ae25054a8d18f41187f77ccdaeee7cf5b00fd17f",
+          "path": "src/guide/build-guide.js",
+          "start_line": 1,
+          "end_line": 2,
+          "symbol": "buildGuide"
+        },
+        {
+          "evidence_id": "e6c82b6d4c7e18ae820cd1f8a26220d68b156c342b68fd804176ce23ffbfbdd9",
+          "path": "src/guide/disruptions.js",
+          "start_line": 1,
+          "end_line": 1,
+          "symbol": "applyDisruptions"
+        },
+        {
+          "evidence_id": "5707ea4bbe45805b59a2b67810bcf9ac03c8a9ef0dcce7fc3d506d95f3240747",
+          "path": "test/access-needs.test.js",
+          "start_line": 1,
+          "end_line": 2,
+          "symbol": ""
+        },
+        {
+          "evidence_id": "06586d5d7e58bd631e00e9919d7319ff432015493cac30e28701b75a006dd340",
+          "path": "test/disruption-boundaries.test.js",
+          "start_line": 1,
+          "end_line": 2,
+          "symbol": ""
+        }
+      ],
+      "questions_for_organizer": []
+    },
+    "not_tested": [
+      "Whether the project builds or starts",
+      "Whether tests pass",
+      "Runtime correctness",
+      "Performance, scaling, or reliability under load",
+      "Runtime accessibility behavior",
+      "Debugging ability",
+      "Ability to extend the system safely",
+      "Deployment correctness"
+    ]
+  },
+  "critic": {
+    "valid": false,
+    "errors": [
+      "Architecture and maintainability is rated 3, but its anchor requires tests demonstrating change isolation across important paths. The cited comparative test covers presentation preferences only; the assessment itself notes that validator and disruption dependencies lack replacement tests."
+    ]
+  }
+}

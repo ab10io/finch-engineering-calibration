@@ -1,0 +1,228 @@
+{
+  "fixture_slug": "human-ai-weak-chat-wrapper",
+  "run": 3,
+  "model": "gpt-6.1-sol",
+  "critic_model": "gpt-6.1-terra",
+  "prompt_version": "2.0",
+  "snapshot_hash": "d57fd5d3cf208adfd429c7365a696d594fe99003001dde9328472f722ff589a7",
+  "recorded_at": "2026-11-16",
+  "accepted": true,
+  "validation": {
+    "production_schema_valid": true,
+    "critic_valid": true,
+    "errors": []
+  },
+  "assessment": {
+    "categories": {
+      "design_reasoning": {
+        "score": 6.25,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "alternatives_and_tradeoffs",
+            "rating": 1,
+            "points_available": 25,
+            "points_awarded": 6.25,
+            "confidence": "medium",
+            "summary": "The generic model-call choice connects to implementation, but no bounded user problem or alternative was evaluated.",
+            "limitations": "The asserted trade-off has no committed validation evidence.",
+            "evidence": [
+              {
+                "evidence_id": "734bfdae016b639645bfa030b19f2f25d0af2d9dbff6b8e3cbb991139df06faa",
+                "path": "docs/decisions.md",
+                "start_line": 3,
+                "end_line": 17,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "af2e10abf4e863b21121e0aae9e7495e3c1fcb9751f2359ad42b78d363e821d1",
+                "path": "src/chat.ts",
+                "start_line": 1,
+                "end_line": 3,
+                "symbol": "chat"
+              }
+            ]
+          }
+        ]
+      },
+      "architecture_maintainability": {
+        "score": 5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "boundaries_and_coupling",
+            "rating": 1,
+            "points_available": 20,
+            "points_awarded": 5,
+            "confidence": "medium",
+            "summary": "The chat function accepts a model interface and delegates through it, providing a minimal dependency boundary.",
+            "limitations": "Only a forwarding function is demonstrated; composition and change-isolation tests are absent.",
+            "evidence": [
+              {
+                "evidence_id": "af2e10abf4e863b21121e0aae9e7495e3c1fcb9751f2359ad42b78d363e821d1",
+                "path": "src/chat.ts",
+                "start_line": 1,
+                "end_line": 3,
+                "symbol": "chat"
+              }
+            ]
+          }
+        ]
+      },
+      "security_by_design": {
+        "score": 5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "threat_model_and_mitigations",
+            "rating": 1,
+            "points_available": 20,
+            "points_awarded": 5,
+            "confidence": "medium",
+            "summary": "Sensitive input and misleading responses are identified, but the only stated mitigation is a disclaimer without demonstrated integration.",
+            "limitations": "The documentation explicitly lacks retention, redaction, output constraints, abuse handling, and evaluation evidence.",
+            "evidence": [
+              {
+                "evidence_id": "98d3bb3a4d4aa5bb0de2cbdcf06f786fc7995a82a2a8e9ff94ae289b2af01f77",
+                "path": "docs/security.md",
+                "start_line": 3,
+                "end_line": 13,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "testing_evidence": {
+        "score": 0,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "test_strategy_and_coverage",
+            "rating": 0,
+            "points_available": 15,
+            "points_awarded": 0,
+            "confidence": "medium",
+            "summary": "No automated tests or documented evaluation cases are provided.",
+            "limitations": "The reported manual questioning supplies no cases, expected outcomes, or assertions.",
+            "evidence": [
+              {
+                "evidence_id": "5ad227789e16c49fb4b0c9c3784d0dda14d61711101155764300667a8581eafd",
+                "path": "docs/testing.md",
+                "start_line": 1,
+                "end_line": 3,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "734bfdae016b639645bfa030b19f2f25d0af2d9dbff6b8e3cbb991139df06faa",
+                "path": "docs/decisions.md",
+                "start_line": 23,
+                "end_line": 25,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "documentation_operations": {
+        "score": 0,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "operational_clarity",
+            "rating": 0,
+            "points_available": 10,
+            "points_awarded": 0,
+            "confidence": "medium",
+            "summary": "The README describes purpose and unknowns but provides no installation, configuration, operation, or recovery guidance.",
+            "limitations": "Acknowledging unknown accuracy, latency, cost, safety, and benefit does not provide operational instructions.",
+            "evidence": [
+              {
+                "evidence_id": "b1d07a6e29062a5419ab5bf3f8604a62ef0033522967330e6c94c8877ac57021",
+                "path": "README.md",
+                "start_line": 1,
+                "end_line": 22,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "repository_hygiene": {
+        "score": 2.5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "dependency_and_repository_hygiene",
+            "rating": 1,
+            "points_available": 10,
+            "points_awarded": 2.5,
+            "confidence": "medium",
+            "summary": "An MIT-labeled license and minimal package manifest exist; the manifest declares no dependencies or automation scripts.",
+            "limitations": "The catalogue supplies no lockfile, automation, contribution guidance, or artifact policy.",
+            "evidence": [
+              {
+                "evidence_id": "740f92543817bbed84679dce474e4b5b090f72eabe8b911eab7b3ca46db5cb97",
+                "path": "LICENSE",
+                "start_line": 1,
+                "end_line": 8,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "3254c99567d657a9870bee220f21a2ba30aa244d309031ebe2df6aa06659d30b",
+                "path": "package.json",
+                "start_line": 1,
+                "end_line": 7,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "core_score": 18.75,
+    "confidence": "medium",
+    "track_alignment": {
+      "status": "not_demonstrated",
+      "summary": "The implementation forwards text to a model, but the decision record explicitly lacks a bounded user problem or evaluated alternative. Deliberate selection of AI for specific people and context is not demonstrated.",
+      "evidence": [
+        {
+          "evidence_id": "af2e10abf4e863b21121e0aae9e7495e3c1fcb9751f2359ad42b78d363e821d1",
+          "path": "src/chat.ts",
+          "start_line": 1,
+          "end_line": 3,
+          "symbol": "chat"
+        },
+        {
+          "evidence_id": "734bfdae016b639645bfa030b19f2f25d0af2d9dbff6b8e3cbb991139df06faa",
+          "path": "docs/decisions.md",
+          "start_line": 3,
+          "end_line": 17,
+          "symbol": ""
+        },
+        {
+          "evidence_id": "5ad227789e16c49fb4b0c9c3784d0dda14d61711101155764300667a8581eafd",
+          "path": "docs/testing.md",
+          "start_line": 1,
+          "end_line": 3,
+          "symbol": ""
+        }
+      ],
+      "questions_for_organizer": []
+    },
+    "not_tested": [
+      "Whether the project builds or starts",
+      "Whether tests pass",
+      "Runtime correctness",
+      "Performance, scaling, or reliability under load",
+      "Runtime accessibility behavior",
+      "Debugging ability",
+      "Ability to extend the system safely",
+      "Deployment correctness"
+    ]
+  },
+  "critic": {
+    "valid": true,
+    "errors": []
+  }
+}
