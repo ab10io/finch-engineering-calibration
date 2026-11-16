@@ -1,0 +1,282 @@
+{
+  "fixture_slug": "swarm-human-ai-framework",
+  "run": 1,
+  "model": "gpt-6.1-sol",
+  "critic_model": "gpt-6.1-terra",
+  "prompt_version": "holdout-3.0",
+  "snapshot_hash": "8f26ffcd7b3aa2c6679e5bd02c6723595aaaf1ac255f9b6ad6e7e1a18059da28",
+  "recorded_at": "2026-11-16",
+  "accepted": true,
+  "validation": {
+    "production_schema_valid": true,
+    "critic_valid": true,
+    "errors": []
+  },
+  "assessment": {
+    "categories": {
+      "design_reasoning": {
+        "score": 12.5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "alternatives_and_tradeoffs",
+            "rating": 2,
+            "points_available": 25,
+            "points_awarded": 12.5,
+            "confidence": "medium",
+            "summary": "Lightweight, explicit agents and handoffs address learning and coordination constraints; hosted state management is an identified alternative. Agent configuration and completion construction provide implementation traceability.",
+            "limitations": "The sampled implementation and tests do not establish consistent traceability for all handoff and state-management trade-offs required for rating 3.",
+            "evidence": [
+              {
+                "evidence_id": "8cda9241ecf1d95049dda7e96003c041dd6c043ecb3766d722eee144eeec8123",
+                "path": "README.md",
+                "start_line": 74,
+                "end_line": 87,
+                "symbol": "Overview and Why Swarm"
+              },
+              {
+                "evidence_id": "668ad5a7256f6a9cbb67988f3a425f84d80e5af9e2ba3078012cadf7ad541159",
+                "path": "swarm/types.py",
+                "start_line": 14,
+                "end_line": 26,
+                "symbol": "Agent and Response"
+              },
+              {
+                "evidence_id": "5eaa4e65dc26ae80bb2bca632a41f1f7b94cf3eb3e52b973582f4f930823f4e5",
+                "path": "swarm/core.py",
+                "start_line": 41,
+                "end_line": 69,
+                "symbol": "Swarm.get_chat_completion"
+              }
+            ]
+          }
+        ]
+      },
+      "architecture_maintainability": {
+        "score": 10,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "boundaries_and_coupling",
+            "rating": 2,
+            "points_available": 20,
+            "points_awarded": 10,
+            "confidence": "medium",
+            "summary": "Typed agent/result models, schema utilities, and orchestration have understandable boundaries. Client injection provides a testing seam, while provider-specific completion structures remain coupled to the core.",
+            "limitations": "Available tests demonstrate mocked behavior but do not establish change isolation across important paths.",
+            "evidence": [
+              {
+                "evidence_id": "668ad5a7256f6a9cbb67988f3a425f84d80e5af9e2ba3078012cadf7ad541159",
+                "path": "swarm/types.py",
+                "start_line": 1,
+                "end_line": 42,
+                "symbol": "Agent, Response, Result"
+              },
+              {
+                "evidence_id": "5eaa4e65dc26ae80bb2bca632a41f1f7b94cf3eb3e52b973582f4f930823f4e5",
+                "path": "swarm/core.py",
+                "start_line": 8,
+                "end_line": 30,
+                "symbol": "Swarm.__init__"
+              },
+              {
+                "evidence_id": "00571f8f55a6cad323f1a9c72f52838d69d344f752ab3fd7f3d2f4f7a31b40d9",
+                "path": "swarm/util.py",
+                "start_line": 31,
+                "end_line": 88,
+                "symbol": "function_to_json"
+              }
+            ]
+          }
+        ]
+      },
+      "security_by_design": {
+        "score": 5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "threat_model_and_mitigations",
+            "rating": 1,
+            "points_available": 20,
+            "points_awarded": 5,
+            "confidence": "medium",
+            "summary": "The submission identifies tool, prompt, model-output, and provider trust boundaries. Core code restricts tool lookup to registered functions and removes context parameters from tool schemas.",
+            "limitations": "These controls are not connected to a bounded threat model with explicit mitigation mapping and residual-risk decisions. Schema hiding does not establish context confidentiality.",
+            "evidence": [
+              {
+                "evidence_id": "659587a4e752a2d925be4395608c9a20271aeb1b51b109537862e41588a624eb",
+                "path": "submission://security_threat",
+                "start_line": 1,
+                "end_line": 1,
+                "symbol": "security_threat"
+              },
+              {
+                "evidence_id": "5eaa4e65dc26ae80bb2bca632a41f1f7b94cf3eb3e52b973582f4f930823f4e5",
+                "path": "swarm/core.py",
+                "start_line": 50,
+                "end_line": 56,
+                "symbol": "Swarm.get_chat_completion"
+              },
+              {
+                "evidence_id": "5eaa4e65dc26ae80bb2bca632a41f1f7b94cf3eb3e52b973582f4f930823f4e5",
+                "path": "swarm/core.py",
+                "start_line": 96,
+                "end_line": 114,
+                "symbol": "Swarm.handle_tool_calls"
+              }
+            ]
+          }
+        ]
+      },
+      "testing_evidence": {
+        "score": 7.5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "test_strategy_and_coverage",
+            "rating": 2,
+            "points_available": 15,
+            "points_awarded": 7.5,
+            "confidence": "medium",
+            "summary": "Mocked orchestration tests assert tool arguments and returned messages. Disabling tool execution has explicit non-execution assertions, and schema tests distinguish required parameters from defaulted parameters.",
+            "limitations": "The excerpts do not establish negative, boundary, and orchestration failure-path coverage sufficient for rating 3. The handoff test excerpt ends before its assertions.",
+            "evidence": [
+              {
+                "evidence_id": "470544dde7a8f6ddf0e3f1f885c8f75cd0294f395289c6d8c4335b4f8bbc0b26",
+                "path": "tests/test_core.py",
+                "start_line": 31,
+                "end_line": 67,
+                "symbol": "test_tool_call"
+              },
+              {
+                "evidence_id": "470544dde7a8f6ddf0e3f1f885c8f75cd0294f395289c6d8c4335b4f8bbc0b26",
+                "path": "tests/test_core.py",
+                "start_line": 70,
+                "end_line": 115,
+                "symbol": "test_execute_tools_false"
+              },
+              {
+                "evidence_id": "d871c6795df8ac9630cb01cbf504ae0bc7bdf159c9973607d3f4edc6815ce273",
+                "path": "tests/test_util.py",
+                "start_line": 26,
+                "end_line": 51,
+                "symbol": "test_complex_function"
+              }
+            ]
+          }
+        ]
+      },
+      "documentation_operations": {
+        "score": 5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "operational_clarity",
+            "rating": 2,
+            "points_available": 10,
+            "points_awarded": 5,
+            "confidence": "medium",
+            "summary": "Installation specifies Python and pip commands. Primary operation demonstrates agent instructions, function registration, a handoff, and invoking the client. Educational scope and state-management limitations are explicit.",
+            "limitations": "The sampled documentation does not establish complete credential configuration, failure diagnosis, or recovery guidance.",
+            "evidence": [
+              {
+                "evidence_id": "8cda9241ecf1d95049dda7e96003c041dd6c043ecb3766d722eee144eeec8123",
+                "path": "README.md",
+                "start_line": 10,
+                "end_line": 22,
+                "symbol": "Install"
+              },
+              {
+                "evidence_id": "8cda9241ecf1d95049dda7e96003c041dd6c043ecb3766d722eee144eeec8123",
+                "path": "README.md",
+                "start_line": 24,
+                "end_line": 52,
+                "symbol": "Usage"
+              },
+              {
+                "evidence_id": "8cda9241ecf1d95049dda7e96003c041dd6c043ecb3766d722eee144eeec8123",
+                "path": "README.md",
+                "start_line": 80,
+                "end_line": 87,
+                "symbol": "Scope and alternatives"
+              }
+            ]
+          }
+        ]
+      },
+      "repository_hygiene": {
+        "score": 2.5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "dependency_and_repository_hygiene",
+            "rating": 1,
+            "points_available": 10,
+            "points_awarded": 2.5,
+            "confidence": "medium",
+            "summary": "Package metadata declares MIT licensing and dependencies; a revision-pinned formatting hook supplies basic automation. Most declared dependencies have no version bounds.",
+            "limitations": "The bounded-dependency requirement for rating 2 is unmet. MIT provenance is also identified in context.json; the license body is not included among the cited excerpts.",
+            "evidence": [
+              {
+                "evidence_id": "797500878216e504f34526ce4cd6031ae0f39490b99f662a78310240018a6f6a",
+                "path": "setup.cfg",
+                "start_line": 1,
+                "end_line": 22,
+                "symbol": "Package metadata and install_requires"
+              },
+              {
+                "evidence_id": "57165e2ba41e5e99e63d7592159cb8c79e8cd432d31e897f9a87a315ba6f2376",
+                "path": ".pre-commit-config.yaml",
+                "start_line": 1,
+                "end_line": 8,
+                "symbol": "autopep8 hook"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "core_score": 42.5,
+    "confidence": "medium",
+    "track_alignment": {
+      "status": "demonstrated",
+      "summary": "AI orchestration is essential to the bounded educational purpose: teaching developers explicit agents, tools, and handoffs. The documented primitives and usage match that audience.",
+      "evidence": [
+        {
+          "evidence_id": "28cddceb7d1721cf2ad11dc15aeb8a59fa5957c2cbde99e2963c3074e7b8cfe3",
+          "path": "submission://intended_users",
+          "start_line": 1,
+          "end_line": 1,
+          "symbol": "intended_users"
+        },
+        {
+          "evidence_id": "8cda9241ecf1d95049dda7e96003c041dd6c043ecb3766d722eee144eeec8123",
+          "path": "README.md",
+          "start_line": 74,
+          "end_line": 87,
+          "symbol": "Overview and Why Swarm"
+        }
+      ],
+      "questions_for_organizer": []
+    },
+    "not_tested": [
+      "Whether the project builds or starts",
+      "Whether tests pass",
+      "Runtime correctness",
+      "Performance, scaling, or reliability under load",
+      "Runtime accessibility behavior",
+      "Debugging ability",
+      "Ability to extend the system safely",
+      "Deployment correctness",
+      "Security certification or effectiveness of runtime containment",
+      "Model quality",
+      "Provider behavior or privacy",
+      "Production readiness",
+      "Content beyond sampled or truncated excerpts; missing excerpt evidence does not prove repository-wide absence"
+    ]
+  },
+  "critic": {
+    "valid": true,
+    "errors": []
+  }
+}

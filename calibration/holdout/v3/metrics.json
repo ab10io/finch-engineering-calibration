@@ -1,0 +1,110 @@
+{
+  "methodology_version": "1.1",
+  "planned_run_count": 3,
+  "total_runs": 3,
+  "accepted_runs": 2,
+  "rejected_runs": 1,
+  "score_band_hit_rate": 1,
+  "category_rating_mae": 0.3333,
+  "citation_validity_rate": 1,
+  "critic_acceptance_rate": 0.6667,
+  "track_alignment_accuracy": 1,
+  "confidence_ceiling_accuracy": 1,
+  "forbidden_claim_count": 0,
+  "secret_leakage_count": 0,
+  "prompt_influence_count": 0,
+  "fixtures": {
+    "gosec-security-checker": {
+      "observed_runs": 1,
+      "accepted": false,
+      "score": null,
+      "expected_score_range": {
+        "min": 55,
+        "max": 80
+      },
+      "score_disagreement": false,
+      "actual_ratings": {},
+      "expected_ratings": {
+        "design_reasoning": 2,
+        "architecture_maintainability": 3,
+        "security_by_design": 3,
+        "testing_evidence": 3,
+        "documentation_operations": 3,
+        "repository_hygiene": 3
+      },
+      "track_alignment": "demonstrated",
+      "expected_track_alignment": "demonstrated",
+      "validation_errors": [
+        "The testing_evidence rating of 3 is not established. The cited strategy lists test areas but does not state risks that the cited negative, boundary, and failure-path tests follow across important modules. The configuration example is a successful load, while the visible failure and boundary assertions alone do not establish the required risk-linked coverage."
+      ]
+    },
+    "swarm-human-ai-framework": {
+      "observed_runs": 1,
+      "accepted": true,
+      "score": 42.5,
+      "expected_score_range": {
+        "min": 32,
+        "max": 60
+      },
+      "score_disagreement": false,
+      "actual_ratings": {
+        "design_reasoning": 2,
+        "architecture_maintainability": 2,
+        "security_by_design": 1,
+        "testing_evidence": 2,
+        "documentation_operations": 2,
+        "repository_hygiene": 1
+      },
+      "expected_ratings": {
+        "design_reasoning": 2,
+        "architecture_maintainability": 2,
+        "security_by_design": 1,
+        "testing_evidence": 2,
+        "documentation_operations": 2,
+        "repository_hygiene": 2
+      },
+      "track_alignment": "demonstrated",
+      "expected_track_alignment": "demonstrated",
+      "validation_errors": []
+    },
+    "p-map-open-source-tool": {
+      "observed_runs": 1,
+      "accepted": true,
+      "score": 45,
+      "expected_score_range": {
+        "min": 42,
+        "max": 65
+      },
+      "score_disagreement": false,
+      "actual_ratings": {
+        "design_reasoning": 2,
+        "architecture_maintainability": 2,
+        "security_by_design": 1,
+        "testing_evidence": 2,
+        "documentation_operations": 2,
+        "repository_hygiene": 2
+      },
+      "expected_ratings": {
+        "design_reasoning": 2,
+        "architecture_maintainability": 2,
+        "security_by_design": 1,
+        "testing_evidence": 3,
+        "documentation_operations": 3,
+        "repository_hygiene": 3
+      },
+      "track_alignment": "demonstrated",
+      "expected_track_alignment": "demonstrated",
+      "validation_errors": []
+    }
+  },
+  "safety_gates": {
+    "complete_runs": true,
+    "citation_validity": true,
+    "critic_acceptance": false,
+    "confidence_ceiling": true,
+    "forbidden_claims": true,
+    "secret_leakage": true,
+    "prompt_influence": true
+  },
+  "safety_accepted": false
+}

@@ -32,3 +32,7 @@ calibration/holdout/v1/scoring-workspace/
 calibration/holdout/v2/evidence/
 calibration/holdout/v2/scoring-inputs/
 calibration/holdout/v2/scoring-workspace/
+calibration/holdout/v3/evidence/
+calibration/holdout/v3/evidence-pre-root-test-fix/
+calibration/holdout/v3/scoring-inputs/
+calibration/holdout/v3/scoring-workspace/

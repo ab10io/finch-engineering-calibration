@@ -1,0 +1,296 @@
+{
+  "fixture_slug": "p-map-open-source-tool",
+  "run": 1,
+  "model": "gpt-6.1-sol",
+  "critic_model": "gpt-6.1-terra",
+  "prompt_version": "holdout-3.0",
+  "snapshot_hash": "ffa0fe4320b1d6e1d26e18812ed048f98da8e1bac93355b40bd0648e5bd2ca68",
+  "recorded_at": "2026-11-16",
+  "accepted": true,
+  "validation": {
+    "production_schema_valid": true,
+    "critic_valid": true,
+    "errors": []
+  },
+  "assessment": {
+    "categories": {
+      "design_reasoning": {
+        "score": 12.5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "alternatives_and_tradeoffs",
+            "rating": 2,
+            "points_available": 25,
+            "points_awarded": 12.5,
+            "confidence": "medium",
+            "summary": "The Promise.all alternative, concurrency constraint, and configurable error handling have representative implementation traceability.",
+            "limitations": "The implementation excerpt ends before the scheduling engine is fully visible; consistent implementation and test traceability for the broader cancellation and backpressure trade-offs cannot be established.",
+            "evidence": [
+              {
+                "evidence_id": "a4daa973f8a381c887a6d3c0171c690bba07665d0d8c97fb90cf4cf1a262cf61",
+                "path": "readme.md",
+                "start_line": 5,
+                "end_line": 7,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "d2445e3b27e5d6954106f90ecb0006a1daf356cdb837be8447aec1dd9b12cd6e",
+                "path": "index.js",
+                "start_line": 56,
+                "end_line": 79,
+                "symbol": "mapConcurrently"
+              },
+              {
+                "evidence_id": "c238b88b10fed1ba536bacf8686646c4192b56c29b5c013f03dae1dc22f52533",
+                "path": "test.js",
+                "start_line": 132,
+                "end_line": 152,
+                "symbol": "concurrencyPeak"
+              },
+              {
+                "evidence_id": "5fbc7f291fdcd38f871b826041a0d9bd5d1488267827195b8268e76ab34bfc3d",
+                "path": "index.d.ts",
+                "start_line": 24,
+                "end_line": 39,
+                "symbol": "Options"
+              }
+            ]
+          }
+        ]
+      },
+      "architecture_maintainability": {
+        "score": 10,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "boundaries_and_coupling",
+            "rating": 2,
+            "points_available": 20,
+            "points_awarded": 10,
+            "confidence": "medium",
+            "summary": "Public wrappers share a mapping engine, keyed adaptation has a distinct responsibility, and package exports separate runtime and type interfaces.",
+            "limitations": "The variants intentionally share engine state and behavior. The supplied test excerpts do not demonstrate change isolation across important paths.",
+            "evidence": [
+              {
+                "evidence_id": "d2445e3b27e5d6954106f90ecb0006a1daf356cdb837be8447aec1dd9b12cd6e",
+                "path": "index.js",
+                "start_line": 1,
+                "end_line": 54,
+                "symbol": "mapKeyed"
+              },
+              {
+                "evidence_id": "0933a0556c1ce89d39b3a722abfaeb0017cde3807e15db6643dc8a19444b3a04",
+                "path": "package.json",
+                "start_line": 13,
+                "end_line": 28,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "security_by_design": {
+        "score": 5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "threat_model_and_mitigations",
+            "rating": 1,
+            "points_available": 20,
+            "points_awarded": 5,
+            "confidence": "medium",
+            "summary": "A vulnerability reporting route and explicit handling of special object keys provide limited security evidence.",
+            "limitations": "These isolated measures do not establish a bounded threat model mapping assets, trust boundaries, mitigations, and residual risks. Truncated excerpts cannot establish whether additional evidence exists.",
+            "evidence": [
+              {
+                "evidence_id": "12a22dcb739b43eb7044cde547c7881171a0e23636f646d60e9d05fb587cef07",
+                "path": ".github/security.md",
+                "start_line": 1,
+                "end_line": 3,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "d2445e3b27e5d6954106f90ecb0006a1daf356cdb837be8447aec1dd9b12cd6e",
+                "path": "index.js",
+                "start_line": 52,
+                "end_line": 54,
+                "symbol": "mapKeyed"
+              }
+            ]
+          }
+        ]
+      },
+      "testing_evidence": {
+        "score": 7.5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "test_strategy_and_coverage",
+            "rating": 2,
+            "points_available": 15,
+            "points_awarded": 7.5,
+            "confidence": "medium",
+            "summary": "Focused assertions cover input ordering, finite and infinite concurrency boundaries, and deterministic algorithmic regression checks.",
+            "limitations": "Error fixtures are visible, but the bounded main-test excerpt does not include their failure assertions. Negative and orchestration failure-path coverage required for rating 3 is therefore unverified.",
+            "evidence": [
+              {
+                "evidence_id": "c238b88b10fed1ba536bacf8686646c4192b56c29b5c013f03dae1dc22f52533",
+                "path": "test.js",
+                "start_line": 109,
+                "end_line": 152,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "2f84137906be0bca9fd6e02e1ec90544e44f80787f47287f07ab8e4e26fb4ed0",
+                "path": "test-multiple-pmapskips-performance.js",
+                "start_line": 10,
+                "end_line": 18,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "c238b88b10fed1ba536bacf8686646c4192b56c29b5c013f03dae1dc22f52533",
+                "path": "test.js",
+                "start_line": 26,
+                "end_line": 54,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "documentation_operations": {
+        "score": 5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "operational_clarity",
+            "rating": 2,
+            "points_available": 10,
+            "points_awarded": 5,
+            "confidence": "medium",
+            "summary": "Installation, primary mapping usage, concurrency configuration, and representative limitations are documented.",
+            "limitations": "The supplied excerpts do not establish a complete diagnosis and recovery workflow; the README is truncated.",
+            "evidence": [
+              {
+                "evidence_id": "a4daa973f8a381c887a6d3c0171c690bba07665d0d8c97fb90cf4cf1a262cf61",
+                "path": "readme.md",
+                "start_line": 9,
+                "end_line": 36,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "a4daa973f8a381c887a6d3c0171c690bba07665d0d8c97fb90cf4cf1a262cf61",
+                "path": "readme.md",
+                "start_line": 78,
+                "end_line": 85,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "5fbc7f291fdcd38f871b826041a0d9bd5d1488267827195b8268e76ab34bfc3d",
+                "path": "index.d.ts",
+                "start_line": 3,
+                "end_line": 19,
+                "symbol": "BaseOptions"
+              }
+            ]
+          }
+        ]
+      },
+      "repository_hygiene": {
+        "score": 5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "dependency_and_repository_hygiene",
+            "rating": 2,
+            "points_available": 10,
+            "points_awarded": 5,
+            "confidence": "medium",
+            "summary": "Development dependencies have bounded version ranges, MIT licensing is explicit, and CI invokes the lint, runtime-test, and type-test script.",
+            "limitations": "Package locking is explicitly disabled, so the lockfile requirement for rating 3 is unmet. Automation configuration does not establish successful execution.",
+            "evidence": [
+              {
+                "evidence_id": "0933a0556c1ce89d39b3a722abfaeb0017cde3807e15db6643dc8a19444b3a04",
+                "path": "package.json",
+                "start_line": 47,
+                "end_line": 56,
+                "symbol": "devDependencies"
+              },
+              {
+                "evidence_id": "856655e55aefb09993fa36bd8f32f084f3d3ba663f5db40ea557852bff038094",
+                "path": "license",
+                "start_line": 1,
+                "end_line": 9,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "fb118686d46930d8b3c8030d3ce81169cf735865f38deba76bff1ad379879b1b",
+                "path": ".github/workflows/main.yml",
+                "start_line": 1,
+                "end_line": 24,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "0933a0556c1ce89d39b3a722abfaeb0017cde3807e15db6643dc8a19444b3a04",
+                "path": "package.json",
+                "start_line": 22,
+                "end_line": 24,
+                "symbol": "scripts"
+              },
+              {
+                "evidence_id": "952def3e690a8e7d53d776cfb502f7a351c522409a5c578be40c502bdf3efaca",
+                "path": ".npmrc",
+                "start_line": 1,
+                "end_line": 1,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "core_score": 45,
+    "confidence": "medium",
+    "track_alignment": {
+      "status": "demonstrated",
+      "summary": "A reusable JavaScript mapping package has installation and usage guidance and an MIT license granting use, modification, and redistribution.",
+      "evidence": [
+        {
+          "evidence_id": "a4daa973f8a381c887a6d3c0171c690bba07665d0d8c97fb90cf4cf1a262cf61",
+          "path": "readme.md",
+          "start_line": 1,
+          "end_line": 36,
+          "symbol": ""
+        },
+        {
+          "evidence_id": "856655e55aefb09993fa36bd8f32f084f3d3ba663f5db40ea557852bff038094",
+          "path": "license",
+          "start_line": 1,
+          "end_line": 7,
+          "symbol": ""
+        }
+      ],
+      "questions_for_organizer": []
+    },
+    "not_tested": [
+      "Whether the project builds or starts",
+      "Whether tests pass",
+      "Runtime correctness",
+      "Performance, scaling, or reliability under load",
+      "Runtime accessibility behavior",
+      "Debugging ability",
+      "Ability to extend the system safely",
+      "Deployment correctness",
+      "Content beyond the supplied bounded excerpts",
+      "Security certification",
+      "Model quality",
+      "Provider privacy",
+      "Production readiness"
+    ]
+  },
+  "critic": {
+    "valid": true,
+    "errors": []
+  }
+}

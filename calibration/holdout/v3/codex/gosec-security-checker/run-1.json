@@ -1,0 +1,292 @@
+{
+  "fixture_slug": "gosec-security-checker",
+  "run": 1,
+  "model": "gpt-6.1-sol",
+  "critic_model": "gpt-6.1-terra",
+  "prompt_version": "holdout-3.0",
+  "snapshot_hash": "17554c7a4c1d43636802ee8e363870b9163ff323b4ee69c72a0c847a2a2755d2",
+  "recorded_at": "2026-11-16",
+  "accepted": false,
+  "validation": {
+    "production_schema_valid": true,
+    "critic_valid": false,
+    "errors": [
+      "The testing_evidence rating of 3 is not established. The cited strategy lists test areas but does not state risks that the cited negative, boundary, and failure-path tests follow across important modules. The configuration example is a successful load, while the visible failure and boundary assertions alone do not establish the required risk-linked coverage."
+    ]
+  },
+  "assessment": {
+    "categories": {
+      "design_reasoning": {
+        "score": 12.5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "alternatives_and_tradeoffs",
+            "rating": 2,
+            "points_available": 25,
+            "points_awarded": 12.5,
+            "confidence": "medium",
+            "summary": "The design narrative compares modular analysis with a monolithic scanner and accepts detection limitations. Representative implementation separates configuration and taint analysis using existing dependencies.",
+            "limitations": "Truncated implementation and test excerpts do not establish consistent validation of the architectural trade-offs required for rating 3.",
+            "evidence": [
+              {
+                "evidence_id": "e7f98dfe2fe9f0c851b894ce88837ed8db6fb46d2fe665b055e1cac985733993",
+                "path": "submission://design_decisions",
+                "start_line": 1,
+                "end_line": 1,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "1fa44e52a1c2766c06867f1a25c3c8af3ef4d211f4fb26072c301195b12e9ed9",
+                "path": "taint/taint.go",
+                "start_line": 1,
+                "end_line": 6,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "eeecd9d1f034956f471b832ed1b5489a31e8796cad1494aaccd91f896cd4ce14",
+                "path": "config.go",
+                "start_line": 11,
+                "end_line": 26,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "architecture_maintainability": {
+        "score": 10,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "boundaries_and_coupling",
+            "rating": 2,
+            "points_available": 20,
+            "points_awarded": 10,
+            "confidence": "medium",
+            "summary": "Configuration, taint analysis, and AI autofix have identifiable responsibilities and visible dependency boundaries.",
+            "limitations": "The excerpts do not demonstrate interface enforcement or tests proving change isolation across important paths.",
+            "evidence": [
+              {
+                "evidence_id": "eeecd9d1f034956f471b832ed1b5489a31e8796cad1494aaccd91f896cd4ce14",
+                "path": "config.go",
+                "start_line": 1,
+                "end_line": 26,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "1fa44e52a1c2766c06867f1a25c3c8af3ef4d211f4fb26072c301195b12e9ed9",
+                "path": "taint/taint.go",
+                "start_line": 1,
+                "end_line": 22,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "ac5ee22d40bcfa356fe2efb43faa2ffc63b89f70ed621d918e54f43d6815845b",
+                "path": "autofix/ai.go",
+                "start_line": 1,
+                "end_line": 18,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "security_by_design": {
+        "score": 10,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "threat_model_and_mitigations",
+            "rating": 2,
+            "points_available": 20,
+            "points_awarded": 10,
+            "confidence": "medium",
+            "summary": "The bounded threat model follows user input into dangerous functions. XSS fixtures connect unsafe output and escaped output to expected findings, while the submission explicitly limits security assurance.",
+            "limitations": "Fixtures do not establish detection accuracy. Cross-boundary negative tests and layered controls are insufficiently visible for rating 3.",
+            "evidence": [
+              {
+                "evidence_id": "1fa44e52a1c2766c06867f1a25c3c8af3ef4d211f4fb26072c301195b12e9ed9",
+                "path": "taint/taint.go",
+                "start_line": 1,
+                "end_line": 3,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "8943e8d2f73c370018b1bf83d5421fa37713845683fc93812a3e8ec92acbca34",
+                "path": "testutils/g705_samples.go",
+                "start_line": 5,
+                "end_line": 46,
+                "symbol": "SampleCodeG705"
+              },
+              {
+                "evidence_id": "b786b3055368a081efb4235f7a5f75a29d2c6b376b1d7d939730345834e55412",
+                "path": "submission://security_threat",
+                "start_line": 1,
+                "end_line": 1,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "testing_evidence": {
+        "score": 11.25,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "test_strategy_and_coverage",
+            "rating": 3,
+            "points_available": 15,
+            "points_awarded": 11.25,
+            "confidence": "medium",
+            "summary": "Committed assertions cover a cyclic dependency negative case, empty analyzer boundary behavior, configuration loading, and command orchestration failure when no input is supplied.",
+            "limitations": "Only bounded prefixes were reviewed. Test execution, complete coverage, and unusually comprehensive risk-based isolation are unverified.",
+            "evidence": [
+              {
+                "evidence_id": "48840c206c6c7953ae90797afc1e40d1ff6f71667412578aba101ab3861ea51e",
+                "path": "submission://testing_strategy",
+                "start_line": 1,
+                "end_line": 1,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "8cc2f0caaf4be30416173e083b1dfc52eb73449e42f46c2814b66d828e58881f",
+                "path": "analyzers/dependency_checker_internal_test.go",
+                "start_line": 11,
+                "end_line": 25,
+                "symbol": "TestDependencyCheckerHandlesPhiCycleWithoutTarget"
+              },
+              {
+                "evidence_id": "9fb1c4aa652d0f9ecc0d0ab44b1aa02a2f7324a75fcd81e6e52b96e76ca7dd9c",
+                "path": "analyzer_core_internal_test.go",
+                "start_line": 17,
+                "end_line": 28,
+                "symbol": "TestCheckAnalyzersShortCircuitsWithoutAnalyzers"
+              },
+              {
+                "evidence_id": "2777d0fc39908589ce536699387b491fe33107a99ea4839f03365eaf20f373fb",
+                "path": "config_test.go",
+                "start_line": 19,
+                "end_line": 26,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "f9a5e86e16c8f28887f91745ae21a7b9178d99bc36d3ecfb2f170061c225375d",
+                "path": "cmd/gosec/run_test.go",
+                "start_line": 13,
+                "end_line": 29,
+                "symbol": "TestRun_NoInputReturnsFailure"
+              }
+            ]
+          }
+        ]
+      },
+      "documentation_operations": {
+        "score": 2.5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "operational_clarity",
+            "rating": 1,
+            "points_available": 10,
+            "points_awarded": 2.5,
+            "confidence": "medium",
+            "summary": "The README identifies the checker and links installation, quick start, usage, rule selection, and output guidance.",
+            "limitations": "The supplied README prefix contains navigation rather than installation and primary-operation instructions. Their required content cannot be verified, so rating 2 is not established.",
+            "evidence": [
+              {
+                "evidence_id": "a51fbd2e5cefd4163444c610d44c0f94f0a9ec8c0fe3765f6a4024b544d80302",
+                "path": "README.md",
+                "start_line": 2,
+                "end_line": 16,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "repository_hygiene": {
+        "score": 5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "dependency_and_repository_hygiene",
+            "rating": 2,
+            "points_available": 10,
+            "points_awarded": 5,
+            "confidence": "medium",
+            "summary": "Visible dependencies have explicit versions, the repository carries Apache 2.0 licensing, and CI defines event triggers, a test job, and read-only contents permissions.",
+            "limitations": "The bounded excerpts do not establish consistent contribution guidance, artifact policy, or complete automation and dependency enforcement for rating 3.",
+            "evidence": [
+              {
+                "evidence_id": "54174587cc9b74d8dbae43432ab388139717b72c1759c37f2b6b6ba6448f2486",
+                "path": "go.mod",
+                "start_line": 1,
+                "end_line": 20,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "3b27bfbfa9bd2c658e3093a2fca0150cbef8d4446f2b1fa757af660db33fc1c4",
+                "path": "LICENSE.txt",
+                "start_line": 1,
+                "end_line": 7,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "0d520300ee8263d6b34e18a0669327806523d1f1ce9d0f6d221d8d7f4486529d",
+                "path": ".github/workflows/ci.yml",
+                "start_line": 1,
+                "end_line": 30,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "core_score": 51.25,
+    "confidence": "medium",
+    "track_alignment": {
+      "status": "demonstrated",
+      "summary": "The product's primary purpose is detecting concrete security weaknesses in Go source using AST, SSA, and taint analysis.",
+      "evidence": [
+        {
+          "evidence_id": "a51fbd2e5cefd4163444c610d44c0f94f0a9ec8c0fe3765f6a4024b544d80302",
+          "path": "README.md",
+          "start_line": 2,
+          "end_line": 5,
+          "symbol": ""
+        },
+        {
+          "evidence_id": "1fa44e52a1c2766c06867f1a25c3c8af3ef4d211f4fb26072c301195b12e9ed9",
+          "path": "taint/taint.go",
+          "start_line": 1,
+          "end_line": 3,
+          "symbol": ""
+        }
+      ],
+      "questions_for_organizer": []
+    },
+    "not_tested": [
+      "Whether the project builds or starts",
+      "Whether tests pass",
+      "Runtime correctness",
+      "Performance, scaling, or reliability under load",
+      "Runtime accessibility behavior",
+      "Debugging ability",
+      "Ability to extend the system safely",
+      "Deployment correctness",
+      "Detection accuracy or security certification",
+      "AI model quality or provider privacy",
+      "Production readiness",
+      "Content beyond the supplied bounded evidence excerpts"
+    ]
+  },
+  "critic": {
+    "valid": false,
+    "errors": [
+      "The testing_evidence rating of 3 is not established. The cited strategy lists test areas but does not state risks that the cited negative, boundary, and failure-path tests follow across important modules. The configuration example is a successful load, while the visible failure and boundary assertions alone do not establish the required risk-linked coverage."
+    ]
+  }
+}
