@@ -1,0 +1,19 @@
+{
+  "fixture_slug": "jsx-a11y-static-checker",
+  "run": 1,
+  "model": "gpt-6.1-sol",
+  "critic_model": "gpt-6.1-terra",
+  "prompt_version": "holdout-2.0",
+  "snapshot_hash": "8f3fc0242faf5cac37a4ff3fa0600612e18ff6c288e30242312d1db204ed0962",
+  "recorded_at": "2026-11-16",
+  "accepted": false,
+  "validation": {
+    "production_schema_valid": false,
+    "critic_valid": false,
+    "errors": [
+      "operational: scorer_timeout_empty_output"
+    ]
+  },
+  "assessment": null,
+  "critic": null
+}

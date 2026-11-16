@@ -1,0 +1,13 @@
+{
+  "fixture_slug": "otp-secure-library", "title": "OTP", "summary": "A public Go library for HOTP and TOTP authentication tokens.",
+  "intended_users": "Go developers adding interoperable one-time-password verification and provisioning.",
+  "repository_url": "https://github.com/pquerna/otp", "commit_sha": "617f8d5f3f518bae0f5c3ec14a17ca19f2a6f870", "selected_track_slug": "secure-systems",
+  "design_decisions": [{ "problem_or_constraint": "Expose standards-based OTP generation and validation through a focused library.", "alternatives_considered": "HOTP counter and TOTP time-window modes address different deployment constraints.", "chosen_approach_and_rationale": "Separate HOTP, TOTP, and provisioning-key responsibilities behind small Go APIs.", "accepted_trade_off": "Validation-window and secret-handling decisions remain application responsibilities.", "repository_evidence": "README.md, otp.go, hotp, totp", "validation_approach": "Review committed vectors, invalid-input, drift, algorithm, and provisioning tests without executing them.", "reconsideration_conditions": "Revisit boundaries when new standards cannot fit existing algorithm and provisioning interfaces." }],
+  "testing_strategy": "Committed Go tests include standards vectors and boundary cases; Finch never executes them.",
+  "security_threat": "OTP verification reduces replay of static passwords but secret storage, phishing resistance, endpoint compromise, and application rate limiting remain external risks.",
+  "production_limitation": "Static evidence does not verify standards conformance, runtime correctness, secure integration, or successful tests.",
+  "technical_debt": "Integration-specific secret custody and abuse controls require separate review.",
+  "track_alignment_explanation": "The library directly implements a concrete authentication control.",
+  "ai_disclosure": { "tools_used": [], "purposes": "No upstream AI-use claim; the calibration narrative was prepared without maintainer input.", "review_validation": "Human reference judgment froze before inference." },
+  "synthetic": false, "holdout": true, "leaderboard_eligible": false
+}

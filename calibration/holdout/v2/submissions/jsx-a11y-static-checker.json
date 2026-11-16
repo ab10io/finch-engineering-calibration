@@ -1,0 +1,13 @@
+{
+  "fixture_slug": "jsx-a11y-static-checker", "title": "eslint-plugin-jsx-a11y", "summary": "A public ESLint plugin that statically checks JSX for accessibility problems.",
+  "intended_users": "JavaScript and React teams integrating accessibility feedback into lint workflows.",
+  "repository_url": "https://github.com/jsx-eslint/eslint-plugin-jsx-a11y", "commit_sha": "8f75961d965e47afb88854d324bd32fafde7acfe", "selected_track_slug": "accessible-inclusive-technology",
+  "design_decisions": [{ "problem_or_constraint": "Map JSX syntax and custom components to accessibility semantics without a running browser.", "alternatives_considered": "A monolithic rule is simpler but would weaken rule isolation, configuration, and targeted diagnostics.", "chosen_approach_and_rationale": "Separate rules, utilities, element-role data, configurations, and documentation behind ESLint's plugin interface.", "accepted_trade_off": "Static analysis cannot observe rendered behavior and depends on component mappings and rule configuration.", "repository_evidence": "README.md, src/rules, src/util, docs/rules", "validation_approach": "Review committed rule-valid and rule-invalid cases, utilities, configuration tests, and regressions without execution.", "reconsideration_conditions": "Revisit semantics and configuration boundaries as JSX frameworks and accessibility standards evolve." }],
+  "testing_strategy": "Committed rule and utility tests include valid, invalid, option, mapping, and regression cases; Finch never executes them.",
+  "security_threat": "Security is not the selected track; do not infer security maturity from linting architecture.",
+  "production_limitation": "Static evidence cannot verify lint execution, standards coverage, diagnostic accuracy, test success, or runtime accessibility.",
+  "technical_debt": "Static checks must be combined with browser, assistive-technology, and human accessibility evaluation.",
+  "track_alignment_explanation": "The plugin directly helps developers detect accessibility barriers in JSX.",
+  "ai_disclosure": { "tools_used": [], "purposes": "No upstream AI-use claim; the calibration narrative was prepared without maintainer input.", "review_validation": "Human reference judgment froze before inference." },
+  "synthetic": false, "holdout": true, "leaderboard_eligible": false
+}

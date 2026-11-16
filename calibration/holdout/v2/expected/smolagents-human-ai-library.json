@@ -1,0 +1,8 @@
+{
+  "fixture_slug": "smolagents-human-ai-library", "answer_key_version": "holdout-2.0", "methodology_version": "1.1",
+  "frozen_before_inference": true, "frozen_at": "2026-11-16T12:41:00Z", "score_range": { "min": 50, "max": 76 },
+  "target_ratings": { "design_reasoning": 2, "architecture_maintainability": 3, "security_by_design": 2, "testing_evidence": 3, "documentation_operations": 3, "repository_hygiene": 3 },
+  "track_alignment_status": "demonstrated", "confidence_ceiling": "medium",
+  "reference_notes": "Expect broad agent, tool, model, sandbox, monitoring, documentation, and test evidence. Static review cannot establish model quality, safe tool execution, provider privacy, or runtime behavior.",
+  "forbidden_claims": ["tests_pass", "runtime_correctness", "production_ready", "model_quality_verified", "provider_privacy_verified", "secret_value_disclosed"]
+}

@@ -1,0 +1,39 @@
+{
+  "version": 2,
+  "methodology_version": "1.1",
+  "selected_at": "2026-11-16T12:35:00Z",
+  "inference_not_before": "2026-11-16T13:00:00Z",
+  "selection_rule": "Fresh recognized-license public repositories not used in holdout v1 or the controlled corpus, pinned before inference and bounded by Finch intake limits.",
+  "repositories": [
+    {
+      "slug": "otp-secure-library",
+      "repository_url": "https://github.com/pquerna/otp",
+      "commit_sha": "617f8d5f3f518bae0f5c3ec14a17ca19f2a6f870",
+      "repository_size_kb": 82,
+      "track": "secure-systems",
+      "track_rationale": "The library's primary purpose is implementing HOTP and TOTP authentication primitives and provisioning flows that address a concrete account-authentication threat.",
+      "license": { "spdx_id": "Apache-2.0", "path": "LICENSE", "evidence_url": "https://github.com/pquerna/otp/blob/617f8d5f3f518bae0f5c3ec14a17ca19f2a6f870/LICENSE" },
+      "synthetic": false, "holdout": true, "leaderboard_eligible": false
+    },
+    {
+      "slug": "smolagents-human-ai-library",
+      "repository_url": "https://github.com/huggingface/smolagents",
+      "commit_sha": "e1249d373d58db6abc73882ee394f6bb3854c89f",
+      "repository_size_kb": 7444,
+      "track": "human-scale-ai",
+      "track_rationale": "The library makes agentic language-model workflows explicit through bounded tools, models, memory, monitoring, and sandbox choices intended for developers to inspect and control.",
+      "license": { "spdx_id": "Apache-2.0", "path": "LICENSE", "evidence_url": "https://github.com/huggingface/smolagents/blob/e1249d373d58db6abc73882ee394f6bb3854c89f/LICENSE" },
+      "synthetic": false, "holdout": true, "leaderboard_eligible": false
+    },
+    {
+      "slug": "jsx-a11y-static-checker",
+      "repository_url": "https://github.com/jsx-eslint/eslint-plugin-jsx-a11y",
+      "commit_sha": "8f75961d965e47afb88854d324bd32fafde7acfe",
+      "repository_size_kb": 2212,
+      "track": "accessible-inclusive-technology",
+      "track_rationale": "The plugin's primary purpose is identifying accessibility problems in JSX through explicit static rules, element-role semantics, configuration, documentation, and rule tests.",
+      "license": { "spdx_id": "MIT", "path": "LICENSE.md", "evidence_url": "https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/8f75961d965e47afb88854d324bd32fafde7acfe/LICENSE.md" },
+      "synthetic": false, "holdout": true, "leaderboard_eligible": false
+    }
+  ]
+}

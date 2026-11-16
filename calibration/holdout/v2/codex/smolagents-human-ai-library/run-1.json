@@ -1,0 +1,262 @@
+{
+  "fixture_slug": "smolagents-human-ai-library",
+  "run": 1,
+  "model": "gpt-6.1-sol",
+  "critic_model": "gpt-6.1-terra",
+  "prompt_version": "holdout-2.0",
+  "snapshot_hash": "5f7b841c45acdb98562a4a0f62b8e0caefa2a09487d9ec050a17891a2c6b1c97",
+  "recorded_at": "2026-11-16",
+  "accepted": false,
+  "validation": {
+    "production_schema_valid": true,
+    "critic_valid": false,
+    "errors": [
+      "testing_evidence assigns rating 1 without evidence that any committed test covers a happy path or example. The cited CI workflow only invokes pytest, and the submitted strategy claims coverage without showing test bodies or assertions; the assessment itself acknowledges that no test bodies or assertions were sampled."
+    ]
+  },
+  "assessment": {
+    "categories": {
+      "design_reasoning": {
+        "score": 6.25,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "alternatives_and_tradeoffs",
+            "rating": 1,
+            "points_available": 25,
+            "points_awarded": 6.25,
+            "confidence": "medium",
+            "summary": "The guided tour explains code generation versus structured tool calling, including expressivity, predictability, and execution risks.",
+            "limitations": "The sampled evidence does not include core implementation or test excerpts establishing traceability from these decisions.",
+            "evidence": [
+              {
+                "evidence_id": "b68a84e5e3ffbec9583004aae563561dfe699191cc18202b445ee66410dbb7d3",
+                "path": "docs/source/en/guided_tour.md",
+                "start_line": 9,
+                "end_line": 61,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "architecture_maintainability": {
+        "score": 5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "boundaries_and_coupling",
+            "rating": 1,
+            "points_available": 20,
+            "points_awarded": 5,
+            "confidence": "medium",
+            "summary": "Reference documentation identifies agent, model, and executor interfaces with separate responsibilities.",
+            "limitations": "Documentation does not establish implementation-enforced module boundaries, coupling limits, or tested change isolation.",
+            "evidence": [
+              {
+                "evidence_id": "ea63d3c194f4ede1f924848ad65e98c0e785153faba00a3e1de9ca1970e5596a",
+                "path": "docs/source/en/reference/agents.md",
+                "start_line": 13,
+                "end_line": 29,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "44c4a9e647f4911f69dfb8764b8d1ae7b46bdedf8c2946a476490e8b11dbe8ef",
+                "path": "docs/source/en/reference/models.md",
+                "start_line": 18,
+                "end_line": 28,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "a1aae310121eda394b77f0a891b1dca83bd6b16a9a639981392851c1ba0e2761",
+                "path": "docs/source/en/reference/python_executors.md",
+                "start_line": 3,
+                "end_line": 21,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "security_by_design": {
+        "score": 5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "threat_model_and_mitigations",
+            "rating": 1,
+            "points_available": 20,
+            "points_awarded": 5,
+            "confidence": "medium",
+            "summary": "Security guidance identifies malicious generated code, prompt injection, and public-agent abuse; it describes import restrictions and acknowledges residual execution risk.",
+            "limitations": "Control implementations and negative tests are not included in the sampled excerpts, preventing an implementation-connected mitigation assessment.",
+            "evidence": [
+              {
+                "evidence_id": "c18451295d25c191f398fe4ee09b6970676c9a57f2e698b8907b46b70e6c3587",
+                "path": "docs/source/en/tutorials/secure_code_execution.md",
+                "start_line": 28,
+                "end_line": 45,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "b68a84e5e3ffbec9583004aae563561dfe699191cc18202b445ee66410dbb7d3",
+                "path": "docs/source/en/guided_tour.md",
+                "start_line": 67,
+                "end_line": 77,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "testing_evidence": {
+        "score": 3.75,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "test_strategy_and_coverage",
+            "rating": 1,
+            "points_available": 15,
+            "points_awarded": 3.75,
+            "confidence": "medium",
+            "summary": "CI configures pytest execution on Python 3.10 and 3.12, and the submitted strategy claims coverage across agents, models, tools, executors, memory, and monitoring.",
+            "limitations": "No test bodies or assertions are sampled, so representative behavior, invalid inputs, boundaries, and orchestration failures cannot be assessed.",
+            "evidence": [
+              {
+                "evidence_id": "a150d4eff57e1267c341f201d40c7550102c1922a06125fb100fb36cf3dcb21c",
+                "path": ".github/workflows/tests.yml",
+                "start_line": 22,
+                "end_line": 47,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "f543c23c7213aed4c205aa764df6faf84df3ed0f541d1c0ceb1ab01ebc92a37b",
+                "path": "submission://testing_strategy",
+                "start_line": 1,
+                "end_line": 1,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "documentation_operations": {
+        "score": 5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "operational_clarity",
+            "rating": 2,
+            "points_available": 10,
+            "points_awarded": 5,
+            "confidence": "medium",
+            "summary": "Documentation provides prerequisites, installation, a primary agent run, configurable imports, and execution limitations.",
+            "limitations": "The excerpts do not establish a complete failure diagnosis and recovery procedure.",
+            "evidence": [
+              {
+                "evidence_id": "7a90583b94ed995b30d715eb359db8e5cca78fbcc85ad78fc9c5be4c764b3d42",
+                "path": "docs/source/en/installation.md",
+                "start_line": 5,
+                "end_line": 51,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "d47f355626cc7f66ded55973ec2bfd1e3cb9c9bf8979b3ce6026b28bf5623f24",
+                "path": "docs/source/en/index.md",
+                "start_line": 43,
+                "end_line": 59,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "b68a84e5e3ffbec9583004aae563561dfe699191cc18202b445ee66410dbb7d3",
+                "path": "docs/source/en/guided_tour.md",
+                "start_line": 67,
+                "end_line": 77,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "c18451295d25c191f398fe4ee09b6970676c9a57f2e698b8907b46b70e6c3587",
+                "path": "docs/source/en/tutorials/secure_code_execution.md",
+                "start_line": 28,
+                "end_line": 45,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "repository_hygiene": {
+        "score": 2.5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "dependency_and_repository_hygiene",
+            "rating": 1,
+            "points_available": 10,
+            "points_awarded": 2.5,
+            "confidence": "medium",
+            "summary": "The contribution guide includes Apache-2.0 licensing language and review expectations, while CI installs dependencies and invokes pytest.",
+            "limitations": "Bounded project dependencies are not established by the supplied excerpts; the deterministic inventory reports no lockfiles. This prevents rating 2.",
+            "evidence": [
+              {
+                "evidence_id": "6b636831cb078fc9e13145ac96f3e3f5cfcd95b23e02296c2596956b573832b8",
+                "path": "CONTRIBUTING.md",
+                "start_line": 4,
+                "end_line": 14,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "6b636831cb078fc9e13145ac96f3e3f5cfcd95b23e02296c2596956b573832b8",
+                "path": "CONTRIBUTING.md",
+                "start_line": 61,
+                "end_line": 65,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "a150d4eff57e1267c341f201d40c7550102c1922a06125fb100fb36cf3dcb21c",
+                "path": ".github/workflows/tests.yml",
+                "start_line": 39,
+                "end_line": 47,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "core_score": 27.5,
+    "confidence": "medium",
+    "track_alignment": {
+      "status": "unclear",
+      "summary": "The submission identifies developers building bounded agent workflows as its intended users. Implementation plus test or license excerpts are insufficient to demonstrate the track's essential-AI and deliberate-context requirements.",
+      "evidence": [
+        {
+          "evidence_id": "829ecbeedb6bcd4301fa09e8934f3dff0bd039ddb519733e92b54abb0e251245",
+          "path": "submission://intended_users",
+          "start_line": 1,
+          "end_line": 1,
+          "symbol": ""
+        }
+      ],
+      "questions_for_organizer": [
+        "Can representative agent implementation and test excerpts be supplied to verify the intended bounded developer workflow?"
+      ]
+    },
+    "not_tested": [
+      "Whether the project builds or starts",
+      "Whether tests pass",
+      "Runtime correctness",
+      "Performance, scaling, or reliability under load",
+      "Runtime accessibility behavior",
+      "Debugging ability",
+      "Ability to extend the system safely",
+      "Deployment correctness"
+    ]
+  },
+  "critic": {
+    "valid": false,
+    "errors": [
+      "testing_evidence assigns rating 1 without evidence that any committed test covers a happy path or example. The cited CI workflow only invokes pytest, and the submitted strategy claims coverage without showing test bodies or assertions; the assessment itself acknowledges that no test bodies or assertions were sampled."
+    ]
+  }
+}

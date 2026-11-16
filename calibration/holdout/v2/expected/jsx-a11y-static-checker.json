@@ -1,0 +1,8 @@
+{
+  "fixture_slug": "jsx-a11y-static-checker", "answer_key_version": "holdout-2.0", "methodology_version": "1.1",
+  "frozen_before_inference": true, "frozen_at": "2026-11-16T12:50:00Z", "score_range": { "min": 45, "max": 72 },
+  "target_ratings": { "design_reasoning": 2, "architecture_maintainability": 3, "security_by_design": 1, "testing_evidence": 3, "documentation_operations": 3, "repository_hygiene": 3 },
+  "track_alignment_status": "demonstrated", "confidence_ceiling": "medium",
+  "reference_notes": "Expect mature accessibility rules, element-role semantics, configuration, documentation, tests, and repository controls. Static review cannot verify lint execution, rule accuracy, standards completeness, or runtime accessibility.",
+  "forbidden_claims": ["tests_pass", "runtime_correctness", "production_ready", "accessibility_verified", "standards_compliance_verified", "secret_value_disclosed"]
+}

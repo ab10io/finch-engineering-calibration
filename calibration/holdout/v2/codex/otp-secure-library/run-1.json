@@ -1,0 +1,270 @@
+{
+  "fixture_slug": "otp-secure-library",
+  "run": 1,
+  "model": "gpt-6.1-sol",
+  "critic_model": "gpt-6.1-terra",
+  "prompt_version": "holdout-2.0",
+  "snapshot_hash": "b21a1f32e8fd10a394b6567b61b32b6e952a1fcf5497f375acc9d395e87c114e",
+  "recorded_at": "2026-11-16",
+  "accepted": true,
+  "validation": {
+    "production_schema_valid": true,
+    "critic_valid": true,
+    "errors": []
+  },
+  "assessment": {
+    "categories": {
+      "design_reasoning": {
+        "score": 12.5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "alternatives_and_tradeoffs",
+            "rating": 2,
+            "points_available": 25,
+            "points_awarded": 12.5,
+            "confidence": "medium",
+            "summary": "The supplied rationale distinguishes counter and time-window deployment constraints and assigns separate API responsibilities. TOTP implements this separation by adapting time into HOTP counters.",
+            "limitations": "Alternatives receive limited comparative analysis; consistent test traceability for the stated trade-offs is not established.",
+            "evidence": [
+              {
+                "evidence_id": "73913110e6d649e45a9bcc0df99145e0c1dd9a08ba76191fedbb763712942cbe",
+                "path": "submission://design_decisions",
+                "start_line": 1,
+                "end_line": 1,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "acd1741939b556424c39c638193d1864590fc5c93be30f0a5aefc6c4f0f16377",
+                "path": "totp/totp.go",
+                "start_line": 80,
+                "end_line": 97,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "architecture_maintainability": {
+        "score": 10,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "boundaries_and_coupling",
+            "rating": 2,
+            "points_available": 20,
+            "points_awarded": 10,
+            "confidence": "medium",
+            "summary": "TOTP owns time-window orchestration and delegates code generation and validation to HOTP through explicit options, propagating errors at that boundary.",
+            "limitations": "The sampled tests do not demonstrate change isolation across the adapter or its orchestration failure paths.",
+            "evidence": [
+              {
+                "evidence_id": "acd1741939b556424c39c638193d1864590fc5c93be30f0a5aefc6c4f0f16377",
+                "path": "totp/totp.go",
+                "start_line": 80,
+                "end_line": 131,
+                "symbol": "GenerateCodeCustom, ValidateCustom"
+              }
+            ]
+          }
+        ]
+      },
+      "security_by_design": {
+        "score": 10,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "threat_model_and_mitigations",
+            "rating": 2,
+            "points_available": 20,
+            "points_awarded": 10,
+            "confidence": "medium",
+            "summary": "The bounded threat statement identifies static-password replay and external integration risks. TOTP implements time-window verification, while documentation explains why persistent secrets require encryption rather than password-style hashing.",
+            "limitations": "Negative tests across the relevant integration boundaries are not established; phishing resistance, endpoint compromise, secret custody, and rate limiting remain external responsibilities.",
+            "evidence": [
+              {
+                "evidence_id": "05697f7cf9d6c4b92283bdc35cd4dd0fdc0fe33afde64ddd7eb86302f09a9795",
+                "path": "submission://security_threat",
+                "start_line": 1,
+                "end_line": 1,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "acd1741939b556424c39c638193d1864590fc5c93be30f0a5aefc6c4f0f16377",
+                "path": "totp/totp.go",
+                "start_line": 99,
+                "end_line": 131,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "81ebc2c0396739269542145039cdc1470f697198f91405d46ad60bb692cf1bbb",
+                "path": "doc.go",
+                "start_line": 21,
+                "end_line": 24,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "testing_evidence": {
+        "score": 7.5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "test_strategy_and_coverage",
+            "rating": 2,
+            "points_available": 15,
+            "points_awarded": 7.5,
+            "confidence": "medium",
+            "summary": "Committed tests assert TOTP standards-vector results and HOTP rejection of malformed secrets, invalid lengths, and incorrect codes.",
+            "limitations": "Important TOTP orchestration failure paths are not demonstrated in the bounded excerpts. The skew test excerpt stops before its final assertion completes; tests were not executed.",
+            "evidence": [
+              {
+                "evidence_id": "4de146ae098ec4adb516c6703d666269fc6cf179d15257f3b71b0ad8aec9aeb1",
+                "path": "totp/totp_test.go",
+                "start_line": 42,
+                "end_line": 96,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "58d0c919db2ccd25827868d205b7cf6a26c742cef533aaee4f2c5def3cfc1435",
+                "path": "hotp/hotp_test.go",
+                "start_line": 81,
+                "end_line": 123,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "documentation_operations": {
+        "score": 2.5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "operational_clarity",
+            "rating": 1,
+            "points_available": 10,
+            "points_awarded": 2.5,
+            "confidence": "medium",
+            "summary": "The README describes enrollment, code generation, validation, and recovery-code handling.",
+            "limitations": "Cited installation guidance is missing, so the conjunctive requirements for rating 2 are not established despite useful primary-operation guidance.",
+            "evidence": [
+              {
+                "evidence_id": "3699d4788144b5b83d9539de93d2b309996355c8fbf90c9380c514c872028af8",
+                "path": "README.md",
+                "start_line": 20,
+                "end_line": 51,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "repository_hygiene": {
+        "score": 5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "dependency_and_repository_hygiene",
+            "rating": 2,
+            "points_available": 10,
+            "points_awarded": 5,
+            "confidence": "medium",
+            "summary": "The main module declares versioned dependencies with checksum records, the README identifies Apache-2.0 licensing, and Travis configuration supplies basic Go automation.",
+            "limitations": "The evidence does not establish consistent scoped automation and artifact policy required for rating 3; the separate interop manifest declares no requirements despite its test imports.",
+            "evidence": [
+              {
+                "evidence_id": "1ab75e1d5e8f97731d0cb4d5cebfc6b8e50e6afd097ce052d6171f8de480997d",
+                "path": "go.mod",
+                "start_line": 1,
+                "end_line": 8,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "f4ac76cc6cf4b5fa879870e38790d08cc094db09cc7d54113f5d2403ffff3319",
+                "path": "go.sum",
+                "start_line": 1,
+                "end_line": 9,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "3699d4788144b5b83d9539de93d2b309996355c8fbf90c9380c514c872028af8",
+                "path": "README.md",
+                "start_line": 58,
+                "end_line": 60,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "8030569162b32833f8a199ceba1e588974d46017249d7548f63aba0f06999c76",
+                "path": ".travis.yml",
+                "start_line": 1,
+                "end_line": 10,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "43f4d2d1d7bf3e8dac6e1010580e9585730ff153ad858388117dfe5dd428bacd",
+                "path": "interop/go.mod",
+                "start_line": 1,
+                "end_line": 3,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "84f805c5cef1be9ccfa11d7a71d2bc9a7ddc1eb75004d13b5d22c63f128f0991",
+                "path": "interop/twofactor_test.go",
+                "start_line": 20,
+                "end_line": 28,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "core_score": 47.5,
+    "confidence": "medium",
+    "track_alignment": {
+      "status": "demonstrated",
+      "summary": "The library directly implements time-based OTP verification as an authentication control addressing static-password compromise; committed standards-vector tests assert representative verification behavior.",
+      "evidence": [
+        {
+          "evidence_id": "3699d4788144b5b83d9539de93d2b309996355c8fbf90c9380c514c872028af8",
+          "path": "README.md",
+          "start_line": 5,
+          "end_line": 9,
+          "symbol": ""
+        },
+        {
+          "evidence_id": "acd1741939b556424c39c638193d1864590fc5c93be30f0a5aefc6c4f0f16377",
+          "path": "totp/totp.go",
+          "start_line": 99,
+          "end_line": 131,
+          "symbol": ""
+        },
+        {
+          "evidence_id": "4de146ae098ec4adb516c6703d666269fc6cf179d15257f3b71b0ad8aec9aeb1",
+          "path": "totp/totp_test.go",
+          "start_line": 42,
+          "end_line": 84,
+          "symbol": ""
+        }
+      ],
+      "questions_for_organizer": []
+    },
+    "not_tested": [
+      "Whether the project builds or starts",
+      "Whether tests pass",
+      "Runtime correctness",
+      "Performance, scaling, or reliability under load",
+      "Runtime accessibility behavior",
+      "Debugging ability",
+      "Ability to extend the system safely",
+      "Deployment correctness"
+    ]
+  },
+  "critic": {
+    "valid": true,
+    "errors": []
+  }
+}

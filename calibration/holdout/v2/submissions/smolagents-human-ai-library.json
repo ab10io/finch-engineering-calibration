@@ -1,0 +1,13 @@
+{
+  "fixture_slug": "smolagents-human-ai-library", "title": "smolagents", "summary": "A public Python library for building inspectable language-model agents with tools and execution choices.",
+  "intended_users": "Developers building bounded agent workflows across model providers and tool environments.",
+  "repository_url": "https://github.com/huggingface/smolagents", "commit_sha": "e1249d373d58db6abc73882ee394f6bb3854c89f", "selected_track_slug": "human-scale-ai",
+  "design_decisions": [{ "problem_or_constraint": "Coordinate models, tools, memory, execution, and monitoring without hiding agent behavior.", "alternatives_considered": "Code-based and tool-calling agents offer different capability and containment trade-offs.", "chosen_approach_and_rationale": "Use explicit agent, model, tool, memory, monitoring, and executor boundaries.", "accepted_trade_off": "More capable execution expands trust and sandbox responsibilities.", "repository_evidence": "README.md, src/smolagents, docs/source", "validation_approach": "Review committed agent, tool, model, executor, memory, and monitoring tests without executing them.", "reconsideration_conditions": "Revisit interfaces when model or sandbox capabilities cannot be represented safely." }],
+  "testing_strategy": "Committed tests cover agents, models, tools, executors, memory, monitoring, and error paths; Finch never executes them.",
+  "security_threat": "Tool execution, generated code, model output, credentials, and external providers cross trust boundaries whose controls must be evidenced, not assumed.",
+  "production_limitation": "Static evidence cannot establish model quality, safe execution, provider privacy, successful tests, or runtime behavior.",
+  "technical_debt": "Deployment-specific isolation and provider controls require independent review.",
+  "track_alignment_explanation": "AI is essential while tools, memory, monitoring, and execution choices make the workflow inspectable and bounded.",
+  "ai_disclosure": { "tools_used": [], "purposes": "No upstream AI-use claim; the calibration narrative was prepared without maintainer input.", "review_validation": "Human reference judgment froze before inference." },
+  "synthetic": false, "holdout": true, "leaderboard_eligible": false
+}
