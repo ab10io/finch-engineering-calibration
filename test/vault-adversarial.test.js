@@ -1,0 +1,4 @@
+import test from 'node:test'; import assert from 'node:assert/strict'; import { open, seal } from '../src/vault/envelope.js'
+const key = Buffer.alloc(32, 7); const iv = Buffer.alloc(12, 3)
+test('rejects tampered authenticated metadata and ciphertext', () => { const envelope = seal({ plaintext: 'private', key, recordId: 'r1', iv }); assert.throws(() => open({ envelope: { ...envelope, recordId: 'r2' }, key }), /authentication_failed/); assert.throws(() => open({ envelope: { ...envelope, ciphertext: 'AA' }, key }), /authentication_failed/) })
+test('rejects the wrong key and unsupported envelope versions', () => { const envelope = seal({ plaintext: 'private', key, recordId: 'r1', iv }); assert.throws(() => open({ envelope, key: Buffer.alloc(32, 8) }), /authentication_failed/); assert.throws(() => open({ envelope: { ...envelope, version: 2 }, key }), /unsupported_envelope/) })
