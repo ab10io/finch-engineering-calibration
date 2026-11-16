@@ -1,0 +1,232 @@
+{
+  "fixture_slug": "human-ai-weak-chat-wrapper",
+  "run": 2,
+  "model": "gpt-6.1-sol",
+  "critic_model": "gpt-6.1-terra",
+  "prompt_version": "2.0",
+  "snapshot_hash": "d57fd5d3cf208adfd429c7365a696d594fe99003001dde9328472f722ff589a7",
+  "recorded_at": "2026-11-16",
+  "accepted": false,
+  "validation": {
+    "production_schema_valid": true,
+    "critic_valid": false,
+    "errors": [
+      "The design_reasoning finding discusses manual questioning and the absence of documented evaluation cases or test evidence, but its citations do not support those claims. The cited decision-record lines end before the manual-validation statement, and no testing evidence is cited."
+    ]
+  },
+  "assessment": {
+    "categories": {
+      "design_reasoning": {
+        "score": 6.25,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "alternatives_and_tradeoffs",
+            "rating": 1,
+            "points_available": 25,
+            "points_awarded": 6.25,
+            "confidence": "medium",
+            "summary": "The hosted-model choice connects to a forwarding function, but no bounded user problem or non-AI alternative was evaluated.",
+            "limitations": "The stated manual questioning provides no documented evaluation cases or test evidence.",
+            "evidence": [
+              {
+                "evidence_id": "734bfdae016b639645bfa030b19f2f25d0af2d9dbff6b8e3cbb991139df06faa",
+                "path": "docs/decisions.md",
+                "start_line": 3,
+                "end_line": 17,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "af2e10abf4e863b21121e0aae9e7495e3c1fcb9751f2359ad42b78d363e821d1",
+                "path": "src/chat.ts",
+                "start_line": 1,
+                "end_line": 3,
+                "symbol": "chat"
+              }
+            ]
+          }
+        ]
+      },
+      "architecture_maintainability": {
+        "score": 5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "boundaries_and_coupling",
+            "rating": 1,
+            "points_available": 20,
+            "points_awarded": 5,
+            "confidence": "medium",
+            "summary": "The chat function accepts a model through a small complete interface, providing a minimal implemented dependency boundary.",
+            "limitations": "No surrounding product composition or tests demonstrate change isolation or failure containment.",
+            "evidence": [
+              {
+                "evidence_id": "af2e10abf4e863b21121e0aae9e7495e3c1fcb9751f2359ad42b78d363e821d1",
+                "path": "src/chat.ts",
+                "start_line": 1,
+                "end_line": 3,
+                "symbol": "chat"
+              }
+            ]
+          }
+        ]
+      },
+      "security_by_design": {
+        "score": 5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "threat_model_and_mitigations",
+            "rating": 1,
+            "points_available": 20,
+            "points_awarded": 5,
+            "confidence": "medium",
+            "summary": "Security notes identify sensitive input and misleading output, but the proposed mitigation is only a claimed disclaimer; the implementation forwards text directly.",
+            "limitations": "Disclaimer integration is not demonstrated. The notes explicitly acknowledge missing retention, redaction, output constraints, abuse handling, and evaluation evidence.",
+            "evidence": [
+              {
+                "evidence_id": "98d3bb3a4d4aa5bb0de2cbdcf06f786fc7995a82a2a8e9ff94ae289b2af01f77",
+                "path": "docs/security.md",
+                "start_line": 3,
+                "end_line": 13,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "af2e10abf4e863b21121e0aae9e7495e3c1fcb9751f2359ad42b78d363e821d1",
+                "path": "src/chat.ts",
+                "start_line": 1,
+                "end_line": 3,
+                "symbol": "chat"
+              }
+            ]
+          }
+        ]
+      },
+      "testing_evidence": {
+        "score": 0,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "test_strategy_and_coverage",
+            "rating": 0,
+            "points_available": 15,
+            "points_awarded": 0,
+            "confidence": "medium",
+            "summary": "The testing document explicitly states that there are no automated tests or documented evaluation cases.",
+            "limitations": "No committed assertions establish representative behavior, boundaries, or failure coverage.",
+            "evidence": [
+              {
+                "evidence_id": "5ad227789e16c49fb4b0c9c3784d0dda14d61711101155764300667a8581eafd",
+                "path": "docs/testing.md",
+                "start_line": 1,
+                "end_line": 7,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "documentation_operations": {
+        "score": 0,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "operational_clarity",
+            "rating": 0,
+            "points_available": 10,
+            "points_awarded": 0,
+            "confidence": "medium",
+            "summary": "The README describes a generic chat interface and unknown operating characteristics, but provides no installation, configuration, operation, or recovery instructions.",
+            "limitations": "Purpose and limitation statements do not constitute usable operational guidance.",
+            "evidence": [
+              {
+                "evidence_id": "b1d07a6e29062a5419ab5bf3f8604a62ef0033522967330e6c94c8877ac57021",
+                "path": "README.md",
+                "start_line": 1,
+                "end_line": 21,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "repository_hygiene": {
+        "score": 2.5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "dependency_and_repository_hygiene",
+            "rating": 1,
+            "points_available": 10,
+            "points_awarded": 2.5,
+            "confidence": "medium",
+            "summary": "An MIT-labeled license and minimal package manifest provide basic repository structure; the manifest has empty development dependencies and no automation scripts.",
+            "limitations": "The catalogue supplies no lockfile, automation, contribution guidance, or artifact policy. The license excerpt is abbreviated.",
+            "evidence": [
+              {
+                "evidence_id": "740f92543817bbed84679dce474e4b5b090f72eabe8b911eab7b3ca46db5cb97",
+                "path": "LICENSE",
+                "start_line": 1,
+                "end_line": 7,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "3254c99567d657a9870bee220f21a2ba30aa244d309031ebe2df6aa06659d30b",
+                "path": "package.json",
+                "start_line": 1,
+                "end_line": 7,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "core_score": 18.75,
+    "confidence": "medium",
+    "track_alignment": {
+      "status": "not_demonstrated",
+      "summary": "The implementation forwards text to a model, while the decision record explicitly reports no bounded user problem or non-AI alternative evaluation. Deliberate selection of AI for particular people and context is not demonstrated.",
+      "evidence": [
+        {
+          "evidence_id": "af2e10abf4e863b21121e0aae9e7495e3c1fcb9751f2359ad42b78d363e821d1",
+          "path": "src/chat.ts",
+          "start_line": 1,
+          "end_line": 3,
+          "symbol": "chat"
+        },
+        {
+          "evidence_id": "734bfdae016b639645bfa030b19f2f25d0af2d9dbff6b8e3cbb991139df06faa",
+          "path": "docs/decisions.md",
+          "start_line": 3,
+          "end_line": 13,
+          "symbol": ""
+        },
+        {
+          "evidence_id": "b1d07a6e29062a5419ab5bf3f8604a62ef0033522967330e6c94c8877ac57021",
+          "path": "README.md",
+          "start_line": 7,
+          "end_line": 13,
+          "symbol": ""
+        }
+      ],
+      "questions_for_organizer": []
+    },
+    "not_tested": [
+      "Whether the project builds or starts",
+      "Whether tests pass",
+      "Runtime correctness",
+      "Performance, scaling, or reliability under load",
+      "Runtime accessibility behavior",
+      "Debugging ability",
+      "Ability to extend the system safely",
+      "Deployment correctness"
+    ]
+  },
+  "critic": {
+    "valid": false,
+    "errors": [
+      "The design_reasoning finding discusses manual questioning and the absence of documented evaluation cases or test evidence, but its citations do not support those claims. The cited decision-record lines end before the manual-validation statement, and no testing evidence is cited."
+    ]
+  }
+}

@@ -1,0 +1,354 @@
+{
+  "fixture_slug": "human-ai-strong-review-assistant",
+  "run": 3,
+  "model": "gpt-6.1-sol",
+  "critic_model": "gpt-6.1-terra",
+  "prompt_version": "2.0",
+  "snapshot_hash": "a355f7b18d65c59c5ffdf0155b3f1814bb03368c6c62d2e130e02b207d3828e7",
+  "recorded_at": "2026-11-16",
+  "accepted": true,
+  "validation": {
+    "production_schema_valid": true,
+    "critic_valid": true,
+    "errors": []
+  },
+  "assessment": {
+    "categories": {
+      "design_reasoning": {
+        "score": 18.75,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "alternatives_and_tradeoffs",
+            "rating": 3,
+            "points_available": 25,
+            "points_awarded": 18.75,
+            "confidence": "medium",
+            "summary": "The decision compares autonomous decisions, rules-only search, and bounded proposals, accepting review overhead and source-quality dependence. The selected human-authority boundary traces through service composition, state transitions, and adapter-replacement tests.",
+            "limitations": "Reconsideration conditions are stated, but domain evaluation thresholds and retrieval implementation are not demonstrated.",
+            "evidence": [
+              {
+                "evidence_id": "48c1d859b94433cbace6ea7f38d863b78044d16ccfc1991a83ab5385e5801ee3",
+                "path": "docs/decisions/001-human-authority.md",
+                "start_line": 3,
+                "end_line": 13,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "a91b1010e2c884d1930cd894064087392342bf6cffb66b37fda8eede302e7a44",
+                "path": "src/review/service.js",
+                "start_line": 1,
+                "end_line": 2,
+                "symbol": "createProposal"
+              },
+              {
+                "evidence_id": "830ae0be71c2367f884510b9afa58c0989f03bf57bc147701e349a1da1f8ccf8",
+                "path": "src/review/state-machine.js",
+                "start_line": 1,
+                "end_line": 2,
+                "symbol": "transition"
+              },
+              {
+                "evidence_id": "81925c279ad6fd8b15c4086be1af51cc05b7c41ae076dfa40121e928c1df8fbb",
+                "path": "test/change-isolation.test.js",
+                "start_line": 6,
+                "end_line": 14,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "architecture_maintainability": {
+        "score": 15,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "boundaries_and_coupling",
+            "rating": 3,
+            "points_available": 20,
+            "points_awarded": 15,
+            "confidence": "medium",
+            "summary": "Service composition separates input minimization, suggestion policy, and reviewer transitions. A committed test varies the model adapter while holding service composition constant and asserts that model actors remain unable to accept proposals.",
+            "limitations": "The small interfaces lack explicit schema validation; persistence, migration, and broader failure containment are not demonstrated.",
+            "evidence": [
+              {
+                "evidence_id": "a91b1010e2c884d1930cd894064087392342bf6cffb66b37fda8eede302e7a44",
+                "path": "src/review/service.js",
+                "start_line": 1,
+                "end_line": 2,
+                "symbol": "createProposal"
+              },
+              {
+                "evidence_id": "830ae0be71c2367f884510b9afa58c0989f03bf57bc147701e349a1da1f8ccf8",
+                "path": "src/review/state-machine.js",
+                "start_line": 1,
+                "end_line": 2,
+                "symbol": "transition"
+              },
+              {
+                "evidence_id": "81925c279ad6fd8b15c4086be1af51cc05b7c41ae076dfa40121e928c1df8fbb",
+                "path": "test/change-isolation.test.js",
+                "start_line": 6,
+                "end_line": 14,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "security_by_design": {
+        "score": 15,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "threat_model_and_mitigations",
+            "rating": 3,
+            "points_available": 20,
+            "points_awarded": 15,
+            "confidence": "medium",
+            "summary": "The bounded threat model connects unauthorized model approval and identifying input exposure to reviewer checks and input minimization. Committed tests cover model-role rejection and nested identity removal, while the threat model states quality, fairness, and domain-evaluation residual risks.",
+            "limitations": "Reviewer identity is supplied by the caller; authentication is not demonstrated. Nested scrubbing removes selected field names rather than all possible identifying content, and tests do not establish runtime security.",
+            "evidence": [
+              {
+                "evidence_id": "c5913dc2a86424f4716a803255b88785a7f5f874dd667eec71e195fd8a2fd5df",
+                "path": "docs/security/threat-model.md",
+                "start_line": 3,
+                "end_line": 13,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "b20f5e5b7b2d3efbe17bce9fd9d99c347bc4d07daea42b6e77461a1ad0f009b2",
+                "path": "src/input/minimize.js",
+                "start_line": 1,
+                "end_line": 3,
+                "symbol": "minimizeInput"
+              },
+              {
+                "evidence_id": "a91b1010e2c884d1930cd894064087392342bf6cffb66b37fda8eede302e7a44",
+                "path": "src/review/service.js",
+                "start_line": 1,
+                "end_line": 2,
+                "symbol": "createProposal"
+              },
+              {
+                "evidence_id": "830ae0be71c2367f884510b9afa58c0989f03bf57bc147701e349a1da1f8ccf8",
+                "path": "src/review/state-machine.js",
+                "start_line": 1,
+                "end_line": 2,
+                "symbol": "transition"
+              },
+              {
+                "evidence_id": "27b161a6d0be9b198247f9ce2e098b96976ebc15b6e6d49041fcbccd93733b04",
+                "path": "test/minimization.test.js",
+                "start_line": 1,
+                "end_line": 2,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "81925c279ad6fd8b15c4086be1af51cc05b7c41ae076dfa40121e928c1df8fbb",
+                "path": "test/change-isolation.test.js",
+                "start_line": 6,
+                "end_line": 14,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "testing_evidence": {
+        "score": 11.25,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "test_strategy_and_coverage",
+            "rating": 3,
+            "points_available": 15,
+            "points_awarded": 11.25,
+            "confidence": "medium",
+            "summary": "Committed assertions cover missing provenance, low confidence, consequential language, unauthorized and invalid transitions, nested identity removal, the exact confidence threshold, and service-level adapter rejection.",
+            "limitations": "Tests were not executed. Malformed adapter responses and proof that the adapter receives minimized input are not covered by the cited assertions; the threshold test title says escalation although its assertion expects a proposed status.",
+            "evidence": [
+              {
+                "evidence_id": "f40ad80054bee61ddd86b1660e894172bfeb8345b8d08d384e80f46ddcf44480",
+                "path": "test/review-policy.test.js",
+                "start_line": 1,
+                "end_line": 3,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "a11f949c6402615c7a9a12f6ed3a7df3f78dcb182094111fc77d329b6f1ccdcf",
+                "path": "test/review-state.test.js",
+                "start_line": 1,
+                "end_line": 3,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "27b161a6d0be9b198247f9ce2e098b96976ebc15b6e6d49041fcbccd93733b04",
+                "path": "test/minimization.test.js",
+                "start_line": 1,
+                "end_line": 2,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "06a4e86cf921290b6bddb7a6c4e719b99c162b7c76f3db0f2d51b3d6e705e1a0",
+                "path": "test/service-boundary.test.js",
+                "start_line": 5,
+                "end_line": 15,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "documentation_operations": {
+        "score": 5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "operational_clarity",
+            "rating": 2,
+            "points_available": 10,
+            "points_awarded": 5,
+            "confidence": "medium",
+            "summary": "The README provides Node prerequisites, installation and test commands, adapter configuration, a review example, and model limitations. The runbook outlines stopping operations and checking state before resuming.",
+            "limitations": "Recovery guidance refers to rollback, quarantine, stored state, and audit records without concrete implementation or procedures; the example omits imports and adapter construction.",
+            "evidence": [
+              {
+                "evidence_id": "c3b80c6ee1ae3b701bda55945e7a0a3e84d600538ef1b797d89cceddbc165e22",
+                "path": "README.md",
+                "start_line": 7,
+                "end_line": 33,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "f0d1f91824b80418cac1941fc2293c2a791a377eb99f4d9d9102982d182b8d36",
+                "path": "docs/runbook.md",
+                "start_line": 1,
+                "end_line": 11,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "repository_hygiene": {
+        "score": 7.5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "dependency_and_repository_hygiene",
+            "rating": 3,
+            "points_available": 10,
+            "points_awarded": 7.5,
+            "confidence": "medium",
+            "summary": "The manifest and lockfile describe a Node 22+ project with no external dependencies, MIT licensing, and a test command. CI declares read-only repository permissions and installation with scripts disabled; contribution guidance requires regression tests and threat-model review, and artifact policy excludes generated outputs, secrets, and participant data.",
+            "limitations": "CI actions use version tags rather than immutable commits. The artifact policy is declarative, with no cited automated enforcement or release provenance.",
+            "evidence": [
+              {
+                "evidence_id": "486495f7becefd3b35c8d3af0453a885633dff31f19d375bf581002461289eaf",
+                "path": "package.json",
+                "start_line": 1,
+                "end_line": 13,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "848a5c7c2806afab300215352150dd2f2ff97e8cc3de5fd6e2181b8dcd13c282",
+                "path": "package-lock.json",
+                "start_line": 1,
+                "end_line": 16,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "a1f6f4dcb6b0174dd813443eebf8d4dd8bc892b9a2b4abecd98ec3e4942e3081",
+                "path": "LICENSE",
+                "start_line": 1,
+                "end_line": 12,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "a15029fc640a8bca652bf11756758e4269baae88ca614cdd108ddf2bd2ae7c55",
+                "path": ".github/workflows/ci.yml",
+                "start_line": 1,
+                "end_line": 15,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "66440dcc95d5eaa9e311c88c66a06c22718615535ac1daf5932a716d993b8f49",
+                "path": "CONTRIBUTING.md",
+                "start_line": 3,
+                "end_line": 3,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "46dabe5423aeac9c8c762453384f203a23512d928c5d549eb06904a76c361d62",
+                "path": ".artifact-policy.json",
+                "start_line": 1,
+                "end_line": 6,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "core_score": 72.5,
+    "confidence": "medium",
+    "track_alignment": {
+      "status": "demonstrated",
+      "summary": "The intended context is caseworkers reviewing eligibility documents. The decision record explains choosing AI-assisted bounded synthesis over rules-only search and autonomous decisions; the service invokes an adapter and applies escalation policy, while adapter-replacement tests preserve the human review boundary. This demonstrates alignment at the workflow-design level; actual retrieval and domain usefulness remain unverified.",
+      "evidence": [
+        {
+          "evidence_id": "086798c41ca5afeb9191ee3cb51d004e12ede56b601a547da7d511f8af9be6c7",
+          "path": "submission://intended_users",
+          "start_line": 1,
+          "end_line": 1,
+          "symbol": ""
+        },
+        {
+          "evidence_id": "48c1d859b94433cbace6ea7f38d863b78044d16ccfc1991a83ab5385e5801ee3",
+          "path": "docs/decisions/001-human-authority.md",
+          "start_line": 3,
+          "end_line": 13,
+          "symbol": ""
+        },
+        {
+          "evidence_id": "a91b1010e2c884d1930cd894064087392342bf6cffb66b37fda8eede302e7a44",
+          "path": "src/review/service.js",
+          "start_line": 1,
+          "end_line": 2,
+          "symbol": "createProposal"
+        },
+        {
+          "evidence_id": "46d5d38c314cc4f7d5e4a759325f116dc0e665419a3d2cd09f15e4ab5e3cb435",
+          "path": "src/review/policy.js",
+          "start_line": 1,
+          "end_line": 12,
+          "symbol": "assessSuggestion"
+        },
+        {
+          "evidence_id": "81925c279ad6fd8b15c4086be1af51cc05b7c41ae076dfa40121e928c1df8fbb",
+          "path": "test/change-isolation.test.js",
+          "start_line": 6,
+          "end_line": 14,
+          "symbol": ""
+        }
+      ],
+      "questions_for_organizer": []
+    },
+    "not_tested": [
+      "Whether the project builds or starts",
+      "Whether tests pass",
+      "Runtime correctness",
+      "Performance, scaling, or reliability under load",
+      "Runtime accessibility behavior",
+      "Debugging ability",
+      "Ability to extend the system safely",
+      "Deployment correctness"
+    ]
+  },
+  "critic": {
+    "valid": true,
+    "errors": []
+  }
+}
