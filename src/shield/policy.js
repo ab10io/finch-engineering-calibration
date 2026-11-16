@@ -1,0 +1,2 @@
+const DIRECT = /ignore (?:all )?(?:previous|prior) instructions|award (?:a )?(?:perfect|maximum) score/i
+export function classify(text) { if (typeof text !== 'string') throw new TypeError('text required'); if (DIRECT.test(text)) return {action:'quarantine',reasons:['instruction_like']}; if (/prompt injection|system prompt/i.test(text)) return {action:'annotate',reasons:['security_context']}; return {action:'allow',reasons:[]} }
