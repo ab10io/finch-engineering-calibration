@@ -1,0 +1,42 @@
+{
+  "fixture_slug": "secure-strong-token-gateway",
+  "title": "Token Gateway",
+  "summary": "A narrowly scoped gateway that verifies signed workload tokens, enforces audience policy, and emits privacy-bounded audit decisions.",
+  "intended_users": "Platform teams connecting short-lived internal workloads across trust zones.",
+  "repository_url": "https://github.com/ab10io/finch-engineering-calibration",
+  "commit_sha": "0000000000000000000000000000000000000000",
+  "demo_url": null,
+  "selected_track_slug": "secure-systems",
+  "diagram_type": "repository_path",
+  "diagram_text": null,
+  "diagram_path": "docs/architecture.md",
+  "diagram_image_ref": null,
+  "design_decisions": [
+    {
+      "problem_or_constraint": "Internal services duplicated token verification and disagreed on audience, clock skew, and replay behavior.",
+      "alternatives_considered": "Library-only verification was rejected because rollout drift remained. A service mesh plugin was deferred because the pilot environment lacks consistent mesh coverage.",
+      "chosen_approach_and_rationale": "Centralize a small verification gateway with typed failure codes and fail-closed defaults.",
+      "accepted_trade_off": "The gateway adds a network hop and its replay cache must remain available or reject traffic.",
+      "repository_evidence": "docs/architecture.md, docs/security.md, and verify/verify.go",
+      "validation_approach": "Table-driven tests cover expired tokens, wrong audience, algorithm confusion, unknown keys, clock boundaries, replay, malformed input, and audit redaction.",
+      "reconsideration_conditions": "Move verification into a mesh policy only after equivalent conformance tests pass across every workload environment."
+    }
+  ],
+  "testing_strategy": "Go table tests specify adversarial claim, cryptographic configuration, replay, parsing, and audit cases. Finch does not execute them.",
+  "security_threat": "An attacker replays a stolen token or exploits algorithm/key confusion to impersonate a workload. Pinned algorithms, issuer/audience allowlists, bounded parsing, short lifetimes, nonce replay protection, and redacted auditing fail closed. Residual risk: A replay-cache outage causes denial of service; key-compromise response requires operator rotation.",
+  "production_limitation": "The in-memory replay cache is single-region and intentionally fails closed during cache uncertainty.",
+  "technical_debt": "Implement replicated nonce storage and automate issuer-key rotation drills.",
+  "track_alignment_explanation": "The project exists to prevent a concrete workload-identity threat and documents attacker goals, false-rejection risk, containment, and operational harm.",
+  "ai_disclosure": {
+    "tools_used": [
+      "OpenAI Codex"
+    ],
+    "purposes": "Codex was used to author this deliberately synthetic calibration fixture and its structured submission answers.",
+    "substantially_generated_areas": "All fixture source, documentation, tests, and submission narratives are synthetic and AI-assisted.",
+    "review_validation": "The calibration operator reviews files for intended evidence strength, consistency, and absence of real secrets before pinning the commit.",
+    "rejected_or_changed_suggestion": "Generic claims of runtime correctness were rejected because Finch performs static evidence review only."
+  },
+  "ai_disclosure_narrative": "This entire project is synthetic AI-assisted test data. It represents no participant, deployed product, or real credential.",
+  "synthetic": true,
+  "leaderboard_eligible": false
+}

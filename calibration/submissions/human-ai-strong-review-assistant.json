@@ -1,0 +1,42 @@
+{
+  "fixture_slug": "human-ai-strong-review-assistant",
+  "title": "Review Assistant",
+  "summary": "A bounded assistant that helps benefits caseworkers locate supporting policy passages while preserving human decisions and uncertainty.",
+  "intended_users": "Public-benefit caseworkers reviewing complex eligibility documents with accountable human sign-off.",
+  "repository_url": "https://github.com/ab10io/finch-engineering-calibration",
+  "commit_sha": "0000000000000000000000000000000000000000",
+  "demo_url": null,
+  "selected_track_slug": "human-scale-ai",
+  "diagram_type": "repository_path",
+  "diagram_text": null,
+  "diagram_path": "docs/architecture.md",
+  "diagram_image_ref": null,
+  "design_decisions": [
+    {
+      "problem_or_constraint": "Caseworkers spend time locating policy while automated eligibility decisions would create unacceptable harm.",
+      "alternatives_considered": "Rules-only search missed paraphrases. Unbounded chat was rejected for hallucination and authority ambiguity.",
+      "chosen_approach_and_rationale": "Use retrieval-bounded drafting with mandatory citations, abstention, and human disposition.",
+      "accepted_trade_off": "The assistant cannot answer outside the indexed policy set and adds review steps.",
+      "repository_evidence": "docs/architecture.md, docs/decisions.md, src/review.py, and tests/test_review.py",
+      "validation_approach": "Tests cover missing citations, low-confidence abstention, prohibited decision language, user rejection, and audit events. A separate qualitative set is documented but not claimed as runtime proof.",
+      "reconsideration_conditions": "Remove generation if citation precision or harmful-completion rates miss the published pilot thresholds."
+    }
+  ],
+  "testing_strategy": "Pytest cases cover citation presence, abstention thresholds, prohibited decisions, rejection, and audit logging. Blinded domain review remains required.",
+  "security_threat": "A plausible but unsupported model statement influences a benefits decision. Source allowlists, citation requirements, abstention, prohibited-action rules, visible uncertainty, and human disposition prevent autonomous decisions. Residual risk: Caseworker automation bias remains possible and retrieval quality can omit relevant policy.",
+  "production_limitation": "Only the frozen policy corpus is searchable; multilingual quality and real workflow latency remain unverified.",
+  "technical_debt": "Expand the expert-reviewed calibration set and add subgroup error analysis before any live pilot.",
+  "track_alignment_explanation": "AI is essential but bounded to retrieval and drafting for a defined high-stakes workflow, with human agency, uncertainty, data minimization, and a documented simpler baseline.",
+  "ai_disclosure": {
+    "tools_used": [
+      "OpenAI Codex"
+    ],
+    "purposes": "Codex was used to author this deliberately synthetic calibration fixture and its structured submission answers.",
+    "substantially_generated_areas": "All fixture source, documentation, tests, and submission narratives are synthetic and AI-assisted.",
+    "review_validation": "The calibration operator reviews files for intended evidence strength, consistency, and absence of real secrets before pinning the commit.",
+    "rejected_or_changed_suggestion": "Generic claims of runtime correctness were rejected because Finch performs static evidence review only."
+  },
+  "ai_disclosure_narrative": "This entire project is synthetic AI-assisted test data. It represents no participant, deployed product, or real credential.",
+  "synthetic": true,
+  "leaderboard_eligible": false
+}

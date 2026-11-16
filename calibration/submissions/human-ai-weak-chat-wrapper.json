@@ -1,0 +1,42 @@
+{
+  "fixture_slug": "human-ai-weak-chat-wrapper",
+  "title": "Ask Anything AI",
+  "summary": "A generic chat box that forwards user text to a hosted language model.",
+  "intended_users": "Anyone who wants chatbot responses.",
+  "repository_url": "https://github.com/ab10io/finch-engineering-calibration",
+  "commit_sha": "0000000000000000000000000000000000000000",
+  "demo_url": null,
+  "selected_track_slug": "human-scale-ai",
+  "diagram_type": "repository_path",
+  "diagram_text": null,
+  "diagram_path": "docs/architecture.md",
+  "diagram_image_ref": null,
+  "design_decisions": [
+    {
+      "problem_or_constraint": "The team wanted an AI feature for the hackathon.",
+      "alternatives_considered": "No non-AI alternative or bounded user problem was evaluated.",
+      "chosen_approach_and_rationale": "Use a generic hosted-model chat call.",
+      "accepted_trade_off": "Responses can be wrong and the interface does not distinguish uncertainty.",
+      "repository_evidence": "src/chat.ts",
+      "validation_approach": "The author manually asked two questions.",
+      "reconsideration_conditions": "Reconsider if users complain."
+    }
+  ],
+  "testing_strategy": "There are no automated tests or documented evaluation cases.",
+  "security_threat": "User text may include sensitive data and responses may be misleading. A disclaimer says AI can make mistakes. Residual risk: No retention policy, redaction, output constraints, abuse handling, or evaluation evidence exists.",
+  "production_limitation": "Accuracy, latency, cost, safety, and user benefit are unknown.",
+  "technical_debt": "Define a real user problem, data policy, evaluation set, uncertainty behavior, and non-AI baseline.",
+  "track_alignment_explanation": "The submission calls this Human-Scale AI, but it is a generic wrapper without a bounded context, demonstrated necessity, or deliberate human-agency design.",
+  "ai_disclosure": {
+    "tools_used": [
+      "OpenAI Codex"
+    ],
+    "purposes": "Codex was used to author this deliberately synthetic calibration fixture and its structured submission answers.",
+    "substantially_generated_areas": "All fixture source, documentation, tests, and submission narratives are synthetic and AI-assisted.",
+    "review_validation": "The calibration operator reviews files for intended evidence strength, consistency, and absence of real secrets before pinning the commit.",
+    "rejected_or_changed_suggestion": "Generic claims of runtime correctness were rejected because Finch performs static evidence review only."
+  },
+  "ai_disclosure_narrative": "This entire project is synthetic AI-assisted test data. It represents no participant, deployed product, or real credential.",
+  "synthetic": true,
+  "leaderboard_eligible": false
+}

@@ -1,0 +1,42 @@
+{
+  "fixture_slug": "accessible-strong-transit-guide",
+  "title": "Transit Guide",
+  "summary": "An offline route-instruction interface designed with blind and low-vision riders for disrupted public transit.",
+  "intended_users": "Blind and low-vision riders navigating temporary platform, elevator, and route changes with unreliable connectivity.",
+  "repository_url": "https://github.com/ab10io/finch-engineering-calibration",
+  "commit_sha": "0000000000000000000000000000000000000000",
+  "demo_url": null,
+  "selected_track_slug": "accessible-inclusive-technology",
+  "diagram_type": "repository_path",
+  "diagram_text": null,
+  "diagram_path": "docs/architecture.md",
+  "diagram_image_ref": null,
+  "design_decisions": [
+    {
+      "problem_or_constraint": "Visual-only disruption maps are inaccessible and network loss is common underground.",
+      "alternatives_considered": "A conventional map overlay failed co-design review. SMS was retained as a fallback but lacked interactive route context.",
+      "chosen_approach_and_rationale": "Lead with ordered semantic instructions, assertive alerts only for immediate route changes, and offline caching.",
+      "accepted_trade_off": "The text-first experience presents less spatial context for some users and feed freshness is visible rather than hidden.",
+      "repository_evidence": "docs/architecture.md, docs/decisions.md, src/RouteGuide.tsx, and tests/RouteGuide.test.tsx",
+      "validation_approach": "Component tests cover landmarks, focus order, live-region priority, 200% text reflow assumptions, offline state, and non-color alert labels. Runtime assistive-technology behavior still requires manual testing.",
+      "reconsideration_conditions": "Revisit instruction ordering after moderated studies or if transit feeds expose stable indoor landmark data."
+    }
+  ],
+  "testing_strategy": "Vitest and Testing Library specifications cover semantics, keyboard order, offline expiry, non-color cues, and error announcements. Manual screen-reader and mobility studies remain explicitly required.",
+  "security_threat": "Stale or spoofed disruption data could direct a rider toward an unavailable route. Feed signatures, schema validation, freshness labels, offline expiry, and a call-for-assistance fallback reduce unsafe guidance. Residual risk: The prototype does not independently verify station accessibility status beyond the signed operator feed.",
+  "production_limitation": "Indoor positioning, real-time crowding, runtime screen-reader interoperability, and user-study outcomes are not verified.",
+  "technical_debt": "Complete moderated testing with multiple screen readers and add station-specific landmark vocabulary.",
+  "track_alignment_explanation": "Accessibility is the central product purpose for a defined access need and constrained environment, not routine conformance added to a general app.",
+  "ai_disclosure": {
+    "tools_used": [
+      "OpenAI Codex"
+    ],
+    "purposes": "Codex was used to author this deliberately synthetic calibration fixture and its structured submission answers.",
+    "substantially_generated_areas": "All fixture source, documentation, tests, and submission narratives are synthetic and AI-assisted.",
+    "review_validation": "The calibration operator reviews files for intended evidence strength, consistency, and absence of real secrets before pinning the commit.",
+    "rejected_or_changed_suggestion": "Generic claims of runtime correctness were rejected because Finch performs static evidence review only."
+  },
+  "ai_disclosure_narrative": "This entire project is synthetic AI-assisted test data. It represents no participant, deployed product, or real credential.",
+  "synthetic": true,
+  "leaderboard_eligible": false
+}

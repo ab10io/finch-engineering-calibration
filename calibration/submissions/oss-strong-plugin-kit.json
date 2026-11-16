@@ -1,0 +1,42 @@
+{
+  "fixture_slug": "oss-strong-plugin-kit",
+  "title": "Plugin Kit",
+  "summary": "A typed plugin SDK and test harness for building versioned event-processing extensions.",
+  "intended_users": "Open-source maintainers and application developers embedding third-party event processors.",
+  "repository_url": "https://github.com/ab10io/finch-engineering-calibration",
+  "commit_sha": "0000000000000000000000000000000000000000",
+  "demo_url": null,
+  "selected_track_slug": "open-source-developer-tools",
+  "diagram_type": "repository_path",
+  "diagram_text": null,
+  "diagram_path": "docs/architecture.md",
+  "diagram_image_ref": null,
+  "design_decisions": [
+    {
+      "problem_or_constraint": "Ad hoc plugins depended on host internals and could fail the entire event loop.",
+      "alternatives_considered": "Dynamic scripting was rejected for type and sandbox ambiguity. Process isolation was documented as the next boundary for untrusted plugins but deferred for the hackathon scope.",
+      "chosen_approach_and_rationale": "Provide versioned Rust traits, explicit capabilities, and a reusable conformance harness.",
+      "accepted_trade_off": "In-process plugins are fast and simple but are not a security sandbox.",
+      "repository_evidence": "docs/architecture.md, docs/decisions.md, src/lib.rs, tests/conformance.rs, README.md, LICENSE, and CONTRIBUTING.md",
+      "validation_approach": "Cargo tests specify compatibility negotiation, undeclared capability rejection, error containment, deterministic fixtures, and example-plugin conformance. Finch does not execute them.",
+      "reconsideration_conditions": "Move untrusted plugins out of process when the threat model includes malicious native code."
+    }
+  ],
+  "testing_strategy": "The conformance harness and integration fixtures cover public extension contracts, compatibility boundaries, capability refusal, and error containment.",
+  "security_threat": "A buggy or malicious plugin requests undeclared capabilities or crashes the host path. Capability declarations, version checks, typed errors, panic containment guidance, and an explicit statement that in-process execution is not a sandbox. Residual risk: Native plugins still share process memory; hostile code requires process or WASM isolation.",
+  "production_limitation": "The pilot supports one host language and does not provide hostile-code isolation.",
+  "technical_debt": "Add a WASM adapter, compatibility matrix automation, and semver verification in release CI.",
+  "track_alignment_explanation": "This is a reusable open-source SDK with a real extension surface, license, installation guidance, contribution path, and conformance tooling.",
+  "ai_disclosure": {
+    "tools_used": [
+      "OpenAI Codex"
+    ],
+    "purposes": "Codex was used to author this deliberately synthetic calibration fixture and its structured submission answers.",
+    "substantially_generated_areas": "All fixture source, documentation, tests, and submission narratives are synthetic and AI-assisted.",
+    "review_validation": "The calibration operator reviews files for intended evidence strength, consistency, and absence of real secrets before pinning the commit.",
+    "rejected_or_changed_suggestion": "Generic claims of runtime correctness were rejected because Finch performs static evidence review only."
+  },
+  "ai_disclosure_narrative": "This entire project is synthetic AI-assisted test data. It represents no participant, deployed product, or real credential.",
+  "synthetic": true,
+  "leaderboard_eligible": false
+}

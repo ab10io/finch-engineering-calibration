@@ -1,0 +1,7 @@
+{
+  "name": "human-ai-weak-chat-wrapper",
+  "version": "0.1.0",
+  "private": false,
+  "type": "module",
+  "devDependencies": {}
+}

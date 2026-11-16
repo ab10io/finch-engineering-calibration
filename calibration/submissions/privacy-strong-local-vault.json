@@ -1,0 +1,42 @@
+{
+  "fixture_slug": "privacy-strong-local-vault",
+  "title": "Local Vault",
+  "summary": "An offline-first personal document vault that minimizes collection and keeps decryption keys on the user device.",
+  "intended_users": "People storing sensitive household records on shared or intermittently connected devices.",
+  "repository_url": "https://github.com/ab10io/finch-engineering-calibration",
+  "commit_sha": "0000000000000000000000000000000000000000",
+  "demo_url": null,
+  "selected_track_slug": "privacy-by-design",
+  "diagram_type": "repository_path",
+  "diagram_text": null,
+  "diagram_path": "docs/architecture.md",
+  "diagram_image_ref": null,
+  "design_decisions": [
+    {
+      "problem_or_constraint": "Searchable sync normally exposes document text or a reusable server-side key.",
+      "alternatives_considered": "Server-side indexing was rejected for confidentiality. Fully peer-to-peer sync was rejected because background delivery is unreliable on target mobile browsers.",
+      "chosen_approach_and_rationale": "Use local indexing and encrypted blob sync with explicit metadata minimization.",
+      "accepted_trade_off": "Recovery is harder and cross-device search indexing is recomputed after enrollment.",
+      "repository_evidence": "docs/architecture.md and src/vault.ts",
+      "validation_approach": "Property tests cover ciphertext round trips, sync metadata allowlists, deletion retention, and corrupted envelopes.",
+      "reconsideration_conditions": "Reconsider if platform secure storage is unavailable or encrypted-search research becomes deployable without server plaintext."
+    }
+  ],
+  "testing_strategy": "Vitest property and boundary tests exercise encryption envelopes, metadata allowlists, conflict resolution, deletion tombstones, and malformed inputs. Runtime cryptography and browser secure-storage behavior remain unverified by Finch.",
+  "security_threat": "A breached sync service attempts to recover document contents or correlate sensitive titles. Document bodies, titles, and search terms are encrypted locally; uploaded metadata is allowlisted and padded. Recovery material never reaches the service. Residual risk: Traffic timing and account-level blob counts remain observable.",
+  "production_limitation": "Large vaults rebuild the local index slowly on a new device and background sync depends on browser scheduling.",
+  "technical_debt": "Replace the in-memory version-vector adapter with a durable transactional queue and complete an external cryptography review.",
+  "track_alignment_explanation": "Privacy is the product purpose: data minimization, local processing, user-held keys, bounded retention, and explicit residual metadata risks are central to the architecture.",
+  "ai_disclosure": {
+    "tools_used": [
+      "OpenAI Codex"
+    ],
+    "purposes": "Codex was used to author this deliberately synthetic calibration fixture and its structured submission answers.",
+    "substantially_generated_areas": "All fixture source, documentation, tests, and submission narratives are synthetic and AI-assisted.",
+    "review_validation": "The calibration operator reviews files for intended evidence strength, consistency, and absence of real secrets before pinning the commit.",
+    "rejected_or_changed_suggestion": "Generic claims of runtime correctness were rejected because Finch performs static evidence review only."
+  },
+  "ai_disclosure_narrative": "This entire project is synthetic AI-assisted test data. It represents no participant, deployed product, or real credential.",
+  "synthetic": true,
+  "leaderboard_eligible": false
+}

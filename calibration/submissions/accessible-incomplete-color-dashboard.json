@@ -1,0 +1,42 @@
+{
+  "fixture_slug": "accessible-incomplete-color-dashboard",
+  "title": "Color Access Dashboard",
+  "summary": "A dashboard that adds a high-contrast color palette toggle.",
+  "intended_users": "Dashboard users who prefer higher contrast.",
+  "repository_url": "https://github.com/ab10io/finch-engineering-calibration",
+  "commit_sha": "0000000000000000000000000000000000000000",
+  "demo_url": null,
+  "selected_track_slug": "accessible-inclusive-technology",
+  "diagram_type": "repository_path",
+  "diagram_text": null,
+  "diagram_path": "docs/architecture.md",
+  "diagram_image_ref": null,
+  "design_decisions": [
+    {
+      "problem_or_constraint": "The default colors looked faint.",
+      "alternatives_considered": "No user research or non-visual representation was considered.",
+      "chosen_approach_and_rationale": "Add a high-contrast palette toggle.",
+      "accepted_trade_off": "The implementation changes only color and does not address semantics, keyboard operation, reflow, or assistive technology.",
+      "repository_evidence": "src/theme.css",
+      "validation_approach": "The author visually inspected one desktop screenshot.",
+      "reconsideration_conditions": "Reconsider if there is more time."
+    }
+  ],
+  "testing_strategy": "No automated or assistive-technology testing exists.",
+  "security_threat": "No security or safety threat analysis was performed. None documented. Residual risk: All relevant threats and misuse cases are unknown.",
+  "production_limitation": "Canvas charts have no text alternative, controls are pointer-only, and mobile reflow is unknown.",
+  "technical_debt": "Define target access needs and rebuild the dashboard with semantic data tables, keyboard controls, focus management, and user testing.",
+  "track_alignment_explanation": "The project claims inclusive technology based only on an alternate palette; it does not demonstrate a defined disability need or accessibility-centered product mechanism.",
+  "ai_disclosure": {
+    "tools_used": [
+      "OpenAI Codex"
+    ],
+    "purposes": "Codex was used to author this deliberately synthetic calibration fixture and its structured submission answers.",
+    "substantially_generated_areas": "All fixture source, documentation, tests, and submission narratives are synthetic and AI-assisted.",
+    "review_validation": "The calibration operator reviews files for intended evidence strength, consistency, and absence of real secrets before pinning the commit.",
+    "rejected_or_changed_suggestion": "Generic claims of runtime correctness were rejected because Finch performs static evidence review only."
+  },
+  "ai_disclosure_narrative": "This entire project is synthetic AI-assisted test data. It represents no participant, deployed product, or real credential.",
+  "synthetic": true,
+  "leaderboard_eligible": false
+}

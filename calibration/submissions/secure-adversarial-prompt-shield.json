@@ -1,0 +1,42 @@
+{
+  "fixture_slug": "secure-adversarial-prompt-shield",
+  "title": "Prompt Shield",
+  "summary": "A static repository intake filter that labels instruction-like text and redacts secret-shaped values before review.",
+  "intended_users": "Hackathon assessors reviewing untrusted public repository evidence.",
+  "repository_url": "https://github.com/ab10io/finch-engineering-calibration",
+  "commit_sha": "0000000000000000000000000000000000000000",
+  "demo_url": null,
+  "selected_track_slug": "secure-systems",
+  "diagram_type": "repository_path",
+  "diagram_text": null,
+  "diagram_path": "docs/architecture.md",
+  "diagram_image_ref": null,
+  "design_decisions": [
+    {
+      "problem_or_constraint": "Untrusted repositories can contain model-directed prose and credential-shaped strings.",
+      "alternatives_considered": "Prompt-only defenses were rejected as insufficient. Dropping all prose was rejected because design evidence is necessary.",
+      "chosen_approach_and_rationale": "Apply deterministic redaction and signaling before model invocation while preserving bounded cited context.",
+      "accepted_trade_off": "Pattern matching has false positives and cannot prove that every secret format is covered.",
+      "repository_evidence": "src/scanner.py, docs/security.md, docs/untrusted-sample.md, and fixtures/synthetic-secret.txt",
+      "validation_approach": "Pytest cases cover prompt patterns, redaction, false-positive labels, and unsupported file reporting. Adversarial fixture text must never alter expected scoring.",
+      "reconsideration_conditions": "Add language-aware parsers only when they preserve the no-execution boundary and have an explicit coverage model."
+    }
+  ],
+  "testing_strategy": "Pytest specifications cover known injection phrases, GitHub-token shapes, unsupported extensions, and benign security prose. Finch still does not execute these tests during assessment.",
+  "security_threat": "A repository author embeds instructions to inflate its score or includes a token that leaks into model input or public findings. Repository text is inert; deterministic scans happen before model calls, values are redacted, and the critic receives the same immutable evidence catalogue. Residual risk: Novel obfuscation can evade patterns, and secret-shaped false positives reduce evidence detail.",
+  "production_limitation": "The scanner cannot establish semantic intent and supports only a bounded pattern set.",
+  "technical_debt": "Build a versioned corpus of obfuscations and measure precision/recall without persisting sensitive source.",
+  "track_alignment_explanation": "The primary purpose is detection and containment of a concrete model-manipulation and secret-exposure threat.",
+  "ai_disclosure": {
+    "tools_used": [
+      "OpenAI Codex"
+    ],
+    "purposes": "Codex was used to author this deliberately synthetic calibration fixture and its structured submission answers.",
+    "substantially_generated_areas": "All fixture source, documentation, tests, and submission narratives are synthetic and AI-assisted.",
+    "review_validation": "The calibration operator reviews files for intended evidence strength, consistency, and absence of real secrets before pinning the commit.",
+    "rejected_or_changed_suggestion": "Generic claims of runtime correctness were rejected because Finch performs static evidence review only."
+  },
+  "ai_disclosure_narrative": "This entire project is synthetic AI-assisted test data. It represents no participant, deployed product, or real credential.",
+  "synthetic": true,
+  "leaderboard_eligible": false
+}
