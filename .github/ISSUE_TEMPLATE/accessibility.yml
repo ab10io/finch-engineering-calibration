@@ -1,0 +1,9 @@
+name: Access barrier
+description: Report an access barrier without medical disclosure
+body:
+  - type: textarea
+    id: context
+    attributes:
+      label: Access context and impact
+    validations:
+      required: true
