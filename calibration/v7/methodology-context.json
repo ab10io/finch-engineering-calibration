@@ -1,0 +1,35 @@
+{
+  "version": "1.1",
+  "category_weights": {
+    "design_reasoning": 25,
+    "architecture_maintainability": 20,
+    "security_by_design": 20,
+    "testing_evidence": 15,
+    "documentation_operations": 10,
+    "repository_hygiene": 10
+  },
+  "criteria": {
+    "design_reasoning": ["alternatives_and_tradeoffs"],
+    "architecture_maintainability": ["boundaries_and_coupling"],
+    "security_by_design": ["threat_model_and_mitigations"],
+    "testing_evidence": ["test_strategy_and_coverage"],
+    "documentation_operations": ["operational_clarity"],
+    "repository_hygiene": ["dependency_and_repository_hygiene"]
+  },
+  "rating_anchors": [
+    { "rating": 0, "meaning": "Absent or contradicted" },
+    { "rating": 1, "meaning": "Minimal, superficial, or poorly connected evidence" },
+    { "rating": 2, "meaning": "Adequate evidence for a competent hackathon project, with identifiable limitations" },
+    { "rating": 3, "meaning": "Strong, intentional, well-integrated evidence and thoughtful trade-offs" },
+    { "rating": 4, "meaning": "Exceptional evidence that anticipates failure modes and demonstrates unusually mature judgment" }
+  ],
+  "category_anchors": {
+    "design_reasoning": ["No consequential design decision is explained or evidence contradicts the rationale.", "A decision is asserted with little traceability to needs, constraints, alternatives, or implementation.", "Important decisions identify constraints and an alternative with representative implementation traceability.", "Credible alternatives and trade-offs trace consistently through implementation, tests, and limitations.", "Decision records anticipate changing assumptions and show when unusually complex choices should be reconsidered."],
+    "architecture_maintainability": ["No coherent architecture or maintainable boundary is demonstrated.", "Files are separated superficially while responsibilities or dependencies remain unclear.", "Core responsibilities have understandable module boundaries with identifiable coupling limits.", "Module boundaries enforce responsibilities and tests demonstrate change isolation across important paths.", "Stable interfaces, dependency discipline, migration strategy, and failure containment make difficult changes unusually explicit."],
+    "security_by_design": ["Assets, threats, trust boundaries, and mitigations are absent or contradicted.", "Security is primarily a claim or checklist without an implementation-connected threat model.", "A bounded threat model maps representative mitigations and states residual risk.", "Threats map to controls and negative tests across relevant boundaries with explicit residual risk.", "Layered mitigations, adversarial tests, recovery controls, and residual-risk decisions form unusually comprehensive evidence."],
+    "testing_evidence": ["No meaningful committed test strategy or implementation is present.", "Tests cover an isolated happy path or examples without important assertions.", "Representative behavior has focused assertions with some invalid-input or boundary coverage.", "Negative, boundary, and failure-path coverage follows stated risks across important modules.", "Risk-based coverage, isolation, deterministic fixtures, and subtle regression cases are unusually comprehensive."],
+    "documentation_operations": ["Installation, operation, failure, and recovery guidance are absent or unusable.", "Brief setup exists but prerequisites, configuration, failures, or recovery are materially incomplete.", "Installation and primary operation are documented with representative configuration and limitations.", "Installation, configuration, normal operation, failures, and recovery are clear and evidence-consistent.", "Onboarding and operations unusually cover diagnosis, rollback, recovery, data handling, upgrades, and support limits."],
+    "repository_hygiene": ["Provenance, dependency controls, licensing, or basic maintenance evidence is absent or unsafe.", "Structure exists but dependency pinning, license clarity, automation, or contribution guidance has major gaps.", "Dependencies are declared and bounded with visible licensing and basic automation.", "Locks, recognized licensing, scoped automation, contribution guidance, and artifact policy are consistent.", "Reproducibility, dependency review, release provenance, security reporting, governance, and automated enforcement are unusually mature."]
+  },
+  "not_tested": ["Whether the project builds or starts", "Whether tests pass", "Runtime correctness", "Performance, scaling, or reliability under load", "Runtime accessibility behavior", "Debugging ability", "Ability to extend the system safely", "Deployment correctness"]
+}
