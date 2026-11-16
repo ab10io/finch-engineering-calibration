@@ -1,0 +1,42 @@
+{
+  "fixture_slug": "privacy-strong-local-vault",
+  "title": "Local Vault",
+  "summary": "An offline-first personal document vault that minimizes collection and keeps decryption keys on the user device.",
+  "intended_users": "People storing sensitive household records on shared or intermittently connected devices.",
+  "repository_url": "https://github.com/ab10io/finch-engineering-calibration",
+  "commit_sha": "413b8f40f6e595fdbe4950f7a4aac294955f44d2",
+  "demo_url": null,
+  "selected_track_slug": "privacy-by-design",
+  "diagram_type": "repository_path",
+  "diagram_text": null,
+  "diagram_path": "docs/decisions/001-local-custody.md",
+  "diagram_image_ref": null,
+  "design_decisions": [
+    {
+      "problem_or_constraint": "Local-first custody, recovery, and metadata trade-offs are compared and traced to code boundaries.",
+      "alternatives_considered": "The committed alternatives table compares benefits, rejected costs, and the condition that triggers reconsideration.",
+      "chosen_approach_and_rationale": "Cryptography, persistence, policy, and recovery responsibilities have stable isolated interfaces.",
+      "accepted_trade_off": "Plaintext necessarily exists briefly in process memory during an authorized read.",
+      "repository_evidence": "docs/decisions/001-local-custody.md, src/vault/service.js",
+      "validation_approach": "Reject any envelope whose authenticated bytes or metadata changed. Return a bounded authentication error for an incorrect key. Refuse disclosure after the configured retention boundary.",
+      "reconsideration_conditions": "Plaintext necessarily exists briefly in process memory during an authorized read. The project does not protect an unlocked device controlled by a privileged attacker."
+    }
+  ],
+  "testing_strategy": "Committed cross-boundary, negative, and boundary tests: test/vault-adversarial.test.js. Their presence does not establish that they pass in Finch static review.",
+  "security_threat": "An attacker modifies ciphertext or envelope metadata on local storage. Control: Authenticated encryption binds version and record metadata before any plaintext is returned. Expired sensitive records remain readable beyond the user-selected retention window. Control: The service checks retention policy before decrypting and exposes an explicit purge operation.",
+  "production_limitation": "Plaintext necessarily exists briefly in process memory during an authorized read. The project does not protect an unlocked device controlled by a privileged attacker.",
+  "technical_debt": "Complete deployment-specific runtime, performance, accessibility, and security evaluation before production use.",
+  "track_alignment_explanation": "The product primarily minimizes disclosure through local custody, authenticated storage, retention, and explicit recovery controls.",
+  "ai_disclosure": {
+    "tools_used": [
+      "OpenAI Codex"
+    ],
+    "purposes": "Codex was used to author this deliberately synthetic calibration fixture and its structured submission answers.",
+    "substantially_generated_areas": "All fixture source, documentation, tests, and submission narratives are synthetic and AI-assisted.",
+    "review_validation": "The calibration operator reviews files for intended evidence strength, consistency, and absence of real secrets before pinning the commit.",
+    "rejected_or_changed_suggestion": "Generic claims of runtime correctness were rejected because Finch performs static evidence review only."
+  },
+  "ai_disclosure_narrative": "This entire project is synthetic AI-assisted test data. It represents no participant, deployed product, or real credential.",
+  "synthetic": true,
+  "leaderboard_eligible": false
+}

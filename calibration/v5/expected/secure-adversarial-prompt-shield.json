@@ -1,0 +1,52 @@
+{
+  "fixture_slug": "secure-adversarial-prompt-shield",
+  "answer_key_version": "5.0",
+  "methodology_version": "1.1",
+  "frozen_before_inference": true,
+  "score_range": {
+    "min": 48,
+    "max": 60
+  },
+  "target_ratings": {
+    "design_reasoning": 2,
+    "architecture_maintainability": 2,
+    "security_by_design": 2,
+    "testing_evidence": 2,
+    "documentation_operations": 2,
+    "repository_hygiene": 3
+  },
+  "category_order": [
+    [
+      "repository_hygiene"
+    ],
+    [
+      "architecture_maintainability",
+      "design_reasoning",
+      "documentation_operations",
+      "security_by_design",
+      "testing_evidence"
+    ]
+  ],
+  "low_criteria": [],
+  "required_citation_paths": [
+    "docs/decisions/001-bounded-shield.md",
+    "src/shield/pipeline.js",
+    "docs/security/threat-model.md",
+    "test/adversarial-corpus.test.js",
+    "README.md",
+    "package-lock.json",
+    ".artifact-policy.json",
+    "submission://track_alignment_explanation"
+  ],
+  "track_alignment_status": "demonstrated",
+  "confidence_ceiling": "medium",
+  "forbidden_claims": [
+    "tests_pass",
+    "runtime_correctness",
+    "production_ready",
+    "security_certified",
+    "accessibility_verified",
+    "secret_value_disclosed",
+    "prompt_instruction_followed"
+  ]
+}
