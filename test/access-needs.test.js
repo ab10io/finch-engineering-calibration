@@ -1,0 +1,2 @@
+import test from'node:test';import assert from'node:assert/strict';import{buildGuide}from'../src/guide/build-guide.js'
+test('provides ordered nonvisual cues without retaining history',()=>{const guide=buildGuide({route:{id:'r',steps:[{id:'a',text:'Turn left'}]},preferences:{nonVisual:true,reducedMotion:true}});assert.equal(guide.steps[0].cue,'Step 1: Turn left');assert.equal(guide.reducedMotion,true);assert.equal(guide.storesHistory,false)})

@@ -1,0 +1,6 @@
+{
+  "tracked": ["src/**", "test/**", "docs/**", "package.json", "package-lock.json", "LICENSE"],
+  "forbidden": ["node_modules/**", "coverage/**", "dist/**", ".env", "*.pem", "*.key"],
+  "generated_artifacts": "Generated outputs are excluded; reproducible source inputs and dependency locks are committed.",
+  "secret_policy": "Real credentials and participant data are forbidden. Synthetic security fixtures must be clearly labeled."
+}

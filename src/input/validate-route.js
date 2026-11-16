@@ -1,0 +1,1 @@
+export function validateRoute(route){if(!route||!Array.isArray(route.steps)||route.steps.length===0)throw new Error('steps_required');return{...route,steps:route.steps.map((step,index)=>{if(!step?.id||typeof step.text!=='string'||/[<>]/.test(step.text))throw new Error('unsafe_route_step');return{...step,order:index}})}}
