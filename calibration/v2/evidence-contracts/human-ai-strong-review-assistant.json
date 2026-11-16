@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "fixture_slug": "human-ai-strong-review-assistant",
+  "methodology_version": "1.1",
+  "track": "human-scale-ai",
+  "intended_score_range": { "min": 80, "max": 93 },
+  "static_review_only": true,
+  "prose_only_requirements_allowed": false,
+  "category_targets": {
+    "design_reasoning": {
+      "target_rating": 4,
+      "rationale": "The project compares automated decisions with bounded suggestions and traces human authority through every state transition.",
+      "required_paths": ["docs/decisions/001-human-authority.md", "src/review/state-machine.js"],
+      "observable_requirements": [
+        { "id": "review-authority-decision", "kind": "documentation", "description": "Compare automation alternatives and define when suggestions require rejection, escalation, or reconsideration.", "path": "docs/decisions/001-human-authority.md" },
+        { "id": "review-authority-implementation", "kind": "implementation", "description": "Implement the selected human-authority boundary as explicit review state transitions.", "path": "src/review/state-machine.js" }
+      ]
+    },
+    "architecture_maintainability": {
+      "target_rating": 3,
+      "rationale": "Model adapters, evidence normalization, policy, review state, and audit records have explicit boundaries.",
+      "required_paths": ["src/review/service.js", "src/review/state-machine.js"],
+      "observable_requirements": [
+        { "id": "review-service-boundary", "kind": "implementation", "description": "Compose a model adapter with policy and persistence without granting the adapter mutation authority.", "path": "src/review/service.js" },
+        { "id": "review-state-machine", "kind": "implementation", "description": "Permit only explicit proposed, accepted, rejected, and escalated transitions.", "path": "src/review/state-machine.js" }
+      ]
+    },
+    "security_by_design": {
+      "target_rating": 4,
+      "rationale": "PII minimization, prompt separation, provenance, authorization, and unsafe-output handling map to implemented controls.",
+      "required_paths": ["docs/security/threat-model.md", "src/input/minimize.js", "src/review/policy.js"],
+      "observable_requirements": [
+        { "id": "review-threat-model", "kind": "documentation", "description": "Map sensitive input, prompt influence, unauthorized approval, and misleading output to controls.", "path": "docs/security/threat-model.md" },
+        { "id": "review-minimization", "kind": "implementation", "description": "Remove unnecessary identifying fields before constructing bounded model input.", "path": "src/input/minimize.js" },
+        { "id": "review-output-policy", "kind": "implementation", "description": "Require provenance and confidence fields and route unsafe or incomplete suggestions to escalation.", "path": "src/review/policy.js" }
+      ]
+    },
+    "testing_evidence": {
+      "target_rating": 4,
+      "rationale": "Tests cover unsafe output, missing provenance, low confidence, unauthorized transitions, PII minimization, and deterministic adapters.",
+      "required_paths": ["test/review-policy.test.js", "test/review-state.test.js", "test/minimization.test.js"],
+      "observable_requirements": [
+        { "id": "review-policy-tests", "kind": "test", "description": "Exercise unsafe content, missing citations, uncertainty thresholds, and escalation outcomes.", "path": "test/review-policy.test.js" },
+        { "id": "review-transition-tests", "kind": "test", "description": "Exercise invalid state transitions and preserve human approval authority.", "path": "test/review-state.test.js" },
+        { "id": "review-minimization-tests", "kind": "test", "description": "Exercise direct and nested identifying input removal with explicit allowlisted fields.", "path": "test/minimization.test.js" }
+      ]
+    },
+    "documentation_operations": {
+      "target_rating": 3,
+      "rationale": "Setup, adapter configuration, human review, incident handling, audit export, and rollback are documented.",
+      "required_paths": ["README.md", "docs/runbook.md"],
+      "observable_requirements": [
+        { "id": "review-operator-guide", "kind": "documentation", "description": "Document bounded use, adapter configuration, review responsibilities, and non-guarantees.", "path": "README.md" },
+        { "id": "review-recovery-guide", "kind": "documentation", "description": "Document unsafe-output containment, audit export, rollback, and recovery procedures.", "path": "docs/runbook.md" }
+      ]
+    },
+    "repository_hygiene": {
+      "target_rating": 3,
+      "rationale": "Pinned dependencies, licensing, CI, model-card expectations, contribution, and security policies are committed.",
+      "required_paths": ["package-lock.json", "LICENSE", ".github/workflows/ci.yml", "MODEL_CARD.md", "CONTRIBUTING.md"],
+      "observable_requirements": [
+        { "id": "review-lockfile", "kind": "policy", "description": "Commit deterministic dependency resolution for bounded review.", "path": "package-lock.json" },
+        { "id": "review-license", "kind": "policy", "description": "Publish a recognized license granting reuse and modification rights.", "path": "LICENSE" },
+        { "id": "review-ci", "kind": "policy", "description": "Define automated policy and unit checks without execution claims.", "path": ".github/workflows/ci.yml" },
+        { "id": "review-model-card", "kind": "documentation", "description": "Document intended use, excluded decisions, evaluation gaps, and adapter obligations.", "path": "MODEL_CARD.md" },
+        { "id": "review-contribution", "kind": "documentation", "description": "Require safety regression evidence for policy or model-boundary changes.", "path": "CONTRIBUTING.md" }
+      ]
+    }
+  },
+  "implemented_safeguards": [
+    { "id": "human-approval-authority", "threat": "A model suggestion directly mutates a consequential review decision without human approval.", "control": "The model adapter can only create a proposal; a separate state machine requires an authorized human transition.", "required_paths": ["src/review/state-machine.js"], "negative_test_paths": ["test/review-state.test.js"] },
+    { "id": "bounded-model-input", "threat": "Unnecessary identifying information is sent to the configured model adapter.", "control": "An allowlist-based minimizer removes direct and nested identity fields before adapter invocation.", "required_paths": ["src/input/minimize.js"], "negative_test_paths": ["test/minimization.test.js"] }
+  ],
+  "negative_boundary_cases": [
+    { "id": "unauthorized-acceptance", "behavior": "Reject acceptance attempts that lack an authorized human reviewer.", "required_test_paths": ["test/review-state.test.js"] },
+    { "id": "missing-provenance", "behavior": "Escalate a suggestion that lacks source provenance or bounded evidence.", "required_test_paths": ["test/review-policy.test.js"] },
+    { "id": "nested-identity", "behavior": "Remove identifying values nested inside otherwise allowed input structures.", "required_test_paths": ["test/minimization.test.js"] }
+  ],
+  "operations": { "installation_paths": ["README.md"], "failure_paths": ["docs/runbook.md"], "recovery_paths": ["docs/runbook.md"] },
+  "track_evidence": { "status": "demonstrated", "rationale": "AI is essential to producing bounded review suggestions while human authority, provenance, minimization, and escalation remain explicit.", "required_paths": ["src/review/service.js", "docs/decisions/001-human-authority.md"] },
+  "known_limitations": [
+    { "id": "model-quality", "description": "The project cannot guarantee the factual quality or fairness of an externally configured model.", "affected_categories": ["security_by_design", "documentation_operations"] },
+    { "id": "domain-evaluation", "description": "Domain-specific outcome evaluation remains the responsibility of each deploying organization.", "affected_categories": ["testing_evidence", "documentation_operations"] }
+  ],
+  "excluded_runtime_claims": ["Whether the project builds or starts", "Whether tests pass", "Runtime correctness", "Performance, scaling, or reliability under load", "Runtime accessibility behavior", "Debugging ability", "Ability to extend the system safely", "Deployment correctness"]
+}

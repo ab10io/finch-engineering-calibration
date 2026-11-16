@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "fixture_slug": "secure-strong-token-gateway",
+  "methodology_version": "1.1",
+  "track": "secure-systems",
+  "intended_score_range": { "min": 84, "max": 96 },
+  "static_review_only": true,
+  "prose_only_requirements_allowed": false,
+  "category_targets": {
+    "design_reasoning": {
+      "target_rating": 4,
+      "rationale": "Token format, revocation, replay, and clock-skew decisions compare alternatives and define reconsideration triggers.",
+      "required_paths": ["docs/decisions/001-token-boundary.md", "src/gateway/authorize.js"],
+      "observable_requirements": [
+        { "id": "gateway-decision-record", "kind": "documentation", "description": "Compare stateful sessions and bounded signed tokens with explicit operational trade-offs.", "path": "docs/decisions/001-token-boundary.md" },
+        { "id": "gateway-decision-implementation", "kind": "implementation", "description": "Implement the selected verification and authorization boundary with explicit injected policies.", "path": "src/gateway/authorize.js" }
+      ]
+    },
+    "architecture_maintainability": {
+      "target_rating": 4,
+      "rationale": "Verification, authorization, replay control, rate policy, and audit output are isolated behind stable interfaces.",
+      "required_paths": ["src/gateway/authorize.js", "test/change-isolation.test.js"],
+      "observable_requirements": [
+        { "id": "gateway-composition", "kind": "implementation", "description": "Compose independently replaceable verification, replay, scope, and audit policies.", "path": "src/gateway/authorize.js" },
+        { "id": "gateway-change-isolation", "kind": "test", "description": "Demonstrate that a policy replacement does not bypass token verification invariants.", "path": "test/change-isolation.test.js" }
+      ]
+    },
+    "security_by_design": {
+      "target_rating": 4,
+      "rationale": "Threats including signature confusion, replay, scope escalation, timing leakage, and clock abuse map to controls.",
+      "required_paths": ["docs/security/threat-model.md", "src/token/verify.js", "src/gateway/replay-window.js"],
+      "observable_requirements": [
+        { "id": "gateway-threat-model", "kind": "documentation", "description": "Define assets, trust boundaries, attacks, controls, and residual operational risk.", "path": "docs/security/threat-model.md" },
+        { "id": "gateway-strict-verifier", "kind": "implementation", "description": "Reject algorithm confusion, malformed encoding, invalid time bounds, and signature mismatch.", "path": "src/token/verify.js" },
+        { "id": "gateway-replay-control", "kind": "implementation", "description": "Consume bounded token identifiers and reject reuse inside the configured replay window.", "path": "src/gateway/replay-window.js" }
+      ]
+    },
+    "testing_evidence": {
+      "target_rating": 4,
+      "rationale": "Risk-based tests cover malformed encodings, timing boundaries, replay races, scope escalation, and policy isolation.",
+      "required_paths": ["test/adversarial-token.test.js", "test/replay-boundary.test.js"],
+      "observable_requirements": [
+        { "id": "gateway-adversarial-tests", "kind": "test", "description": "Exercise malformed tokens, signature confusion, expiration, not-before, and scope escalation.", "path": "test/adversarial-token.test.js" },
+        { "id": "gateway-replay-tests", "kind": "test", "description": "Exercise duplicate identifiers, window expiry, capacity bounds, and concurrent consumption semantics.", "path": "test/replay-boundary.test.js" }
+      ]
+    },
+    "documentation_operations": {
+      "target_rating": 3,
+      "rationale": "Deployment-neutral integration, rotation, observable denial, incident containment, and recovery are documented.",
+      "required_paths": ["README.md", "docs/runbook.md"],
+      "observable_requirements": [
+        { "id": "gateway-integration-guide", "kind": "documentation", "description": "Document configuration, key identifiers, scope policy, and denial responses.", "path": "README.md" },
+        { "id": "gateway-incident-runbook", "kind": "documentation", "description": "Document key rotation, replay-store failure, containment, rollback, and audit handling.", "path": "docs/runbook.md" }
+      ]
+    },
+    "repository_hygiene": {
+      "target_rating": 4,
+      "rationale": "Pinned dependencies, license, CI policy, security disclosure, and contribution controls support maintenance.",
+      "required_paths": ["package-lock.json", "LICENSE", ".github/workflows/ci.yml", "SECURITY.md", "CONTRIBUTING.md"],
+      "observable_requirements": [
+        { "id": "gateway-lockfile", "kind": "policy", "description": "Commit deterministic dependency resolution for reproducible static review.", "path": "package-lock.json" },
+        { "id": "gateway-license", "kind": "policy", "description": "Publish a recognized license permitting use, modification, and redistribution.", "path": "LICENSE" },
+        { "id": "gateway-ci", "kind": "policy", "description": "Define lint, unit, and policy checks without asserting their execution outcome.", "path": ".github/workflows/ci.yml" },
+        { "id": "gateway-security-policy", "kind": "documentation", "description": "Provide private vulnerability reporting and supported-version boundaries.", "path": "SECURITY.md" },
+        { "id": "gateway-contributing", "kind": "documentation", "description": "Require tests and threat-model updates for security boundary changes.", "path": "CONTRIBUTING.md" }
+      ]
+    }
+  },
+  "implemented_safeguards": [
+    { "id": "strict-token-verification", "threat": "An attacker supplies a malformed or algorithm-confused token to bypass verification.", "control": "The verifier accepts one explicit algorithm and validates encoding, signature, issuer, audience, and time bounds.", "required_paths": ["src/token/verify.js"], "negative_test_paths": ["test/adversarial-token.test.js"] },
+    { "id": "bounded-replay-window", "threat": "A captured valid token is reused within its authorization lifetime.", "control": "A bounded replay store atomically consumes token identifiers until their expiration boundary.", "required_paths": ["src/gateway/replay-window.js"], "negative_test_paths": ["test/replay-boundary.test.js"] }
+  ],
+  "negative_boundary_cases": [
+    { "id": "algorithm-confusion", "behavior": "Reject tokens whose declared algorithm differs from the configured verifier.", "required_test_paths": ["test/adversarial-token.test.js"] },
+    { "id": "scope-escalation", "behavior": "Reject a valid token that lacks every scope required by the requested operation.", "required_test_paths": ["test/adversarial-token.test.js"] },
+    { "id": "replay-race", "behavior": "Allow only one successful consumption for the same token identifier.", "required_test_paths": ["test/replay-boundary.test.js"] }
+  ],
+  "operations": { "installation_paths": ["README.md"], "failure_paths": ["docs/runbook.md"], "recovery_paths": ["docs/runbook.md"] },
+  "track_evidence": { "status": "demonstrated", "rationale": "The product primarily prevents authorization bypass, token replay, and privilege escalation at a concrete security boundary.", "required_paths": ["src/gateway/authorize.js", "docs/security/threat-model.md"] },
+  "known_limitations": [
+    { "id": "store-boundary", "description": "The in-memory replay adapter must be replaced by an atomic shared store for multi-process use.", "affected_categories": ["architecture_maintainability", "documentation_operations"] },
+    { "id": "key-custody", "description": "Key generation and hardware-backed custody remain deployment responsibilities outside this library.", "affected_categories": ["security_by_design", "documentation_operations"] }
+  ],
+  "excluded_runtime_claims": ["Whether the project builds or starts", "Whether tests pass", "Runtime correctness", "Performance, scaling, or reliability under load", "Runtime accessibility behavior", "Debugging ability", "Ability to extend the system safely", "Deployment correctness"]
+}

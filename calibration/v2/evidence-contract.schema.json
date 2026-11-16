@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/ab10io/finch-engineering-calibration/calibration/v2/evidence-contract.schema.json",
+  "title": "Finch Engineering calibration evidence contract",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "fixture_slug",
+    "methodology_version",
+    "track",
+    "intended_score_range",
+    "static_review_only",
+    "prose_only_requirements_allowed",
+    "category_targets",
+    "implemented_safeguards",
+    "negative_boundary_cases",
+    "operations",
+    "track_evidence",
+    "known_limitations",
+    "excluded_runtime_claims"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "fixture_slug": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+    "methodology_version": { "const": "1.1" },
+    "track": { "type": "string" },
+    "intended_score_range": {
+      "type": "object",
+      "required": ["min", "max"],
+      "properties": { "min": { "type": "number" }, "max": { "type": "number" } }
+    },
+    "static_review_only": { "const": true },
+    "prose_only_requirements_allowed": { "const": false },
+    "category_targets": { "type": "object" },
+    "implemented_safeguards": { "type": "array", "minItems": 2 },
+    "negative_boundary_cases": { "type": "array", "minItems": 3 },
+    "operations": { "type": "object" },
+    "track_evidence": { "type": "object" },
+    "known_limitations": { "type": "array", "minItems": 2 },
+    "excluded_runtime_claims": { "type": "array", "minItems": 8, "maxItems": 8 }
+  }
+}

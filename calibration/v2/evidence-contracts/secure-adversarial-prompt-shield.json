@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "fixture_slug": "secure-adversarial-prompt-shield",
+  "methodology_version": "1.1",
+  "track": "secure-systems",
+  "intended_score_range": { "min": 70, "max": 86 },
+  "static_review_only": true,
+  "prose_only_requirements_allowed": false,
+  "category_targets": {
+    "design_reasoning": {
+      "target_rating": 3,
+      "rationale": "The project explains bounded detection and quarantine trade-offs without claiming complete prompt-injection prevention.",
+      "required_paths": ["docs/decisions/001-bounded-shield.md", "src/shield/policy.js"],
+      "observable_requirements": [
+        { "id": "shield-design-boundary", "kind": "documentation", "description": "Compare blocking, annotation, and quarantine while defining false-positive and bypass limits.", "path": "docs/decisions/001-bounded-shield.md" },
+        { "id": "shield-design-implementation", "kind": "implementation", "description": "Implement the selected allow, annotate, and quarantine outcomes with structured reasons.", "path": "src/shield/policy.js" }
+      ]
+    },
+    "architecture_maintainability": {
+      "target_rating": 3,
+      "rationale": "Normalization, signal detection, secret redaction, policy, and audit output remain separately testable.",
+      "required_paths": ["src/shield/pipeline.js"],
+      "observable_requirements": [{ "id": "shield-pipeline-boundaries", "kind": "implementation", "description": "Compose pure detection and redaction stages without allowing evidence text to become executable instruction.", "path": "src/shield/pipeline.js" }]
+    },
+    "security_by_design": {
+      "target_rating": 4,
+      "rationale": "The threat model treats indirect instructions and secret-shaped material as inert untrusted evidence.",
+      "required_paths": ["docs/security/threat-model.md", "src/shield/policy.js", "src/shield/redact.js"],
+      "observable_requirements": [
+        { "id": "shield-threat-model", "kind": "documentation", "description": "Map prompt influence, data exfiltration, encoding tricks, and audit tampering to bounded controls.", "path": "docs/security/threat-model.md" },
+        { "id": "shield-policy", "kind": "implementation", "description": "Classify untrusted content into allow, annotate, or quarantine outcomes using explicit reasons.", "path": "src/shield/policy.js" },
+        { "id": "shield-redaction", "kind": "implementation", "description": "Replace secret-shaped assignments before content reaches downstream assessment evidence.", "path": "src/shield/redact.js" }
+      ]
+    },
+    "testing_evidence": {
+      "target_rating": 4,
+      "rationale": "Adversarial tests cover direct and indirect instructions, encoded variants, false positives, and secret redaction.",
+      "required_paths": ["test/adversarial-corpus.test.js", "test/redaction.test.js"],
+      "observable_requirements": [
+        { "id": "shield-adversarial-corpus", "kind": "test", "description": "Exercise inert prompt text, obfuscation, contextual false positives, and unsupported language.", "path": "test/adversarial-corpus.test.js" },
+        { "id": "shield-redaction-tests", "kind": "test", "description": "Exercise credential assignments, benign identifiers, repeated secrets, and bounded output.", "path": "test/redaction.test.js" }
+      ]
+    },
+    "documentation_operations": {
+      "target_rating": 2,
+      "rationale": "Setup and triage are documented, while production tuning and multilingual response procedures remain intentionally limited.",
+      "required_paths": ["README.md", "docs/triage.md"],
+      "observable_requirements": [
+        { "id": "shield-setup", "kind": "documentation", "description": "Document bounded integration, signal meanings, and non-guarantees for operators.", "path": "README.md" },
+        { "id": "shield-triage", "kind": "documentation", "description": "Document review and release procedures for quarantined evidence.", "path": "docs/triage.md" }
+      ]
+    },
+    "repository_hygiene": {
+      "target_rating": 3,
+      "rationale": "The repository pins dependencies and includes licensing, automation, contribution, and security guidance.",
+      "required_paths": ["package-lock.json", "LICENSE", ".github/workflows/ci.yml", "SECURITY.md", "CONTRIBUTING.md"],
+      "observable_requirements": [
+        { "id": "shield-lockfile", "kind": "policy", "description": "Commit deterministic dependency metadata for reproducible inspection.", "path": "package-lock.json" },
+        { "id": "shield-license", "kind": "policy", "description": "Publish a recognized license granting reuse and modification rights.", "path": "LICENSE" },
+        { "id": "shield-ci", "kind": "policy", "description": "Define automated unit and adversarial corpus checks without runtime claims.", "path": ".github/workflows/ci.yml" },
+        { "id": "shield-security", "kind": "documentation", "description": "Document private reporting for bypass or redaction vulnerabilities.", "path": "SECURITY.md" },
+        { "id": "shield-contributing", "kind": "documentation", "description": "Require regression corpus additions for policy and detector changes.", "path": "CONTRIBUTING.md" }
+      ]
+    }
+  },
+  "implemented_safeguards": [
+    { "id": "inert-instruction-policy", "threat": "Repository content attempts to control the assessment process or override evaluation instructions.", "control": "The pipeline labels instruction-like evidence and returns structured reasons without executing or forwarding it as authority.", "required_paths": ["src/shield/policy.js"], "negative_test_paths": ["test/adversarial-corpus.test.js"] },
+    { "id": "secret-shaped-redaction", "threat": "A committed fake or real credential assignment is copied into downstream evidence or output.", "control": "Credential-shaped values are replaced with typed redaction markers while paths and signal kinds remain auditable.", "required_paths": ["src/shield/redact.js"], "negative_test_paths": ["test/redaction.test.js"] }
+  ],
+  "negative_boundary_cases": [
+    { "id": "embedded-score-command", "behavior": "Quarantine text that instructs an evaluator to award a maximum score.", "required_test_paths": ["test/adversarial-corpus.test.js"] },
+    { "id": "benign-security-doc", "behavior": "Annotate rather than blindly quarantine a defensive document quoting an attack.", "required_test_paths": ["test/adversarial-corpus.test.js"] },
+    { "id": "credential-assignment", "behavior": "Redact a secret-shaped assignment while preserving its evidence location.", "required_test_paths": ["test/redaction.test.js"] }
+  ],
+  "operations": { "installation_paths": ["README.md"], "failure_paths": ["docs/triage.md"], "recovery_paths": ["docs/triage.md"] },
+  "track_evidence": { "status": "demonstrated", "rationale": "The product primarily detects, contains, and supports investigation of prompt influence and secret-exfiltration threats.", "required_paths": ["src/shield/pipeline.js", "docs/security/threat-model.md"] },
+  "known_limitations": [
+    { "id": "semantic-bypass", "description": "Heuristic signals cannot establish that all semantically equivalent indirect instructions are detected.", "affected_categories": ["security_by_design", "documentation_operations"] },
+    { "id": "language-coverage", "description": "The committed adversarial corpus intentionally provides incomplete non-English coverage.", "affected_categories": ["testing_evidence", "documentation_operations"] }
+  ],
+  "excluded_runtime_claims": ["Whether the project builds or starts", "Whether tests pass", "Runtime correctness", "Performance, scaling, or reliability under load", "Runtime accessibility behavior", "Debugging ability", "Ability to extend the system safely", "Deployment correctness"]
+}

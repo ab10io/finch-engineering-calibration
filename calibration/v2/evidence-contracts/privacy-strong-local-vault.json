@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "fixture_slug": "privacy-strong-local-vault",
+  "methodology_version": "1.1",
+  "track": "privacy-by-design",
+  "intended_score_range": { "min": 82, "max": 94 },
+  "static_review_only": true,
+  "prose_only_requirements_allowed": false,
+  "category_targets": {
+    "design_reasoning": {
+      "target_rating": 4,
+      "rationale": "Local-first custody, recovery, and metadata trade-offs are compared and traced to code boundaries.",
+      "required_paths": ["docs/decisions/001-local-custody.md", "src/vault/service.js"],
+      "observable_requirements": [
+        { "id": "vault-decision-trace", "kind": "documentation", "description": "Compare credible custody alternatives and map the selected constraints to implementation modules.", "path": "docs/decisions/001-local-custody.md" },
+        { "id": "vault-decision-implementation", "kind": "implementation", "description": "Implement local custody, bounded retention, and explicit recovery through the selected service boundary.", "path": "src/vault/service.js" }
+      ]
+    },
+    "architecture_maintainability": {
+      "target_rating": 3,
+      "rationale": "Cryptography, persistence, policy, and recovery responsibilities have stable isolated interfaces.",
+      "required_paths": ["src/vault/service.js"],
+      "observable_requirements": [{ "id": "vault-module-boundaries", "kind": "implementation", "description": "Compose encryption, storage, retention policy, and recovery through explicit injected interfaces.", "path": "src/vault/service.js" }]
+    },
+    "security_by_design": {
+      "target_rating": 4,
+      "rationale": "A concrete threat model maps local disclosure, tampering, and rollback threats to implemented controls.",
+      "required_paths": ["docs/security/threat-model.md", "src/vault/envelope.js"],
+      "observable_requirements": [
+        { "id": "vault-threat-model", "kind": "documentation", "description": "Map assets and trust boundaries to mitigations and explicit residual risks.", "path": "docs/security/threat-model.md" },
+        { "id": "vault-authenticated-envelope", "kind": "implementation", "description": "Authenticate encrypted envelopes and reject tampered or version-incompatible records.", "path": "src/vault/envelope.js" }
+      ]
+    },
+    "testing_evidence": {
+      "target_rating": 3,
+      "rationale": "Committed tests cover tampering, invalid keys, retention boundaries, recovery, and deterministic fixtures.",
+      "required_paths": ["test/vault-adversarial.test.js"],
+      "observable_requirements": [{ "id": "vault-negative-tests", "kind": "test", "description": "Exercise tampered envelopes, incorrect keys, expired records, and invalid recovery inputs.", "path": "test/vault-adversarial.test.js" }]
+    },
+    "documentation_operations": {
+      "target_rating": 3,
+      "rationale": "Installation, offline operation, observable failures, backup, and recovery procedures are documented.",
+      "required_paths": ["README.md", "docs/runbook.md"],
+      "observable_requirements": [
+        { "id": "vault-install-guide", "kind": "documentation", "description": "Document prerequisites, local configuration, normal usage, and privacy boundaries.", "path": "README.md" },
+        { "id": "vault-recovery-runbook", "kind": "documentation", "description": "Document diagnosis, backup verification, rollback, and recovery failure procedures.", "path": "docs/runbook.md" }
+      ]
+    },
+    "repository_hygiene": {
+      "target_rating": 4,
+      "rationale": "The repository pins dependencies and publishes licensing, automation, contribution, and security policies.",
+      "required_paths": ["package-lock.json", "LICENSE", ".github/workflows/ci.yml", "CONTRIBUTING.md"],
+      "observable_requirements": [
+        { "id": "vault-lockfile", "kind": "policy", "description": "Commit a deterministic dependency lock for reproducible review.", "path": "package-lock.json" },
+        { "id": "vault-license", "kind": "policy", "description": "Grant recognized permission to use, modify, and redistribute the project.", "path": "LICENSE" },
+        { "id": "vault-ci-policy", "kind": "policy", "description": "Define scoped automated checks without claiming that they ran successfully.", "path": ".github/workflows/ci.yml" },
+        { "id": "vault-contribution-policy", "kind": "documentation", "description": "Document contribution boundaries, review expectations, and security-sensitive changes.", "path": "CONTRIBUTING.md" }
+      ]
+    }
+  },
+  "implemented_safeguards": [
+    { "id": "authenticated-envelopes", "threat": "An attacker modifies ciphertext or envelope metadata on local storage.", "control": "Authenticated encryption binds version and record metadata before any plaintext is returned.", "required_paths": ["src/vault/envelope.js"], "negative_test_paths": ["test/vault-adversarial.test.js"] },
+    { "id": "retention-enforcement", "threat": "Expired sensitive records remain readable beyond the user-selected retention window.", "control": "The service checks retention policy before decrypting and exposes an explicit purge operation.", "required_paths": ["src/vault/service.js"], "negative_test_paths": ["test/vault-adversarial.test.js"] }
+  ],
+  "negative_boundary_cases": [
+    { "id": "tampered-envelope", "behavior": "Reject any envelope whose authenticated bytes or metadata changed.", "required_test_paths": ["test/vault-adversarial.test.js"] },
+    { "id": "wrong-key", "behavior": "Return a bounded authentication error for an incorrect key.", "required_test_paths": ["test/vault-adversarial.test.js"] },
+    { "id": "expired-record", "behavior": "Refuse disclosure after the configured retention boundary.", "required_test_paths": ["test/vault-adversarial.test.js"] }
+  ],
+  "operations": { "installation_paths": ["README.md"], "failure_paths": ["docs/runbook.md"], "recovery_paths": ["docs/runbook.md"] },
+  "track_evidence": { "status": "demonstrated", "rationale": "The product primarily minimizes disclosure through local custody, authenticated storage, retention, and explicit recovery controls.", "required_paths": ["src/vault/service.js", "docs/security/threat-model.md"] },
+  "known_limitations": [
+    { "id": "memory-exposure", "description": "Plaintext necessarily exists briefly in process memory during an authorized read.", "affected_categories": ["security_by_design"] },
+    { "id": "device-compromise", "description": "The project does not protect an unlocked device controlled by a privileged attacker.", "affected_categories": ["security_by_design", "documentation_operations"] }
+  ],
+  "excluded_runtime_claims": ["Whether the project builds or starts", "Whether tests pass", "Runtime correctness", "Performance, scaling, or reliability under load", "Runtime accessibility behavior", "Debugging ability", "Ability to extend the system safely", "Deployment correctness"]
+}

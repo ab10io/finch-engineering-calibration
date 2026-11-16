@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "fixture_slug": "oss-strong-plugin-kit",
+  "methodology_version": "1.1",
+  "track": "open-source-developer-tools",
+  "intended_score_range": { "min": 84, "max": 96 },
+  "static_review_only": true,
+  "prose_only_requirements_allowed": false,
+  "category_targets": {
+    "design_reasoning": {
+      "target_rating": 4,
+      "rationale": "The plugin protocol compares in-process and isolated execution and defines compatibility and deprecation trade-offs.",
+      "required_paths": ["docs/decisions/001-plugin-protocol.md", "src/host/plugin-host.js"],
+      "observable_requirements": [
+        { "id": "plugin-protocol-decision", "kind": "documentation", "description": "Compare plugin loading alternatives and trace compatibility, trust, and migration decisions.", "path": "docs/decisions/001-plugin-protocol.md" },
+        { "id": "plugin-protocol-implementation", "kind": "implementation", "description": "Implement the selected versioned protocol and bounded lifecycle through the public host interface.", "path": "src/host/plugin-host.js" }
+      ]
+    },
+    "architecture_maintainability": {
+      "target_rating": 4,
+      "rationale": "Discovery, manifest validation, capability policy, lifecycle, and diagnostics use stable public interfaces.",
+      "required_paths": ["src/host/plugin-host.js", "src/protocol/manifest.js", "test/compatibility.test.js"],
+      "observable_requirements": [
+        { "id": "plugin-host-boundary", "kind": "implementation", "description": "Coordinate plugins only through versioned manifests and bounded lifecycle hooks.", "path": "src/host/plugin-host.js" },
+        { "id": "plugin-manifest-contract", "kind": "implementation", "description": "Validate protocol version, identifiers, capabilities, and lifecycle declarations.", "path": "src/protocol/manifest.js" },
+        { "id": "plugin-compatibility-tests", "kind": "test", "description": "Exercise compatible, deprecated, unknown, and malformed protocol versions.", "path": "test/compatibility.test.js" }
+      ]
+    },
+    "security_by_design": {
+      "target_rating": 3,
+      "rationale": "The kit treats plugins as untrusted and gates declared capabilities while clearly documenting in-process limits.",
+      "required_paths": ["docs/security/threat-model.md", "src/host/capability-policy.js"],
+      "observable_requirements": [
+        { "id": "plugin-threat-model", "kind": "documentation", "description": "Map malicious manifests, capability escalation, lifecycle failure, and supply-chain risk to controls.", "path": "docs/security/threat-model.md" },
+        { "id": "plugin-capability-policy", "kind": "implementation", "description": "Deny undeclared or host-forbidden capabilities before plugin initialization.", "path": "src/host/capability-policy.js" }
+      ]
+    },
+    "testing_evidence": {
+      "target_rating": 4,
+      "rationale": "Tests cover protocol compatibility, capability denial, lifecycle rollback, malformed plugins, and deterministic diagnostics.",
+      "required_paths": ["test/compatibility.test.js", "test/capability-policy.test.js", "test/lifecycle-failure.test.js"],
+      "observable_requirements": [
+        { "id": "plugin-version-tests", "kind": "test", "description": "Exercise supported, deprecated, future, and malformed manifest versions.", "path": "test/compatibility.test.js" },
+        { "id": "plugin-capability-tests", "kind": "test", "description": "Exercise undeclared, forbidden, duplicated, and empty capability requests.", "path": "test/capability-policy.test.js" },
+        { "id": "plugin-lifecycle-tests", "kind": "test", "description": "Exercise initialization failure, reverse-order cleanup, and bounded diagnostic output.", "path": "test/lifecycle-failure.test.js" }
+      ]
+    },
+    "documentation_operations": {
+      "target_rating": 4,
+      "rationale": "Consumer installation, authoring, compatibility, diagnostics, migration, failure, and recovery guidance are complete.",
+      "required_paths": ["README.md", "docs/authoring.md", "docs/runbook.md", "docs/migration.md"],
+      "observable_requirements": [
+        { "id": "plugin-consumer-guide", "kind": "documentation", "description": "Document installation, host configuration, discovery, and diagnostic interpretation.", "path": "README.md" },
+        { "id": "plugin-author-guide", "kind": "documentation", "description": "Document manifest fields, lifecycle hooks, capability requests, and test fixtures.", "path": "docs/authoring.md" },
+        { "id": "plugin-runbook", "kind": "documentation", "description": "Document failed initialization, quarantine, rollback, cleanup, and recovery.", "path": "docs/runbook.md" },
+        { "id": "plugin-migration-guide", "kind": "documentation", "description": "Document protocol deprecation, compatibility windows, and consumer migration steps.", "path": "docs/migration.md" }
+      ]
+    },
+    "repository_hygiene": {
+      "target_rating": 4,
+      "rationale": "The reusable package includes a recognized license, locks, CI, release provenance, contribution, and security policies.",
+      "required_paths": ["package-lock.json", "LICENSE", ".github/workflows/ci.yml", ".github/workflows/release.yml", "CONTRIBUTING.md", "SECURITY.md"],
+      "observable_requirements": [
+        { "id": "plugin-lockfile", "kind": "policy", "description": "Commit deterministic dependency resolution for reproducible package review.", "path": "package-lock.json" },
+        { "id": "plugin-license", "kind": "policy", "description": "Publish a recognized open-source license permitting use, modification, and redistribution.", "path": "LICENSE" },
+        { "id": "plugin-ci", "kind": "policy", "description": "Define unit, compatibility, and package checks without claiming execution success.", "path": ".github/workflows/ci.yml" },
+        { "id": "plugin-release", "kind": "policy", "description": "Define tagged release provenance and immutable package publication inputs.", "path": ".github/workflows/release.yml" },
+        { "id": "plugin-contributing", "kind": "documentation", "description": "Document compatibility, tests, changesets, and review expectations.", "path": "CONTRIBUTING.md" },
+        { "id": "plugin-security", "kind": "documentation", "description": "Document supported versions and private vulnerability disclosure.", "path": "SECURITY.md" }
+      ]
+    }
+  },
+  "implemented_safeguards": [
+    { "id": "capability-denial", "threat": "A plugin requests undeclared or host-forbidden access during initialization.", "control": "The host intersects manifest declarations with an explicit host allowlist before invoking lifecycle hooks.", "required_paths": ["src/host/capability-policy.js"], "negative_test_paths": ["test/capability-policy.test.js"] },
+    { "id": "lifecycle-rollback", "threat": "A partially initialized plugin leaves earlier resources active after a later hook fails.", "control": "The host records completed hooks and invokes bounded reverse-order cleanup after initialization failure.", "required_paths": ["src/host/plugin-host.js"], "negative_test_paths": ["test/lifecycle-failure.test.js"] }
+  ],
+  "negative_boundary_cases": [
+    { "id": "future-protocol", "behavior": "Reject a plugin manifest using an unsupported future protocol version.", "required_test_paths": ["test/compatibility.test.js"] },
+    { "id": "forbidden-capability", "behavior": "Reject plugin initialization when a requested capability is forbidden by the host.", "required_test_paths": ["test/capability-policy.test.js"] },
+    { "id": "partial-initialization", "behavior": "Clean up completed lifecycle hooks after a later initialization hook fails.", "required_test_paths": ["test/lifecycle-failure.test.js"] }
+  ],
+  "operations": { "installation_paths": ["README.md"], "failure_paths": ["docs/runbook.md"], "recovery_paths": ["docs/runbook.md", "docs/migration.md"] },
+  "track_evidence": { "status": "demonstrated", "rationale": "The project is a reusable, documented, licensed developer toolkit with a stable plugin surface and credible adoption path.", "required_paths": ["src/host/plugin-host.js", "README.md", "LICENSE"] },
+  "known_limitations": [
+    { "id": "process-isolation", "description": "The reference host validates capabilities but does not provide operating-system process isolation.", "affected_categories": ["security_by_design", "documentation_operations"] },
+    { "id": "registry-verification", "description": "Package registry signature and publisher identity verification remain consumer responsibilities.", "affected_categories": ["security_by_design", "repository_hygiene"] }
+  ],
+  "excluded_runtime_claims": ["Whether the project builds or starts", "Whether tests pass", "Runtime correctness", "Performance, scaling, or reliability under load", "Runtime accessibility behavior", "Debugging ability", "Ability to extend the system safely", "Deployment correctness"]
+}

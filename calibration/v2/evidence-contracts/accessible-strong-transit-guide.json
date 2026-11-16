@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "fixture_slug": "accessible-strong-transit-guide",
+  "methodology_version": "1.1",
+  "track": "accessible-inclusive-technology",
+  "intended_score_range": { "min": 80, "max": 94 },
+  "static_review_only": true,
+  "prose_only_requirements_allowed": false,
+  "category_targets": {
+    "design_reasoning": {
+      "target_rating": 4,
+      "rationale": "The project traces research constraints and multimodal alternatives into explicit route-instruction and disruption behavior.",
+      "required_paths": ["docs/decisions/001-access-needs.md", "src/guide/build-guide.js"],
+      "observable_requirements": [
+        { "id": "transit-access-decisions", "kind": "documentation", "description": "Compare visual, auditory, reduced-motion, low-connectivity, and cognitive-load alternatives with limitations.", "path": "docs/decisions/001-access-needs.md" },
+        { "id": "transit-access-implementation", "kind": "implementation", "description": "Implement the selected multimodal guidance and preference boundaries without changing route facts.", "path": "src/guide/build-guide.js" }
+      ]
+    },
+    "architecture_maintainability": {
+      "target_rating": 4,
+      "rationale": "Route facts, access preferences, instruction generation, disruption policy, and semantic rendering are isolated.",
+      "required_paths": ["src/guide/build-guide.js", "test/change-isolation.test.js"],
+      "observable_requirements": [
+        { "id": "transit-guide-composition", "kind": "implementation", "description": "Compose normalized route facts and access preferences without coupling output channels.", "path": "src/guide/build-guide.js" },
+        { "id": "transit-change-isolation", "kind": "test", "description": "Demonstrate that a presentation preference does not alter route safety facts.", "path": "test/change-isolation.test.js" }
+      ]
+    },
+    "security_by_design": {
+      "target_rating": 3,
+      "rationale": "The project minimizes saved access preferences, validates untrusted route data, and avoids exposing sensitive location history.",
+      "required_paths": ["docs/security/privacy-model.md", "src/input/validate-route.js"],
+      "observable_requirements": [
+        { "id": "transit-privacy-model", "kind": "documentation", "description": "Map location and access-preference sensitivity to minimization and retention boundaries.", "path": "docs/security/privacy-model.md" },
+        { "id": "transit-route-validation", "kind": "implementation", "description": "Reject malformed route facts and unsafe external text before instruction generation.", "path": "src/input/validate-route.js" }
+      ]
+    },
+    "testing_evidence": {
+      "target_rating": 4,
+      "rationale": "Tests cover missing landmarks, elevator outages, contradictory data, reduced motion, screen-reader ordering, and offline fallback.",
+      "required_paths": ["test/access-needs.test.js", "test/disruption-boundaries.test.js"],
+      "observable_requirements": [
+        { "id": "transit-access-tests", "kind": "test", "description": "Exercise instruction ordering and content for multiple explicit access preferences.", "path": "test/access-needs.test.js" },
+        { "id": "transit-disruption-tests", "kind": "test", "description": "Exercise elevator outages, missing facts, conflicting disruptions, and bounded fallback behavior.", "path": "test/disruption-boundaries.test.js" }
+      ]
+    },
+    "documentation_operations": {
+      "target_rating": 3,
+      "rationale": "Installation, data preparation, access-preference behavior, degraded operation, and correction procedures are documented.",
+      "required_paths": ["README.md", "docs/runbook.md"],
+      "observable_requirements": [
+        { "id": "transit-usage-guide", "kind": "documentation", "description": "Document supported access needs, input contract, output channels, and runtime non-guarantees.", "path": "README.md" },
+        { "id": "transit-correction-runbook", "kind": "documentation", "description": "Document stale-data diagnosis, outage response, correction, rollback, and recovery.", "path": "docs/runbook.md" }
+      ]
+    },
+    "repository_hygiene": {
+      "target_rating": 3,
+      "rationale": "Pinned dependencies, license, CI, inclusive contribution guidance, and accessibility issue templates are committed.",
+      "required_paths": ["package-lock.json", "LICENSE", ".github/workflows/ci.yml", "CONTRIBUTING.md", ".github/ISSUE_TEMPLATE/accessibility.yml"],
+      "observable_requirements": [
+        { "id": "transit-lockfile", "kind": "policy", "description": "Commit deterministic dependency resolution for reproducible inspection.", "path": "package-lock.json" },
+        { "id": "transit-license", "kind": "policy", "description": "Publish a recognized license granting reuse and modification rights.", "path": "LICENSE" },
+        { "id": "transit-ci", "kind": "policy", "description": "Define unit and static accessibility checks without asserting runtime conformance.", "path": ".github/workflows/ci.yml" },
+        { "id": "transit-contribution", "kind": "documentation", "description": "Document inclusive research, review, and regression expectations for contributors.", "path": "CONTRIBUTING.md" },
+        { "id": "transit-access-issues", "kind": "policy", "description": "Collect access context and impact without requiring sensitive medical disclosure.", "path": ".github/ISSUE_TEMPLATE/accessibility.yml" }
+      ]
+    }
+  },
+  "implemented_safeguards": [
+    { "id": "route-input-validation", "threat": "Malformed or injected route data produces misleading or unsafe instructions.", "control": "A strict validator bounds route facts, rejects external markup, and requires safety-critical fields.", "required_paths": ["src/input/validate-route.js"], "negative_test_paths": ["test/disruption-boundaries.test.js"] },
+    { "id": "preference-minimization", "threat": "Sensitive access preferences or location history are retained beyond guide generation.", "control": "The guide accepts bounded preferences per request and emits no persistent identity or history fields.", "required_paths": ["src/guide/build-guide.js"], "negative_test_paths": ["test/access-needs.test.js"] }
+  ],
+  "negative_boundary_cases": [
+    { "id": "elevator-outage", "behavior": "Mark an inaccessible path unavailable and produce a bounded alternative when facts permit.", "required_test_paths": ["test/disruption-boundaries.test.js"] },
+    { "id": "missing-landmark", "behavior": "Avoid inventing landmarks and retain step ordering with explicit uncertainty.", "required_test_paths": ["test/access-needs.test.js"] },
+    { "id": "unsafe-route-text", "behavior": "Reject route text containing markup or unsupported executable content.", "required_test_paths": ["test/disruption-boundaries.test.js"] }
+  ],
+  "operations": { "installation_paths": ["README.md"], "failure_paths": ["docs/runbook.md"], "recovery_paths": ["docs/runbook.md"] },
+  "track_evidence": { "status": "demonstrated", "rationale": "The product primarily improves transit autonomy for defined visual, mobility, cognitive-load, and connectivity access needs.", "required_paths": ["src/guide/build-guide.js", "docs/decisions/001-access-needs.md"] },
+  "known_limitations": [
+    { "id": "runtime-assistive-tech", "description": "Static evidence cannot verify behavior with every browser and assistive-technology combination.", "affected_categories": ["testing_evidence", "documentation_operations"] },
+    { "id": "source-data-quality", "description": "Generated guidance remains constrained by the accuracy and timeliness of supplied transit facts.", "affected_categories": ["security_by_design", "documentation_operations"] }
+  ],
+  "excluded_runtime_claims": ["Whether the project builds or starts", "Whether tests pass", "Runtime correctness", "Performance, scaling, or reliability under load", "Runtime accessibility behavior", "Debugging ability", "Ability to extend the system safely", "Deployment correctness"]
+}
