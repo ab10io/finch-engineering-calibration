@@ -1,0 +1,358 @@
+{
+  "fixture_slug": "age-secure-encryption",
+  "run": 1,
+  "model": "gpt-6.1-sol",
+  "critic_model": "gpt-6.1-terra",
+  "prompt_version": "holdout-1.0",
+  "snapshot_hash": "5f50880410d0cce3799b7a486acefb865bf6cb9a0ca6f2dc844ff9fcdf3b3bdb",
+  "recorded_at": "2026-11-16",
+  "accepted": false,
+  "validation": {
+    "production_schema_valid": true,
+    "critic_valid": false,
+    "errors": [
+      "documentation_operations rates operational_clarity at 2, whose category anchor requires documented installation and primary operation. The cited evidence documents operation but does not establish installation guidance, as the finding itself acknowledges."
+    ]
+  },
+  "assessment": {
+    "categories": {
+      "design_reasoning": {
+        "score": 12.5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "alternatives_and_tradeoffs",
+            "rating": 2,
+            "points_available": 25,
+            "points_awarded": 12.5,
+            "confidence": "medium",
+            "summary": "Explicit recipient and identity interfaces support custom implementations, while key-management guidance favors task-specific keys over a global keyring and distinguishes native keys from SSH compatibility.",
+            "limitations": "The submission describes alternatives and reconsideration conditions, but the sampled evidence does not consistently trace a selected comparative trade-off through implementation and tests.",
+            "evidence": [
+              {
+                "evidence_id": "f2a8663962509f449a4bc3b1e5792e6f064b553d1f603a0cac1e33abb434fb19",
+                "path": "age.go",
+                "start_line": 16,
+                "end_line": 35,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "f2a8663962509f449a4bc3b1e5792e6f064b553d1f603a0cac1e33abb434fb19",
+                "path": "age.go",
+                "start_line": 62,
+                "end_line": 86,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "1160c12b5c62c260f3239e1f73a9219d1590fdb97d14664bbe6f0c87db70c4cd",
+                "path": "submission://design_decisions",
+                "start_line": 1,
+                "end_line": 1,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "architecture_maintainability": {
+        "score": 15,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "boundaries_and_coupling",
+            "rating": 3,
+            "points_available": 20,
+            "points_awarded": 15,
+            "confidence": "medium",
+            "summary": "Recipient and identity contracts separate key wrapping from callers and distinguish identity mismatch from fatal errors. A substituted test plugin and command fixtures demonstrate adapter isolation, including missing-plugin failure cases.",
+            "limitations": "Committed tests demonstrate intended isolation, not execution success. Truncated core and plugin implementation excerpts limit assessment of broader failure containment.",
+            "evidence": [
+              {
+                "evidence_id": "f2a8663962509f449a4bc3b1e5792e6f064b553d1f603a0cac1e33abb434fb19",
+                "path": "age.go",
+                "start_line": 62,
+                "end_line": 86,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "2d6d21f80db634301045dd8df74968ee5bcd98e7e1c54930a60e13d7dc549f87",
+                "path": "cmd/age/age_test.go",
+                "start_line": 21,
+                "end_line": 54,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "362a64e974ecd2e23c6cbd57dd4c3776aca5242bcc3c89700dc1c7cab33129bc",
+                "path": "cmd/age/testdata/plugin.txt",
+                "start_line": 1,
+                "end_line": 26,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "security_by_design": {
+        "score": 15,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "threat_model_and_mitigations",
+            "rating": 3,
+            "points_available": 20,
+            "points_awarded": 15,
+            "confidence": "medium",
+            "summary": "The bounded threat statement addresses disclosure and tampering while acknowledging endpoint and key-handling limits. Implementation uses AEAD decryption and recipient-file size limits, suppresses potentially confidential parsing details, and has negative tests for oversized input and authentication failure without output destruction.",
+            "limitations": "Static excerpts and committed tests do not validate cryptographic correctness or operational key management. Some authentication implementation is truncated.",
+            "evidence": [
+              {
+                "evidence_id": "8410dc993f901b0ba5b210f9bd2717aaec3d1e53a7503f14670c3889413a9ee8",
+                "path": "submission://security_threat",
+                "start_line": 1,
+                "end_line": 1,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "649dede414fe50b914bf145ae074d2c9a83992a47b1fc05abe31b17c4cca41f4",
+                "path": "internal/stream/stream.go",
+                "start_line": 67,
+                "end_line": 73,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "649dede414fe50b914bf145ae074d2c9a83992a47b1fc05abe31b17c4cca41f4",
+                "path": "internal/stream/stream.go",
+                "start_line": 141,
+                "end_line": 148,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "9b63c39071825a9d325b7dc2ce6034f887d687ee6a841910dd43ead14e982e6a",
+                "path": "cmd/age/parse.go",
+                "start_line": 73,
+                "end_line": 116,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "2d6d21f80db634301045dd8df74968ee5bcd98e7e1c54930a60e13d7dc549f87",
+                "path": "cmd/age/age_test.go",
+                "start_line": 71,
+                "end_line": 118,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "9da49ffed0a7d77e0b6d2326b49c04c1eda0b75edc4a041575262a1fd9c483ba",
+                "path": "cmd/age/testdata/output_file.txt",
+                "start_line": 28,
+                "end_line": 35,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "testing_evidence": {
+        "score": 11.25,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "test_strategy_and_coverage",
+            "rating": 3,
+            "points_available": 15,
+            "points_awarded": 11.25,
+            "confidence": "medium",
+            "summary": "Committed tests assert parser acceptance at size limits and rejection above them, invalid serialization without partial output, and command-level handling of wrong identities, corrupted payloads, output-creation failures, and input/output aliasing.",
+            "limitations": "Tests were not executed. Bounded excerpts do not establish comprehensive coverage or deterministic isolation across the entire cryptographic and command surface.",
+            "evidence": [
+              {
+                "evidence_id": "2d6d21f80db634301045dd8df74968ee5bcd98e7e1c54930a60e13d7dc549f87",
+                "path": "cmd/age/age_test.go",
+                "start_line": 71,
+                "end_line": 118,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "aec944ef7c7f4ad71db4fc9091d1d66be7369a2997ae341ca08033b1c4c466fe",
+                "path": "internal/format/format_test.go",
+                "start_line": 48,
+                "end_line": 73,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "9da49ffed0a7d77e0b6d2326b49c04c1eda0b75edc4a041575262a1fd9c483ba",
+                "path": "cmd/age/testdata/output_file.txt",
+                "start_line": 1,
+                "end_line": 60,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "documentation_operations": {
+        "score": 5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "operational_clarity",
+            "rating": 2,
+            "points_available": 10,
+            "points_awarded": 5,
+            "confidence": "medium",
+            "summary": "Manual excerpts explain encryption and decryption modes, recipient configuration, output overwrite behavior, terminal restrictions, and key generation and recipient extraction. API documentation explains key storage and backward-compatibility limits.",
+            "limitations": "Sampled evidence does not establish complete installation guidance, failure diagnosis, or recovery procedures; missing excerpts are uncertainty rather than evidence of absence.",
+            "evidence": [
+              {
+                "evidence_id": "7103dc3028d5e689ae85c5faa3991275b52883e41d671dfa4c625ea43538cb35",
+                "path": "doc/age.1.ronn",
+                "start_line": 4,
+                "end_line": 68,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "ddf1b21d0ae992a6e83b273ac4d1461bda0a108a271a575332bbd120d618ca36",
+                "path": "doc/age-keygen.1.ronn",
+                "start_line": 9,
+                "end_line": 32,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "f2a8663962509f449a4bc3b1e5792e6f064b553d1f603a0cac1e33abb434fb19",
+                "path": "age.go",
+                "start_line": 16,
+                "end_line": 45,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "repository_hygiene": {
+        "score": 7.5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "dependency_and_repository_hygiene",
+            "rating": 3,
+            "points_available": 10,
+            "points_awarded": 7.5,
+            "confidence": "medium",
+            "summary": "Versioned Go dependencies and checksums accompany BSD-3-Clause licensing and explicit contribution policy. Workflows configure cross-platform race tests, vulnerability checks, licensed release packaging, scoped release permissions, and artifact provenance attestations.",
+            "limitations": "Workflow configuration does not establish successful enforcement or release provenance. Referenced actions use version tags, and some checking tools use latest versions; comprehensive dependency review and security-reporting governance are not established by these excerpts.",
+            "evidence": [
+              {
+                "evidence_id": "d62da4efb2f806ad4327e34bc263fe6520a333a637245dd33a3050b65059e653",
+                "path": "go.mod",
+                "start_line": 1,
+                "end_line": 22,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "0ef4e15c9585f363b5f587a4280ca93dc8ba427d8c4f8c334a4396e073d59a47",
+                "path": "go.sum",
+                "start_line": 1,
+                "end_line": 18,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "db68e5bdbb4009e79483739c69fa23e1e933f0f9216fdc4c907be3f2d3c5e401",
+                "path": "LICENSE",
+                "start_line": 1,
+                "end_line": 29,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "731813b3f6bb16ffb08a2c04487fadeddc8d2f13342adc88a8815b98e5ee459b",
+                "path": ".github/CONTRIBUTING.md",
+                "start_line": 1,
+                "end_line": 15,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "3667f864a0f0a37de4898e7f4130a8d75cacf639abe50120cb9b3badc210f265",
+                "path": ".github/workflows/test.yml",
+                "start_line": 1,
+                "end_line": 75,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "87533f74a85f36acbb865597ec8290b6f75b5c79c605d678d3adc55fc53ae20d",
+                "path": ".github/workflows/build.yml",
+                "start_line": 35,
+                "end_line": 58,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "87533f74a85f36acbb865597ec8290b6f75b5c79c605d678d3adc55fc53ae20d",
+                "path": ".github/workflows/build.yml",
+                "start_line": 91,
+                "end_line": 114,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "core_score": 66.25,
+    "confidence": "medium",
+    "track_alignment": {
+      "status": "demonstrated",
+      "summary": "File encryption is the primary purpose, addressing unauthorized disclosure and tampering through recipient-based key interfaces and authenticated payload processing. Committed tests cover encryption/decryption and rejection of corrupted payloads.",
+      "evidence": [
+        {
+          "evidence_id": "f2a8663962509f449a4bc3b1e5792e6f064b553d1f603a0cac1e33abb434fb19",
+          "path": "age.go",
+          "start_line": 5,
+          "end_line": 14,
+          "symbol": ""
+        },
+        {
+          "evidence_id": "f2a8663962509f449a4bc3b1e5792e6f064b553d1f603a0cac1e33abb434fb19",
+          "path": "age.go",
+          "start_line": 62,
+          "end_line": 86,
+          "symbol": ""
+        },
+        {
+          "evidence_id": "649dede414fe50b914bf145ae074d2c9a83992a47b1fc05abe31b17c4cca41f4",
+          "path": "internal/stream/stream.go",
+          "start_line": 141,
+          "end_line": 148,
+          "symbol": ""
+        },
+        {
+          "evidence_id": "542d2e8a1afe0934e72126d35c288ed643dc35d4cd761d50005b2c5510ea4574",
+          "path": "age_test.go",
+          "start_line": 128,
+          "end_line": 160,
+          "symbol": ""
+        },
+        {
+          "evidence_id": "9da49ffed0a7d77e0b6d2326b49c04c1eda0b75edc4a041575262a1fd9c483ba",
+          "path": "cmd/age/testdata/output_file.txt",
+          "start_line": 28,
+          "end_line": 35,
+          "symbol": ""
+        }
+      ],
+      "questions_for_organizer": []
+    },
+    "not_tested": [
+      "Whether the project builds or starts",
+      "Whether tests pass",
+      "Runtime correctness",
+      "Performance, scaling, or reliability under load",
+      "Runtime accessibility behavior",
+      "Debugging ability",
+      "Ability to extend the system safely",
+      "Deployment correctness"
+    ]
+  },
+  "critic": {
+    "valid": false,
+    "errors": [
+      "documentation_operations rates operational_clarity at 2, whose category anchor requires documented installation and primary operation. The cited evidence documents operation but does not establish installation guidance, as the finding itself acknowledges."
+    ]
+  }
+}

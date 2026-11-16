@@ -1,0 +1,20 @@
+{
+  "fixture_slug": "pa11y-accessibility-runner",
+  "answer_key_version": "holdout-1.0",
+  "methodology_version": "1.1",
+  "frozen_before_inference": true,
+  "frozen_at": "2026-11-16T12:07:00Z",
+  "score_range": { "min": 46, "max": 72 },
+  "target_ratings": {
+    "design_reasoning": 2,
+    "architecture_maintainability": 3,
+    "security_by_design": 1,
+    "testing_evidence": 3,
+    "documentation_operations": 3,
+    "repository_hygiene": 3
+  },
+  "track_alignment_status": "demonstrated",
+  "confidence_ceiling": "medium",
+  "reference_notes": "Expect clear accessibility-purpose, runner, action, configuration, documentation, test, and maintenance evidence. Static review cannot verify browser execution, standards coverage, detected-result accuracy, or runtime accessibility outcomes.",
+  "forbidden_claims": ["tests_pass", "runtime_correctness", "production_ready", "accessibility_verified", "standards_compliance_verified", "secret_value_disclosed"]
+}

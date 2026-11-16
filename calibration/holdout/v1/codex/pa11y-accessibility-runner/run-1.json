@@ -1,0 +1,318 @@
+{
+  "fixture_slug": "pa11y-accessibility-runner",
+  "run": 1,
+  "model": "gpt-6.1-sol",
+  "critic_model": "gpt-6.1-terra",
+  "prompt_version": "holdout-1.0",
+  "snapshot_hash": "664b09654fec948863de7d8aca08a3163e8cdf54ca5b2d01d77b11fbe9b9ad91",
+  "recorded_at": "2026-11-16",
+  "accepted": false,
+  "validation": {
+    "production_schema_valid": true,
+    "critic_valid": false,
+    "errors": [
+      "The security finding cites TROUBLESHOOTING.md lines 29–34 for its claim that the documentation acknowledges the security risk of workarounds, but that warning appears on lines 35–36, outside the cited range.",
+      "The documentation finding cites TROUBLESHOOTING.md lines 5–27 for the direct iframe URL workaround, but the workaround appears on line 29, outside the cited range."
+    ]
+  },
+  "assessment": {
+    "categories": {
+      "design_reasoning": {
+        "score": 18.75,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "alternatives_and_tradeoffs",
+            "rating": 3,
+            "points_available": 25,
+            "points_awarded": 18.75,
+            "confidence": "medium",
+            "summary": "The selected extensible runner approach explicitly trades simplicity for configurable checks. Runner dispatch and normalization implement that choice, with committed tests for replacement runners and their output contract.",
+            "limitations": "The rationale is a submission narrative rather than an upstream decision record; execution and changing lifecycle assumptions remain unverified.",
+            "evidence": [
+              {
+                "evidence_id": "bb779a97505d198fb17789dd4eeb9e078526bbbaad1712a7911a8b4ecd9ccca6",
+                "path": "submission://design_decisions",
+                "start_line": 1,
+                "end_line": 1,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "d6d9a9591bb244c5da3305aa6d078934e67262ff9431e844716b9af00121d9d3",
+                "path": "lib/runner.js",
+                "start_line": 38,
+                "end_line": 99,
+                "symbol": "run"
+              },
+              {
+                "evidence_id": "585384abfb81974ab1bf128fa6099c0872758d96b989e6ec30ce9e3f73051d0d",
+                "path": "test/integration/cli/runner-custom.test.js",
+                "start_line": 7,
+                "end_line": 40,
+                "symbol": "testRunner"
+              }
+            ]
+          }
+        ]
+      },
+      "architecture_maintainability": {
+        "score": 15,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "boundaries_and_coupling",
+            "rating": 3,
+            "points_available": 20,
+            "points_awarded": 15,
+            "confidence": "medium",
+            "summary": "Browser orchestration delegates options and actions, while the browser-side runner owns dispatch and normalization. Tests substitute a runner, assert the normalized contract, and check propagation of runner failures across that boundary.",
+            "limitations": "Shared browser globals and mutable orchestration state impose coupling; sampled evidence does not establish migration discipline.",
+            "evidence": [
+              {
+                "evidence_id": "c15d6a1148d3e1f237d9b7689ce235cedd56e8ddb43bc8671be1febee6facdd3",
+                "path": "lib/pa11y.js",
+                "start_line": 43,
+                "end_line": 109,
+                "symbol": "pa11y"
+              },
+              {
+                "evidence_id": "d6d9a9591bb244c5da3305aa6d078934e67262ff9431e844716b9af00121d9d3",
+                "path": "lib/runner.js",
+                "start_line": 38,
+                "end_line": 99,
+                "symbol": "run"
+              },
+              {
+                "evidence_id": "8b57d07670b4e21b1a34292b39f324db99e4d884f49551f73066922b2aba3de3",
+                "path": "test/unit/lib/runner.test.js",
+                "start_line": 43,
+                "end_line": 93,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "8b57d07670b4e21b1a34292b39f324db99e4d884f49551f73066922b2aba3de3",
+                "path": "test/unit/lib/runner.test.js",
+                "start_line": 143,
+                "end_line": 159,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "security_by_design": {
+        "score": 5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "threat_model_and_mitigations",
+            "rating": 1,
+            "points_available": 20,
+            "points_awarded": 5,
+            "confidence": "medium",
+            "summary": "The submission identifies target-content and navigation trust boundaries, but offers little control mapping. Troubleshooting explicitly acknowledges the platform-security risk of sandbox-related workarounds.",
+            "limitations": "The sampled evidence does not establish a bounded implementation-connected threat model, adversarial tests, or controls for hostile targets.",
+            "evidence": [
+              {
+                "evidence_id": "52bb3f6260e9abdd906cbfc74a74fbcd54ec1b91bcea9d55ddd9ba3b0248e616",
+                "path": "submission://security_threat",
+                "start_line": 1,
+                "end_line": 1,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "7ea05f0305c22cda9cd7635507fb88ece89c5512e33dc59c05787fc735c582a5",
+                "path": "TROUBLESHOOTING.md",
+                "start_line": 29,
+                "end_line": 34,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "testing_evidence": {
+        "score": 11.25,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "test_strategy_and_coverage",
+            "rating": 3,
+            "points_available": 15,
+            "points_awarded": 11.25,
+            "confidence": "medium",
+            "summary": "Committed assertions cover unknown issue types, runner rejection, CLI navigation failure and timeout reporting, plus severity-cap boundaries and filtering interactions.",
+            "limitations": "Tests were not executed. A hostname-failure fixture explicitly depends on external resolver behavior, and bounded excerpts limit assessment of full coverage.",
+            "evidence": [
+              {
+                "evidence_id": "8b57d07670b4e21b1a34292b39f324db99e4d884f49551f73066922b2aba3de3",
+                "path": "test/unit/lib/runner.test.js",
+                "start_line": 123,
+                "end_line": 159,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "8eab75cc3d19dfdc315bb0018ee9d1ffa349b2ef8bc3b05e3b0b0c6ce08a4ca5",
+                "path": "test/integration/cli/exit-codes.test.js",
+                "start_line": 33,
+                "end_line": 45,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "7e5942eb64b8a42fca47b016af64f5a6b01568c0f5aec6ee6eae71f05b66ad80",
+                "path": "test/integration/cli/timeout.test.js",
+                "start_line": 9,
+                "end_line": 29,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "1c218daca7c30eb936ea1e5e0ddaa4db2b17ad7a2a2eaac3cd18595a4a9d2724",
+                "path": "test/integration/cli/level-cap.test.js",
+                "start_line": 43,
+                "end_line": 91,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "documentation_operations": {
+        "score": 7.5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "operational_clarity",
+            "rating": 3,
+            "points_available": 10,
+            "points_awarded": 7.5,
+            "confidence": "medium",
+            "summary": "Documentation covers Node prerequisites, installation, CLI configuration and runner selection. Troubleshooting explains dynamic-page timing, screenshot diagnosis, iframe limitations and a direct-URL workaround.",
+            "limitations": "Operational guidance is static evidence; rollback, comprehensive data handling and upgrade recovery are not established by the sampled excerpts.",
+            "evidence": [
+              {
+                "evidence_id": "2edf7ac03d9812b5663e15b377d485bf4a0b56aba54bc272a47e1205bfc32e96",
+                "path": "README.md",
+                "start_line": 26,
+                "end_line": 100,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "7ea05f0305c22cda9cd7635507fb88ece89c5512e33dc59c05787fc735c582a5",
+                "path": "TROUBLESHOOTING.md",
+                "start_line": 5,
+                "end_line": 27,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "repository_hygiene": {
+        "score": 7.5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "dependency_and_repository_hygiene",
+            "rating": 3,
+            "points_available": 10,
+            "points_awarded": 7.5,
+            "confidence": "medium",
+            "summary": "The repository supplies bounded dependencies, a lockfile with integrity metadata, LGPL licensing, contribution and conduct guidance, artifact exclusions, and CI configured for lint, coverage and integration tests.",
+            "limitations": "Automation configuration does not establish successful enforcement. Sampled evidence does not establish comprehensive release provenance or security-reporting governance.",
+            "evidence": [
+              {
+                "evidence_id": "eb342540bf738c646f8656e2299b52437bd8580d205444b98d688b3d0dfdaec5",
+                "path": "package.json",
+                "start_line": 48,
+                "end_line": 88,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "885475aaf944c26054652f2ff5fdf2633d3e188dc39d26f85333b1b7ea2698c2",
+                "path": "package-lock.json",
+                "start_line": 1,
+                "end_line": 46,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "6f7af22135e39a84c73bb2be13b70be98840779d3940f511e307781234becb72",
+                "path": "LICENSE",
+                "start_line": 1,
+                "end_line": 11,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "04bbb512a69c71bd98ad4d2b94b44d3a09fd91673242bbaad079d85759787147",
+                "path": "CONTRIBUTING.md",
+                "start_line": 5,
+                "end_line": 17,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "f9ca2fc48b701e3f1714856bc872e508a564342e8316cbb291a140442bc9df89",
+                "path": ".gitignore",
+                "start_line": 18,
+                "end_line": 27,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "f3b1b43be582e6efb415b67cf15fed4ce908c171444b4d37163190cb2a1c440a",
+                "path": ".github/workflows/tests.yml",
+                "start_line": 1,
+                "end_line": 61,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "core_score": 65,
+    "confidence": "medium",
+    "track_alignment": {
+      "status": "demonstrated",
+      "summary": "Automated identification and reporting of web accessibility barriers is the stated primary purpose. Runner implementation normalizes issues into actionable context and selectors, and CLI tests assert accessibility issue output. This supports the access-focused track without establishing improved accessibility outcomes.",
+      "evidence": [
+        {
+          "evidence_id": "2edf7ac03d9812b5663e15b377d485bf4a0b56aba54bc272a47e1205bfc32e96",
+          "path": "README.md",
+          "start_line": 1,
+          "end_line": 3,
+          "symbol": ""
+        },
+        {
+          "evidence_id": "d6d9a9591bb244c5da3305aa6d078934e67262ff9431e844716b9af00121d9d3",
+          "path": "lib/runner.js",
+          "start_line": 88,
+          "end_line": 99,
+          "symbol": "processIssue"
+        },
+        {
+          "evidence_id": "f45ae39f4488c3f4f711890e746b25716878c90efe227c981a935b8d97178d32",
+          "path": "test/integration/cli/runner-axe.test.js",
+          "start_line": 6,
+          "end_line": 23,
+          "symbol": ""
+        }
+      ],
+      "questions_for_organizer": []
+    },
+    "not_tested": [
+      "Whether the project builds or starts",
+      "Whether tests pass",
+      "Runtime correctness",
+      "Performance, scaling, or reliability under load",
+      "Runtime accessibility behavior",
+      "Debugging ability",
+      "Ability to extend the system safely",
+      "Deployment correctness"
+    ]
+  },
+  "critic": {
+    "valid": false,
+    "errors": [
+      "The security finding cites TROUBLESHOOTING.md lines 29–34 for its claim that the documentation acknowledges the security risk of workarounds, but that warning appears on lines 35–36, outside the cited range.",
+      "The documentation finding cites TROUBLESHOOTING.md lines 5–27 for the direct iframe URL workaround, but the workaround appears on line 29, outside the cited range."
+    ]
+  }
+}

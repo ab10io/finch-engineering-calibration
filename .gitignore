@@ -25,3 +25,7 @@ calibration/v8/scoring-workspace/
 calibration/v9/evidence/
 calibration/v9/scoring-inputs/
 calibration/v9/scoring-workspace/
+calibration/holdout/v1/evidence/
+calibration/holdout/v1/evidence-pre-test-detection-fix/
+calibration/holdout/v1/scoring-inputs/
+calibration/holdout/v1/scoring-workspace/

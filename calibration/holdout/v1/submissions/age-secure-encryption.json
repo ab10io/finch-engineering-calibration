@@ -1,0 +1,27 @@
+{
+  "fixture_slug": "age-secure-encryption",
+  "title": "age",
+  "summary": "A public encryption tool and Go library designed around small explicit keys and composable file encryption.",
+  "intended_users": "People and software that need focused file encryption and decryption workflows.",
+  "repository_url": "https://github.com/FiloSottile/age",
+  "commit_sha": "b74dce4cdbe35b5e5f66c06d9612b72f89028758",
+  "selected_track_slug": "secure-systems",
+  "design_decisions": [{
+    "problem_or_constraint": "Provide modern file encryption with a deliberately narrow, composable interface.",
+    "alternatives_considered": "The public documentation contrasts the format and interface with more configurable legacy encryption workflows.",
+    "chosen_approach_and_rationale": "Use explicit recipient and identity abstractions with a small file-format and command boundary.",
+    "accepted_trade_off": "A narrow interface intentionally omits many configuration choices and cannot eliminate endpoint compromise.",
+    "repository_evidence": "README.md, age.go, format.go, cmd/age",
+    "validation_approach": "Review committed parsing, encryption, negative-case, compatibility, and command tests without claiming they were executed.",
+    "reconsideration_conditions": "Revisit format and recipient boundaries when new recipient types or compatibility constraints cannot fit the stable interfaces."
+  }],
+  "testing_strategy": "Committed Go tests cover APIs, parsing, recipients, file format, command behavior, and negative cases; Finch does not execute them.",
+  "security_threat": "The project addresses unauthorized file disclosure and tampering through authenticated encryption and explicit recipient identities; endpoint control and operational key handling remain outside static verification.",
+  "production_limitation": "Static review does not validate cryptographic correctness, runtime behavior, releases, platform integration, or user key-management practices.",
+  "technical_debt": "Treat the pinned repository as public holdout evidence, not as a security certification or endorsement.",
+  "track_alignment_explanation": "Encryption and concrete protection against unauthorized disclosure are the primary product purpose.",
+  "ai_disclosure": { "tools_used": [], "purposes": "No claim is made about upstream AI use; this holdout submission narrative was prepared for calibration without maintainer input.", "review_validation": "A human reviewer froze the reference range before model inference." },
+  "synthetic": false,
+  "holdout": true,
+  "leaderboard_eligible": false
+}

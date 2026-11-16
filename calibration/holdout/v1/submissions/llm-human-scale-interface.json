@@ -1,0 +1,27 @@
+{
+  "fixture_slug": "llm-human-scale-interface",
+  "title": "LLM",
+  "summary": "A public command-line and Python interface for interacting with language models, plugins, prompts, embeddings, and logs.",
+  "intended_users": "Developers and technical users who want scriptable, inspectable access to multiple language-model providers.",
+  "repository_url": "https://github.com/simonw/llm",
+  "commit_sha": "ee842355700de177bcfe44ad55c30273bd71a4de",
+  "selected_track_slug": "human-scale-ai",
+  "design_decisions": [{
+    "problem_or_constraint": "Expose changing model providers through stable local command and Python surfaces.",
+    "alternatives_considered": "A provider-specific wrapper is simpler but would couple user workflows to one API and model family.",
+    "chosen_approach_and_rationale": "Use registered models and plugins behind shared interfaces with explicit prompts, options, logs, and storage.",
+    "accepted_trade_off": "Plugin and provider flexibility expands configuration, trust, privacy, and compatibility responsibilities.",
+    "repository_evidence": "README.md, llm/cli.py, llm/models.py, llm/plugins.py",
+    "validation_approach": "Review committed CLI, model, plugin, template, embedding, and logging tests without claiming execution.",
+    "reconsideration_conditions": "Revisit plugin and model interfaces when provider capabilities cannot be represented without leaky special cases."
+  }],
+  "testing_strategy": "The repository contains focused tests for commands, models, plugins, prompts, embeddings, schemas, keys, and logging; Finch does not execute them.",
+  "security_threat": "API keys, prompt content, logs, plugin code, and provider boundaries create concrete trust and privacy risks; controls must be judged only where visible in pinned evidence.",
+  "production_limitation": "Static review cannot establish model quality, provider behavior, privacy, successful tests, plugin safety, or runtime correctness.",
+  "technical_debt": "Provider-specific and plugin-specific risk remains dependent on external systems outside the frozen archive.",
+  "track_alignment_explanation": "AI is essential to the tool, while explicit commands, local logs, templates, options, and provider choice keep the interaction bounded and user-controlled.",
+  "ai_disclosure": { "tools_used": [], "purposes": "No claim is made about upstream AI use; this holdout submission narrative was prepared for calibration without maintainer input.", "review_validation": "A human reviewer froze the reference range before model inference." },
+  "synthetic": false,
+  "holdout": true,
+  "leaderboard_eligible": false
+}

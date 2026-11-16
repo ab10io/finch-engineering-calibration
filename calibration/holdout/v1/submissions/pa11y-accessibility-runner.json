@@ -1,0 +1,27 @@
+{
+  "fixture_slug": "pa11y-accessibility-runner",
+  "title": "Pa11y",
+  "summary": "A public automated accessibility testing runner with configurable standards, browser actions, runners, and reporters.",
+  "intended_users": "Developers and accessibility practitioners checking web pages for automatable accessibility barriers.",
+  "repository_url": "https://github.com/pa11y/pa11y",
+  "commit_sha": "5c3b4182f752cd145849f5b0fafd5cbbaa4f3da6",
+  "selected_track_slug": "accessible-inclusive-technology",
+  "design_decisions": [{
+    "problem_or_constraint": "Run repeatable automated accessibility checks against dynamic web pages.",
+    "alternatives_considered": "A fixed one-shot checker would be simpler but would not support navigation actions, standards selection, custom runners, or result filtering.",
+    "chosen_approach_and_rationale": "Separate browser orchestration, actions, runners, configuration, and result normalization behind a programmatic API and CLI.",
+    "accepted_trade_off": "Automated checks detect only a subset of accessibility barriers and require browser and rules-engine dependencies.",
+    "repository_evidence": "README.md, lib/pa11y.js, lib/action.js, lib/runner.js",
+    "validation_approach": "Review committed unit and integration fixtures for actions, runners, options, results, and errors without claiming execution.",
+    "reconsideration_conditions": "Revisit runner and result contracts when accessibility engines or browser automation need incompatible lifecycle behavior."
+  }],
+  "testing_strategy": "Committed tests cover options, runners, actions, errors, result filtering, and command behavior; Finch does not execute them.",
+  "security_threat": "Browser navigation and arbitrary target content cross trust boundaries, but security is not the project's primary track and must not be inferred beyond visible controls.",
+  "production_limitation": "Static review cannot verify browser execution, standards coverage, result accuracy, successful tests, or accessibility of any tested product.",
+  "technical_debt": "Automated tooling must be combined with human accessibility evaluation and current standards guidance.",
+  "track_alignment_explanation": "Finding and reporting accessibility barriers is the repository's primary purpose, directly supporting more inclusive web experiences.",
+  "ai_disclosure": { "tools_used": [], "purposes": "No claim is made about upstream AI use; this holdout submission narrative was prepared for calibration without maintainer input.", "review_validation": "A human reviewer froze the reference range before model inference." },
+  "synthetic": false,
+  "holdout": true,
+  "leaderboard_eligible": false
+}

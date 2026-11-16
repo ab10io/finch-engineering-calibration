@@ -1,0 +1,57 @@
+{
+  "version": 1,
+  "methodology_version": "1.1",
+  "selected_at": "2026-11-16T12:00:00Z",
+  "inference_not_before": "2026-11-16T12:15:00Z",
+  "selection_rule": "Public, recognized-license repositories unfamiliar to the controlled corpus, pinned before inference and small enough for Finch bounded static intake.",
+  "repositories": [
+    {
+      "slug": "age-secure-encryption",
+      "repository_url": "https://github.com/FiloSottile/age",
+      "commit_sha": "b74dce4cdbe35b5e5f66c06d9612b72f89028758",
+      "repository_size_kb": 1633,
+      "track": "secure-systems",
+      "track_rationale": "The repository's primary purpose is preventing unauthorized disclosure through a deliberately small encryption tool and library with explicit cryptographic formats and recipient boundaries.",
+      "license": {
+        "spdx_id": "BSD-3-Clause",
+        "path": "LICENSE",
+        "evidence_url": "https://github.com/FiloSottile/age/blob/b74dce4cdbe35b5e5f66c06d9612b72f89028758/LICENSE"
+      },
+      "synthetic": false,
+      "holdout": true,
+      "leaderboard_eligible": false
+    },
+    {
+      "slug": "llm-human-scale-interface",
+      "repository_url": "https://github.com/simonw/llm",
+      "commit_sha": "ee842355700de177bcfe44ad55c30273bd71a4de",
+      "repository_size_kb": 2450,
+      "track": "human-scale-ai",
+      "track_rationale": "The project makes language models usable through a bounded command-line and Python interface, with explicit model, plugin, prompt, logging, and user-control surfaces rather than a single opaque chat wrapper.",
+      "license": {
+        "spdx_id": "Apache-2.0",
+        "path": "LICENSE",
+        "evidence_url": "https://github.com/simonw/llm/blob/ee842355700de177bcfe44ad55c30273bd71a4de/LICENSE"
+      },
+      "synthetic": false,
+      "holdout": true,
+      "leaderboard_eligible": false
+    },
+    {
+      "slug": "pa11y-accessibility-runner",
+      "repository_url": "https://github.com/pa11y/pa11y",
+      "commit_sha": "5c3b4182f752cd145849f5b0fafd5cbbaa4f3da6",
+      "repository_size_kb": 2781,
+      "track": "accessible-inclusive-technology",
+      "track_rationale": "The repository's primary purpose is automated detection and reporting of web accessibility barriers, with configurable standards, runners, actions, and result handling for accessibility practitioners.",
+      "license": {
+        "spdx_id": "LGPL-3.0",
+        "path": "LICENSE",
+        "evidence_url": "https://github.com/pa11y/pa11y/blob/5c3b4182f752cd145849f5b0fafd5cbbaa4f3da6/LICENSE"
+      },
+      "synthetic": false,
+      "holdout": true,
+      "leaderboard_eligible": false
+    }
+  ]
+}

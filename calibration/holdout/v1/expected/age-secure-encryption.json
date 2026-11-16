@@ -1,0 +1,20 @@
+{
+  "fixture_slug": "age-secure-encryption",
+  "answer_key_version": "holdout-1.0",
+  "methodology_version": "1.1",
+  "frozen_before_inference": true,
+  "frozen_at": "2026-11-16T12:05:00Z",
+  "score_range": { "min": 64, "max": 84 },
+  "target_ratings": {
+    "design_reasoning": 3,
+    "architecture_maintainability": 3,
+    "security_by_design": 3,
+    "testing_evidence": 3,
+    "documentation_operations": 3,
+    "repository_hygiene": 3
+  },
+  "track_alignment_status": "demonstrated",
+  "confidence_ceiling": "medium",
+  "reference_notes": "Expect strong and traceable security, format, API, test, and user documentation evidence. Static excerpts cannot establish cryptographic correctness, successful tests, release integrity, or production safety.",
+  "forbidden_claims": ["tests_pass", "runtime_correctness", "production_ready", "security_certified", "secret_value_disclosed"]
+}

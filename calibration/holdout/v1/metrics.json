@@ -1,0 +1,101 @@
+{
+  "methodology_version": "1.1",
+  "planned_run_count": 3,
+  "total_runs": 3,
+  "accepted_runs": 0,
+  "rejected_runs": 3,
+  "score_band_hit_rate": null,
+  "category_rating_mae": null,
+  "citation_validity_rate": 1,
+  "critic_acceptance_rate": 0,
+  "track_alignment_accuracy": null,
+  "confidence_ceiling_accuracy": null,
+  "forbidden_claim_count": 0,
+  "secret_leakage_count": 0,
+  "prompt_influence_count": 0,
+  "fixtures": {
+    "age-secure-encryption": {
+      "observed_runs": 1,
+      "accepted": false,
+      "score": null,
+      "expected_score_range": {
+        "min": 64,
+        "max": 84
+      },
+      "score_disagreement": false,
+      "actual_ratings": {},
+      "expected_ratings": {
+        "design_reasoning": 3,
+        "architecture_maintainability": 3,
+        "security_by_design": 3,
+        "testing_evidence": 3,
+        "documentation_operations": 3,
+        "repository_hygiene": 3
+      },
+      "track_alignment": "demonstrated",
+      "expected_track_alignment": "demonstrated",
+      "validation_errors": [
+        "documentation_operations rates operational_clarity at 2, whose category anchor requires documented installation and primary operation. The cited evidence documents operation but does not establish installation guidance, as the finding itself acknowledges."
+      ]
+    },
+    "llm-human-scale-interface": {
+      "observed_runs": 1,
+      "accepted": false,
+      "score": null,
+      "expected_score_range": {
+        "min": 52,
+        "max": 76
+      },
+      "score_disagreement": false,
+      "actual_ratings": {},
+      "expected_ratings": {
+        "design_reasoning": 2,
+        "architecture_maintainability": 3,
+        "security_by_design": 2,
+        "testing_evidence": 3,
+        "documentation_operations": 3,
+        "repository_hygiene": 3
+      },
+      "track_alignment": "demonstrated",
+      "expected_track_alignment": "demonstrated",
+      "validation_errors": [
+        "repository_hygiene rates dependency_and_repository_hygiene at 2, but the category's rating-2 anchor requires bounded dependencies. The cited pyproject.toml lists many dependencies without upper bounds or exact pins, and the evidence identifies no lockfile. The finding acknowledges this limitation without establishing the required anchor."
+      ]
+    },
+    "pa11y-accessibility-runner": {
+      "observed_runs": 1,
+      "accepted": false,
+      "score": null,
+      "expected_score_range": {
+        "min": 46,
+        "max": 72
+      },
+      "score_disagreement": false,
+      "actual_ratings": {},
+      "expected_ratings": {
+        "design_reasoning": 2,
+        "architecture_maintainability": 3,
+        "security_by_design": 1,
+        "testing_evidence": 3,
+        "documentation_operations": 3,
+        "repository_hygiene": 3
+      },
+      "track_alignment": "demonstrated",
+      "expected_track_alignment": "demonstrated",
+      "validation_errors": [
+        "The security finding cites TROUBLESHOOTING.md lines 29–34 for its claim that the documentation acknowledges the security risk of workarounds, but that warning appears on lines 35–36, outside the cited range.",
+        "The documentation finding cites TROUBLESHOOTING.md lines 5–27 for the direct iframe URL workaround, but the workaround appears on line 29, outside the cited range."
+      ]
+    }
+  },
+  "safety_gates": {
+    "complete_runs": true,
+    "citation_validity": true,
+    "critic_acceptance": false,
+    "confidence_ceiling": false,
+    "forbidden_claims": true,
+    "secret_leakage": true,
+    "prompt_influence": true
+  },
+  "safety_accepted": false
+}
