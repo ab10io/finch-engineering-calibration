@@ -1,0 +1,249 @@
+{
+  "fixture_slug": "human-ai-weak-chat-wrapper",
+  "run": 3,
+  "model": "gpt-6.1-sol",
+  "critic_model": "gpt-6.1-terra",
+  "prompt_version": "2.0",
+  "snapshot_hash": "d57fd5d3cf208adfd429c7365a696d594fe99003001dde9328472f722ff589a7",
+  "recorded_at": "2026-11-16",
+  "accepted": true,
+  "validation": {
+    "production_schema_valid": true,
+    "critic_valid": true,
+    "errors": []
+  },
+  "assessment": {
+    "categories": {
+      "design_reasoning": {
+        "score": 6.25,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "alternatives_and_tradeoffs",
+            "rating": 1,
+            "points_available": 25,
+            "points_awarded": 6.25,
+            "confidence": "medium",
+            "summary": "The generic model-call decision matches the implementation, but no bounded user problem or non-AI alternative was evaluated.",
+            "limitations": "The reported manual questions provide no documented evaluation cases or meaningful trade-off validation.",
+            "evidence": [
+              {
+                "evidence_id": "734bfdae016b639645bfa030b19f2f25d0af2d9dbff6b8e3cbb991139df06faa",
+                "path": "docs/decisions.md",
+                "start_line": 3,
+                "end_line": 25,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "af2e10abf4e863b21121e0aae9e7495e3c1fcb9751f2359ad42b78d363e821d1",
+                "path": "src/chat.ts",
+                "start_line": 1,
+                "end_line": 3,
+                "symbol": "chat"
+              }
+            ]
+          }
+        ]
+      },
+      "architecture_maintainability": {
+        "score": 5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "boundaries_and_coupling",
+            "rating": 1,
+            "points_available": 20,
+            "points_awarded": 5,
+            "confidence": "medium",
+            "summary": "The chat function accepts a model interface and delegates through it, demonstrating a minimal connected dependency boundary.",
+            "limitations": "No tests demonstrate adapter replacement, change isolation, or failure containment; the documented browser/server composition is not established by this function.",
+            "evidence": [
+              {
+                "evidence_id": "af2e10abf4e863b21121e0aae9e7495e3c1fcb9751f2359ad42b78d363e821d1",
+                "path": "src/chat.ts",
+                "start_line": 1,
+                "end_line": 3,
+                "symbol": "chat"
+              },
+              {
+                "evidence_id": "5ad227789e16c49fb4b0c9c3784d0dda14d61711101155764300667a8581eafd",
+                "path": "docs/testing.md",
+                "start_line": 1,
+                "end_line": 3,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "security_by_design": {
+        "score": 5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "threat_model_and_mitigations",
+            "rating": 1,
+            "points_available": 20,
+            "points_awarded": 5,
+            "confidence": "medium",
+            "summary": "Sensitive input and misleading responses are identified, but mitigation is limited to a documented disclaimer; the implementation forwards text directly.",
+            "limitations": "Disclaimer integration is unestablished. The security document explicitly lacks retention policy, redaction, output constraints, abuse handling, and evaluation evidence.",
+            "evidence": [
+              {
+                "evidence_id": "98d3bb3a4d4aa5bb0de2cbdcf06f786fc7995a82a2a8e9ff94ae289b2af01f77",
+                "path": "docs/security.md",
+                "start_line": 3,
+                "end_line": 13,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "af2e10abf4e863b21121e0aae9e7495e3c1fcb9751f2359ad42b78d363e821d1",
+                "path": "src/chat.ts",
+                "start_line": 1,
+                "end_line": 3,
+                "symbol": "chat"
+              }
+            ]
+          }
+        ]
+      },
+      "testing_evidence": {
+        "score": 0,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "test_strategy_and_coverage",
+            "rating": 0,
+            "points_available": 15,
+            "points_awarded": 0,
+            "confidence": "medium",
+            "summary": "No automated tests or documented evaluation cases are provided.",
+            "limitations": "The reported manual use contains no assertions, recorded outcomes, or failure-path coverage.",
+            "evidence": [
+              {
+                "evidence_id": "5ad227789e16c49fb4b0c9c3784d0dda14d61711101155764300667a8581eafd",
+                "path": "docs/testing.md",
+                "start_line": 1,
+                "end_line": 3,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "734bfdae016b639645bfa030b19f2f25d0af2d9dbff6b8e3cbb991139df06faa",
+                "path": "docs/decisions.md",
+                "start_line": 23,
+                "end_line": 25,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "documentation_operations": {
+        "score": 0,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "operational_clarity",
+            "rating": 0,
+            "points_available": 10,
+            "points_awarded": 0,
+            "confidence": "medium",
+            "summary": "Documentation describes the intended chat flow and unknown outcomes but provides no usable installation, configuration, operation, or recovery instructions.",
+            "limitations": "Architecture prose establishes intended flow only, not implemented user-facing integration.",
+            "evidence": [
+              {
+                "evidence_id": "b1d07a6e29062a5419ab5bf3f8604a62ef0033522967330e6c94c8877ac57021",
+                "path": "README.md",
+                "start_line": 1,
+                "end_line": 21,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "b4b3d3f060cc6274a3fd759e63ed2743e4abc7ec56aa574d5ce46b9c3a11763e",
+                "path": "docs/architecture.md",
+                "start_line": 1,
+                "end_line": 13,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "repository_hygiene": {
+        "score": 2.5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "dependency_and_repository_hygiene",
+            "rating": 1,
+            "points_available": 10,
+            "points_awarded": 2.5,
+            "confidence": "medium",
+            "summary": "A package manifest and MIT license establish basic repository structure and licensing; the manifest declares no dependencies or automation scripts.",
+            "limitations": "The cited evidence does not establish reproducible dependency controls or maintenance enforcement.",
+            "evidence": [
+              {
+                "evidence_id": "3254c99567d657a9870bee220f21a2ba30aa244d309031ebe2df6aa06659d30b",
+                "path": "package.json",
+                "start_line": 1,
+                "end_line": 7,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "740f92543817bbed84679dce474e4b5b090f72eabe8b911eab7b3ca46db5cb97",
+                "path": "LICENSE",
+                "start_line": 1,
+                "end_line": 7,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "core_score": 18.75,
+    "confidence": "medium",
+    "track_alignment": {
+      "status": "not_demonstrated",
+      "summary": "The implementation forwards text to a model, but the stated audience is generic and the decision record explicitly lacks a bounded user problem or evaluation of a non-AI alternative. Deliberate AI necessity for a particular human context is not demonstrated.",
+      "evidence": [
+        {
+          "evidence_id": "af2e10abf4e863b21121e0aae9e7495e3c1fcb9751f2359ad42b78d363e821d1",
+          "path": "src/chat.ts",
+          "start_line": 1,
+          "end_line": 3,
+          "symbol": "chat"
+        },
+        {
+          "evidence_id": "b1d07a6e29062a5419ab5bf3f8604a62ef0033522967330e6c94c8877ac57021",
+          "path": "README.md",
+          "start_line": 5,
+          "end_line": 13,
+          "symbol": ""
+        },
+        {
+          "evidence_id": "734bfdae016b639645bfa030b19f2f25d0af2d9dbff6b8e3cbb991139df06faa",
+          "path": "docs/decisions.md",
+          "start_line": 3,
+          "end_line": 17,
+          "symbol": ""
+        }
+      ],
+      "questions_for_organizer": []
+    },
+    "not_tested": [
+      "Whether the project builds or starts",
+      "Whether tests pass",
+      "Runtime correctness",
+      "Performance, scaling, or reliability under load",
+      "Runtime accessibility behavior",
+      "Debugging ability",
+      "Ability to extend the system safely",
+      "Deployment correctness"
+    ]
+  },
+  "critic": {
+    "valid": true,
+    "errors": []
+  }
+}

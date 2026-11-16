@@ -1,0 +1,319 @@
+{
+  "fixture_slug": "accessible-strong-transit-guide",
+  "run": 2,
+  "model": "gpt-6.1-sol",
+  "critic_model": "gpt-6.1-terra",
+  "prompt_version": "2.0",
+  "snapshot_hash": "c1198e8d560fb338fdbd4f33bf73d2b15f5f1d8c8849b5266e5c5ab449bba29d",
+  "recorded_at": "2026-11-16",
+  "accepted": true,
+  "validation": {
+    "production_schema_valid": true,
+    "critic_valid": true,
+    "errors": []
+  },
+  "assessment": {
+    "categories": {
+      "design_reasoning": {
+        "score": 18.75,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "alternatives_and_tradeoffs",
+            "rating": 3,
+            "points_available": 25,
+            "points_awarded": 18.75,
+            "confidence": "medium",
+            "summary": "The semantic-guide decision compares credible alternatives and explicitly accepts reduced spatial context and no offline cache. Presentation changes preserve route facts through the builder and committed regression assertions.",
+            "limitations": "Reconsideration depends on future moderated research; static evidence does not establish accessibility outcomes.",
+            "evidence": [
+              {
+                "evidence_id": "e8f147865179ba64d023b80c6fa79ffea8a1246a79bc27c1fdb9c8809c9aba79",
+                "path": "docs/decisions/001-access-needs.md",
+                "start_line": 3,
+                "end_line": 13,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "2b410c0160dc69c2e489de51500937fa64c9566f9135943e7b0927e8b8efe5ca",
+                "path": "src/guide/build-guide.js",
+                "start_line": 4,
+                "end_line": 13,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "36d905f81cc7d2977028d1e0cc6b7a0ab025dbc7b7ea96ca01f0fd0d73e0cf56",
+                "path": "test/preference-boundary.test.js",
+                "start_line": 5,
+                "end_line": 14,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "architecture_maintainability": {
+        "score": 15,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "boundaries_and_coupling",
+            "rating": 3,
+            "points_available": 20,
+            "points_awarded": 15,
+            "confidence": "medium",
+            "summary": "The guide builder composes injectable validation and disruption boundaries. Tests independently replace each boundary while retaining the surrounding composition and asserting unaffected behavior.",
+            "limitations": "The small interfaces lack explicit contracts or migration guidance; replacement tests provide static evidence of intended isolation.",
+            "evidence": [
+              {
+                "evidence_id": "2b410c0160dc69c2e489de51500937fa64c9566f9135943e7b0927e8b8efe5ca",
+                "path": "src/guide/build-guide.js",
+                "start_line": 1,
+                "end_line": 15,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "49c9c30773594fb8e22fb4d7a2a02a46cdf153c8c30fb182babd58c579509987",
+                "path": "test/change-isolation.test.js",
+                "start_line": 14,
+                "end_line": 29,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "security_by_design": {
+        "score": 10,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "threat_model_and_mitigations",
+            "rating": 2,
+            "points_available": 20,
+            "points_awarded": 10,
+            "confidence": "medium",
+            "summary": "The privacy model identifies misleading route input and preference retention risks with stated residual limitations. Validation rejects empty routes and markup-bearing step text, with corresponding negative assertions.",
+            "limitations": "The validator does not substantiate strict bounds on all route facts. Preferences are not validated, unknown step fields are copied, and storesHistory:false alone does not demonstrate privacy enforcement.",
+            "evidence": [
+              {
+                "evidence_id": "e17adba5a8a7ad9e07ed57f4204a9b89bec78fb96392c756612f25f1d72804c5",
+                "path": "docs/security/privacy-model.md",
+                "start_line": 3,
+                "end_line": 13,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "d0df984b1f9bd7c23098796dbdd9f5de364ad12f42eb7c862036ffd30bf1e135",
+                "path": "src/input/validate-route.js",
+                "start_line": 1,
+                "end_line": 1,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "06586d5d7e58bd631e00e9919d7319ff432015493cac30e28701b75a006dd340",
+                "path": "test/disruption-boundaries.test.js",
+                "start_line": 3,
+                "end_line": 3,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "2b410c0160dc69c2e489de51500937fa64c9566f9135943e7b0927e8b8efe5ca",
+                "path": "src/guide/build-guide.js",
+                "start_line": 5,
+                "end_line": 11,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "testing_evidence": {
+        "score": 11.25,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "test_strategy_and_coverage",
+            "rating": 3,
+            "points_available": 15,
+            "points_awarded": 11.25,
+            "confidence": "medium",
+            "summary": "Committed assertions cover invalid and empty route input, elevator unavailability through guide composition, and preservation of warnings, route facts, and ordering across presentation preferences. Separate replacement tests exercise important module boundaries.",
+            "limitations": "Coverage does not include malformed disruptions, conflicting disruptions, or validation failures propagated through the builder. Test execution is unverified.",
+            "evidence": [
+              {
+                "evidence_id": "06586d5d7e58bd631e00e9919d7319ff432015493cac30e28701b75a006dd340",
+                "path": "test/disruption-boundaries.test.js",
+                "start_line": 1,
+                "end_line": 3,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "36d905f81cc7d2977028d1e0cc6b7a0ab025dbc7b7ea96ca01f0fd0d73e0cf56",
+                "path": "test/preference-boundary.test.js",
+                "start_line": 5,
+                "end_line": 14,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "49c9c30773594fb8e22fb4d7a2a02a46cdf153c8c30fb182babd58c579509987",
+                "path": "test/change-isolation.test.js",
+                "start_line": 14,
+                "end_line": 29,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "documentation_operations": {
+        "score": 5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "operational_clarity",
+            "rating": 2,
+            "points_available": 10,
+            "points_awarded": 5,
+            "confidence": "medium",
+            "summary": "The README supplies Node prerequisites, installation and test commands, input conventions, a usage sketch, and explicit scope limitations. Recovery guidance exists but remains generic.",
+            "limitations": "The example omits imports and a renderer implementation. The runbook refers to rollback, stored state, and audit records without concrete procedures or corresponding implemented facilities.",
+            "evidence": [
+              {
+                "evidence_id": "fb6ed02913e4241d3c3ef50ac4f62571eb9b4780dcc7f42babd56c8f4e19426a",
+                "path": "README.md",
+                "start_line": 7,
+                "end_line": 33,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "94af55266ea39a55e1e496e5ef8dc3d2dfd4442172bfc22e9e7ef40fb2595765",
+                "path": "docs/runbook.md",
+                "start_line": 3,
+                "end_line": 11,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "repository_hygiene": {
+        "score": 7.5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "dependency_and_repository_hygiene",
+            "rating": 3,
+            "points_available": 10,
+            "points_awarded": 7.5,
+            "confidence": "medium",
+            "summary": "The dependency-free package has a committed lockfile and MIT license. Read-only CI configuration installs with scripts disabled and invokes tests; contribution guidance and an explicit artifact policy address behavior changes, generated outputs, and sensitive data.",
+            "limitations": "Automation execution and artifact-policy enforcement are unverified; workflow actions use major-version tags rather than immutable revisions.",
+            "evidence": [
+              {
+                "evidence_id": "feeb775c4ca0cd0c911dfbd3a3fe4d838487f6987b3835937767601bc7fb5b68",
+                "path": "package.json",
+                "start_line": 1,
+                "end_line": 13,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "f0c41dfa9f6c0f322692797b129f8beb16cd0546e72c924aea650812a443e0d5",
+                "path": "package-lock.json",
+                "start_line": 1,
+                "end_line": 16,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "a1f6f4dcb6b0174dd813443eebf8d4dd8bc892b9a2b4abecd98ec3e4942e3081",
+                "path": "LICENSE",
+                "start_line": 1,
+                "end_line": 21,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "a15029fc640a8bca652bf11756758e4269baae88ca614cdd108ddf2bd2ae7c55",
+                "path": ".github/workflows/ci.yml",
+                "start_line": 1,
+                "end_line": 15,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "66440dcc95d5eaa9e311c88c66a06c22718615535ac1daf5932a716d993b8f49",
+                "path": "CONTRIBUTING.md",
+                "start_line": 1,
+                "end_line": 3,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "46dabe5423aeac9c8c762453384f203a23512d928c5d549eb06904a76c361d62",
+                "path": ".artifact-policy.json",
+                "start_line": 1,
+                "end_line": 6,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "core_score": 67.5,
+    "confidence": "medium",
+    "track_alignment": {
+      "status": "demonstrated",
+      "summary": "The bounded guide targets transit access needs through ordered nonvisual text cues and explicit elevator-outage warnings, supported by implementation and committed assertions. Reduced motion is an output flag; rendered assistive-technology behavior and offline access are unverified.",
+      "evidence": [
+        {
+          "evidence_id": "fb6ed02913e4241d3c3ef50ac4f62571eb9b4780dcc7f42babd56c8f4e19426a",
+          "path": "README.md",
+          "start_line": 5,
+          "end_line": 13,
+          "symbol": ""
+        },
+        {
+          "evidence_id": "2b410c0160dc69c2e489de51500937fa64c9566f9135943e7b0927e8b8efe5ca",
+          "path": "src/guide/build-guide.js",
+          "start_line": 4,
+          "end_line": 13,
+          "symbol": ""
+        },
+        {
+          "evidence_id": "e6c82b6d4c7e18ae820cd1f8a26220d68b156c342b68fd804176ce23ffbfbdd9",
+          "path": "src/guide/disruptions.js",
+          "start_line": 1,
+          "end_line": 1,
+          "symbol": ""
+        },
+        {
+          "evidence_id": "5707ea4bbe45805b59a2b67810bcf9ac03c8a9ef0dcce7fc3d506d95f3240747",
+          "path": "test/access-needs.test.js",
+          "start_line": 1,
+          "end_line": 2,
+          "symbol": ""
+        },
+        {
+          "evidence_id": "06586d5d7e58bd631e00e9919d7319ff432015493cac30e28701b75a006dd340",
+          "path": "test/disruption-boundaries.test.js",
+          "start_line": 1,
+          "end_line": 2,
+          "symbol": ""
+        }
+      ],
+      "questions_for_organizer": []
+    },
+    "not_tested": [
+      "Whether the project builds or starts",
+      "Whether tests pass",
+      "Runtime correctness",
+      "Performance, scaling, or reliability under load",
+      "Runtime accessibility behavior",
+      "Debugging ability",
+      "Ability to extend the system safely",
+      "Deployment correctness"
+    ]
+  },
+  "critic": {
+    "valid": true,
+    "errors": []
+  }
+}
