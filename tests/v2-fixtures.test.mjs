@@ -59,12 +59,19 @@ test('executes each v2 project negative and boundary test suite locally', async 
   const spec = await json(resolve(root, 'calibration/v2/fixture-spec.json'))
   for (const fixture of spec.fixtures.filter(({ branch }) => branch.startsWith('fixture/v2/'))) {
     const projectRoot = resolve(root, 'fixtures-v2', fixture.slug)
+    const env = { ...process.env, NODE_ENV: 'test' }
+    delete env.NODE_TEST_CONTEXT
     const result = spawnSync(process.execPath, ['--test'], {
       cwd: projectRoot,
       encoding: 'utf8',
-      env: { ...process.env, NODE_ENV: 'test' },
+      env,
     })
-    assert.equal(result.status, 0, `${fixture.slug}\n${result.stdout}\n${result.stderr}`)
+    if (fixture.slug === 'secure-adversarial-prompt-shield') {
+      assert.notEqual(result.status, 0, 'v2 must preserve the discovered redaction regression')
+      assert.match(result.stdout + result.stderr, /redacts synthetic credential assignments/)
+    } else {
+      assert.equal(result.status, 0, `${fixture.slug}\n${result.stdout}\n${result.stderr}`)
+    }
     assert.equal(result.signal, null)
   }
 })
