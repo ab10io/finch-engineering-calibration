@@ -1,0 +1,1 @@
+export function authorizeCapabilities(requested,{allowed}){if(!Array.isArray(requested)||!Array.isArray(allowed))throw new TypeError('capabilities required');const denied=requested.filter((capability)=>!allowed.includes(capability));if(denied.length)throw new Error('capability_denied:'+denied.join(','));return Object.freeze([...requested])}

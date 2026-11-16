@@ -1,0 +1,2 @@
+import test from'node:test';import assert from'node:assert/strict';import{PluginHost}from'../src/host/plugin-host.js'
+test('cleans completed hooks in reverse order after failure',async()=>{const events=[];const plugin={manifest:{id:'test-plugin',protocolVersion:1,capabilities:[]},hooks:[{start:async()=>events.push('a+'),stop:async()=>events.push('a-')},{start:async()=>{events.push('b+');throw new Error('boom')}}]};await assert.rejects(()=>new PluginHost().load(plugin),/plugin_initialization_failed/);assert.deepEqual(events,['a+','b+','a-'])})
