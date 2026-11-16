@@ -1,0 +1,354 @@
+{
+  "fixture_slug": "oss-strong-plugin-kit",
+  "run": 3,
+  "model": "gpt-6.1-sol",
+  "critic_model": "gpt-6.1-terra",
+  "prompt_version": "2.0",
+  "snapshot_hash": "b3e36f03e64083351a4892017aa6b0cff091d608b3b3ece35877a356b410c461",
+  "recorded_at": "2026-11-16",
+  "accepted": true,
+  "validation": {
+    "production_schema_valid": true,
+    "critic_valid": true,
+    "errors": []
+  },
+  "assessment": {
+    "categories": {
+      "design_reasoning": {
+        "score": 18.75,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "alternatives_and_tradeoffs",
+            "rating": 3,
+            "points_available": 25,
+            "points_awarded": 18.75,
+            "confidence": "medium",
+            "summary": "The selected versioned in-process protocol has explicit alternatives, costs, and a hostile-code reconsideration trigger. Manifest validation and host lifecycle orchestration trace the choice into implementation, with compatibility and initialization-failure assertions.",
+            "limitations": "Compatibility windows and migration guidance remain general; the evidence does not demonstrate a mature migration mechanism or executed conformance results.",
+            "evidence": [
+              {
+                "evidence_id": "6b031783982a3b8d2f60111fdf3d8bcac7f9b687b078177c3fe887c093b08dac",
+                "path": "docs/decisions/001-plugin-protocol.md",
+                "start_line": 3,
+                "end_line": 13,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "dc36e867e02c3882edefe3a35606f7fe35dc5499213ec0031ffee91525816add",
+                "path": "src/host/plugin-host.js",
+                "start_line": 1,
+                "end_line": 2,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "83d1f6ebf75863e20c277303b2abcb333121d5362d87f366ee81c97ba90fc697",
+                "path": "src/protocol/manifest.js",
+                "start_line": 1,
+                "end_line": 2,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "2cee860efe2162009b1ae7c7e579b841c25012812fb7b6daec58b7b8b49b98b9",
+                "path": "test/compatibility.test.js",
+                "start_line": 1,
+                "end_line": 2,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "ace9a949127958ae6c212bff136a680731133cab26a3fdfd735869004e1540ef",
+                "path": "test/host-capability-boundary.test.js",
+                "start_line": 12,
+                "end_line": 19,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "architecture_maintainability": {
+        "score": 15,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "boundaries_and_coupling",
+            "rating": 3,
+            "points_available": 20,
+            "points_awarded": 15,
+            "confidence": "medium",
+            "summary": "The host composes separate manifest validation and capability policy boundaries. A change-isolation test varies the allowlist around the same host composition and plugin, while separately asserting that malformed identifiers remain rejected.",
+            "limitations": "Isolation evidence is concentrated on capability configuration. Cleanup exceptions can interrupt subsequent cleanup, and lifecycle declarations lack a dedicated validation boundary.",
+            "evidence": [
+              {
+                "evidence_id": "dc36e867e02c3882edefe3a35606f7fe35dc5499213ec0031ffee91525816add",
+                "path": "src/host/plugin-host.js",
+                "start_line": 1,
+                "end_line": 2,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "83d1f6ebf75863e20c277303b2abcb333121d5362d87f366ee81c97ba90fc697",
+                "path": "src/protocol/manifest.js",
+                "start_line": 1,
+                "end_line": 2,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "b5c7081769c234c3d6792a2bb03c010e86565908bea77f8a8a6c31c0b0c43910",
+                "path": "src/host/capability-policy.js",
+                "start_line": 1,
+                "end_line": 1,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "28348d929cae4d7fde2d1eda495a21172921488d999d4eb1219df25530f6ec12",
+                "path": "test/change-isolation.test.js",
+                "start_line": 5,
+                "end_line": 12,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "security_by_design": {
+        "score": 15,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "threat_model_and_mitigations",
+            "rating": 3,
+            "points_available": 20,
+            "points_awarded": 15,
+            "confidence": "medium",
+            "summary": "The threat model connects forbidden capability requests and partial initialization to allowlist checks and reverse-order cleanup. Host-level negative tests assert denial before hooks start and cleanup after failure; process isolation and registry verification are explicit residual risks.",
+            "limitations": "The in-process capability interface cannot contain hostile native code. Cleanup is neither time-bounded nor protected against stop-hook exceptions, despite the model's bounded-cleanup wording.",
+            "evidence": [
+              {
+                "evidence_id": "3f2d8ed05cb64f243fe675fe9656f16a73627c1fbdc39984756ee88e22a097cb",
+                "path": "docs/security/threat-model.md",
+                "start_line": 3,
+                "end_line": 13,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "b5c7081769c234c3d6792a2bb03c010e86565908bea77f8a8a6c31c0b0c43910",
+                "path": "src/host/capability-policy.js",
+                "start_line": 1,
+                "end_line": 1,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "dc36e867e02c3882edefe3a35606f7fe35dc5499213ec0031ffee91525816add",
+                "path": "src/host/plugin-host.js",
+                "start_line": 1,
+                "end_line": 2,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "ace9a949127958ae6c212bff136a680731133cab26a3fdfd735869004e1540ef",
+                "path": "test/host-capability-boundary.test.js",
+                "start_line": 5,
+                "end_line": 19,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "testing_evidence": {
+        "score": 11.25,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "test_strategy_and_coverage",
+            "rating": 3,
+            "points_available": 15,
+            "points_awarded": 11.25,
+            "confidence": "medium",
+            "summary": "Committed assertions cover current and future protocol handling, malformed identifiers, forbidden capabilities, frozen grants, denial before lifecycle execution, and reverse-order cleanup after an orchestration failure.",
+            "limitations": "No execution results are supplied. Cleanup failures, hanging hooks, malformed lifecycle declarations, duplicate capabilities, and identifier-length edges lack corresponding assertions in the supplied tests.",
+            "evidence": [
+              {
+                "evidence_id": "2cee860efe2162009b1ae7c7e579b841c25012812fb7b6daec58b7b8b49b98b9",
+                "path": "test/compatibility.test.js",
+                "start_line": 1,
+                "end_line": 2,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "ad1bf45150cd8e51f1d8dffe65069992651bb8c917e475e153a6296a4c2565fc",
+                "path": "test/capability-policy.test.js",
+                "start_line": 1,
+                "end_line": 2,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "ace9a949127958ae6c212bff136a680731133cab26a3fdfd735869004e1540ef",
+                "path": "test/host-capability-boundary.test.js",
+                "start_line": 5,
+                "end_line": 19,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "documentation_operations": {
+        "score": 5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "operational_clarity",
+            "rating": 2,
+            "points_available": 10,
+            "points_awarded": 5,
+            "confidence": "medium",
+            "summary": "The README provides Node prerequisites, dependency-install and test commands, explicit allowlist configuration, and a host-loading example. Recovery and migration documents give general triage, rollback, and compatibility advice with stated isolation and registry limitations.",
+            "limitations": "The example omits imports and hook definitions. Recovery references quarantine, stored state, and audit records without implementation-specific procedures; it does not explain concrete cleanup failures or provide an actionable rollback sequence.",
+            "evidence": [
+              {
+                "evidence_id": "c9dd5770de3d18cc544ae70aa57f5b789da5d548aef616b9700f65ac0533e159",
+                "path": "README.md",
+                "start_line": 7,
+                "end_line": 33,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "db5d657e00250a73e80d0020263ca33c7f93e326016a1fc9278301811697789e",
+                "path": "docs/runbook.md",
+                "start_line": 1,
+                "end_line": 11,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "28f1ff765ddfe10e7bcbaff69053f3930f66c48966b7f556d00480d67d7bbad4",
+                "path": "docs/migration.md",
+                "start_line": 1,
+                "end_line": 3,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "repository_hygiene": {
+        "score": 7.5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "dependency_and_repository_hygiene",
+            "rating": 3,
+            "points_available": 10,
+            "points_awarded": 7.5,
+            "confidence": "medium",
+            "summary": "The repository includes a dependency-free package manifest and lockfile, MIT licensing, read-scoped CI using installation without scripts and a test command, contribution expectations, and an explicit generated-artifact and secret exclusion policy.",
+            "limitations": "Artifact exclusions are declarative rather than visibly enforced. Actions use version tags, and the release workflow only configures a package dry run; it does not establish release provenance or immutable publication.",
+            "evidence": [
+              {
+                "evidence_id": "2ac6cf880364dbfb67e6db9a40b03dddd53cc0775e22a97ff3ee4b78b2c8f8cc",
+                "path": "package.json",
+                "start_line": 1,
+                "end_line": 13,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "bc0850269313a12e2d5c9a219ceeb223483b00d521b145f2f308015639bf9743",
+                "path": "package-lock.json",
+                "start_line": 1,
+                "end_line": 16,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "a1f6f4dcb6b0174dd813443eebf8d4dd8bc892b9a2b4abecd98ec3e4942e3081",
+                "path": "LICENSE",
+                "start_line": 1,
+                "end_line": 21,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "a15029fc640a8bca652bf11756758e4269baae88ca614cdd108ddf2bd2ae7c55",
+                "path": ".github/workflows/ci.yml",
+                "start_line": 1,
+                "end_line": 15,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "66440dcc95d5eaa9e311c88c66a06c22718615535ac1daf5932a716d993b8f49",
+                "path": "CONTRIBUTING.md",
+                "start_line": 1,
+                "end_line": 3,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "46dabe5423aeac9c8c762453384f203a23512d928c5d549eb06904a76c361d62",
+                "path": ".artifact-policy.json",
+                "start_line": 1,
+                "end_line": 6,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "7e4ddf5370a6660af96034b52cd4484f5ad0e5e3ad3eebc2e45bb3e0ed409079",
+                "path": ".github/workflows/release.yml",
+                "start_line": 1,
+                "end_line": 13,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "core_score": 72.5,
+    "confidence": "medium",
+    "track_alignment": {
+      "status": "demonstrated",
+      "summary": "A reusable developer-facing PluginHost composes manifest validation, capability policy, and lifecycle hooks, with committed host-boundary tests. Installation prerequisites and a configuration example provide credible initial adoption guidance. The MIT license grants use, modification, and redistribution.",
+      "evidence": [
+        {
+          "evidence_id": "dc36e867e02c3882edefe3a35606f7fe35dc5499213ec0031ffee91525816add",
+          "path": "src/host/plugin-host.js",
+          "start_line": 1,
+          "end_line": 2,
+          "symbol": ""
+        },
+        {
+          "evidence_id": "ace9a949127958ae6c212bff136a680731133cab26a3fdfd735869004e1540ef",
+          "path": "test/host-capability-boundary.test.js",
+          "start_line": 1,
+          "end_line": 19,
+          "symbol": ""
+        },
+        {
+          "evidence_id": "c9dd5770de3d18cc544ae70aa57f5b789da5d548aef616b9700f65ac0533e159",
+          "path": "README.md",
+          "start_line": 7,
+          "end_line": 24,
+          "symbol": ""
+        },
+        {
+          "evidence_id": "a1f6f4dcb6b0174dd813443eebf8d4dd8bc892b9a2b4abecd98ec3e4942e3081",
+          "path": "LICENSE",
+          "start_line": 1,
+          "end_line": 13,
+          "symbol": ""
+        }
+      ],
+      "questions_for_organizer": []
+    },
+    "not_tested": [
+      "Whether the project builds or starts",
+      "Whether tests pass",
+      "Runtime correctness",
+      "Performance, scaling, or reliability under load",
+      "Runtime accessibility behavior",
+      "Debugging ability",
+      "Ability to extend the system safely",
+      "Deployment correctness"
+    ]
+  },
+  "critic": {
+    "valid": true,
+    "errors": []
+  }
+}

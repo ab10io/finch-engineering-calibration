@@ -1,0 +1,374 @@
+{
+  "fixture_slug": "secure-adversarial-prompt-shield",
+  "run": 3,
+  "model": "gpt-6.1-sol",
+  "critic_model": "gpt-6.1-terra",
+  "prompt_version": "2.0",
+  "snapshot_hash": "441afb55bda629a76b06a03bf6538b4e2813c206e7f2f5ffa9ef34b73d1cb1ce",
+  "recorded_at": "2026-11-16",
+  "accepted": false,
+  "validation": {
+    "production_schema_valid": true,
+    "critic_valid": false,
+    "errors": [
+      "design_reasoning: Rating 3 requires trade-offs to trace consistently through implementation and tests. The decision says defensive quotations are annotated, but classify quarantines any text containing a direct attack phrase regardless of context; the cited test uses a security-topic phrase rather than a quotation containing such a phrase. The finding acknowledges the test gap but omits the implementation contradiction.",
+      "testing_evidence: The citation to test/redaction.test.js ends at line 12, while the assertion supporting benign identifier preservation is on line 13."
+    ]
+  },
+  "assessment": {
+    "categories": {
+      "design_reasoning": {
+        "score": 18.75,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "alternatives_and_tradeoffs",
+            "rating": 3,
+            "points_available": 25,
+            "points_awarded": 18.75,
+            "confidence": "medium",
+            "summary": "The decision compares prompt-only defenses, dropping prose, and deterministic classification, explicitly accepting heuristic gaps. The selected allow, annotate, and quarantine trade-off traces into implementation and focused tests.",
+            "limitations": "Reconsideration conditions are stated, but measured bypass and false-positive evidence is absent. Tests distinguish security discussion from direct instructions without covering defensive quotations containing direct attack phrases.",
+            "evidence": [
+              {
+                "evidence_id": "26c7d114b5b645eaf97551b0295a57ed5d3dc677af2757a95d06390d9af21b0e",
+                "path": "docs/decisions/001-bounded-shield.md",
+                "start_line": 3,
+                "end_line": 13,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "b386c2d0f26ad4364d78b67dee6a47cc0138ab82eb377e91a5718a017c735ed7",
+                "path": "src/shield/policy.js",
+                "start_line": 1,
+                "end_line": 2,
+                "symbol": "classify"
+              },
+              {
+                "evidence_id": "fc2a76fd7257cad34f622bb908787a1bc780ea0dc7f74fd15eb3e3bce6edfd5d",
+                "path": "test/adversarial-corpus.test.js",
+                "start_line": 1,
+                "end_line": 4,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "architecture_maintainability": {
+        "score": 10,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "boundaries_and_coupling",
+            "rating": 2,
+            "points_available": 20,
+            "points_awarded": 10,
+            "confidence": "medium",
+            "summary": "Classification and redaction have separate module boundaries, composed by an evidence inspection function. The pipeline directly imports both stages.",
+            "limitations": "The pipeline test checks bounded output but does not replace or vary a policy, adapter, or failure boundary while preserving the surrounding composition; change isolation is not demonstrated.",
+            "evidence": [
+              {
+                "evidence_id": "23c9a96c3f4b6972a57aef3cca1d0aa4c2a06ce8894a0b6eb7f9a39b7c741e7a",
+                "path": "src/shield/pipeline.js",
+                "start_line": 1,
+                "end_line": 2,
+                "symbol": "inspectEvidence"
+              },
+              {
+                "evidence_id": "b386c2d0f26ad4364d78b67dee6a47cc0138ab82eb377e91a5718a017c735ed7",
+                "path": "src/shield/policy.js",
+                "start_line": 1,
+                "end_line": 2,
+                "symbol": "classify"
+              },
+              {
+                "evidence_id": "45d23207d382f9a9c19f838b1d4996afe3fbae29ac8362606585e59ec49d9a6a",
+                "path": "src/shield/redact.js",
+                "start_line": 1,
+                "end_line": 10,
+                "symbol": "redact"
+              },
+              {
+                "evidence_id": "f4ec7022c73294491fdae7a46f77a663b99afc7206b2f5da82dfcd9fed199469",
+                "path": "test/pipeline-boundary.test.js",
+                "start_line": 1,
+                "end_line": 2,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "security_by_design": {
+        "score": 10,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "threat_model_and_mitigations",
+            "rating": 2,
+            "points_available": 20,
+            "points_awarded": 10,
+            "confidence": "medium",
+            "summary": "A bounded threat model connects untrusted repository instructions and credential disclosure to classification and redaction controls, with explicit semantic-bypass and language-coverage risks.",
+            "limitations": "Controls are narrow regex heuristics. The cited tests do not establish redaction and quarantine behavior across the composed pipeline, and the redaction fixture already contains a redaction marker.",
+            "evidence": [
+              {
+                "evidence_id": "2c81299609bed4196c1b79a7ff1783a8ea045bb47ae8c8f1e372fc448b1703f4",
+                "path": "docs/security/threat-model.md",
+                "start_line": 3,
+                "end_line": 13,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "b386c2d0f26ad4364d78b67dee6a47cc0138ab82eb377e91a5718a017c735ed7",
+                "path": "src/shield/policy.js",
+                "start_line": 1,
+                "end_line": 2,
+                "symbol": "classify"
+              },
+              {
+                "evidence_id": "45d23207d382f9a9c19f838b1d4996afe3fbae29ac8362606585e59ec49d9a6a",
+                "path": "src/shield/redact.js",
+                "start_line": 1,
+                "end_line": 10,
+                "symbol": "redact"
+              },
+              {
+                "evidence_id": "23c9a96c3f4b6972a57aef3cca1d0aa4c2a06ce8894a0b6eb7f9a39b7c741e7a",
+                "path": "src/shield/pipeline.js",
+                "start_line": 1,
+                "end_line": 2,
+                "symbol": "inspectEvidence"
+              },
+              {
+                "evidence_id": "c231fa11ce86a967ce9a086a20d176a7ffff5f9a140bf6a81304570ad0bf3400",
+                "path": "test/redaction.test.js",
+                "start_line": 5,
+                "end_line": 12,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "fc2a76fd7257cad34f622bb908787a1bc780ea0dc7f74fd15eb3e3bce6edfd5d",
+                "path": "test/adversarial-corpus.test.js",
+                "start_line": 1,
+                "end_line": 4,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "f4ec7022c73294491fdae7a46f77a663b99afc7206b2f5da82dfcd9fed199469",
+                "path": "test/pipeline-boundary.test.js",
+                "start_line": 1,
+                "end_line": 2,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "testing_evidence": {
+        "score": 7.5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "test_strategy_and_coverage",
+            "rating": 2,
+            "points_available": 15,
+            "points_awarded": 7.5,
+            "confidence": "medium",
+            "summary": "Committed assertions cover three classification outcomes, benign identifier preservation, a credential signal, and excerpt truncation.",
+            "limitations": "Important orchestration failure paths and invalid-input cases are absent. The credential test asserts absence of a value absent from its input and does not assert the replacement output. Test execution is unverified.",
+            "evidence": [
+              {
+                "evidence_id": "fc2a76fd7257cad34f622bb908787a1bc780ea0dc7f74fd15eb3e3bce6edfd5d",
+                "path": "test/adversarial-corpus.test.js",
+                "start_line": 1,
+                "end_line": 4,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "c231fa11ce86a967ce9a086a20d176a7ffff5f9a140bf6a81304570ad0bf3400",
+                "path": "test/redaction.test.js",
+                "start_line": 1,
+                "end_line": 12,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "f4ec7022c73294491fdae7a46f77a663b99afc7206b2f5da82dfcd9fed199469",
+                "path": "test/pipeline-boundary.test.js",
+                "start_line": 1,
+                "end_line": 2,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "23c9a96c3f4b6972a57aef3cca1d0aa4c2a06ce8894a0b6eb7f9a39b7c741e7a",
+                "path": "src/shield/pipeline.js",
+                "start_line": 1,
+                "end_line": 2,
+                "symbol": "inspectEvidence"
+              }
+            ]
+          }
+        ]
+      },
+      "documentation_operations": {
+        "score": 5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "operational_clarity",
+            "rating": 2,
+            "points_available": 10,
+            "points_awarded": 5,
+            "confidence": "medium",
+            "summary": "Documentation supplies Node prerequisites, installation and test commands, inspection parameters, quarantine handling guidance, and heuristic limitations.",
+            "limitations": "The usage example omits the import. Recovery guidance is generic and references failure codes, rollback, stored state, and audit records without concrete procedures; the README also references a runbook absent from the catalogue.",
+            "evidence": [
+              {
+                "evidence_id": "dc5c6beb4ec8074eea0e7b02b708ca19648ccc188f378c80e026134e9bcfcd67",
+                "path": "README.md",
+                "start_line": 7,
+                "end_line": 33,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "578084561325d212cdc8f8c7348a2415a6d1dac931ec69ac31b7d4fc1c8dacc9",
+                "path": "docs/triage.md",
+                "start_line": 1,
+                "end_line": 11,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "repository_hygiene": {
+        "score": 7.5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "dependency_and_repository_hygiene",
+            "rating": 3,
+            "points_available": 10,
+            "points_awarded": 7.5,
+            "confidence": "medium",
+            "summary": "The repository includes a dependency-free manifest and lockfile, MIT licensing, scoped CI configuration, contribution requirements, and an explicit artifact and secret policy.",
+            "limitations": "CI actions use version tags rather than immutable commits, and the cited workflow does not enforce the artifact policy. Execution and reproducibility are unverified.",
+            "evidence": [
+              {
+                "evidence_id": "fe4895a4aaa07031ea5d01718b94481ceb87bbd6f18630b6127c6b10c1cd1d4c",
+                "path": "package.json",
+                "start_line": 1,
+                "end_line": 14,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "4aa962e2434d5dd5b25ce0167977e9a88861a9e98673f1f942c8cde243e12956",
+                "path": "package-lock.json",
+                "start_line": 1,
+                "end_line": 17,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "a1f6f4dcb6b0174dd813443eebf8d4dd8bc892b9a2b4abecd98ec3e4942e3081",
+                "path": "LICENSE",
+                "start_line": 1,
+                "end_line": 20,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "a15029fc640a8bca652bf11756758e4269baae88ca614cdd108ddf2bd2ae7c55",
+                "path": ".github/workflows/ci.yml",
+                "start_line": 1,
+                "end_line": 15,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "66440dcc95d5eaa9e311c88c66a06c22718615535ac1daf5932a716d993b8f49",
+                "path": "CONTRIBUTING.md",
+                "start_line": 1,
+                "end_line": 3,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "46dabe5423aeac9c8c762453384f203a23512d928c5d549eb06904a76c361d62",
+                "path": ".artifact-policy.json",
+                "start_line": 1,
+                "end_line": 6,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "core_score": 58.75,
+    "confidence": "medium",
+    "track_alignment": {
+      "status": "demonstrated",
+      "summary": "The primary implemented purpose addresses concrete security threats through instruction-like text classification and credential-shaped redaction. Committed tests exercise classification outcomes and redaction signals; runtime effectiveness remains unverified.",
+      "evidence": [
+        {
+          "evidence_id": "2c81299609bed4196c1b79a7ff1783a8ea045bb47ae8c8f1e372fc448b1703f4",
+          "path": "docs/security/threat-model.md",
+          "start_line": 3,
+          "end_line": 13,
+          "symbol": ""
+        },
+        {
+          "evidence_id": "23c9a96c3f4b6972a57aef3cca1d0aa4c2a06ce8894a0b6eb7f9a39b7c741e7a",
+          "path": "src/shield/pipeline.js",
+          "start_line": 1,
+          "end_line": 2,
+          "symbol": "inspectEvidence"
+        },
+        {
+          "evidence_id": "b386c2d0f26ad4364d78b67dee6a47cc0138ab82eb377e91a5718a017c735ed7",
+          "path": "src/shield/policy.js",
+          "start_line": 1,
+          "end_line": 2,
+          "symbol": "classify"
+        },
+        {
+          "evidence_id": "45d23207d382f9a9c19f838b1d4996afe3fbae29ac8362606585e59ec49d9a6a",
+          "path": "src/shield/redact.js",
+          "start_line": 1,
+          "end_line": 10,
+          "symbol": "redact"
+        },
+        {
+          "evidence_id": "fc2a76fd7257cad34f622bb908787a1bc780ea0dc7f74fd15eb3e3bce6edfd5d",
+          "path": "test/adversarial-corpus.test.js",
+          "start_line": 1,
+          "end_line": 4,
+          "symbol": ""
+        },
+        {
+          "evidence_id": "c231fa11ce86a967ce9a086a20d176a7ffff5f9a140bf6a81304570ad0bf3400",
+          "path": "test/redaction.test.js",
+          "start_line": 5,
+          "end_line": 12,
+          "symbol": ""
+        }
+      ],
+      "questions_for_organizer": []
+    },
+    "not_tested": [
+      "Whether the project builds or starts",
+      "Whether tests pass",
+      "Runtime correctness",
+      "Performance, scaling, or reliability under load",
+      "Runtime accessibility behavior",
+      "Debugging ability",
+      "Ability to extend the system safely",
+      "Deployment correctness"
+    ]
+  },
+  "critic": {
+    "valid": false,
+    "errors": [
+      "design_reasoning: Rating 3 requires trade-offs to trace consistently through implementation and tests. The decision says defensive quotations are annotated, but classify quarantines any text containing a direct attack phrase regardless of context; the cited test uses a security-topic phrase rather than a quotation containing such a phrase. The finding acknowledges the test gap but omits the implementation contradiction.",
+      "testing_evidence: The citation to test/redaction.test.js ends at line 12, while the assertion supporting benign identifier preservation is on line 13."
+    ]
+  }
+}

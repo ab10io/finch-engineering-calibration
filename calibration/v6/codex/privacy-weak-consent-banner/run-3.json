@@ -1,0 +1,228 @@
+{
+  "fixture_slug": "privacy-weak-consent-banner",
+  "run": 3,
+  "model": "gpt-6.1-sol",
+  "critic_model": "gpt-6.1-terra",
+  "prompt_version": "2.0",
+  "snapshot_hash": "0abe2a43a8c8c227fb3dfb6830f333eceb244c4d0b60f5b2219a74f9b0513f7c",
+  "recorded_at": "2026-11-16",
+  "accepted": true,
+  "validation": {
+    "production_schema_valid": true,
+    "critic_valid": true,
+    "errors": []
+  },
+  "assessment": {
+    "categories": {
+      "design_reasoning": {
+        "score": 6.25,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "alternatives_and_tradeoffs",
+            "rating": 1,
+            "points_available": 25,
+            "points_awarded": 6.25,
+            "confidence": "medium",
+            "summary": "The consent constraint and limitations are stated, but alternatives are absent and the implementation writes a flag without reading it to gate initialization.",
+            "limitations": "No automated validation supports the selected approach.",
+            "evidence": [
+              {
+                "evidence_id": "3cd98ce55a550441c10a49f9576af009ab6b339280edadf815845790c5da6ba8",
+                "path": "docs/decisions.md",
+                "start_line": 5,
+                "end_line": 25,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "ed86539f73897bff1e7d442d5db06cf1fca34189a594d49fa251ef0e70c92865",
+                "path": "src/banner.tsx",
+                "start_line": 1,
+                "end_line": 5,
+                "symbol": "Banner"
+              }
+            ]
+          }
+        ]
+      },
+      "architecture_maintainability": {
+        "score": 5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "boundaries_and_coupling",
+            "rating": 1,
+            "points_available": 20,
+            "points_awarded": 5,
+            "confidence": "medium",
+            "summary": "Banner encapsulates the acceptance action, but directly couples rendering, browser storage, and the global analytics loader without an adapter boundary.",
+            "limitations": "No change-isolation evidence is provided.",
+            "evidence": [
+              {
+                "evidence_id": "ed86539f73897bff1e7d442d5db06cf1fca34189a594d49fa251ef0e70c92865",
+                "path": "src/banner.tsx",
+                "start_line": 1,
+                "end_line": 5,
+                "symbol": "Banner"
+              }
+            ]
+          }
+        ]
+      },
+      "security_by_design": {
+        "score": 10,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "threat_model_and_mitigations",
+            "rating": 2,
+            "points_available": 20,
+            "points_awarded": 10,
+            "confidence": "medium",
+            "summary": "A bounded consent threat maps to an SDK load call inside the acceptance handler, with explicit gaps in tracker inventory, withdrawal, minimization, and consent integrity.",
+            "limitations": "This local control does not establish prevention of analytics collection elsewhere; negative security tests are absent.",
+            "evidence": [
+              {
+                "evidence_id": "04f3db08a28ae2341c09cd9307787eb516b8c1b5cd4189f3dac7cbd212bfac56",
+                "path": "docs/security.md",
+                "start_line": 3,
+                "end_line": 13,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "ed86539f73897bff1e7d442d5db06cf1fca34189a594d49fa251ef0e70c92865",
+                "path": "src/banner.tsx",
+                "start_line": 2,
+                "end_line": 5,
+                "symbol": "Banner"
+              }
+            ]
+          }
+        ]
+      },
+      "testing_evidence": {
+        "score": 0,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "test_strategy_and_coverage",
+            "rating": 0,
+            "points_available": 15,
+            "points_awarded": 0,
+            "confidence": "medium",
+            "summary": "Only a reported manual acceptance click is documented; no automated tests or negative-path records provide meaningful coverage.",
+            "limitations": "The manual narrative does not establish runtime success.",
+            "evidence": [
+              {
+                "evidence_id": "62193ce3bbf1eb27f94b75af7e1fa8e2d84a09b028aa67c2a6ae40d12b007e87",
+                "path": "docs/testing.md",
+                "start_line": 1,
+                "end_line": 7,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "documentation_operations": {
+        "score": 0,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "operational_clarity",
+            "rating": 0,
+            "points_available": 10,
+            "points_awarded": 0,
+            "confidence": "medium",
+            "summary": "The README describes purpose and a bypass limitation but provides no installation, configuration, operational, or recovery instructions.",
+            "limitations": "Product description alone does not establish usable operating guidance.",
+            "evidence": [
+              {
+                "evidence_id": "dc4487ca9af82914295982fe5d5791f2ead75673d962a3c714c3f2e5e6335e2b",
+                "path": "README.md",
+                "start_line": 1,
+                "end_line": 21,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "repository_hygiene": {
+        "score": 0,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "dependency_and_repository_hygiene",
+            "rating": 0,
+            "points_available": 10,
+            "points_awarded": 0,
+            "confidence": "medium",
+            "summary": "The manifest declares no dependencies despite the source importing React, leaving basic dependency controls incomplete.",
+            "limitations": "The catalogue supplies no license, lockfile, automation, or artifact policy evidence.",
+            "evidence": [
+              {
+                "evidence_id": "89a673b46bccaebcd5a88930a77ddb2663f13fef43fd83c7589f97d848c60f0c",
+                "path": "package.json",
+                "start_line": 1,
+                "end_line": 7,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "ed86539f73897bff1e7d442d5db06cf1fca34189a594d49fa251ef0e70c92865",
+                "path": "src/banner.tsx",
+                "start_line": 1,
+                "end_line": 5,
+                "symbol": "Banner"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "core_score": 21.25,
+    "confidence": "medium",
+    "track_alignment": {
+      "status": "not_demonstrated",
+      "summary": "The stated product is a general analytics dashboard. An acceptance-triggered SDK load call demonstrates a narrow consent interaction, but does not establish that materially improving privacy is the product's primary purpose.",
+      "evidence": [
+        {
+          "evidence_id": "dc4487ca9af82914295982fe5d5791f2ead75673d962a3c714c3f2e5e6335e2b",
+          "path": "README.md",
+          "start_line": 5,
+          "end_line": 13,
+          "symbol": ""
+        },
+        {
+          "evidence_id": "ed86539f73897bff1e7d442d5db06cf1fca34189a594d49fa251ef0e70c92865",
+          "path": "src/banner.tsx",
+          "start_line": 1,
+          "end_line": 5,
+          "symbol": "Banner"
+        },
+        {
+          "evidence_id": "04f3db08a28ae2341c09cd9307787eb516b8c1b5cd4189f3dac7cbd212bfac56",
+          "path": "docs/security.md",
+          "start_line": 9,
+          "end_line": 13,
+          "symbol": ""
+        }
+      ],
+      "questions_for_organizer": []
+    },
+    "not_tested": [
+      "Whether the project builds or starts",
+      "Whether tests pass",
+      "Runtime correctness",
+      "Performance, scaling, or reliability under load",
+      "Runtime accessibility behavior",
+      "Debugging ability",
+      "Ability to extend the system safely",
+      "Deployment correctness"
+    ]
+  },
+  "critic": {
+    "valid": true,
+    "errors": []
+  }
+}

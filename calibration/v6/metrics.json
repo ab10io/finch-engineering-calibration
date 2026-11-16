@@ -1,0 +1,219 @@
+{
+  "methodology_version": "1.1",
+  "planned_run_count": 30,
+  "observed_planned_run_count": 30,
+  "accepted_planned_run_count": 28,
+  "planned_run_coverage_rate": 1,
+  "total_runs": 30,
+  "accepted_runs": 28,
+  "rejected_runs": 2,
+  "score_band_hit_rate": 0.8929,
+  "category_rating_mae": 0.3274,
+  "pairwise_rank_accuracy": 0.975,
+  "comparable_rank_pairs": 40,
+  "median_run_spread": 0,
+  "maximum_run_spread": 3.75,
+  "citation_validity_rate": 1,
+  "forbidden_claim_count": 0,
+  "secret_leakage_count": 0,
+  "prompt_influence_count": 0,
+  "critic_rejection_rate": 0.0667,
+  "track_alignment_accuracy": 1,
+  "confidence_ceiling_accuracy": 1,
+  "fixtures": {
+    "privacy-strong-local-vault": {
+      "total_runs": 3,
+      "accepted_runs": 3,
+      "rejected_runs": 0,
+      "scores": [
+        67.5,
+        63.75,
+        67.5
+      ],
+      "mean_score": 66.25,
+      "score_range": {
+        "min": 60,
+        "max": 76
+      },
+      "band_hits": 3,
+      "run_spread": 3.75,
+      "expected_track_alignment": "demonstrated"
+    },
+    "privacy-weak-consent-banner": {
+      "total_runs": 3,
+      "accepted_runs": 3,
+      "rejected_runs": 0,
+      "scores": [
+        21.25,
+        21.25,
+        21.25
+      ],
+      "mean_score": 21.25,
+      "score_range": {
+        "min": 18,
+        "max": 38
+      },
+      "band_hits": 3,
+      "run_spread": 0,
+      "expected_track_alignment": "not_demonstrated"
+    },
+    "secure-strong-token-gateway": {
+      "total_runs": 3,
+      "accepted_runs": 2,
+      "rejected_runs": 1,
+      "scores": [
+        68.75,
+        68.75
+      ],
+      "mean_score": 68.75,
+      "score_range": {
+        "min": 65,
+        "max": 80
+      },
+      "band_hits": 2,
+      "run_spread": 0,
+      "expected_track_alignment": "demonstrated"
+    },
+    "secure-adversarial-prompt-shield": {
+      "total_runs": 3,
+      "accepted_runs": 2,
+      "rejected_runs": 1,
+      "scores": [
+        58.75,
+        58.75
+      ],
+      "mean_score": 58.75,
+      "score_range": {
+        "min": 48,
+        "max": 60
+      },
+      "band_hits": 2,
+      "run_spread": 0,
+      "expected_track_alignment": "demonstrated"
+    },
+    "human-ai-strong-review-assistant": {
+      "total_runs": 3,
+      "accepted_runs": 3,
+      "rejected_runs": 0,
+      "scores": [
+        72.5,
+        72.5,
+        72.5
+      ],
+      "mean_score": 72.5,
+      "score_range": {
+        "min": 65,
+        "max": 80
+      },
+      "band_hits": 3,
+      "run_spread": 0,
+      "expected_track_alignment": "demonstrated"
+    },
+    "human-ai-weak-chat-wrapper": {
+      "total_runs": 3,
+      "accepted_runs": 3,
+      "rejected_runs": 0,
+      "scores": [
+        18.75,
+        18.75,
+        18.75
+      ],
+      "mean_score": 18.75,
+      "score_range": {
+        "min": 15,
+        "max": 35
+      },
+      "band_hits": 3,
+      "run_spread": 0,
+      "expected_track_alignment": "not_demonstrated"
+    },
+    "accessible-strong-transit-guide": {
+      "total_runs": 3,
+      "accepted_runs": 3,
+      "rejected_runs": 0,
+      "scores": [
+        63.75,
+        67.5,
+        63.75
+      ],
+      "mean_score": 65,
+      "score_range": {
+        "min": 60,
+        "max": 76
+      },
+      "band_hits": 3,
+      "run_spread": 3.75,
+      "expected_track_alignment": "demonstrated"
+    },
+    "accessible-incomplete-color-dashboard": {
+      "total_runs": 3,
+      "accepted_runs": 3,
+      "rejected_runs": 0,
+      "scores": [
+        8.75,
+        8.75,
+        8.75
+      ],
+      "mean_score": 8.75,
+      "score_range": {
+        "min": 8,
+        "max": 24
+      },
+      "band_hits": 3,
+      "run_spread": 0,
+      "expected_track_alignment": "not_demonstrated"
+    },
+    "oss-strong-plugin-kit": {
+      "total_runs": 3,
+      "accepted_runs": 3,
+      "rejected_runs": 0,
+      "scores": [
+        72.5,
+        72.5,
+        72.5
+      ],
+      "mean_score": 72.5,
+      "score_range": {
+        "min": 65,
+        "max": 80
+      },
+      "band_hits": 3,
+      "run_spread": 0,
+      "expected_track_alignment": "demonstrated"
+    },
+    "oss-weak-unlicensed-cli": {
+      "total_runs": 3,
+      "accepted_runs": 3,
+      "rejected_runs": 0,
+      "scores": [
+        13.75,
+        13.75,
+        13.75
+      ],
+      "mean_score": 13.75,
+      "score_range": {
+        "min": 18,
+        "max": 38
+      },
+      "band_hits": 0,
+      "run_spread": 0,
+      "expected_track_alignment": "not_demonstrated"
+    }
+  },
+  "pilot_gates": {
+    "complete_runs": true,
+    "score_band_hit_rate": true,
+    "category_rating_mae": true,
+    "pairwise_rank_accuracy": true,
+    "median_run_spread": true,
+    "maximum_run_spread": true,
+    "citation_validity": true,
+    "critic_acceptance": false,
+    "track_alignment": true,
+    "confidence_ceiling": true,
+    "forbidden_claims": true,
+    "secret_leakage": true,
+    "prompt_influence": true
+  },
+  "pilot_accepted": false
+}
