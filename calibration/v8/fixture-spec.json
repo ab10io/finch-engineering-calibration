@@ -102,7 +102,7 @@
       "expected_low_criteria": [],
       "adversarial_tags": [],
       "branch": "fixture/v8/accessible-strong-transit-guide",
-      "commit_sha": "0000000000000000000000000000000000000000",
+      "commit_sha": "9d9c7da2352b1e998cef20749e0ff52dbf56e086",
       "repository_url": "https://github.com/ab10io/finch-engineering-calibration",
       "synthetic": true,
       "leaderboard_eligible": false,

@@ -1,0 +1,42 @@
+{
+  "fixture_slug": "accessible-strong-transit-guide",
+  "title": "Transit Guide",
+  "summary": "An offline route-instruction interface designed with blind and low-vision riders for disrupted public transit.",
+  "intended_users": "Blind and low-vision riders navigating temporary platform, elevator, and route changes with unreliable connectivity.",
+  "repository_url": "https://github.com/ab10io/finch-engineering-calibration",
+  "commit_sha": "9d9c7da2352b1e998cef20749e0ff52dbf56e086",
+  "demo_url": null,
+  "selected_track_slug": "accessible-inclusive-technology",
+  "diagram_type": "repository_path",
+  "diagram_text": null,
+  "diagram_path": "docs/decisions/001-access-needs.md",
+  "diagram_image_ref": null,
+  "design_decisions": [
+    {
+      "problem_or_constraint": "The project traces bounded access constraints and rejected visual-only alternatives into explicit route-instruction and disruption behavior.",
+      "alternatives_considered": "The committed alternatives table compares benefits, rejected costs, and the condition that triggers reconsideration.",
+      "chosen_approach_and_rationale": "Route facts, access preferences, instruction generation, disruption policy, and semantic rendering are isolated.",
+      "accepted_trade_off": "Static evidence cannot verify behavior with every browser and assistive-technology combination.",
+      "repository_evidence": "docs/decisions/001-access-needs.md, src/guide/build-guide.js",
+      "validation_approach": "Mark an inaccessible path unavailable and produce a bounded alternative when facts permit. Avoid inventing landmarks and retain step ordering with explicit uncertainty. Reject route text containing markup or unsupported executable content.",
+      "reconsideration_conditions": "Static evidence cannot verify behavior with every browser and assistive-technology combination. Generated guidance remains constrained by the accuracy and timeliness of supplied transit facts."
+    }
+  ],
+  "testing_strategy": "Committed cross-boundary, negative, and boundary tests: test/disruption-boundaries.test.js, test/access-needs.test.js. Their presence does not establish that they pass in Finch static review.",
+  "security_threat": "Malformed or injected route data produces misleading or unsafe instructions. Control: A strict validator bounds route facts, rejects external markup, and requires safety-critical fields. Sensitive access preferences or location history are retained beyond guide generation. Control: The guide accepts bounded preferences per request and emits no persistent identity or history fields.",
+  "production_limitation": "Static evidence cannot verify behavior with every browser and assistive-technology combination. Generated guidance remains constrained by the accuracy and timeliness of supplied transit facts.",
+  "technical_debt": "Complete deployment-specific runtime, performance, accessibility, and security evaluation before production use.",
+  "track_alignment_explanation": "The product primarily improves transit autonomy for defined visual, mobility, and cognitive-load access needs.",
+  "ai_disclosure": {
+    "tools_used": [
+      "OpenAI Codex"
+    ],
+    "purposes": "Codex was used to author this deliberately synthetic calibration fixture and its structured submission answers.",
+    "substantially_generated_areas": "All fixture source, documentation, tests, and submission narratives are synthetic and AI-assisted.",
+    "review_validation": "The calibration operator reviews files for intended evidence strength, consistency, and absence of real secrets before pinning the commit.",
+    "rejected_or_changed_suggestion": "Generic claims of runtime correctness were rejected because Finch performs static evidence review only."
+  },
+  "ai_disclosure_narrative": "This entire project is synthetic AI-assisted test data. It represents no participant, deployed product, or real credential.",
+  "synthetic": true,
+  "leaderboard_eligible": false
+}
