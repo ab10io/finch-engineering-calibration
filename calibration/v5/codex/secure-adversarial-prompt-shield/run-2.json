@@ -1,0 +1,351 @@
+{
+  "fixture_slug": "secure-adversarial-prompt-shield",
+  "run": 2,
+  "model": "gpt-6.1-sol",
+  "critic_model": "gpt-6.1-terra",
+  "prompt_version": "2.0",
+  "snapshot_hash": "a69438edec3532104f1717544ec80048ceca8a067de202d7da950fed4a7a414d",
+  "recorded_at": "2026-11-16",
+  "accepted": false,
+  "validation": {
+    "production_schema_valid": true,
+    "critic_valid": false,
+    "errors": [
+      "The security_by_design finding claims the redaction test contains an unterminated string, and the testing_evidence finding repeats that claim. The displayed fixture has been redacted, so the excerpt does not establish that the original test contains an unterminated string."
+    ]
+  },
+  "assessment": {
+    "categories": {
+      "design_reasoning": {
+        "score": 18.75,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "alternatives_and_tradeoffs",
+            "rating": 3,
+            "points_available": 25,
+            "points_awarded": 18.75,
+            "confidence": "medium",
+            "summary": "The decision compares prompt-only defenses, dropping prose, and heuristic filtering; the selected quarantine, annotate, and allow outcomes trace into implementation and focused tests.",
+            "limitations": "The stated pattern-versioning and measured reconsideration process lack corresponding implementation or measurement evidence.",
+            "evidence": [
+              {
+                "evidence_id": "26c7d114b5b645eaf97551b0295a57ed5d3dc677af2757a95d06390d9af21b0e",
+                "path": "docs/decisions/001-bounded-shield.md",
+                "start_line": 3,
+                "end_line": 14,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "b386c2d0f26ad4364d78b67dee6a47cc0138ab82eb377e91a5718a017c735ed7",
+                "path": "src/shield/policy.js",
+                "start_line": 1,
+                "end_line": 2,
+                "symbol": "classify"
+              },
+              {
+                "evidence_id": "fc2a76fd7257cad34f622bb908787a1bc780ea0dc7f74fd15eb3e3bce6edfd5d",
+                "path": "test/adversarial-corpus.test.js",
+                "start_line": 1,
+                "end_line": 4,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "architecture_maintainability": {
+        "score": 10,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "boundaries_and_coupling",
+            "rating": 2,
+            "points_available": 20,
+            "points_awarded": 10,
+            "confidence": "medium",
+            "summary": "Classification and redaction have separate modules composed by a small pipeline returning structured evidence. The pipeline test checks excerpt bounds and path preservation.",
+            "limitations": "Tests do not demonstrate change isolation across policy or redaction boundaries, nor orchestration failure containment.",
+            "evidence": [
+              {
+                "evidence_id": "23c9a96c3f4b6972a57aef3cca1d0aa4c2a06ce8894a0b6eb7f9a39b7c741e7a",
+                "path": "src/shield/pipeline.js",
+                "start_line": 1,
+                "end_line": 2,
+                "symbol": "inspectEvidence"
+              },
+              {
+                "evidence_id": "b386c2d0f26ad4364d78b67dee6a47cc0138ab82eb377e91a5718a017c735ed7",
+                "path": "src/shield/policy.js",
+                "start_line": 1,
+                "end_line": 2,
+                "symbol": "classify"
+              },
+              {
+                "evidence_id": "45d23207d382f9a9c19f838b1d4996afe3fbae29ac8362606585e59ec49d9a6a",
+                "path": "src/shield/redact.js",
+                "start_line": 1,
+                "end_line": 10,
+                "symbol": "redact"
+              },
+              {
+                "evidence_id": "f4ec7022c73294491fdae7a46f77a663b99afc7206b2f5da82dfcd9fed199469",
+                "path": "test/pipeline-boundary.test.js",
+                "start_line": 1,
+                "end_line": 2,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "security_by_design": {
+        "score": 10,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "threat_model_and_mitigations",
+            "rating": 2,
+            "points_available": 20,
+            "points_awarded": 10,
+            "confidence": "medium",
+            "summary": "A bounded threat model maps untrusted instructions and credential disclosure to classification and redaction controls, with explicit semantic-bypass and language limitations.",
+            "limitations": "Adversarial tests cover three straightforward classification examples. The supplied redaction test contains an unterminated string, and integrated security-boundary assertions are absent.",
+            "evidence": [
+              {
+                "evidence_id": "2c81299609bed4196c1b79a7ff1783a8ea045bb47ae8c8f1e372fc448b1703f4",
+                "path": "docs/security/threat-model.md",
+                "start_line": 3,
+                "end_line": 13,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "b386c2d0f26ad4364d78b67dee6a47cc0138ab82eb377e91a5718a017c735ed7",
+                "path": "src/shield/policy.js",
+                "start_line": 1,
+                "end_line": 2,
+                "symbol": "classify"
+              },
+              {
+                "evidence_id": "45d23207d382f9a9c19f838b1d4996afe3fbae29ac8362606585e59ec49d9a6a",
+                "path": "src/shield/redact.js",
+                "start_line": 1,
+                "end_line": 10,
+                "symbol": "redact"
+              },
+              {
+                "evidence_id": "fc2a76fd7257cad34f622bb908787a1bc780ea0dc7f74fd15eb3e3bce6edfd5d",
+                "path": "test/adversarial-corpus.test.js",
+                "start_line": 1,
+                "end_line": 4,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "830ca7de8202f9f5c64340b19d79ebbab5f8b03fed2c2734b676f42b8e545690",
+                "path": "test/redaction.test.js",
+                "start_line": 5,
+                "end_line": 12,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "f4ec7022c73294491fdae7a46f77a663b99afc7206b2f5da82dfcd9fed199469",
+                "path": "test/pipeline-boundary.test.js",
+                "start_line": 1,
+                "end_line": 2,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "testing_evidence": {
+        "score": 7.5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "test_strategy_and_coverage",
+            "rating": 2,
+            "points_available": 15,
+            "points_awarded": 7.5,
+            "confidence": "medium",
+            "summary": "Committed assertions cover classification outcomes, benign identifier preservation, and bounded pipeline output.",
+            "limitations": "The redaction fixture has an unterminated string in the frozen excerpt. Invalid-input, obfuscation, and important orchestration failure paths are not covered by the supplied tests; no execution was performed.",
+            "evidence": [
+              {
+                "evidence_id": "fc2a76fd7257cad34f622bb908787a1bc780ea0dc7f74fd15eb3e3bce6edfd5d",
+                "path": "test/adversarial-corpus.test.js",
+                "start_line": 1,
+                "end_line": 4,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "830ca7de8202f9f5c64340b19d79ebbab5f8b03fed2c2734b676f42b8e545690",
+                "path": "test/redaction.test.js",
+                "start_line": 1,
+                "end_line": 12,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "f4ec7022c73294491fdae7a46f77a663b99afc7206b2f5da82dfcd9fed199469",
+                "path": "test/pipeline-boundary.test.js",
+                "start_line": 1,
+                "end_line": 2,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "documentation_operations": {
+        "score": 5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "operational_clarity",
+            "rating": 2,
+            "points_available": 10,
+            "points_awarded": 5,
+            "confidence": "medium",
+            "summary": "Documentation provides Node prerequisites, installation and test commands, API arguments, quarantine handling, and heuristic limitations.",
+            "limitations": "The example omits its import, the README references an unavailable runbook, and the triage guide gives generic recovery steps without concrete failure codes or rollback procedures.",
+            "evidence": [
+              {
+                "evidence_id": "dc5c6beb4ec8074eea0e7b02b708ca19648ccc188f378c80e026134e9bcfcd67",
+                "path": "README.md",
+                "start_line": 7,
+                "end_line": 33,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "578084561325d212cdc8f8c7348a2415a6d1dac931ec69ac31b7d4fc1c8dacc9",
+                "path": "docs/triage.md",
+                "start_line": 1,
+                "end_line": 11,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "repository_hygiene": {
+        "score": 7.5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "dependency_and_repository_hygiene",
+            "rating": 3,
+            "points_available": 10,
+            "points_awarded": 7.5,
+            "confidence": "medium",
+            "summary": "The repository includes dependency metadata and a lockfile, MIT licensing, scoped CI, contribution requirements, and an explicit artifact and secret policy.",
+            "limitations": "CI actions use version tags rather than immutable commits; artifact-policy enforcement and release provenance are not demonstrated.",
+            "evidence": [
+              {
+                "evidence_id": "fe4895a4aaa07031ea5d01718b94481ceb87bbd6f18630b6127c6b10c1cd1d4c",
+                "path": "package.json",
+                "start_line": 1,
+                "end_line": 13,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "4aa962e2434d5dd5b25ce0167977e9a88861a9e98673f1f942c8cde243e12956",
+                "path": "package-lock.json",
+                "start_line": 1,
+                "end_line": 16,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "a1f6f4dcb6b0174dd813443eebf8d4dd8bc892b9a2b4abecd98ec3e4942e3081",
+                "path": "LICENSE",
+                "start_line": 1,
+                "end_line": 21,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "a15029fc640a8bca652bf11756758e4269baae88ca614cdd108ddf2bd2ae7c55",
+                "path": ".github/workflows/ci.yml",
+                "start_line": 1,
+                "end_line": 15,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "66440dcc95d5eaa9e311c88c66a06c22718615535ac1daf5932a716d993b8f49",
+                "path": "CONTRIBUTING.md",
+                "start_line": 1,
+                "end_line": 3,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "46dabe5423aeac9c8c762453384f203a23512d928c5d549eb06904a76c361d62",
+                "path": ".artifact-policy.json",
+                "start_line": 1,
+                "end_line": 6,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "core_score": 58.75,
+    "confidence": "medium",
+    "track_alignment": {
+      "status": "demonstrated",
+      "summary": "The implemented evidence-filter API targets prompt influence through classification and quarantine signals, and credential disclosure through redaction. Classification tests support this security purpose; downstream quarantine enforcement is left to callers.",
+      "evidence": [
+        {
+          "evidence_id": "23c9a96c3f4b6972a57aef3cca1d0aa4c2a06ce8894a0b6eb7f9a39b7c741e7a",
+          "path": "src/shield/pipeline.js",
+          "start_line": 1,
+          "end_line": 2,
+          "symbol": "inspectEvidence"
+        },
+        {
+          "evidence_id": "b386c2d0f26ad4364d78b67dee6a47cc0138ab82eb377e91a5718a017c735ed7",
+          "path": "src/shield/policy.js",
+          "start_line": 1,
+          "end_line": 2,
+          "symbol": "classify"
+        },
+        {
+          "evidence_id": "45d23207d382f9a9c19f838b1d4996afe3fbae29ac8362606585e59ec49d9a6a",
+          "path": "src/shield/redact.js",
+          "start_line": 1,
+          "end_line": 10,
+          "symbol": "redact"
+        },
+        {
+          "evidence_id": "fc2a76fd7257cad34f622bb908787a1bc780ea0dc7f74fd15eb3e3bce6edfd5d",
+          "path": "test/adversarial-corpus.test.js",
+          "start_line": 1,
+          "end_line": 4,
+          "symbol": ""
+        },
+        {
+          "evidence_id": "dc5c6beb4ec8074eea0e7b02b708ca19648ccc188f378c80e026134e9bcfcd67",
+          "path": "README.md",
+          "start_line": 17,
+          "end_line": 24,
+          "symbol": ""
+        }
+      ],
+      "questions_for_organizer": []
+    },
+    "not_tested": [
+      "Whether the project builds or starts",
+      "Whether tests pass",
+      "Runtime correctness",
+      "Performance, scaling, or reliability under load",
+      "Runtime accessibility behavior",
+      "Debugging ability",
+      "Ability to extend the system safely",
+      "Deployment correctness"
+    ]
+  },
+  "critic": {
+    "valid": false,
+    "errors": [
+      "The security_by_design finding claims the redaction test contains an unterminated string, and the testing_evidence finding repeats that claim. The displayed fixture has been redacted, so the excerpt does not establish that the original test contains an unterminated string."
+    ]
+  }
+}

@@ -1,0 +1,242 @@
+{
+  "fixture_slug": "oss-weak-unlicensed-cli",
+  "run": 1,
+  "model": "gpt-6.1-sol",
+  "critic_model": "gpt-6.1-terra",
+  "prompt_version": "2.0",
+  "snapshot_hash": "4ee0fcded81cab9d00649f632dd0fe7da47a6801589365f75d28085a8a4e7035",
+  "recorded_at": "2026-11-16",
+  "accepted": true,
+  "validation": {
+    "production_schema_valid": true,
+    "critic_valid": true,
+    "errors": []
+  },
+  "assessment": {
+    "categories": {
+      "design_reasoning": {
+        "score": 6.25,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "alternatives_and_tradeoffs",
+            "rating": 1,
+            "points_available": 25,
+            "points_awarded": 6.25,
+            "confidence": "medium",
+            "summary": "The minimal Node CLI decision identifies whole-input buffering and raw parser errors as trade-offs, but offers no comparison with existing alternatives. Buffering is traceable to the implementation.",
+            "limitations": "The reported manual example provides no committed test evidence validating the decision.",
+            "evidence": [
+              {
+                "evidence_id": "aec8ef0a3a0b0c9e1479ba52068b358837542a1e2c2c3be69a2ef583c376b2eb",
+                "path": "docs/decisions.md",
+                "start_line": 7,
+                "end_line": 25,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "8318ba9915773af96dc9ceae6ec964f30e49b1d7134b68438f06b4810f08c371",
+                "path": "src/cli.js",
+                "start_line": 1,
+                "end_line": 3,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "architecture_maintainability": {
+        "score": 5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "boundaries_and_coupling",
+            "rating": 1,
+            "points_available": 20,
+            "points_awarded": 5,
+            "confidence": "medium",
+            "summary": "The stdin-to-stdout flow is understandable, but input collection, parsing, formatting, and output share one file with no reusable interface or extension boundary.",
+            "limitations": "The bounded implementation does not demonstrate change isolation or failure containment.",
+            "evidence": [
+              {
+                "evidence_id": "5aa16310a90fb10b50e2841dadac9f790f18c2049dca520ffb21b0c16714ccc5",
+                "path": "docs/architecture.md",
+                "start_line": 3,
+                "end_line": 13,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "8318ba9915773af96dc9ceae6ec964f30e49b1d7134b68438f06b4810f08c371",
+                "path": "src/cli.js",
+                "start_line": 1,
+                "end_line": 3,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "security_by_design": {
+        "score": 5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "threat_model_and_mitigations",
+            "rating": 1,
+            "points_available": 20,
+            "points_awarded": 5,
+            "confidence": "medium",
+            "summary": "Security documentation identifies memory exhaustion and output-related risks but explicitly reports no mitigation. The implementation accumulates input without a size bound and has no explicit parser-error handling.",
+            "limitations": "Risk identification is not supported by implemented controls or negative tests; runtime exploitability was not assessed.",
+            "evidence": [
+              {
+                "evidence_id": "67f2315dd72be4822ba470a2137f85c8dab4cb01d4d2797f90cb33069e1b344e",
+                "path": "docs/security.md",
+                "start_line": 3,
+                "end_line": 13,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "8318ba9915773af96dc9ceae6ec964f30e49b1d7134b68438f06b4810f08c371",
+                "path": "src/cli.js",
+                "start_line": 1,
+                "end_line": 3,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "testing_evidence": {
+        "score": 0,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "test_strategy_and_coverage",
+            "rating": 0,
+            "points_available": 15,
+            "points_awarded": 0,
+            "confidence": "medium",
+            "summary": "No automated tests or fixtures are provided; validation consists only of a reported manual object example.",
+            "limitations": "No assertions, invalid-input cases, boundaries, or orchestration failure paths are evidenced.",
+            "evidence": [
+              {
+                "evidence_id": "0e4260517c4012b5d4b4f98d3d28390b3830de41646e861486a50b4909051b8a",
+                "path": "docs/testing.md",
+                "start_line": 1,
+                "end_line": 7,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "aec8ef0a3a0b0c9e1479ba52068b358837542a1e2c2c3be69a2ef583c376b2eb",
+                "path": "docs/decisions.md",
+                "start_line": 23,
+                "end_line": 25,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "documentation_operations": {
+        "score": 0,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "operational_clarity",
+            "rating": 0,
+            "points_available": 10,
+            "points_awarded": 0,
+            "confidence": "medium",
+            "summary": "The README describes the intended JSON formatting behavior and known limitations, but provides no installation or invocation procedure, failure diagnosis, or recovery guidance.",
+            "limitations": "Purpose and limitations alone do not establish usable onboarding or operations.",
+            "evidence": [
+              {
+                "evidence_id": "8fb3a3bfde6dda9b335ed6f26222b6e04058a58c43c1987b8709f1bb189bcf6e",
+                "path": "README.md",
+                "start_line": 1,
+                "end_line": 22,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "repository_hygiene": {
+        "score": 0,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "dependency_and_repository_hygiene",
+            "rating": 0,
+            "points_available": 10,
+            "points_awarded": 0,
+            "confidence": "medium",
+            "summary": "A minimal package manifest exists with empty development dependencies, but licensing is absent and installation and contribution documentation remain acknowledged work.",
+            "limitations": "No actual license is available to cite; the license gap is explicitly acknowledged in the submission. The manifest alone does not establish maintenance controls.",
+            "evidence": [
+              {
+                "evidence_id": "e29f9911d882c191b656781a7c22bec298dc4ee420c0443a758965fc8cc56bf1",
+                "path": "package.json",
+                "start_line": 1,
+                "end_line": 8,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "da07d77921a83d54c696cc3a691f25fee184ba6eca520af1128f59f738120ce8",
+                "path": "submission://technical_debt",
+                "start_line": 1,
+                "end_line": 1,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "core_score": 16.25,
+    "confidence": "medium",
+    "track_alignment": {
+      "status": "not_demonstrated",
+      "summary": "The implementation presents a developer-oriented JSON formatting CLI, but credible installation guidance and a recognized open-source license are absent. The required adoption and licensing conditions are therefore not demonstrated.",
+      "evidence": [
+        {
+          "evidence_id": "8318ba9915773af96dc9ceae6ec964f30e49b1d7134b68438f06b4810f08c371",
+          "path": "src/cli.js",
+          "start_line": 1,
+          "end_line": 3,
+          "symbol": ""
+        },
+        {
+          "evidence_id": "8fb3a3bfde6dda9b335ed6f26222b6e04058a58c43c1987b8709f1bb189bcf6e",
+          "path": "README.md",
+          "start_line": 5,
+          "end_line": 22,
+          "symbol": ""
+        },
+        {
+          "evidence_id": "da07d77921a83d54c696cc3a691f25fee184ba6eca520af1128f59f738120ce8",
+          "path": "submission://technical_debt",
+          "start_line": 1,
+          "end_line": 1,
+          "symbol": ""
+        }
+      ],
+      "questions_for_organizer": []
+    },
+    "not_tested": [
+      "Whether the project builds or starts",
+      "Whether tests pass",
+      "Runtime correctness",
+      "Performance, scaling, or reliability under load",
+      "Runtime accessibility behavior",
+      "Debugging ability",
+      "Ability to extend the system safely",
+      "Deployment correctness"
+    ]
+  },
+  "critic": {
+    "valid": true,
+    "errors": []
+  }
+}

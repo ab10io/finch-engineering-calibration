@@ -1,0 +1,333 @@
+{
+  "fixture_slug": "privacy-strong-local-vault",
+  "run": 1,
+  "model": "gpt-6.1-sol",
+  "critic_model": "gpt-6.1-terra",
+  "prompt_version": "2.0",
+  "snapshot_hash": "79f2b348456e80272fcc4ef9d76117182619d88d21d752cbf538007e67b9e231",
+  "recorded_at": "2026-11-16",
+  "accepted": true,
+  "validation": {
+    "production_schema_valid": true,
+    "critic_valid": true,
+    "errors": []
+  },
+  "assessment": {
+    "categories": {
+      "design_reasoning": {
+        "score": 18.75,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "alternatives_and_tradeoffs",
+            "rating": 3,
+            "points_available": 25,
+            "points_awarded": 18.75,
+            "confidence": "medium",
+            "summary": "The custody decision compares credible alternatives, accepts user-owned recovery, and identifies a reconsideration condition. The selected approach traces into service composition and tests for encrypted persistence, retention, and recovery.",
+            "limitations": "The evidence does not establish the availability of secure device key storage or validate the operational costs of user-owned recovery.",
+            "evidence": [
+              {
+                "evidence_id": "ba5945c4e9ea062148e100b1159c8fe552789a58940dad194ee3f37cf951964b",
+                "path": "docs/decisions/001-local-custody.md",
+                "start_line": 3,
+                "end_line": 13,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "93fa4dea129615810b9fdfc33dcea60091a48f8e71971a40fd6114dec6f2f329",
+                "path": "src/vault/service.js",
+                "start_line": 1,
+                "end_line": 30,
+                "symbol": "VaultService"
+              },
+              {
+                "evidence_id": "ecc3c7b6054749dd95041d4a6f0195295aa40ba076316e82ee78093e2db5d40c",
+                "path": "test/service-boundary.test.js",
+                "start_line": 1,
+                "end_line": 4,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "architecture_maintainability": {
+        "score": 10,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "boundaries_and_coupling",
+            "rating": 2,
+            "points_available": 20,
+            "points_awarded": 10,
+            "confidence": "medium",
+            "summary": "The service composes separate envelope, retention, and recovery modules with injected storage, key, clock, and IV dependencies. Tests exercise that composition but do not demonstrate change isolation across adapter or policy boundaries.",
+            "limitations": "Recovery import mutates storage incrementally before checking all identifier conflicts, leaving a partial-import failure boundary without demonstrated containment.",
+            "evidence": [
+              {
+                "evidence_id": "93fa4dea129615810b9fdfc33dcea60091a48f8e71971a40fd6114dec6f2f329",
+                "path": "src/vault/service.js",
+                "start_line": 1,
+                "end_line": 30,
+                "symbol": "VaultService"
+              },
+              {
+                "evidence_id": "ecc3c7b6054749dd95041d4a6f0195295aa40ba076316e82ee78093e2db5d40c",
+                "path": "test/service-boundary.test.js",
+                "start_line": 1,
+                "end_line": 4,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "security_by_design": {
+        "score": 10,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "threat_model_and_mitigations",
+            "rating": 2,
+            "points_available": 20,
+            "points_awarded": 10,
+            "confidence": "medium",
+            "summary": "The threat model connects storage tampering and retention risks to authenticated envelopes and pre-decryption expiry checks, with negative tests and explicit memory and device-compromise residual risks. However, authenticated metadata excludes retention fields, leaving the retention control exposed to stored-policy modification.",
+            "limitations": "The recovery checksum is unkeyed, and import does not authenticate envelopes or bind outer record identifiers and retention metadata before storing records. Static review establishes neither runtime security nor certification.",
+            "evidence": [
+              {
+                "evidence_id": "8fb1a35d595445931a718f9d9d1f37ef4f261cf7b9f6895fca20af5639a489fc",
+                "path": "docs/security/threat-model.md",
+                "start_line": 3,
+                "end_line": 13,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "35427539294051b23adced27472224ec752de96bdf18f0bf4a7609bfc2568b99",
+                "path": "src/vault/envelope.js",
+                "start_line": 8,
+                "end_line": 24,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "93fa4dea129615810b9fdfc33dcea60091a48f8e71971a40fd6114dec6f2f329",
+                "path": "src/vault/service.js",
+                "start_line": 7,
+                "end_line": 29,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "9a82d8067808e298b099df8bf2de7bfc0f7a311994b61f80f0f311a3acab2a52",
+                "path": "src/vault/recovery.js",
+                "start_line": 8,
+                "end_line": 20,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "e3bebe9731bf769317fdb612b85c7c32def8718f7f0ac24c580ea7c4fd19edcf",
+                "path": "test/vault-adversarial.test.js",
+                "start_line": 1,
+                "end_line": 4,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "ecc3c7b6054749dd95041d4a6f0195295aa40ba076316e82ee78093e2db5d40c",
+                "path": "test/service-boundary.test.js",
+                "start_line": 3,
+                "end_line": 3,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "testing_evidence": {
+        "score": 7.5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "test_strategy_and_coverage",
+            "rating": 2,
+            "points_available": 15,
+            "points_awarded": 7.5,
+            "confidence": "medium",
+            "summary": "Committed assertions cover ciphertext and metadata tampering, wrong keys, unsupported versions, recovery corruption and duplicates, exact expiry boundaries, and service persistence and expiry behavior. Important orchestration failures remain uncovered, including conflicting recovery imports and storage failures.",
+            "limitations": "Service recovery coverage is a successful round trip; it does not exercise partial mutation or adapter errors. Test execution and outcomes were not evaluated.",
+            "evidence": [
+              {
+                "evidence_id": "e3bebe9731bf769317fdb612b85c7c32def8718f7f0ac24c580ea7c4fd19edcf",
+                "path": "test/vault-adversarial.test.js",
+                "start_line": 1,
+                "end_line": 4,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "3f1378a2ffe3a0694eeae3b9da3680eef3d84fc5663fdac22a9e2708efa8f541",
+                "path": "test/recovery-boundary.test.js",
+                "start_line": 5,
+                "end_line": 17,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "c9e56a6c019affc43870ddb9a25107ef9321296799080eb742e60982d1c8fd28",
+                "path": "test/retention-boundary.test.js",
+                "start_line": 1,
+                "end_line": 3,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "ecc3c7b6054749dd95041d4a6f0195295aa40ba076316e82ee78093e2db5d40c",
+                "path": "test/service-boundary.test.js",
+                "start_line": 1,
+                "end_line": 4,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "93fa4dea129615810b9fdfc33dcea60091a48f8e71971a40fd6114dec6f2f329",
+                "path": "src/vault/service.js",
+                "start_line": 24,
+                "end_line": 29,
+                "symbol": "importEncryptedRecovery"
+              }
+            ]
+          }
+        ]
+      },
+      "documentation_operations": {
+        "score": 5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "operational_clarity",
+            "rating": 2,
+            "points_available": 10,
+            "points_awarded": 5,
+            "confidence": "medium",
+            "summary": "The README provides Node prerequisites, installation and test commands, injected configuration, a primary-use example, and privacy limitations. Recovery guidance remains generic and refers to rollback, quarantine, and audit procedures without explaining concrete steps.",
+            "limitations": "The runbook does not document key provisioning, backup verification, recovery import/export commands, or specific failure-code remedies.",
+            "evidence": [
+              {
+                "evidence_id": "273b6912e60e900cfb5b02c1233066aac65db88d7e05c3484179e52d86cea33d",
+                "path": "README.md",
+                "start_line": 7,
+                "end_line": 34,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "82c65ce7a502cbfc2918473b449e3bdb869d0a23fe83b75181f46eac10e3d158",
+                "path": "docs/runbook.md",
+                "start_line": 1,
+                "end_line": 11,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "repository_hygiene": {
+        "score": 7.5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "dependency_and_repository_hygiene",
+            "rating": 3,
+            "points_available": 10,
+            "points_awarded": 7.5,
+            "confidence": "medium",
+            "summary": "The manifest and lock agree on version and Node requirements; an MIT license grants reuse rights. Read-only CI permissions, install and test steps, contribution expectations, and an explicit generated-artifact and secret policy provide consistent maintenance evidence.",
+            "limitations": "Automation is configured rather than demonstrated successful. Workflow actions use version tags, and the artifact policy has no cited automated enforcement.",
+            "evidence": [
+              {
+                "evidence_id": "ec640c6c5c4e860692dd84b3fb9616a56bd6b16a1985e4f3d6b9425600844ddf",
+                "path": "package.json",
+                "start_line": 1,
+                "end_line": 13,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "d65acbfe70f1f706f504b2313d0597c4c60a6bdc1cb7008eb82aace1a97cb1df",
+                "path": "package-lock.json",
+                "start_line": 1,
+                "end_line": 16,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "a1f6f4dcb6b0174dd813443eebf8d4dd8bc892b9a2b4abecd98ec3e4942e3081",
+                "path": "LICENSE",
+                "start_line": 1,
+                "end_line": 12,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "a15029fc640a8bca652bf11756758e4269baae88ca614cdd108ddf2bd2ae7c55",
+                "path": ".github/workflows/ci.yml",
+                "start_line": 1,
+                "end_line": 15,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "66440dcc95d5eaa9e311c88c66a06c22718615535ac1daf5932a716d993b8f49",
+                "path": "CONTRIBUTING.md",
+                "start_line": 1,
+                "end_line": 3,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "46dabe5423aeac9c8c762453384f203a23512d928c5d549eb06904a76c361d62",
+                "path": ".artifact-policy.json",
+                "start_line": 1,
+                "end_line": 6,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "core_score": 58.75,
+    "confidence": "medium",
+    "track_alignment": {
+      "status": "demonstrated",
+      "summary": "Privacy is central to the implemented vault surface: the service stores encrypted envelopes and checks retention before disclosure, with committed tests asserting plaintext exclusion and expiry enforcement. This demonstrates purpose and implementation alignment, without establishing runtime privacy guarantees.",
+      "evidence": [
+        {
+          "evidence_id": "93fa4dea129615810b9fdfc33dcea60091a48f8e71971a40fd6114dec6f2f329",
+          "path": "src/vault/service.js",
+          "start_line": 7,
+          "end_line": 19,
+          "symbol": "VaultService"
+        },
+        {
+          "evidence_id": "35427539294051b23adced27472224ec752de96bdf18f0bf4a7609bfc2568b99",
+          "path": "src/vault/envelope.js",
+          "start_line": 8,
+          "end_line": 24,
+          "symbol": ""
+        },
+        {
+          "evidence_id": "ecc3c7b6054749dd95041d4a6f0195295aa40ba076316e82ee78093e2db5d40c",
+          "path": "test/service-boundary.test.js",
+          "start_line": 1,
+          "end_line": 3,
+          "symbol": ""
+        }
+      ],
+      "questions_for_organizer": []
+    },
+    "not_tested": [
+      "Whether the project builds or starts",
+      "Whether tests pass",
+      "Runtime correctness",
+      "Performance, scaling, or reliability under load",
+      "Runtime accessibility behavior",
+      "Debugging ability",
+      "Ability to extend the system safely",
+      "Deployment correctness"
+    ]
+  },
+  "critic": {
+    "valid": true,
+    "errors": []
+  }
+}
