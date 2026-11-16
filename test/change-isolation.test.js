@@ -1,0 +1,2 @@
+import test from'node:test';import assert from'node:assert/strict';import{buildGuide}from'../src/guide/build-guide.js'
+test('presentation preferences do not alter route facts',()=>{const route={id:'r',steps:[{id:'a',text:'Board platform 2'}]};const visual=buildGuide({route});const nonvisual=buildGuide({route,preferences:{nonVisual:true}});assert.equal(visual.steps[0].text,nonvisual.steps[0].text);assert.equal(visual.steps[0].available,nonvisual.steps[0].available)})
