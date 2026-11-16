@@ -1,0 +1,2 @@
+import { classify } from './policy.js'; import { redact } from './redact.js'
+export function inspectEvidence({path,text,max=4000}) { if (!path || typeof text!=='string') throw new TypeError('invalid evidence'); const redacted=redact(text); const policy=classify(redacted.value); return {path,excerpt:redacted.value.slice(0,max),truncated:redacted.value.length>max,abuseSignals:policy.reasons,secretSignals:redacted.signals,action:policy.action} }
