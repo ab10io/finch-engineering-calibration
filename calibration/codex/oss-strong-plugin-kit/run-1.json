@@ -1,0 +1,241 @@
+{
+  "fixture_slug": "oss-strong-plugin-kit",
+  "run": 1,
+  "model": "gpt-6.1-sol",
+  "prompt_version": "1.0",
+  "snapshot_hash": "d809fa12b33515c9e06c95dda706b767bb2dedadce93fb095edc60b71c1092ff",
+  "recorded_at": "2026-11-15",
+  "accepted": true,
+  "validation": {
+    "production_schema_valid": true,
+    "critic_valid": true,
+    "errors": []
+  },
+  "assessment": {
+    "categories": {
+      "design_reasoning": {
+        "score": 18.75,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "alternatives_and_tradeoffs",
+            "rating": 3,
+            "points_available": 25,
+            "points_awarded": 18.75,
+            "confidence": "medium",
+            "summary": "Documents the coupling problem, alternatives, rationale, accepted isolation trade-off, and a concrete condition for revisiting the decision.",
+            "limitations": "The proposed traits, harness, and error containment are largely absent from the implementation.",
+            "evidence": [
+              {
+                "evidence_id": "e0746fd6b0147adda4e098ac0f7723e5b4b391f56b9632b51c3ab2530e3ec194",
+                "path": "docs/decisions.md",
+                "start_line": 3,
+                "end_line": 29,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "architecture_maintainability": {
+        "score": 10,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "boundaries_and_coupling",
+            "rating": 2,
+            "points_available": 20,
+            "points_awarded": 10,
+            "confidence": "medium",
+            "summary": "A small public manifest and typed registration result provide a clear compatibility and capability validation boundary.",
+            "limitations": "No plugin trait, event interface, host integration, metrics boundary, or reusable conformance harness is implemented in the supplied source.",
+            "evidence": [
+              {
+                "evidence_id": "b5fcf7d870c55f0d63183c5328f5d1a2282dfc71bb7cb045b28c2a8558f8e22d",
+                "path": "src/lib.rs",
+                "start_line": 1,
+                "end_line": 10,
+                "symbol": "register"
+              },
+              {
+                "evidence_id": "e14627514b27bb9da460eeff7096b12b92be04f4eba9a71083687261d1551836",
+                "path": "docs/architecture.md",
+                "start_line": 3,
+                "end_line": 13,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "security_by_design": {
+        "score": 10,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "threat_model_and_mitigations",
+            "rating": 2,
+            "points_available": 20,
+            "points_awarded": 10,
+            "confidence": "medium",
+            "summary": "Identifies malicious plugins and shared-memory risk, documents isolation limits, and implements version checking and a capability allowlist.",
+            "limitations": "Declaration validation does not demonstrate capability enforcement during execution. Crash containment and hostile-code isolation are not implemented.",
+            "evidence": [
+              {
+                "evidence_id": "e7daf76a701ccf9fe7c7fcf292c13fe579602cd4a125efbaed4c3d1a1afb6994",
+                "path": "docs/security.md",
+                "start_line": 3,
+                "end_line": 13,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "b5fcf7d870c55f0d63183c5328f5d1a2282dfc71bb7cb045b28c2a8558f8e22d",
+                "path": "src/lib.rs",
+                "start_line": 6,
+                "end_line": 10,
+                "symbol": "register"
+              }
+            ]
+          }
+        ]
+      },
+      "testing_evidence": {
+        "score": 3.75,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "test_strategy_and_coverage",
+            "rating": 1,
+            "points_available": 15,
+            "points_awarded": 3.75,
+            "confidence": "medium",
+            "summary": "One concrete negative test checks rejection of an unsupported capability.",
+            "limitations": "The broader claimed coverage lacks corresponding tests: compatibility rejection, successful registration, error containment, deterministic fixtures, and example-plugin conformance are not demonstrated.",
+            "evidence": [
+              {
+                "evidence_id": "60a0b6a1105b420e050196863de5bb026bc3a68182a06afa43cc894a067e95e3",
+                "path": "tests/conformance.rs",
+                "start_line": 1,
+                "end_line": 6,
+                "symbol": "rejects_undeclared_capability"
+              },
+              {
+                "evidence_id": "6268a1739fa50c6059ce47a35252c9a49ef6d2daf250323e2ae4d54da7c7409e",
+                "path": "docs/testing.md",
+                "start_line": 1,
+                "end_line": 7,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "documentation_operations": {
+        "score": 2.5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "operational_clarity",
+            "rating": 1,
+            "points_available": 10,
+            "points_awarded": 2.5,
+            "confidence": "medium",
+            "summary": "Documentation explains intended users, conceptual data flow, and major operational limitations.",
+            "limitations": "No installation instructions, usage example, verification commands, release procedure, or troubleshooting guidance is supplied.",
+            "evidence": [
+              {
+                "evidence_id": "8a3d488b7658f027258f8db5f7816f4afa4938aef6946de55367cf2c3f3e6a0b",
+                "path": "README.md",
+                "start_line": 1,
+                "end_line": 21,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "e14627514b27bb9da460eeff7096b12b92be04f4eba9a71083687261d1551836",
+                "path": "docs/architecture.md",
+                "start_line": 7,
+                "end_line": 13,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "repository_hygiene": {
+        "score": 5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "dependency_and_repository_hygiene",
+            "rating": 2,
+            "points_available": 10,
+            "points_awarded": 5,
+            "confidence": "medium",
+            "summary": "Provides a minimal dependency-free library manifest, a license file, and contribution requirements for public API changes.",
+            "limitations": "Contribution guidance references an absent SECURITY.md. The license text is abbreviated, and release automation and compatibility checks are not evidenced.",
+            "evidence": [
+              {
+                "evidence_id": "cf6d50990721531e7cf1df84d053e7a9f672a1452c753d726a164974e1be5ab9",
+                "path": "Cargo.toml",
+                "start_line": 1,
+                "end_line": 6,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "e812505a84a1bb08fc8880628157fd40c10bc2157283e046207fdf93052bc4e8",
+                "path": "CONTRIBUTING.md",
+                "start_line": 1,
+                "end_line": 3,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "740f92543817bbed84679dce474e4b5b090f72eabe8b911eab7b3ca46db5cb97",
+                "path": "LICENSE",
+                "start_line": 1,
+                "end_line": 7,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "core_score": 50,
+    "confidence": "medium",
+    "track_alignment": {
+      "status": "demonstrated",
+      "summary": "The primary purpose is a reusable plugin SDK for application developers. The library manifest, public registration API, and integration test substantiate developer-tool alignment, despite the limited implementation.",
+      "evidence": [
+        {
+          "evidence_id": "8a3d488b7658f027258f8db5f7816f4afa4938aef6946de55367cf2c3f3e6a0b",
+          "path": "README.md",
+          "start_line": 5,
+          "end_line": 13,
+          "symbol": ""
+        },
+        {
+          "evidence_id": "b5fcf7d870c55f0d63183c5328f5d1a2282dfc71bb7cb045b28c2a8558f8e22d",
+          "path": "src/lib.rs",
+          "start_line": 1,
+          "end_line": 10,
+          "symbol": "register"
+        }
+      ],
+      "questions_for_organizer": []
+    },
+    "not_tested": [
+      "Whether the project builds or starts",
+      "Whether tests pass",
+      "Runtime correctness",
+      "Performance, scaling, or reliability under load",
+      "Runtime accessibility behavior",
+      "Debugging ability",
+      "Ability to extend the system safely",
+      "Deployment correctness"
+    ]
+  },
+  "critic": {
+    "valid": true,
+    "errors": []
+  }
+}

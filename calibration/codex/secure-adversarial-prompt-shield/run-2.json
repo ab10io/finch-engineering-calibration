@@ -1,0 +1,241 @@
+{
+  "fixture_slug": "secure-adversarial-prompt-shield",
+  "run": 2,
+  "model": "gpt-6.1-sol",
+  "prompt_version": "1.0",
+  "snapshot_hash": "09ca6811448b93abdb9bc18b1fbff44e6103d687e356c9484a574d635b895c46",
+  "recorded_at": "2026-11-15",
+  "accepted": true,
+  "validation": {
+    "production_schema_valid": true,
+    "critic_valid": true,
+    "errors": []
+  },
+  "assessment": {
+    "categories": {
+      "design_reasoning": {
+        "score": 18.75,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "alternatives_and_tradeoffs",
+            "rating": 3,
+            "points_available": 25,
+            "points_awarded": 18.75,
+            "confidence": "medium",
+            "summary": "Documents concrete alternatives, explains preserving review evidence while applying deterministic filtering, accepts pattern coverage limitations, and defines reconsideration conditions.",
+            "limitations": "The stated validation coverage exceeds the visible tests, and much of the described intake pipeline is not represented in source.",
+            "evidence": [
+              {
+                "evidence_id": "40ac3b9f690a903857f36e0ff532d255cec896f07e7a1a24e0fc22b11acda346",
+                "path": "docs/decisions.md",
+                "start_line": 1,
+                "end_line": 30,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "architecture_maintainability": {
+        "score": 10,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "boundaries_and_coupling",
+            "rating": 2,
+            "points_available": 20,
+            "points_awarded": 10,
+            "confidence": "medium",
+            "summary": "A small text-to-result scanner separates detection and redaction from consumers; documentation describes a clear untrusted-input boundary.",
+            "limitations": "Path checks, excerpt bounding, immutable evidence generation, and scorer integration are documented but absent from the supplied implementation.",
+            "evidence": [
+              {
+                "evidence_id": "c77adce30259df0f1c18377264ccf42cebc76ae0a62226d431fa279d1f50ef4d",
+                "path": "docs/architecture.md",
+                "start_line": 1,
+                "end_line": 14,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "13ef5b2f6ea1753ff0dd1bb36c373e9ca32a4e9231b83eca11e3d6811af854bc",
+                "path": "src/scanner.py",
+                "start_line": 1,
+                "end_line": 7,
+                "symbol": "scan"
+              }
+            ]
+          }
+        ]
+      },
+      "security_by_design": {
+        "score": 10,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "threat_model_and_mitigations",
+            "rating": 2,
+            "points_available": 20,
+            "points_awarded": 10,
+            "confidence": "medium",
+            "summary": "Identifies score manipulation and credential exposure, implements narrow prompt-pattern detection and token substitution, and explicitly discusses evasion and false positives.",
+            "limitations": "Source does not demonstrate enforcement of the documented model-input boundary or immutable catalogue workflow. Pattern detection alone does not establish containment.",
+            "evidence": [
+              {
+                "evidence_id": "1e94493352be16505bc46afb278ec4781e5f848bfa9ab64d2a8f48d5d2076aad",
+                "path": "docs/security.md",
+                "start_line": 1,
+                "end_line": 14,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "13ef5b2f6ea1753ff0dd1bb36c373e9ca32a4e9231b83eca11e3d6811af854bc",
+                "path": "src/scanner.py",
+                "start_line": 1,
+                "end_line": 7,
+                "symbol": "scan"
+              }
+            ]
+          }
+        ]
+      },
+      "testing_evidence": {
+        "score": 7.5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "test_strategy_and_coverage",
+            "rating": 2,
+            "points_available": 15,
+            "points_awarded": 7.5,
+            "confidence": "medium",
+            "summary": "Two pytest cases target the scanner's core prompt-detection and token-redaction behaviors, with documented assessment limitations.",
+            "limitations": "Visible tests omit claimed benign-prose and unsupported-extension coverage, adversarial variants, and pipeline integration. Frozen redaction obscures the original token test input, limiting assessment of that assertion.",
+            "evidence": [
+              {
+                "evidence_id": "07771bdfaad98f7bad2e640b0456879965c2065852c8000ce690d5af0fa1477c",
+                "path": "tests/test_scanner.py",
+                "start_line": 1,
+                "end_line": 8,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "8ce9fb0bab06a9ac3c57113374fca74a6d52589072df64be1cf55387a0a907da",
+                "path": "docs/testing.md",
+                "start_line": 1,
+                "end_line": 8,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "documentation_operations": {
+        "score": 5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "operational_clarity",
+            "rating": 2,
+            "points_available": 10,
+            "points_awarded": 5,
+            "confidence": "medium",
+            "summary": "Documentation clearly identifies users, purpose, data flow, static assessment boundaries, and pattern-matching limitations.",
+            "limitations": "No concrete installation, invocation, integration, troubleshooting, or operational recovery procedure is supplied.",
+            "evidence": [
+              {
+                "evidence_id": "c6d14eb66e6231e283b1ca174f2145c731d30ba40a8565cbbaab6b78edf74fd5",
+                "path": "README.md",
+                "start_line": 1,
+                "end_line": 22,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "c77adce30259df0f1c18377264ccf42cebc76ae0a62226d431fa279d1f50ef4d",
+                "path": "docs/architecture.md",
+                "start_line": 1,
+                "end_line": 14,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "repository_hygiene": {
+        "score": 5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "dependency_and_repository_hygiene",
+            "rating": 2,
+            "points_available": 10,
+            "points_awarded": 5,
+            "confidence": "medium",
+            "summary": "Provides basic project metadata, pytest discovery configuration, an MIT license, and a scanner using only the standard library.",
+            "limitations": "The pytest development dependency and supported Python version are undeclared; no lockfile or reproducible development-environment configuration is evidenced. Redacted secret signals do not establish credential validity.",
+            "evidence": [
+              {
+                "evidence_id": "765a3dcfa7dca77f2d831c2a6faf96b1bdae1e77d826899b2d2af7092e8b2268",
+                "path": "pyproject.toml",
+                "start_line": 1,
+                "end_line": 6,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "740f92543817bbed84679dce474e4b5b090f72eabe8b911eab7b3ca46db5cb97",
+                "path": "LICENSE",
+                "start_line": 1,
+                "end_line": 8,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "13ef5b2f6ea1753ff0dd1bb36c373e9ca32a4e9231b83eca11e3d6811af854bc",
+                "path": "src/scanner.py",
+                "start_line": 1,
+                "end_line": 7,
+                "symbol": "scan"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "core_score": 56.25,
+    "confidence": "medium",
+    "track_alignment": {
+      "status": "demonstrated",
+      "summary": "The primary purpose is detecting instruction-like repository text and redacting credential-shaped values before review, directly addressing concrete model-manipulation and secret-exposure threats.",
+      "evidence": [
+        {
+          "evidence_id": "c6d14eb66e6231e283b1ca174f2145c731d30ba40a8565cbbaab6b78edf74fd5",
+          "path": "README.md",
+          "start_line": 5,
+          "end_line": 13,
+          "symbol": ""
+        },
+        {
+          "evidence_id": "13ef5b2f6ea1753ff0dd1bb36c373e9ca32a4e9231b83eca11e3d6811af854bc",
+          "path": "src/scanner.py",
+          "start_line": 1,
+          "end_line": 7,
+          "symbol": "scan"
+        }
+      ],
+      "questions_for_organizer": []
+    },
+    "not_tested": [
+      "Whether the project builds or starts",
+      "Whether tests pass",
+      "Runtime correctness",
+      "Performance, scaling, or reliability under load",
+      "Runtime accessibility behavior",
+      "Debugging ability",
+      "Ability to extend the system safely",
+      "Deployment correctness"
+    ]
+  },
+  "critic": {
+    "valid": true,
+    "errors": []
+  }
+}

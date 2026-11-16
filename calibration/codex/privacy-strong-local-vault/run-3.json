@@ -1,0 +1,227 @@
+{
+  "fixture_slug": "privacy-strong-local-vault",
+  "run": 3,
+  "model": "gpt-6.1-sol",
+  "prompt_version": "1.0",
+  "snapshot_hash": "c6cde3ae84afc742f978766cfcba64d3fc9b03be1e24ff35c608fa6a064d7a75",
+  "recorded_at": "2026-11-15",
+  "accepted": true,
+  "validation": {
+    "production_schema_valid": true,
+    "critic_valid": true,
+    "errors": []
+  },
+  "assessment": {
+    "categories": {
+      "design_reasoning": {
+        "score": 18.75,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "alternatives_and_tradeoffs",
+            "rating": 3,
+            "points_available": 25,
+            "points_awarded": 18.75,
+            "confidence": "medium",
+            "summary": "The decision record connects confidentiality and mobile delivery constraints to alternatives, the selected approach, accepted recovery costs, and reconsideration conditions.",
+            "limitations": "The proposed validation substantially exceeds the tests present in the catalogue.",
+            "evidence": [
+              {
+                "evidence_id": "871d3f310538f7c2ed004da38195e7e3bb880ae26df805030e99d6ae7585a925",
+                "path": "docs/decisions.md",
+                "start_line": 3,
+                "end_line": 29,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "architecture_maintainability": {
+        "score": 10,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "boundaries_and_coupling",
+            "rating": 2,
+            "points_available": 20,
+            "points_awarded": 10,
+            "confidence": "medium",
+            "summary": "Architecture documentation identifies device, storage, sync, recovery, and deletion boundaries; source isolates envelope filtering and retention decisions.",
+            "limitations": "The catalogue contains no implementation of encryption, indexing, storage, or sync orchestration to substantiate broader coupling and maintainability claims.",
+            "evidence": [
+              {
+                "evidence_id": "98f5e2ad21067d154163e5b62485dcabad38621aa2175cde5c0311240d5e19c5",
+                "path": "docs/architecture.md",
+                "start_line": 3,
+                "end_line": 13,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "fcee986655d1d2bf2f50d9d73064f172e3501470889e47ec6fd7b6812db2dc2c",
+                "path": "src/vault.ts",
+                "start_line": 1,
+                "end_line": 9,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "security_by_design": {
+        "score": 10,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "threat_model_and_mitigations",
+            "rating": 2,
+            "points_available": 20,
+            "points_awarded": 10,
+            "confidence": "medium",
+            "summary": "A breached sync service is explicitly modeled, residual metadata exposure is acknowledged, and source provides a metadata allowlist and retention predicate.",
+            "limitations": "Local encryption, padding, key storage, recovery protection, and actual purge enforcement are documented but lack implementation evidence.",
+            "evidence": [
+              {
+                "evidence_id": "cc1e72eea6c29f74d93acd5985354797f5f1da7c04cb0543fd225477029c0717",
+                "path": "docs/security.md",
+                "start_line": 3,
+                "end_line": 13,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "fcee986655d1d2bf2f50d9d73064f172e3501470889e47ec6fd7b6812db2dc2c",
+                "path": "src/vault.ts",
+                "start_line": 1,
+                "end_line": 9,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "testing_evidence": {
+        "score": 3.75,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "test_strategy_and_coverage",
+            "rating": 1,
+            "points_available": 15,
+            "points_awarded": 3.75,
+            "confidence": "medium",
+            "summary": "Two concrete tests address plaintext metadata exclusion and one retention example.",
+            "limitations": "The documented property tests, encryption envelopes, conflict resolution, malformed inputs, and corruption coverage are absent. Retention boundary and negative cases are also absent; tests were not executed.",
+            "evidence": [
+              {
+                "evidence_id": "8e446e47480f7e504a1610eb402c98e8a9cf29eb72f50491164ffbace5439cde",
+                "path": "tests/vault.test.ts",
+                "start_line": 1,
+                "end_line": 7,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "2d284371e54b57ec761ddd0cb628c13759875023c3a3dd0f7970806d49f9a6e8",
+                "path": "docs/testing.md",
+                "start_line": 1,
+                "end_line": 7,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "documentation_operations": {
+        "score": 2.5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "operational_clarity",
+            "rating": 1,
+            "points_available": 10,
+            "points_awarded": 2.5,
+            "confidence": "medium",
+            "summary": "Documentation explains intended users, purpose, data flow, and browser scheduling and index rebuild limitations.",
+            "limitations": "No setup, execution, deployment, recovery procedure, or operational troubleshooting instructions are supplied.",
+            "evidence": [
+              {
+                "evidence_id": "47edc3da5b05845c21416cb9d13153c699c1cec837b85a60355fba5186b20f9f",
+                "path": "README.md",
+                "start_line": 1,
+                "end_line": 21,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "repository_hygiene": {
+        "score": 2.5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "dependency_and_repository_hygiene",
+            "rating": 1,
+            "points_available": 10,
+            "points_awarded": 2.5,
+            "confidence": "medium",
+            "summary": "The repository includes a small dependency manifest and an MIT license.",
+            "limitations": "No lockfile is catalogued, the sole dependency uses a version range, and the manifest supplies no verification scripts. Static secret-signal absence does not establish secret safety.",
+            "evidence": [
+              {
+                "evidence_id": "3cb94f90495aa0fec623cca2298c7858df127e4d8ee7b8b4cc576cce1a4627c6",
+                "path": "package.json",
+                "start_line": 1,
+                "end_line": 9,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "740f92543817bbed84679dce474e4b5b090f72eabe8b911eab7b3ca46db5cb97",
+                "path": "LICENSE",
+                "start_line": 1,
+                "end_line": 7,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "core_score": 47.5,
+    "confidence": "medium",
+    "track_alignment": {
+      "status": "demonstrated",
+      "summary": "The primary purpose is confidential personal document storage with local processing and user-held keys. Repository documentation and metadata filtering directly support privacy and data minimization alignment, although the full vault implementation is absent.",
+      "evidence": [
+        {
+          "evidence_id": "47edc3da5b05845c21416cb9d13153c699c1cec837b85a60355fba5186b20f9f",
+          "path": "README.md",
+          "start_line": 5,
+          "end_line": 13,
+          "symbol": ""
+        },
+        {
+          "evidence_id": "fcee986655d1d2bf2f50d9d73064f172e3501470889e47ec6fd7b6812db2dc2c",
+          "path": "src/vault.ts",
+          "start_line": 1,
+          "end_line": 9,
+          "symbol": ""
+        }
+      ],
+      "questions_for_organizer": []
+    },
+    "not_tested": [
+      "Whether the project builds or starts",
+      "Whether tests pass",
+      "Runtime correctness",
+      "Performance, scaling, or reliability under load",
+      "Runtime accessibility behavior",
+      "Debugging ability",
+      "Ability to extend the system safely",
+      "Deployment correctness"
+    ]
+  },
+  "critic": {
+    "valid": true,
+    "errors": []
+  }
+}

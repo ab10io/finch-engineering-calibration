@@ -1,0 +1,220 @@
+{
+  "fixture_slug": "human-ai-weak-chat-wrapper",
+  "run": 3,
+  "model": "gpt-6.1-sol",
+  "prompt_version": "1.0",
+  "snapshot_hash": "d9778c95f726947248e4f82d6bcbef897da4fe2ae87cc3e4b0e4bf1e79d51be5",
+  "recorded_at": "2026-11-15",
+  "accepted": true,
+  "validation": {
+    "production_schema_valid": true,
+    "critic_valid": true,
+    "errors": []
+  },
+  "assessment": {
+    "categories": {
+      "design_reasoning": {
+        "score": 0,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "alternatives_and_tradeoffs",
+            "rating": 0,
+            "points_available": 25,
+            "points_awarded": 0,
+            "confidence": "medium",
+            "summary": "Alternatives were explicitly not evaluated; the choice of AI follows a desire for an AI feature rather than a bounded user problem. Acknowledging incorrect responses does not demonstrate reasoned trade-offs.",
+            "limitations": "Static evidence provides no comparative evaluation or justified selection criteria.",
+            "evidence": [
+              {
+                "evidence_id": "734bfdae016b639645bfa030b19f2f25d0af2d9dbff6b8e3cbb991139df06faa",
+                "path": "docs/decisions.md",
+                "start_line": 1,
+                "end_line": 30,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "architecture_maintainability": {
+        "score": 5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "boundaries_and_coupling",
+            "rating": 1,
+            "points_available": 20,
+            "points_awarded": 5,
+            "confidence": "medium",
+            "summary": "A small injected model interface separates the forwarding function from a concrete provider, and documentation describes a basic data flow. Evidence of broader system boundaries is minimal.",
+            "limitations": "The browser and server route described in documentation are not represented in the supplied source.",
+            "evidence": [
+              {
+                "evidence_id": "af2e10abf4e863b21121e0aae9e7495e3c1fcb9751f2359ad42b78d363e821d1",
+                "path": "src/chat.ts",
+                "start_line": 1,
+                "end_line": 4,
+                "symbol": "chat"
+              },
+              {
+                "evidence_id": "b4b3d3f060cc6274a3fd759e63ed2743e4abc7ec56aa574d5ce46b9c3a11763e",
+                "path": "docs/architecture.md",
+                "start_line": 1,
+                "end_line": 14,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "security_by_design": {
+        "score": 5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "threat_model_and_mitigations",
+            "rating": 1,
+            "points_available": 20,
+            "points_awarded": 5,
+            "confidence": "medium",
+            "summary": "Sensitive inputs and misleading outputs are identified, but the only stated mitigation is a disclaimer. Data handling and abuse controls are explicitly absent.",
+            "limitations": "The disclaimer has no corresponding implementation evidence; security effectiveness was not tested.",
+            "evidence": [
+              {
+                "evidence_id": "98d3bb3a4d4aa5bb0de2cbdcf06f786fc7995a82a2a8e9ff94ae289b2af01f77",
+                "path": "docs/security.md",
+                "start_line": 1,
+                "end_line": 14,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "testing_evidence": {
+        "score": 0,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "test_strategy_and_coverage",
+            "rating": 0,
+            "points_available": 15,
+            "points_awarded": 0,
+            "confidence": "medium",
+            "summary": "No automated tests or documented evaluation cases exist. Two manually asked questions provide no recorded assertions, results, or coverage.",
+            "limitations": "No tests were executed and no runtime behavior was established.",
+            "evidence": [
+              {
+                "evidence_id": "5ad227789e16c49fb4b0c9c3784d0dda14d61711101155764300667a8581eafd",
+                "path": "docs/testing.md",
+                "start_line": 1,
+                "end_line": 8,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "734bfdae016b639645bfa030b19f2f25d0af2d9dbff6b8e3cbb991139df06faa",
+                "path": "docs/decisions.md",
+                "start_line": 23,
+                "end_line": 30,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "documentation_operations": {
+        "score": 2.5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "operational_clarity",
+            "rating": 1,
+            "points_available": 10,
+            "points_awarded": 2.5,
+            "confidence": "medium",
+            "summary": "Documentation explains the generic purpose, data flow, and unknowns, but supplies no setup, configuration, deployment, monitoring, or recovery guidance.",
+            "limitations": "Operational descriptions are static and do not establish deployment correctness.",
+            "evidence": [
+              {
+                "evidence_id": "b1d07a6e29062a5419ab5bf3f8604a62ef0033522967330e6c94c8877ac57021",
+                "path": "README.md",
+                "start_line": 1,
+                "end_line": 22,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "repository_hygiene": {
+        "score": 2.5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "dependency_and_repository_hygiene",
+            "rating": 1,
+            "points_available": 10,
+            "points_awarded": 2.5,
+            "confidence": "medium",
+            "summary": "A minimal package manifest and MIT license provide basic repository metadata. Tooling, scripts, and reproducibility controls are not demonstrated.",
+            "limitations": "No dependencies are declared, so the absence of a lockfile alone is not evidence of unpinned dependencies. Static inspection does not establish dependency safety.",
+            "evidence": [
+              {
+                "evidence_id": "3254c99567d657a9870bee220f21a2ba30aa244d309031ebe2df6aa06659d30b",
+                "path": "package.json",
+                "start_line": 1,
+                "end_line": 8,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "740f92543817bbed84679dce474e4b5b090f72eabe8b911eab7b3ca46db5cb97",
+                "path": "LICENSE",
+                "start_line": 1,
+                "end_line": 8,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "core_score": 15,
+    "confidence": "medium",
+    "track_alignment": {
+      "status": "not_demonstrated",
+      "summary": "The primary purpose is a generic model chat interface for anyone wanting chatbot responses. The repository explicitly lacks a bounded user problem, evaluated alternatives, and evidence that AI was deliberately chosen for particular people and context.",
+      "evidence": [
+        {
+          "evidence_id": "b1d07a6e29062a5419ab5bf3f8604a62ef0033522967330e6c94c8877ac57021",
+          "path": "README.md",
+          "start_line": 5,
+          "end_line": 13,
+          "symbol": ""
+        },
+        {
+          "evidence_id": "734bfdae016b639645bfa030b19f2f25d0af2d9dbff6b8e3cbb991139df06faa",
+          "path": "docs/decisions.md",
+          "start_line": 3,
+          "end_line": 17,
+          "symbol": ""
+        }
+      ],
+      "questions_for_organizer": []
+    },
+    "not_tested": [
+      "Whether the project builds or starts",
+      "Whether tests pass",
+      "Runtime correctness",
+      "Performance, scaling, or reliability under load",
+      "Runtime accessibility behavior",
+      "Debugging ability",
+      "Ability to extend the system safely",
+      "Deployment correctness"
+    ]
+  },
+  "critic": {
+    "valid": true,
+    "errors": []
+  }
+}

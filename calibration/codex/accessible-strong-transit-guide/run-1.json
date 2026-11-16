@@ -1,0 +1,248 @@
+{
+  "fixture_slug": "accessible-strong-transit-guide",
+  "run": 1,
+  "model": "gpt-6.1-sol",
+  "prompt_version": "1.0",
+  "snapshot_hash": "72d1452ca35ec30b399151a10624cef9238f089e8736a0c4ef6c86c9011d06b7",
+  "recorded_at": "2026-11-15",
+  "accepted": true,
+  "validation": {
+    "production_schema_valid": true,
+    "critic_valid": true,
+    "errors": []
+  },
+  "assessment": {
+    "categories": {
+      "design_reasoning": {
+        "score": 18.75,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "alternatives_and_tradeoffs",
+            "rating": 3,
+            "points_available": 25,
+            "points_awarded": 18.75,
+            "confidence": "medium",
+            "summary": "Documents concrete access constraints, map and SMS alternatives, accepted spatial-context trade-offs, and conditions for revisiting instruction ordering. Semantic ordered instructions connect the decision to source evidence.",
+            "limitations": "Co-design outcomes are asserted without supporting study artifacts. Offline caching and most proposed validation are not demonstrated in source.",
+            "evidence": [
+              {
+                "evidence_id": "9e151c4b9be6579d871e2fb6925a68ae7fb9b219b3b8f2f3f661bf14ffaf3d35",
+                "path": "docs/decisions.md",
+                "start_line": 1,
+                "end_line": 30,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "2314062984966282342d25c112a68c435f6deb5f4f88de46631605a0c588e279",
+                "path": "src/RouteGuide.tsx",
+                "start_line": 1,
+                "end_line": 5,
+                "symbol": "RouteGuide"
+              }
+            ]
+          }
+        ]
+      },
+      "architecture_maintainability": {
+        "score": 10,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "boundaries_and_coupling",
+            "rating": 2,
+            "points_available": 20,
+            "points_awarded": 10,
+            "confidence": "medium",
+            "summary": "Defines a clear feed-to-instruction-to-view pipeline and supplies a small presentation component receiving steps and freshness state through props.",
+            "limitations": "Validation, ordering, cache boundaries, typed contracts, and integration behavior are described but absent from the supplied implementation.",
+            "evidence": [
+              {
+                "evidence_id": "e22634071879408e89ebdda1ee768546f5508e72b50f4e3dedc494b7272be893",
+                "path": "docs/architecture.md",
+                "start_line": 1,
+                "end_line": 14,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "2314062984966282342d25c112a68c435f6deb5f4f88de46631605a0c588e279",
+                "path": "src/RouteGuide.tsx",
+                "start_line": 1,
+                "end_line": 5,
+                "symbol": "RouteGuide"
+              }
+            ]
+          }
+        ]
+      },
+      "security_by_design": {
+        "score": 10,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "threat_model_and_mitigations",
+            "rating": 2,
+            "points_available": 20,
+            "points_awarded": 10,
+            "confidence": "medium",
+            "summary": "Identifies harmful stale or spoofed guidance, proposes relevant mitigations, and acknowledges reliance on operator accessibility data. Source includes a stale-guidance warning and assistance fallback.",
+            "limitations": "Signature verification, schema validation, freshness determination, and offline expiry have no implementation evidence. The warning depends on a caller-provided flag.",
+            "evidence": [
+              {
+                "evidence_id": "4517b35b3473ceecdeb2b54d432e1a9f9eee4be159189de0bbd6fd4ec750e4b1",
+                "path": "docs/security.md",
+                "start_line": 1,
+                "end_line": 14,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "2314062984966282342d25c112a68c435f6deb5f4f88de46631605a0c588e279",
+                "path": "src/RouteGuide.tsx",
+                "start_line": 1,
+                "end_line": 5,
+                "symbol": "RouteGuide"
+              }
+            ]
+          }
+        ]
+      },
+      "testing_evidence": {
+        "score": 7.5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "test_strategy_and_coverage",
+            "rating": 2,
+            "points_available": 15,
+            "points_awarded": 7.5,
+            "confidence": "medium",
+            "summary": "Provides a targeted stale-alert assertion and a relevant accessibility testing strategy with explicit manual-testing gaps.",
+            "limitations": "The sole supplied test checks alert text. Claimed coverage of keyboard order, reflow, offline expiry, semantics, and error announcements is not demonstrated. Tests were not executed.",
+            "evidence": [
+              {
+                "evidence_id": "2726e707c074932c5c2f14ffcc885e8b5f87d93d7d39e44026a50f019b18c196",
+                "path": "tests/RouteGuide.test.tsx",
+                "start_line": 1,
+                "end_line": 5,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "3af86a18ccda6953c459af32fc5973fe481aa06e89218c1bff2192fecb5bf13f",
+                "path": "docs/testing.md",
+                "start_line": 1,
+                "end_line": 8,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "documentation_operations": {
+        "score": 2.5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "operational_clarity",
+            "rating": 1,
+            "points_available": 10,
+            "points_awarded": 2.5,
+            "confidence": "medium",
+            "summary": "Explains intended users, product purpose, data flow, and known limitations.",
+            "limitations": "No installation, execution, configuration, deployment, monitoring, or recovery instructions are supplied; package scripts are absent.",
+            "evidence": [
+              {
+                "evidence_id": "eb9f3517b43ded033fa39640297fa8e3d536ebde9970f200e29de0c320c9c124",
+                "path": "README.md",
+                "start_line": 1,
+                "end_line": 22,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "de8973b65f9a473b9c64bb09695f5e06fc8bf9ef47920372602f4f26a1a87510",
+                "path": "package.json",
+                "start_line": 1,
+                "end_line": 10,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "repository_hygiene": {
+        "score": 2.5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "dependency_and_repository_hygiene",
+            "rating": 1,
+            "points_available": 10,
+            "points_awarded": 2.5,
+            "confidence": "medium",
+            "summary": "Includes package metadata, organized source and documentation, and an MIT license.",
+            "limitations": "No lockfile is catalogued. React and Testing Library imports lack corresponding manifest dependencies, and no test scripts or matcher setup are supplied.",
+            "evidence": [
+              {
+                "evidence_id": "de8973b65f9a473b9c64bb09695f5e06fc8bf9ef47920372602f4f26a1a87510",
+                "path": "package.json",
+                "start_line": 1,
+                "end_line": 10,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "740f92543817bbed84679dce474e4b5b090f72eabe8b911eab7b3ca46db5cb97",
+                "path": "LICENSE",
+                "start_line": 1,
+                "end_line": 8,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "2726e707c074932c5c2f14ffcc885e8b5f87d93d7d39e44026a50f019b18c196",
+                "path": "tests/RouteGuide.test.tsx",
+                "start_line": 1,
+                "end_line": 5,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "core_score": 51.25,
+    "confidence": "medium",
+    "track_alignment": {
+      "status": "demonstrated",
+      "summary": "The primary purpose addresses blind and low-vision riders navigating disrupted transit with unreliable connectivity. Repository documentation and semantic route instructions support this defined access need.",
+      "evidence": [
+        {
+          "evidence_id": "eb9f3517b43ded033fa39640297fa8e3d536ebde9970f200e29de0c320c9c124",
+          "path": "README.md",
+          "start_line": 5,
+          "end_line": 13,
+          "symbol": ""
+        },
+        {
+          "evidence_id": "2314062984966282342d25c112a68c435f6deb5f4f88de46631605a0c588e279",
+          "path": "src/RouteGuide.tsx",
+          "start_line": 1,
+          "end_line": 5,
+          "symbol": "RouteGuide"
+        }
+      ],
+      "questions_for_organizer": []
+    },
+    "not_tested": [
+      "Whether the project builds or starts",
+      "Whether tests pass",
+      "Runtime correctness",
+      "Performance, scaling, or reliability under load",
+      "Runtime accessibility behavior",
+      "Debugging ability",
+      "Ability to extend the system safely",
+      "Deployment correctness"
+    ]
+  },
+  "critic": {
+    "valid": true,
+    "errors": []
+  }
+}

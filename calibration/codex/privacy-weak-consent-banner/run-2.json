@@ -1,0 +1,227 @@
+{
+  "fixture_slug": "privacy-weak-consent-banner",
+  "run": 2,
+  "model": "gpt-6.1-sol",
+  "prompt_version": "1.0",
+  "snapshot_hash": "3b78070ee9b2c75c1962cf87a5235a4bb56d5227a52fca3c9af1bbbff444a89a",
+  "recorded_at": "2026-11-15",
+  "accepted": true,
+  "validation": {
+    "production_schema_valid": true,
+    "critic_valid": true,
+    "errors": []
+  },
+  "assessment": {
+    "categories": {
+      "design_reasoning": {
+        "score": 6.25,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "alternatives_and_tradeoffs",
+            "rating": 1,
+            "points_available": 25,
+            "points_awarded": 6.25,
+            "confidence": "medium",
+            "summary": "A local consent flag and omitted capabilities are documented, but no alternatives or substantive comparison support the decision.",
+            "limitations": "The rationale is minimal; validation consists of a reported manual click.",
+            "evidence": [
+              {
+                "evidence_id": "3cd98ce55a550441c10a49f9576af009ab6b339280edadf815845790c5da6ba8",
+                "path": "docs/decisions.md",
+                "start_line": 5,
+                "end_line": 25,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "architecture_maintainability": {
+        "score": 5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "boundaries_and_coupling",
+            "rating": 1,
+            "points_available": 20,
+            "points_awarded": 5,
+            "confidence": "medium",
+            "summary": "A component boundary is described, but storage and a global analytics SDK are coupled directly in the click handler.",
+            "limitations": "The source does not demonstrate the documented storage read or conditional banner display; other scripts can bypass the component.",
+            "evidence": [
+              {
+                "evidence_id": "bbf31149b5bafc2451d939afafc549422764a83c4582c6b8ec528468d82fe079",
+                "path": "docs/architecture.md",
+                "start_line": 3,
+                "end_line": 13,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "ed86539f73897bff1e7d442d5db06cf1fca34189a594d49fa251ef0e70c92865",
+                "path": "src/banner.tsx",
+                "start_line": 1,
+                "end_line": 5,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "security_by_design": {
+        "score": 5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "threat_model_and_mitigations",
+            "rating": 1,
+            "points_available": 20,
+            "points_awarded": 5,
+            "confidence": "medium",
+            "summary": "Unconsented analytics collection is identified, with one SDK load call placed behind an acceptance action.",
+            "limitations": "Tracker inventory, withdrawal, retention, data minimization, and consent integrity controls are explicitly absent. Static evidence does not establish security.",
+            "evidence": [
+              {
+                "evidence_id": "04f3db08a28ae2341c09cd9307787eb516b8c1b5cd4189f3dac7cbd212bfac56",
+                "path": "docs/security.md",
+                "start_line": 3,
+                "end_line": 13,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "ed86539f73897bff1e7d442d5db06cf1fca34189a594d49fa251ef0e70c92865",
+                "path": "src/banner.tsx",
+                "start_line": 2,
+                "end_line": 4,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "testing_evidence": {
+        "score": 3.75,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "test_strategy_and_coverage",
+            "rating": 1,
+            "points_available": 15,
+            "points_awarded": 3.75,
+            "confidence": "medium",
+            "summary": "Testing evidence consists of a reported single manual acceptance click.",
+            "limitations": "No automated tests, negative-path records, or recorded assertions are supplied; no tests were executed.",
+            "evidence": [
+              {
+                "evidence_id": "62193ce3bbf1eb27f94b75af7e1fa8e2d84a09b028aa67c2a6ae40d12b007e87",
+                "path": "docs/testing.md",
+                "start_line": 1,
+                "end_line": 7,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "documentation_operations": {
+        "score": 2.5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "operational_clarity",
+            "rating": 1,
+            "points_available": 10,
+            "points_awarded": 2.5,
+            "confidence": "medium",
+            "summary": "Documentation identifies intended users, purpose, data flow, and a browser-local consent limitation.",
+            "limitations": "Setup, configuration, deployment, monitoring, and recovery procedures are absent, and the documented flow exceeds the source evidence.",
+            "evidence": [
+              {
+                "evidence_id": "dc4487ca9af82914295982fe5d5791f2ead75673d962a3c714c3f2e5e6335e2b",
+                "path": "README.md",
+                "start_line": 5,
+                "end_line": 21,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "bbf31149b5bafc2451d939afafc549422764a83c4582c6b8ec528468d82fe079",
+                "path": "docs/architecture.md",
+                "start_line": 5,
+                "end_line": 13,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "repository_hygiene": {
+        "score": 2.5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "dependency_and_repository_hygiene",
+            "rating": 1,
+            "points_available": 10,
+            "points_awarded": 2.5,
+            "confidence": "medium",
+            "summary": "A minimal package manifest exists, but it declares neither the imported React dependency nor tooling or scripts.",
+            "limitations": "The catalogue contains no lockfile or dependency-management evidence for the analytics integration. Dependency reproducibility is not demonstrated.",
+            "evidence": [
+              {
+                "evidence_id": "89a673b46bccaebcd5a88930a77ddb2663f13fef43fd83c7589f97d848c60f0c",
+                "path": "package.json",
+                "start_line": 1,
+                "end_line": 8,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "ed86539f73897bff1e7d442d5db06cf1fca34189a594d49fa251ef0e70c92865",
+                "path": "src/banner.tsx",
+                "start_line": 1,
+                "end_line": 5,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "core_score": 25,
+    "confidence": "medium",
+    "track_alignment": {
+      "status": "not_demonstrated",
+      "summary": "The repository describes a generic analytics dashboard and demonstrates only an acceptance button invoking analytics. Material privacy improvement as the project's primary purpose is not established.",
+      "evidence": [
+        {
+          "evidence_id": "dc4487ca9af82914295982fe5d5791f2ead75673d962a3c714c3f2e5e6335e2b",
+          "path": "README.md",
+          "start_line": 5,
+          "end_line": 13,
+          "symbol": ""
+        },
+        {
+          "evidence_id": "ed86539f73897bff1e7d442d5db06cf1fca34189a594d49fa251ef0e70c92865",
+          "path": "src/banner.tsx",
+          "start_line": 1,
+          "end_line": 5,
+          "symbol": ""
+        }
+      ],
+      "questions_for_organizer": []
+    },
+    "not_tested": [
+      "Whether the project builds or starts",
+      "Whether tests pass",
+      "Runtime correctness",
+      "Performance, scaling, or reliability under load",
+      "Runtime accessibility behavior",
+      "Debugging ability",
+      "Ability to extend the system safely",
+      "Deployment correctness"
+    ]
+  },
+  "critic": {
+    "valid": true,
+    "errors": []
+  }
+}

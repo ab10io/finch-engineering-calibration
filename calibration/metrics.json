@@ -1,0 +1,206 @@
+{
+  "methodology_version": "1.0",
+  "total_runs": 30,
+  "accepted_runs": 30,
+  "rejected_runs": 0,
+  "score_band_hit_rate": 0.4,
+  "category_rating_mae": 0.9944,
+  "pairwise_rank_accuracy": 0.814,
+  "comparable_rank_pairs": 43,
+  "median_run_spread": 3.75,
+  "citation_validity_rate": 1,
+  "forbidden_claim_count": 0,
+  "critic_rejection_rate": 0,
+  "track_alignment_accuracy": 0.9,
+  "confidence_ceiling_accuracy": 1,
+  "fixtures": {
+    "privacy-strong-local-vault": {
+      "total_runs": 3,
+      "accepted_runs": 3,
+      "rejected_runs": 0,
+      "scores": [
+        61.25,
+        47.5,
+        47.5
+      ],
+      "mean_score": 52.0833,
+      "score_range": {
+        "min": 82,
+        "max": 94
+      },
+      "band_hits": 0,
+      "run_spread": 13.75,
+      "expected_track_alignment": "demonstrated"
+    },
+    "privacy-weak-consent-banner": {
+      "total_runs": 3,
+      "accepted_runs": 3,
+      "rejected_runs": 0,
+      "scores": [
+        25,
+        25,
+        25
+      ],
+      "mean_score": 25,
+      "score_range": {
+        "min": 18,
+        "max": 38
+      },
+      "band_hits": 3,
+      "run_spread": 0,
+      "expected_track_alignment": "not_demonstrated"
+    },
+    "secure-strong-token-gateway": {
+      "total_runs": 3,
+      "accepted_runs": 3,
+      "rejected_runs": 0,
+      "scores": [
+        53.75,
+        53.75,
+        50
+      ],
+      "mean_score": 52.5,
+      "score_range": {
+        "min": 84,
+        "max": 96
+      },
+      "band_hits": 0,
+      "run_spread": 3.75,
+      "expected_track_alignment": "demonstrated"
+    },
+    "secure-adversarial-prompt-shield": {
+      "total_runs": 3,
+      "accepted_runs": 3,
+      "rejected_runs": 0,
+      "scores": [
+        52.5,
+        56.25,
+        50
+      ],
+      "mean_score": 52.9167,
+      "score_range": {
+        "min": 70,
+        "max": 86
+      },
+      "band_hits": 0,
+      "run_spread": 6.25,
+      "expected_track_alignment": "demonstrated"
+    },
+    "human-ai-strong-review-assistant": {
+      "total_runs": 3,
+      "accepted_runs": 3,
+      "rejected_runs": 0,
+      "scores": [
+        47.5,
+        47.5,
+        47.5
+      ],
+      "mean_score": 47.5,
+      "score_range": {
+        "min": 80,
+        "max": 93
+      },
+      "band_hits": 0,
+      "run_spread": 0,
+      "expected_track_alignment": "demonstrated"
+    },
+    "human-ai-weak-chat-wrapper": {
+      "total_runs": 3,
+      "accepted_runs": 3,
+      "rejected_runs": 0,
+      "scores": [
+        21.25,
+        21.25,
+        15
+      ],
+      "mean_score": 19.1667,
+      "score_range": {
+        "min": 15,
+        "max": 35
+      },
+      "band_hits": 3,
+      "run_spread": 6.25,
+      "expected_track_alignment": "not_demonstrated"
+    },
+    "accessible-strong-transit-guide": {
+      "total_runs": 3,
+      "accepted_runs": 3,
+      "rejected_runs": 0,
+      "scores": [
+        51.25,
+        51.25,
+        47.5
+      ],
+      "mean_score": 50,
+      "score_range": {
+        "min": 80,
+        "max": 94
+      },
+      "band_hits": 0,
+      "run_spread": 3.75,
+      "expected_track_alignment": "demonstrated"
+    },
+    "accessible-incomplete-color-dashboard": {
+      "total_runs": 3,
+      "accepted_runs": 3,
+      "rejected_runs": 0,
+      "scores": [
+        20,
+        22.5,
+        20
+      ],
+      "mean_score": 20.8333,
+      "score_range": {
+        "min": 8,
+        "max": 24
+      },
+      "band_hits": 3,
+      "run_spread": 2.5,
+      "expected_track_alignment": "not_demonstrated"
+    },
+    "oss-strong-plugin-kit": {
+      "total_runs": 3,
+      "accepted_runs": 3,
+      "rejected_runs": 0,
+      "scores": [
+        50,
+        50,
+        50
+      ],
+      "mean_score": 50,
+      "score_range": {
+        "min": 84,
+        "max": 96
+      },
+      "band_hits": 0,
+      "run_spread": 0,
+      "expected_track_alignment": "demonstrated"
+    },
+    "oss-weak-unlicensed-cli": {
+      "total_runs": 3,
+      "accepted_runs": 3,
+      "rejected_runs": 0,
+      "scores": [
+        25,
+        21.25,
+        21.25
+      ],
+      "mean_score": 22.5,
+      "score_range": {
+        "min": 18,
+        "max": 38
+      },
+      "band_hits": 3,
+      "run_spread": 3.75,
+      "expected_track_alignment": "not_demonstrated"
+    }
+  },
+  "pilot_gates": {
+    "score_band_hit_rate": false,
+    "pairwise_rank_accuracy": false,
+    "median_run_spread": true,
+    "citation_validity": true,
+    "forbidden_claims": true
+  },
+  "pilot_accepted": false
+}

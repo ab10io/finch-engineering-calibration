@@ -1,0 +1,227 @@
+{
+  "fixture_slug": "secure-adversarial-prompt-shield",
+  "run": 1,
+  "model": "gpt-6.1-sol",
+  "prompt_version": "1.0",
+  "snapshot_hash": "09ca6811448b93abdb9bc18b1fbff44e6103d687e356c9484a574d635b895c46",
+  "recorded_at": "2026-11-15",
+  "accepted": true,
+  "validation": {
+    "production_schema_valid": true,
+    "critic_valid": true,
+    "errors": []
+  },
+  "assessment": {
+    "categories": {
+      "design_reasoning": {
+        "score": 18.75,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "alternatives_and_tradeoffs",
+            "rating": 3,
+            "points_available": 25,
+            "points_awarded": 18.75,
+            "confidence": "medium",
+            "summary": "Explicit alternatives, rationale, accepted false positives, and reconsideration conditions support an intentional design.",
+            "limitations": "The proposed validation coverage and broader intake pipeline exceed the implementation shown.",
+            "evidence": [
+              {
+                "evidence_id": "40ac3b9f690a903857f36e0ff532d255cec896f07e7a1a24e0fc22b11acda346",
+                "path": "docs/decisions.md",
+                "start_line": 3,
+                "end_line": 30,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "architecture_maintainability": {
+        "score": 10,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "boundaries_and_coupling",
+            "rating": 2,
+            "points_available": 20,
+            "points_awarded": 10,
+            "confidence": "medium",
+            "summary": "A small scanner function separates text analysis from callers, and documentation identifies the intended evidence boundary.",
+            "limitations": "Path checks, excerpt bounds, immutable identifiers, and scorer integration appear only in documentation.",
+            "evidence": [
+              {
+                "evidence_id": "c77adce30259df0f1c18377264ccf42cebc76ae0a62226d431fa279d1f50ef4d",
+                "path": "docs/architecture.md",
+                "start_line": 3,
+                "end_line": 14,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "13ef5b2f6ea1753ff0dd1bb36c373e9ca32a4e9231b83eca11e3d6811af854bc",
+                "path": "src/scanner.py",
+                "start_line": 1,
+                "end_line": 7,
+                "symbol": "scan"
+              }
+            ]
+          }
+        ]
+      },
+      "security_by_design": {
+        "score": 10,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "threat_model_and_mitigations",
+            "rating": 2,
+            "points_available": 20,
+            "points_awarded": 10,
+            "confidence": "medium",
+            "summary": "Concrete score-manipulation and credential-exposure threats are connected to pattern signaling and token redaction, with residual risks acknowledged.",
+            "limitations": "Only narrow regex mitigations are implemented; the catalogue and model-call boundaries are not demonstrated in source.",
+            "evidence": [
+              {
+                "evidence_id": "1e94493352be16505bc46afb278ec4781e5f848bfa9ab64d2a8f48d5d2076aad",
+                "path": "docs/security.md",
+                "start_line": 3,
+                "end_line": 14,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "13ef5b2f6ea1753ff0dd1bb36c373e9ca32a4e9231b83eca11e3d6811af854bc",
+                "path": "src/scanner.py",
+                "start_line": 1,
+                "end_line": 7,
+                "symbol": "scan"
+              }
+            ]
+          }
+        ]
+      },
+      "testing_evidence": {
+        "score": 3.75,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "test_strategy_and_coverage",
+            "rating": 1,
+            "points_available": 15,
+            "points_awarded": 3.75,
+            "confidence": "medium",
+            "summary": "Two test specifications address one injection phrase and token redaction.",
+            "limitations": "The frozen token input is redacted, limiting assessment of that assertion. Claimed benign-prose and unsupported-extension tests are absent, as are boundary and obfuscation cases.",
+            "evidence": [
+              {
+                "evidence_id": "07771bdfaad98f7bad2e640b0456879965c2065852c8000ce690d5af0fa1477c",
+                "path": "tests/test_scanner.py",
+                "start_line": 1,
+                "end_line": 8,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "8ce9fb0bab06a9ac3c57113374fca74a6d52589072df64be1cf55387a0a907da",
+                "path": "docs/testing.md",
+                "start_line": 1,
+                "end_line": 8,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "documentation_operations": {
+        "score": 5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "operational_clarity",
+            "rating": 2,
+            "points_available": 10,
+            "points_awarded": 5,
+            "confidence": "medium",
+            "summary": "Documentation clearly states purpose, intended users, static review boundaries, data flow, and pattern limitations.",
+            "limitations": "Setup, scanner invocation, integration, and operational failure handling are not documented.",
+            "evidence": [
+              {
+                "evidence_id": "c6d14eb66e6231e283b1ca174f2145c731d30ba40a8565cbbaab6b78edf74fd5",
+                "path": "README.md",
+                "start_line": 1,
+                "end_line": 22,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "repository_hygiene": {
+        "score": 5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "dependency_and_repository_hygiene",
+            "rating": 2,
+            "points_available": 10,
+            "points_awarded": 5,
+            "confidence": "medium",
+            "summary": "The repository has project metadata, pytest discovery configuration, a license, and a standard-library-only scanner.",
+            "limitations": "Python compatibility and the pytest development dependency are unspecified; no lockfile or automated check configuration is evidenced.",
+            "evidence": [
+              {
+                "evidence_id": "765a3dcfa7dca77f2d831c2a6faf96b1bdae1e77d826899b2d2af7092e8b2268",
+                "path": "pyproject.toml",
+                "start_line": 1,
+                "end_line": 6,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "740f92543817bbed84679dce474e4b5b090f72eabe8b911eab7b3ca46db5cb97",
+                "path": "LICENSE",
+                "start_line": 1,
+                "end_line": 8,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "core_score": 52.5,
+    "confidence": "medium",
+    "track_alignment": {
+      "status": "demonstrated",
+      "summary": "The primary purpose is detecting instruction-like repository text and redacting credential-shaped values to address prompt manipulation and secret exposure.",
+      "evidence": [
+        {
+          "evidence_id": "c6d14eb66e6231e283b1ca174f2145c731d30ba40a8565cbbaab6b78edf74fd5",
+          "path": "README.md",
+          "start_line": 5,
+          "end_line": 13,
+          "symbol": ""
+        },
+        {
+          "evidence_id": "13ef5b2f6ea1753ff0dd1bb36c373e9ca32a4e9231b83eca11e3d6811af854bc",
+          "path": "src/scanner.py",
+          "start_line": 1,
+          "end_line": 7,
+          "symbol": "scan"
+        }
+      ],
+      "questions_for_organizer": []
+    },
+    "not_tested": [
+      "Whether the project builds or starts",
+      "Whether tests pass",
+      "Runtime correctness",
+      "Performance, scaling, or reliability under load",
+      "Runtime accessibility behavior",
+      "Debugging ability",
+      "Ability to extend the system safely",
+      "Deployment correctness"
+    ]
+  },
+  "critic": {
+    "valid": true,
+    "errors": []
+  }
+}

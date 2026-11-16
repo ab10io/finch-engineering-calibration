@@ -1,0 +1,241 @@
+{
+  "fixture_slug": "secure-adversarial-prompt-shield",
+  "run": 3,
+  "model": "gpt-6.1-sol",
+  "prompt_version": "1.0",
+  "snapshot_hash": "09ca6811448b93abdb9bc18b1fbff44e6103d687e356c9484a574d635b895c46",
+  "recorded_at": "2026-11-15",
+  "accepted": true,
+  "validation": {
+    "production_schema_valid": true,
+    "critic_valid": true,
+    "errors": []
+  },
+  "assessment": {
+    "categories": {
+      "design_reasoning": {
+        "score": 18.75,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "alternatives_and_tradeoffs",
+            "rating": 3,
+            "points_available": 25,
+            "points_awarded": 18.75,
+            "confidence": "medium",
+            "summary": "Explicit alternatives, rationale, accepted false positives, and reconsideration conditions support intentional design judgment.",
+            "limitations": "The proposed validation exceeds the test cases shown, and the broader intake pipeline is documented rather than implemented in the supplied source.",
+            "evidence": [
+              {
+                "evidence_id": "40ac3b9f690a903857f36e0ff532d255cec896f07e7a1a24e0fc22b11acda346",
+                "path": "docs/decisions.md",
+                "start_line": 3,
+                "end_line": 29,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "architecture_maintainability": {
+        "score": 10,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "boundaries_and_coupling",
+            "rating": 2,
+            "points_available": 20,
+            "points_awarded": 10,
+            "confidence": "medium",
+            "summary": "A small scanner separates text inspection from consumers, and documentation defines a clear evidence-processing boundary.",
+            "limitations": "Archive checks, bounded excerpts, immutable IDs, and scorer integration have no implementation in the supplied source.",
+            "evidence": [
+              {
+                "evidence_id": "c77adce30259df0f1c18377264ccf42cebc76ae0a62226d431fa279d1f50ef4d",
+                "path": "docs/architecture.md",
+                "start_line": 3,
+                "end_line": 13,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "13ef5b2f6ea1753ff0dd1bb36c373e9ca32a4e9231b83eca11e3d6811af854bc",
+                "path": "src/scanner.py",
+                "start_line": 1,
+                "end_line": 6,
+                "symbol": "scan"
+              }
+            ]
+          }
+        ]
+      },
+      "security_by_design": {
+        "score": 10,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "threat_model_and_mitigations",
+            "rating": 2,
+            "points_available": 20,
+            "points_awarded": 10,
+            "confidence": "medium",
+            "summary": "Concrete manipulation and credential-exposure threats are connected to pattern signaling, token replacement, and explicit residual risks.",
+            "limitations": "Only narrow phrase and token patterns are implemented; enforcement of redaction before model calls and immutable evidence handling is not demonstrated.",
+            "evidence": [
+              {
+                "evidence_id": "1e94493352be16505bc46afb278ec4781e5f848bfa9ab64d2a8f48d5d2076aad",
+                "path": "docs/security.md",
+                "start_line": 3,
+                "end_line": 13,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "13ef5b2f6ea1753ff0dd1bb36c373e9ca32a4e9231b83eca11e3d6811af854bc",
+                "path": "src/scanner.py",
+                "start_line": 1,
+                "end_line": 6,
+                "symbol": "scan"
+              }
+            ]
+          }
+        ]
+      },
+      "testing_evidence": {
+        "score": 3.75,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "test_strategy_and_coverage",
+            "rating": 1,
+            "points_available": 15,
+            "points_awarded": 3.75,
+            "confidence": "medium",
+            "summary": "Two test functions provide limited evidence for phrase detection and token redaction.",
+            "limitations": "The frozen redaction test input is already redacted, preventing assessment of its original token case. Claimed benign-prose and unsupported-extension coverage is absent from the shown tests; no execution results are available.",
+            "evidence": [
+              {
+                "evidence_id": "07771bdfaad98f7bad2e640b0456879965c2065852c8000ce690d5af0fa1477c",
+                "path": "tests/test_scanner.py",
+                "start_line": 1,
+                "end_line": 7,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "8ce9fb0bab06a9ac3c57113374fca74a6d52589072df64be1cf55387a0a907da",
+                "path": "docs/testing.md",
+                "start_line": 3,
+                "end_line": 7,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "documentation_operations": {
+        "score": 5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "operational_clarity",
+            "rating": 2,
+            "points_available": 10,
+            "points_awarded": 5,
+            "confidence": "medium",
+            "summary": "Documentation identifies users, purpose, evidence boundaries, processing flow, and known limitations.",
+            "limitations": "Installation, invocation, configuration, troubleshooting, and recovery instructions are absent.",
+            "evidence": [
+              {
+                "evidence_id": "c6d14eb66e6231e283b1ca174f2145c731d30ba40a8565cbbaab6b78edf74fd5",
+                "path": "README.md",
+                "start_line": 5,
+                "end_line": 21,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "c77adce30259df0f1c18377264ccf42cebc76ae0a62226d431fa279d1f50ef4d",
+                "path": "docs/architecture.md",
+                "start_line": 3,
+                "end_line": 13,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "repository_hygiene": {
+        "score": 2.5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "dependency_and_repository_hygiene",
+            "rating": 1,
+            "points_available": 10,
+            "points_awarded": 2.5,
+            "confidence": "medium",
+            "summary": "Basic project metadata, pytest discovery configuration, and an MIT license provide minimal repository hygiene evidence.",
+            "limitations": "The manifest omits Python compatibility and test dependency declarations; no lockfile or reproducible development setup is supplied. Secret signals are explicitly synthetic and do not establish credential leakage.",
+            "evidence": [
+              {
+                "evidence_id": "765a3dcfa7dca77f2d831c2a6faf96b1bdae1e77d826899b2d2af7092e8b2268",
+                "path": "pyproject.toml",
+                "start_line": 1,
+                "end_line": 5,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "740f92543817bbed84679dce474e4b5b090f72eabe8b911eab7b3ca46db5cb97",
+                "path": "LICENSE",
+                "start_line": 1,
+                "end_line": 7,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "268d412664f35d27c7f5044e625881c6933ac0373c5657aa106edf494f614914",
+                "path": "fixtures/synthetic-secret.txt",
+                "start_line": 1,
+                "end_line": 2,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "core_score": 50,
+    "confidence": "medium",
+    "track_alignment": {
+      "status": "demonstrated",
+      "summary": "The primary purpose is detecting model-directed manipulation and reducing credential exposure during repository review, supported by scanner source and repository documentation.",
+      "evidence": [
+        {
+          "evidence_id": "c6d14eb66e6231e283b1ca174f2145c731d30ba40a8565cbbaab6b78edf74fd5",
+          "path": "README.md",
+          "start_line": 5,
+          "end_line": 13,
+          "symbol": ""
+        },
+        {
+          "evidence_id": "13ef5b2f6ea1753ff0dd1bb36c373e9ca32a4e9231b83eca11e3d6811af854bc",
+          "path": "src/scanner.py",
+          "start_line": 1,
+          "end_line": 6,
+          "symbol": "scan"
+        }
+      ],
+      "questions_for_organizer": []
+    },
+    "not_tested": [
+      "Whether the project builds or starts",
+      "Whether tests pass",
+      "Runtime correctness",
+      "Performance, scaling, or reliability under load",
+      "Runtime accessibility behavior",
+      "Debugging ability",
+      "Ability to extend the system safely",
+      "Deployment correctness"
+    ]
+  },
+  "critic": {
+    "valid": true,
+    "errors": []
+  }
+}

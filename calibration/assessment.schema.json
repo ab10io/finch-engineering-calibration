@@ -3,16 +3,37 @@
   "title": "Finch calibration assessment envelope",
   "type": "object",
   "additionalProperties": false,
-  "required": ["fixture_slug", "run", "model", "prompt_version", "snapshot_hash", "assessment"],
+  "required": ["fixture_slug", "run", "model", "prompt_version", "snapshot_hash", "recorded_at", "accepted", "validation", "assessment", "critic"],
   "properties": {
     "fixture_slug": { "type": "string" },
     "run": { "type": "integer", "minimum": 1, "maximum": 3 },
     "model": { "type": "string" },
     "prompt_version": { "const": "1.0" },
     "snapshot_hash": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "recorded_at": { "type": "string", "format": "date" },
+    "accepted": { "type": "boolean" },
+    "validation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["production_schema_valid", "critic_valid", "errors"],
+      "properties": {
+        "production_schema_valid": { "type": "boolean" },
+        "critic_valid": { "type": "boolean" },
+        "errors": { "type": "array", "items": { "type": "string" } }
+      }
+    },
     "assessment": {
       "type": "object",
       "description": "Must satisfy Finch's production validateAssessmentOutput contract."
+    },
+    "critic": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["valid", "errors"],
+      "properties": {
+        "valid": { "type": "boolean" },
+        "errors": { "type": "array", "items": { "type": "string" } }
+      }
     }
   }
 }

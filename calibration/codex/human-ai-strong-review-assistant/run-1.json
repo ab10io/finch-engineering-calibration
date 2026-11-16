@@ -1,0 +1,227 @@
+{
+  "fixture_slug": "human-ai-strong-review-assistant",
+  "run": 1,
+  "model": "gpt-6.1-sol",
+  "prompt_version": "1.0",
+  "snapshot_hash": "db64879533477038c09f4fc8d0692d6a9ff316a2ad5ba613ff7d50845d5862aa",
+  "recorded_at": "2026-11-15",
+  "accepted": true,
+  "validation": {
+    "production_schema_valid": true,
+    "critic_valid": true,
+    "errors": []
+  },
+  "assessment": {
+    "categories": {
+      "design_reasoning": {
+        "score": 18.75,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "alternatives_and_tradeoffs",
+            "rating": 3,
+            "points_available": 25,
+            "points_awarded": 18.75,
+            "confidence": "medium",
+            "summary": "Explicitly compares rules-only search and unbounded chat, connects the chosen approach to caseworker harms, and identifies accepted costs and reconsideration conditions.",
+            "limitations": "Baseline results, pilot thresholds, and qualitative validation data are absent; implementation supports only a small portion of the proposed approach.",
+            "evidence": [
+              {
+                "evidence_id": "e1ecdea7f8a28fa7aacd6c56ef17124529d4b6f5d18baaada784fd3f53a0dd44",
+                "path": "docs/decisions.md",
+                "start_line": 1,
+                "end_line": 30,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "architecture_maintainability": {
+        "score": 10,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "boundaries_and_coupling",
+            "rating": 2,
+            "points_available": 20,
+            "points_awarded": 10,
+            "confidence": "medium",
+            "summary": "Documents distinct retrieval, drafting, constraint-checking, human-review, and audit responsibilities with an explicit data flow.",
+            "limitations": "The sole implementation function does not establish the documented service boundaries, interfaces, UI, or audit integration.",
+            "evidence": [
+              {
+                "evidence_id": "a2ca8f2e18ebe64d2bd2caa3c508f61acfed7c57c87db2b0b9f25edf123e8390",
+                "path": "docs/architecture.md",
+                "start_line": 3,
+                "end_line": 14,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "eacd3c6c4865533575c576d9eb61e1ec3df678437d8a6168e1d88efd2fd6d144",
+                "path": "src/review.py",
+                "start_line": 1,
+                "end_line": 8,
+                "symbol": "draft_answer"
+              }
+            ]
+          }
+        ]
+      },
+      "security_by_design": {
+        "score": 10,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "threat_model_and_mitigations",
+            "rating": 2,
+            "points_available": 20,
+            "points_awarded": 10,
+            "confidence": "medium",
+            "summary": "Identifies unsupported statements influencing benefits decisions as the central threat, names relevant mitigations, and acknowledges automation bias and retrieval omissions. Code includes abstention and citation handling.",
+            "limitations": "Allowlists, redaction, human disposition, and uncertainty presentation are documented without implementation. The prohibited-word check operates on fixed text and does not demonstrate protection against harmful generated content.",
+            "evidence": [
+              {
+                "evidence_id": "0875403de84e5484fae2645fb35ccf722948f02b264b5b742d896c3f4205a47f",
+                "path": "docs/security.md",
+                "start_line": 3,
+                "end_line": 14,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "eacd3c6c4865533575c576d9eb61e1ec3df678437d8a6168e1d88efd2fd6d144",
+                "path": "src/review.py",
+                "start_line": 1,
+                "end_line": 8,
+                "symbol": "draft_answer"
+              }
+            ]
+          }
+        ]
+      },
+      "testing_evidence": {
+        "score": 3.75,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "test_strategy_and_coverage",
+            "rating": 1,
+            "points_available": 15,
+            "points_awarded": 3.75,
+            "confidence": "medium",
+            "summary": "Two concrete pytest cases inspect low-confidence abstention and citation propagation; documentation acknowledges the need for blinded domain review.",
+            "limitations": "Claimed coverage of prohibited decisions, rejection, audit logging, and missing citations is absent from the supplied tests. No qualitative evaluation set or results are supplied.",
+            "evidence": [
+              {
+                "evidence_id": "cf7a20aaf21617e1c94b2d2385f8a0e3ecd7e4b59d143bf8d56bb8eb41b4de6f",
+                "path": "tests/test_review.py",
+                "start_line": 1,
+                "end_line": 5,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "5ed27f4087671d26c5aa0223c5e8981cee54e18c2417d798b320fd078a8d348d",
+                "path": "docs/testing.md",
+                "start_line": 1,
+                "end_line": 8,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "documentation_operations": {
+        "score": 2.5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "operational_clarity",
+            "rating": 1,
+            "points_available": 10,
+            "points_awarded": 2.5,
+            "confidence": "medium",
+            "summary": "Clearly describes intended users, purpose, corpus restrictions, and unverified multilingual quality and latency.",
+            "limitations": "No setup procedure, configuration reference, operating instructions, deployment guidance, monitoring, or recovery procedure is supplied.",
+            "evidence": [
+              {
+                "evidence_id": "af0c500fc458c1533d8f87ae77e1a3c48b23528397f63082968f55fab5274c98",
+                "path": "README.md",
+                "start_line": 5,
+                "end_line": 22,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "repository_hygiene": {
+        "score": 2.5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "dependency_and_repository_hygiene",
+            "rating": 1,
+            "points_available": 10,
+            "points_awarded": 2.5,
+            "confidence": "medium",
+            "summary": "Provides basic project metadata, pytest discovery configuration, and an MIT license.",
+            "limitations": "The manifest does not declare pytest or a supported Python version. No lockfile or reproducible development environment is evidenced.",
+            "evidence": [
+              {
+                "evidence_id": "6f1396abb7d7fa4cc236a370a5b502c0faa00430a08d0211e2358fb94f4e7472",
+                "path": "pyproject.toml",
+                "start_line": 1,
+                "end_line": 6,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "740f92543817bbed84679dce474e4b5b090f72eabe8b911eab7b3ca46db5cb97",
+                "path": "LICENSE",
+                "start_line": 1,
+                "end_line": 8,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "core_score": 47.5,
+    "confidence": "medium",
+    "track_alignment": {
+      "status": "demonstrated",
+      "summary": "The documented primary purpose fits the track: bounded AI retrieval and drafting for benefits caseworkers, deliberately constrained by policy sources and accountable human review. Implementation remains a small fixed-text prototype without an integrated model or retrieval service.",
+      "evidence": [
+        {
+          "evidence_id": "af0c500fc458c1533d8f87ae77e1a3c48b23528397f63082968f55fab5274c98",
+          "path": "README.md",
+          "start_line": 5,
+          "end_line": 13,
+          "symbol": ""
+        },
+        {
+          "evidence_id": "e1ecdea7f8a28fa7aacd6c56ef17124529d4b6f5d18baaada784fd3f53a0dd44",
+          "path": "docs/decisions.md",
+          "start_line": 5,
+          "end_line": 17,
+          "symbol": ""
+        }
+      ],
+      "questions_for_organizer": []
+    },
+    "not_tested": [
+      "Whether the project builds or starts",
+      "Whether tests pass",
+      "Runtime correctness",
+      "Performance, scaling, or reliability under load",
+      "Runtime accessibility behavior",
+      "Debugging ability",
+      "Ability to extend the system safely",
+      "Deployment correctness"
+    ]
+  },
+  "critic": {
+    "valid": true,
+    "errors": []
+  }
+}

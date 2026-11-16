@@ -1,0 +1,234 @@
+{
+  "fixture_slug": "secure-strong-token-gateway",
+  "run": 1,
+  "model": "gpt-6.1-sol",
+  "prompt_version": "1.0",
+  "snapshot_hash": "f9406781c6694748748270dd7a372bcaa8cba8255a26be48e9f554ce2ba2d62b",
+  "recorded_at": "2026-11-15",
+  "accepted": true,
+  "validation": {
+    "production_schema_valid": true,
+    "critic_valid": true,
+    "errors": []
+  },
+  "assessment": {
+    "categories": {
+      "design_reasoning": {
+        "score": 18.75,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "alternatives_and_tradeoffs",
+            "rating": 3,
+            "points_available": 25,
+            "points_awarded": 18.75,
+            "confidence": "medium",
+            "summary": "Documents concrete rollout constraints, two alternatives, a justified gateway choice, availability costs, and conditions for reconsideration.",
+            "limitations": "The claimed validation breadth exceeds the two supplied tests, and much of the proposed gateway is absent from source.",
+            "evidence": [
+              {
+                "evidence_id": "f15a4a460f2f961c4b85742496c050e65d1dd1cb7af835fd1af178be96dabfaf",
+                "path": "docs/decisions.md",
+                "start_line": 3,
+                "end_line": 29,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "architecture_maintainability": {
+        "score": 10,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "boundaries_and_coupling",
+            "rating": 2,
+            "points_available": 20,
+            "points_awarded": 10,
+            "confidence": "medium",
+            "summary": "Documents verification and audit boundaries and an ordered data flow. The small validator injects time and nonce lookup dependencies.",
+            "limitations": "Source demonstrates only claim checks; gateway orchestration, key resolution, audit separation, and cache implementation are not supplied.",
+            "evidence": [
+              {
+                "evidence_id": "d676b95349fdc12ea7abbfb49a55259d95d711c77abdc4d47b1d71f5090da416",
+                "path": "docs/architecture.md",
+                "start_line": 3,
+                "end_line": 13,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "7bfbbef333b7c5d141516b4d9092735ae6f27be2aa4e9b897b9b421797adc6f5",
+                "path": "verify/verify.go",
+                "start_line": 5,
+                "end_line": 12,
+                "symbol": "Validate"
+              }
+            ]
+          }
+        ]
+      },
+      "security_by_design": {
+        "score": 10,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "threat_model_and_mitigations",
+            "rating": 2,
+            "points_available": 20,
+            "points_awarded": 10,
+            "confidence": "medium",
+            "summary": "Identifies replay and algorithm/key confusion threats, maps proposed mitigations, and acknowledges availability and key-compromise risks. Source includes audience, expiration, and nonce checks.",
+            "limitations": "Signature verification, pinned algorithms, issuer checks, bounded parsing, audit redaction, and cache failure handling are documented but not implemented in the supplied source.",
+            "evidence": [
+              {
+                "evidence_id": "8e1c2d8234dd22369678786e22b505cdb942f4530480525ddf88c18c643d2a0c",
+                "path": "docs/security.md",
+                "start_line": 3,
+                "end_line": 13,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "7bfbbef333b7c5d141516b4d9092735ae6f27be2aa4e9b897b9b421797adc6f5",
+                "path": "verify/verify.go",
+                "start_line": 7,
+                "end_line": 12,
+                "symbol": "Validate"
+              }
+            ]
+          }
+        ]
+      },
+      "testing_evidence": {
+        "score": 7.5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "test_strategy_and_coverage",
+            "rating": 2,
+            "points_available": 15,
+            "points_awarded": 7.5,
+            "confidence": "medium",
+            "summary": "Two concrete negative tests exercise wrong-audience and replay rejection, alongside a documented adversarial testing strategy.",
+            "limitations": "The supplied tests are not table-driven and do not substantiate claimed cryptographic, parsing, audit, clock-boundary, or expiration coverage. The deterministic test inventory is empty despite the supplied test excerpt. No tests were executed.",
+            "evidence": [
+              {
+                "evidence_id": "8e6afc4c1dc4706efab553209f26b63a69e65f871101eb1eeec29e95cb586e30",
+                "path": "verify/verify_test.go",
+                "start_line": 1,
+                "end_line": 10,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "2ba141afb9157ab1fb79303ca06577e6d787010e65dc829bb4282c31af0689b6",
+                "path": "docs/testing.md",
+                "start_line": 1,
+                "end_line": 7,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "documentation_operations": {
+        "score": 2.5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "operational_clarity",
+            "rating": 1,
+            "points_available": 10,
+            "points_awarded": 2.5,
+            "confidence": "medium",
+            "summary": "Explains intended users, purpose, replay-cache limitations, and operational harm from cache outages.",
+            "limitations": "No setup, configuration, deployment, monitoring, recovery, or actionable key-rotation procedures are supplied.",
+            "evidence": [
+              {
+                "evidence_id": "d8dd391ef54e1d66cc77b9f0515a38178d107f5671e013996e93aa9879c1020a",
+                "path": "README.md",
+                "start_line": 5,
+                "end_line": 21,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "8e1c2d8234dd22369678786e22b505cdb942f4530480525ddf88c18c643d2a0c",
+                "path": "docs/security.md",
+                "start_line": 11,
+                "end_line": 13,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "repository_hygiene": {
+        "score": 5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "dependency_and_repository_hygiene",
+            "rating": 2,
+            "points_available": 10,
+            "points_awarded": 5,
+            "confidence": "medium",
+            "summary": "Provides a minimal Go module with a declared language version, standard-library imports, separated tests and documentation, and an explicit license.",
+            "limitations": "No automated dependency maintenance or repository checks are evidenced. An empty secret-signal inventory does not establish absence of secrets.",
+            "evidence": [
+              {
+                "evidence_id": "040940d5c0a4e08f38ffd4ced9bf20869cd903d6adbb5863299cbbafad27631a",
+                "path": "go.mod",
+                "start_line": 1,
+                "end_line": 3,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "740f92543817bbed84679dce474e4b5b090f72eabe8b911eab7b3ca46db5cb97",
+                "path": "LICENSE",
+                "start_line": 1,
+                "end_line": 7,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "core_score": 53.75,
+    "confidence": "medium",
+    "track_alignment": {
+      "status": "demonstrated",
+      "summary": "The primary purpose is preventing workload impersonation through rejection of replayed, expired, or wrongly scoped credentials. Repository documentation and concrete claim checks support alignment with the secure-systems definition.",
+      "evidence": [
+        {
+          "evidence_id": "d8dd391ef54e1d66cc77b9f0515a38178d107f5671e013996e93aa9879c1020a",
+          "path": "README.md",
+          "start_line": 5,
+          "end_line": 13,
+          "symbol": ""
+        },
+        {
+          "evidence_id": "7bfbbef333b7c5d141516b4d9092735ae6f27be2aa4e9b897b9b421797adc6f5",
+          "path": "verify/verify.go",
+          "start_line": 7,
+          "end_line": 12,
+          "symbol": "Validate"
+        }
+      ],
+      "questions_for_organizer": []
+    },
+    "not_tested": [
+      "Whether the project builds or starts",
+      "Whether tests pass",
+      "Runtime correctness",
+      "Performance, scaling, or reliability under load",
+      "Runtime accessibility behavior",
+      "Debugging ability",
+      "Ability to extend the system safely",
+      "Deployment correctness"
+    ]
+  },
+  "critic": {
+    "valid": true,
+    "errors": []
+  }
+}

@@ -1,0 +1,206 @@
+{
+  "fixture_slug": "oss-weak-unlicensed-cli",
+  "run": 3,
+  "model": "gpt-6.1-sol",
+  "prompt_version": "1.0",
+  "snapshot_hash": "2a17750156b382a3d12126ab8acefab5399e1894c76dc3bdb6df62ea97304eb7",
+  "recorded_at": "2026-11-15",
+  "accepted": true,
+  "validation": {
+    "production_schema_valid": true,
+    "critic_valid": true,
+    "errors": []
+  },
+  "assessment": {
+    "categories": {
+      "design_reasoning": {
+        "score": 6.25,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "alternatives_and_tradeoffs",
+            "rating": 1,
+            "points_available": 25,
+            "points_awarded": 6.25,
+            "confidence": "medium",
+            "summary": "The input-memory trade-off and reconsideration condition are identified, but alternatives were not compared and the approach has little rationale.",
+            "limitations": "A reported manual example provides no substantial validation evidence.",
+            "evidence": [
+              {
+                "evidence_id": "aec8ef0a3a0b0c9e1479ba52068b358837542a1e2c2c3be69a2ef583c376b2eb",
+                "path": "docs/decisions.md",
+                "start_line": 1,
+                "end_line": 30,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "architecture_maintainability": {
+        "score": 5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "boundaries_and_coupling",
+            "rating": 1,
+            "points_available": 20,
+            "points_awarded": 5,
+            "confidence": "medium",
+            "summary": "The simple data flow is documented, but input collection, parsing, formatting, and output are coupled in one file.",
+            "limitations": "No reusable interface or extension model is demonstrated.",
+            "evidence": [
+              {
+                "evidence_id": "8318ba9915773af96dc9ceae6ec964f30e49b1d7134b68438f06b4810f08c371",
+                "path": "src/cli.js",
+                "start_line": 1,
+                "end_line": 4,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "security_by_design": {
+        "score": 5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "threat_model_and_mitigations",
+            "rating": 1,
+            "points_available": 20,
+            "points_awarded": 5,
+            "confidence": "medium",
+            "summary": "Security documentation identifies input exhaustion and output concerns, but explicitly states that no mitigation is implemented.",
+            "limitations": "Threat recognition is minimal evidence; mitigation effectiveness and runtime security are unverified.",
+            "evidence": [
+              {
+                "evidence_id": "67f2315dd72be4822ba470a2137f85c8dab4cb01d4d2797f90cb33069e1b344e",
+                "path": "docs/security.md",
+                "start_line": 1,
+                "end_line": 14,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "testing_evidence": {
+        "score": 0,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "test_strategy_and_coverage",
+            "rating": 0,
+            "points_available": 15,
+            "points_awarded": 0,
+            "confidence": "medium",
+            "summary": "No automated tests or fixtures exist, and no substantive coverage strategy is demonstrated.",
+            "limitations": "The reported manual example has no recorded expected results or repeatable test artifact.",
+            "evidence": [
+              {
+                "evidence_id": "0e4260517c4012b5d4b4f98d3d28390b3830de41646e861486a50b4909051b8a",
+                "path": "docs/testing.md",
+                "start_line": 1,
+                "end_line": 8,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "documentation_operations": {
+        "score": 2.5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "operational_clarity",
+            "rating": 1,
+            "points_available": 10,
+            "points_awarded": 2.5,
+            "confidence": "medium",
+            "summary": "The README explains purpose, intended users, and limitations, but lacks installation and execution instructions.",
+            "limitations": "Packaging, error handling, and operational recovery guidance are not demonstrated.",
+            "evidence": [
+              {
+                "evidence_id": "8fb3a3bfde6dda9b335ed6f26222b6e04058a58c43c1987b8709f1bb189bcf6e",
+                "path": "README.md",
+                "start_line": 1,
+                "end_line": 22,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "repository_hygiene": {
+        "score": 2.5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "dependency_and_repository_hygiene",
+            "rating": 1,
+            "points_available": 10,
+            "points_awarded": 2.5,
+            "confidence": "medium",
+            "summary": "A minimal package manifest declares no dependencies, but licensing and contribution guidance are absent.",
+            "limitations": "No package executable mapping, scripts, or runtime version policy is provided; dependency absence does not establish security.",
+            "evidence": [
+              {
+                "evidence_id": "e29f9911d882c191b656781a7c22bec298dc4ee420c0443a758965fc8cc56bf1",
+                "path": "package.json",
+                "start_line": 1,
+                "end_line": 8,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "da07d77921a83d54c696cc3a691f25fee184ba6eca520af1128f59f738120ce8",
+                "path": "submission://technical_debt",
+                "start_line": 1,
+                "end_line": 1,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "core_score": 21.25,
+    "confidence": "medium",
+    "track_alignment": {
+      "status": "demonstrated",
+      "summary": "The primary purpose is a JSON-formatting CLI for developers, which meets the official developer-tools definition. Missing licensing and distribution guidance limit repository maturity.",
+      "evidence": [
+        {
+          "evidence_id": "8fb3a3bfde6dda9b335ed6f26222b6e04058a58c43c1987b8709f1bb189bcf6e",
+          "path": "README.md",
+          "start_line": 5,
+          "end_line": 13,
+          "symbol": ""
+        },
+        {
+          "evidence_id": "8318ba9915773af96dc9ceae6ec964f30e49b1d7134b68438f06b4810f08c371",
+          "path": "src/cli.js",
+          "start_line": 1,
+          "end_line": 4,
+          "symbol": ""
+        }
+      ],
+      "questions_for_organizer": []
+    },
+    "not_tested": [
+      "Whether the project builds or starts",
+      "Whether tests pass",
+      "Runtime correctness",
+      "Performance, scaling, or reliability under load",
+      "Runtime accessibility behavior",
+      "Debugging ability",
+      "Ability to extend the system safely",
+      "Deployment correctness"
+    ]
+  },
+  "critic": {
+    "valid": true,
+    "errors": []
+  }
+}

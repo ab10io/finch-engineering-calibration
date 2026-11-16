@@ -1,0 +1,227 @@
+{
+  "fixture_slug": "human-ai-strong-review-assistant",
+  "run": 3,
+  "model": "gpt-6.1-sol",
+  "prompt_version": "1.0",
+  "snapshot_hash": "db64879533477038c09f4fc8d0692d6a9ff316a2ad5ba613ff7d50845d5862aa",
+  "recorded_at": "2026-11-15",
+  "accepted": true,
+  "validation": {
+    "production_schema_valid": true,
+    "critic_valid": true,
+    "errors": []
+  },
+  "assessment": {
+    "categories": {
+      "design_reasoning": {
+        "score": 18.75,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "alternatives_and_tradeoffs",
+            "rating": 3,
+            "points_available": 25,
+            "points_awarded": 18.75,
+            "confidence": "medium",
+            "summary": "Repository documentation connects a specific caseworker problem to alternatives, bounded drafting, accepted review costs, and conditions for removing generation.",
+            "limitations": "Pilot thresholds and qualitative evaluation results are absent; implementation demonstrates only a small portion of the proposed design.",
+            "evidence": [
+              {
+                "evidence_id": "e1ecdea7f8a28fa7aacd6c56ef17124529d4b6f5d18baaada784fd3f53a0dd44",
+                "path": "docs/decisions.md",
+                "start_line": 1,
+                "end_line": 30,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "architecture_maintainability": {
+        "score": 10,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "boundaries_and_coupling",
+            "rating": 2,
+            "points_available": 20,
+            "points_awarded": 10,
+            "confidence": "medium",
+            "summary": "The architecture identifies retrieval, drafting, constraint checking, human disposition, and auditing boundaries, with an explicit data flow.",
+            "limitations": "Source contains only a small drafting function returning fixed text; service interfaces, UI, human disposition, and audit boundaries are not implemented in the evidence.",
+            "evidence": [
+              {
+                "evidence_id": "a2ca8f2e18ebe64d2bd2caa3c508f61acfed7c57c87db2b0b9f25edf123e8390",
+                "path": "docs/architecture.md",
+                "start_line": 3,
+                "end_line": 13,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "eacd3c6c4865533575c576d9eb61e1ec3df678437d8a6168e1d88efd2fd6d144",
+                "path": "src/review.py",
+                "start_line": 1,
+                "end_line": 7,
+                "symbol": "draft_answer"
+              }
+            ]
+          }
+        ]
+      },
+      "security_by_design": {
+        "score": 10,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "threat_model_and_mitigations",
+            "rating": 2,
+            "points_available": 20,
+            "points_awarded": 10,
+            "confidence": "medium",
+            "summary": "A concrete harmful-influence threat and residual automation bias are identified. Source includes abstention, citation attachment, and a prohibited-word check.",
+            "limitations": "Source allowlists, redaction, visible uncertainty, and human disposition are documented without implementation evidence. Citation IDs are copied without validating support, and the language check examines fixed text.",
+            "evidence": [
+              {
+                "evidence_id": "0875403de84e5484fae2645fb35ccf722948f02b264b5b742d896c3f4205a47f",
+                "path": "docs/security.md",
+                "start_line": 3,
+                "end_line": 13,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "eacd3c6c4865533575c576d9eb61e1ec3df678437d8a6168e1d88efd2fd6d144",
+                "path": "src/review.py",
+                "start_line": 1,
+                "end_line": 7,
+                "symbol": "draft_answer"
+              }
+            ]
+          }
+        ]
+      },
+      "testing_evidence": {
+        "score": 3.75,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "test_strategy_and_coverage",
+            "rating": 1,
+            "points_available": 15,
+            "points_awarded": 3.75,
+            "confidence": "medium",
+            "summary": "Two test cases assert low-confidence abstention and citation attachment.",
+            "limitations": "Claims of tests for prohibited decisions, rejection, and audit logging are unsupported by the supplied test file. Missing chunks, threshold boundaries, citation validity, and workflow integration lack tests.",
+            "evidence": [
+              {
+                "evidence_id": "cf7a20aaf21617e1c94b2d2385f8a0e3ecd7e4b59d143bf8d56bb8eb41b4de6f",
+                "path": "tests/test_review.py",
+                "start_line": 1,
+                "end_line": 4,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "5ed27f4087671d26c5aa0223c5e8981cee54e18c2417d798b320fd078a8d348d",
+                "path": "docs/testing.md",
+                "start_line": 1,
+                "end_line": 7,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "documentation_operations": {
+        "score": 2.5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "operational_clarity",
+            "rating": 1,
+            "points_available": 10,
+            "points_awarded": 2.5,
+            "confidence": "medium",
+            "summary": "Documentation explains intended users, purpose, data flow, and known corpus and evaluation limitations.",
+            "limitations": "Installation, execution, configuration, deployment, monitoring, and operational recovery instructions are absent.",
+            "evidence": [
+              {
+                "evidence_id": "af0c500fc458c1533d8f87ae77e1a3c48b23528397f63082968f55fab5274c98",
+                "path": "README.md",
+                "start_line": 1,
+                "end_line": 21,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "repository_hygiene": {
+        "score": 2.5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "dependency_and_repository_hygiene",
+            "rating": 1,
+            "points_available": 10,
+            "points_awarded": 2.5,
+            "confidence": "medium",
+            "summary": "The repository provides project metadata, a pytest discovery setting, and a license.",
+            "limitations": "Pytest is not declared as a development dependency. No lockfile, reproducible environment specification, or automated repository checks are evidenced.",
+            "evidence": [
+              {
+                "evidence_id": "6f1396abb7d7fa4cc236a370a5b502c0faa00430a08d0211e2358fb94f4e7472",
+                "path": "pyproject.toml",
+                "start_line": 1,
+                "end_line": 5,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "740f92543817bbed84679dce474e4b5b090f72eabe8b911eab7b3ca46db5cb97",
+                "path": "LICENSE",
+                "start_line": 1,
+                "end_line": 7,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "core_score": 47.5,
+    "confidence": "medium",
+    "track_alignment": {
+      "status": "demonstrated",
+      "summary": "The documented primary purpose fits the track: bounded AI retrieval and drafting for benefits caseworkers, with explicit human decisions and a rationale for choosing AI over rules-only search. The source remains a minimal scaffold, so this establishes purpose alignment rather than operational realization.",
+      "evidence": [
+        {
+          "evidence_id": "af0c500fc458c1533d8f87ae77e1a3c48b23528397f63082968f55fab5274c98",
+          "path": "README.md",
+          "start_line": 5,
+          "end_line": 13,
+          "symbol": ""
+        },
+        {
+          "evidence_id": "e1ecdea7f8a28fa7aacd6c56ef17124529d4b6f5d18baaada784fd3f53a0dd44",
+          "path": "docs/decisions.md",
+          "start_line": 5,
+          "end_line": 17,
+          "symbol": ""
+        }
+      ],
+      "questions_for_organizer": []
+    },
+    "not_tested": [
+      "Whether the project builds or starts",
+      "Whether tests pass",
+      "Runtime correctness",
+      "Performance, scaling, or reliability under load",
+      "Runtime accessibility behavior",
+      "Debugging ability",
+      "Ability to extend the system safely",
+      "Deployment correctness"
+    ]
+  },
+  "critic": {
+    "valid": true,
+    "errors": []
+  }
+}
