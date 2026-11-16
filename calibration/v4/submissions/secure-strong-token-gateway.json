@@ -1,0 +1,42 @@
+{
+  "fixture_slug": "secure-strong-token-gateway",
+  "title": "Token Gateway",
+  "summary": "A narrowly scoped gateway that verifies signed workload tokens, enforces audience policy, and emits privacy-bounded audit decisions.",
+  "intended_users": "Platform teams connecting short-lived internal workloads across trust zones.",
+  "repository_url": "https://github.com/ab10io/finch-engineering-calibration",
+  "commit_sha": "0ab3da3cc87c40428f781032d0e70ae85bca167e",
+  "demo_url": null,
+  "selected_track_slug": "secure-systems",
+  "diagram_type": "repository_path",
+  "diagram_text": null,
+  "diagram_path": "docs/decisions/001-token-boundary.md",
+  "diagram_image_ref": null,
+  "design_decisions": [
+    {
+      "problem_or_constraint": "Token format, revocation, replay, and clock-skew decisions compare alternatives and define reconsideration triggers.",
+      "alternatives_considered": "The committed alternatives table compares benefits, rejected costs, and the condition that triggers reconsideration.",
+      "chosen_approach_and_rationale": "Verification, authorization, replay control, rate policy, and audit output are isolated behind stable interfaces.",
+      "accepted_trade_off": "The in-memory replay adapter must be replaced by an atomic shared store for multi-process use.",
+      "repository_evidence": "docs/decisions/001-token-boundary.md, src/gateway/authorize.js",
+      "validation_approach": "Reject tokens whose declared algorithm differs from the configured verifier. Reject a valid token that lacks every scope required by the requested operation. Allow only one successful consumption for the same token identifier.",
+      "reconsideration_conditions": "The in-memory replay adapter must be replaced by an atomic shared store for multi-process use. Key generation and hardware-backed custody remain deployment responsibilities outside this library."
+    }
+  ],
+  "testing_strategy": "Committed cross-boundary, negative, and boundary tests: test/adversarial-token.test.js, test/replay-boundary.test.js. Their presence does not establish that they pass in Finch static review.",
+  "security_threat": "An attacker supplies a malformed or algorithm-confused token to bypass verification. Control: The verifier accepts one explicit algorithm and validates encoding, signature, issuer, audience, and time bounds. A captured valid token is reused within its authorization lifetime. Control: A bounded replay store atomically consumes token identifiers until their expiration boundary.",
+  "production_limitation": "The in-memory replay adapter must be replaced by an atomic shared store for multi-process use. Key generation and hardware-backed custody remain deployment responsibilities outside this library.",
+  "technical_debt": "Complete deployment-specific runtime, performance, accessibility, and security evaluation before production use.",
+  "track_alignment_explanation": "The product primarily prevents authorization bypass, token replay, and privilege escalation at a concrete security boundary.",
+  "ai_disclosure": {
+    "tools_used": [
+      "OpenAI Codex"
+    ],
+    "purposes": "Codex was used to author this deliberately synthetic calibration fixture and its structured submission answers.",
+    "substantially_generated_areas": "All fixture source, documentation, tests, and submission narratives are synthetic and AI-assisted.",
+    "review_validation": "The calibration operator reviews files for intended evidence strength, consistency, and absence of real secrets before pinning the commit.",
+    "rejected_or_changed_suggestion": "Generic claims of runtime correctness were rejected because Finch performs static evidence review only."
+  },
+  "ai_disclosure_narrative": "This entire project is synthetic AI-assisted test data. It represents no participant, deployed product, or real credential.",
+  "synthetic": true,
+  "leaderboard_eligible": false
+}
