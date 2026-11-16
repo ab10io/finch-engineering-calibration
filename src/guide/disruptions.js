@@ -1,0 +1,1 @@
+export function applyDisruptions(steps,disruptions){const blocked=new Set(disruptions.filter((d)=>d.kind==='elevator_outage').map((d)=>d.stepId));return steps.map((step)=>blocked.has(step.id)?{...step,available:false,warning:'Elevator unavailable; request an accessible alternative.'}:{...step,available:true})}
