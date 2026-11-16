@@ -1,0 +1,12 @@
+{
+  "fixture_slug": "oss-weak-unlicensed-cli",
+  "methodology_version": "1.0",
+  "score_range": { "min": 18, "max": 38 },
+  "target_ratings": { "design_reasoning": 2, "architecture_maintainability": 2, "security_by_design": 1, "testing_evidence": 0, "documentation_operations": 1, "repository_hygiene": 0 },
+  "category_order": [["design_reasoning", "architecture_maintainability"], ["security_by_design", "documentation_operations"], ["testing_evidence", "repository_hygiene"]],
+  "low_criteria": ["security_by_design", "testing_evidence", "documentation_operations", "repository_hygiene"],
+  "required_citation_paths": ["src/cli.js", "README.md", "docs/testing.md", "submission://track_alignment_explanation"],
+  "track_alignment_status": "not_demonstrated",
+  "confidence_ceiling": "medium",
+  "forbidden_claims": ["tests_pass", "runtime_correctness", "production_ready", "security_certified", "accessibility_verified", "open_source_license_present"]
+}

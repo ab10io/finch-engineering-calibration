@@ -1,0 +1,12 @@
+{
+  "fixture_slug": "privacy-weak-consent-banner",
+  "methodology_version": "1.0",
+  "score_range": { "min": 18, "max": 38 },
+  "target_ratings": { "design_reasoning": 1, "architecture_maintainability": 1, "security_by_design": 0, "testing_evidence": 0, "documentation_operations": 2, "repository_hygiene": 1 },
+  "category_order": [["documentation_operations"], ["design_reasoning", "architecture_maintainability", "repository_hygiene"], ["security_by_design", "testing_evidence"]],
+  "low_criteria": ["design_reasoning", "architecture_maintainability", "security_by_design", "testing_evidence", "repository_hygiene"],
+  "required_citation_paths": ["src/banner.tsx", "docs/security.md", "submission://track_alignment_explanation"],
+  "track_alignment_status": "not_demonstrated",
+  "confidence_ceiling": "medium",
+  "forbidden_claims": ["tests_pass", "runtime_correctness", "production_ready", "security_certified", "accessibility_verified"]
+}

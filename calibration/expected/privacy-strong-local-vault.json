@@ -1,0 +1,12 @@
+{
+  "fixture_slug": "privacy-strong-local-vault",
+  "methodology_version": "1.0",
+  "score_range": { "min": 82, "max": 94 },
+  "target_ratings": { "design_reasoning": 4, "architecture_maintainability": 3, "security_by_design": 4, "testing_evidence": 3, "documentation_operations": 3, "repository_hygiene": 3 },
+  "category_order": [["design_reasoning", "security_by_design"], ["architecture_maintainability", "testing_evidence", "documentation_operations", "repository_hygiene"]],
+  "low_criteria": [],
+  "required_citation_paths": ["docs/decisions.md", "docs/security.md", "tests/vault.test.ts", "submission://track_alignment_explanation"],
+  "track_alignment_status": "demonstrated",
+  "confidence_ceiling": "medium",
+  "forbidden_claims": ["tests_pass", "runtime_correctness", "production_ready", "security_certified", "accessibility_verified"]
+}

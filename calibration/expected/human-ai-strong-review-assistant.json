@@ -1,0 +1,12 @@
+{
+  "fixture_slug": "human-ai-strong-review-assistant",
+  "methodology_version": "1.0",
+  "score_range": { "min": 80, "max": 93 },
+  "target_ratings": { "design_reasoning": 4, "architecture_maintainability": 3, "security_by_design": 3, "testing_evidence": 3, "documentation_operations": 3, "repository_hygiene": 3 },
+  "category_order": [["design_reasoning"], ["architecture_maintainability", "security_by_design", "testing_evidence", "documentation_operations", "repository_hygiene"]],
+  "low_criteria": [],
+  "required_citation_paths": ["src/review.py", "tests/test_review.py", "docs/decisions.md", "submission://track_alignment_explanation"],
+  "track_alignment_status": "demonstrated",
+  "confidence_ceiling": "medium",
+  "forbidden_claims": ["tests_pass", "runtime_correctness", "production_ready", "security_certified", "accessibility_verified"]
+}
