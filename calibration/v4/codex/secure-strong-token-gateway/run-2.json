@@ -1,0 +1,347 @@
+{
+  "fixture_slug": "secure-strong-token-gateway",
+  "run": 2,
+  "model": "gpt-6.1-sol",
+  "critic_model": "gpt-6.1-terra",
+  "prompt_version": "2.0",
+  "snapshot_hash": "2c81a87200441df17f9c37dd16c8a6842a6da4f770a955d84e787618d29c1a09",
+  "recorded_at": "2026-11-16",
+  "accepted": true,
+  "validation": {
+    "production_schema_valid": true,
+    "critic_valid": true,
+    "errors": []
+  },
+  "assessment": {
+    "categories": {
+      "design_reasoning": {
+        "score": 18.75,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "alternatives_and_tradeoffs",
+            "rating": 3,
+            "points_available": 25,
+            "points_awarded": 18.75,
+            "confidence": "medium",
+            "summary": "The centralized gateway decision compares concrete alternatives and availability costs, with injected enforcement boundaries and tests tracing verification and denial behavior.",
+            "limitations": "Reconsideration conditions are qualitative; the evidence does not establish multi-region behavior.",
+            "evidence": [
+              {
+                "evidence_id": "71f0387a34f7969ae2c0832bcbc9be3b2c7b059d5b58112cdc3ed5c653b3bf3a",
+                "path": "docs/decisions/001-token-boundary.md",
+                "start_line": 3,
+                "end_line": 13,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "7cd620b6c218453ff499f6073a9d0b277731540d08a1d326c8d7fe85897edd92",
+                "path": "src/gateway/authorize.js",
+                "start_line": 1,
+                "end_line": 1,
+                "symbol": "createAuthorizer"
+              },
+              {
+                "evidence_id": "d003a18d10da2c2fde541085c9fc8e1fbcaf12e0012ef70b6c0127f5f30c7c8f",
+                "path": "test/change-isolation.test.js",
+                "start_line": 1,
+                "end_line": 2,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "21a15cdfae5909cc4ba5d0b88c6acc9427f2ae613b59fda853714fefb2e992b5",
+                "path": "test/authorize-boundary.test.js",
+                "start_line": 5,
+                "end_line": 23,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "architecture_maintainability": {
+        "score": 15,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "boundaries_and_coupling",
+            "rating": 3,
+            "points_available": 20,
+            "points_awarded": 15,
+            "confidence": "medium",
+            "summary": "Verification, replay storage, and audit are injected into authorization. Tests substitute these dependencies and assert that permissive replay cannot bypass verification and scope denial avoids replay consumption.",
+            "limitations": "Isolation evidence is narrow. Authorization directly reads the clock, and audit exceptions lack a contained failure boundary.",
+            "evidence": [
+              {
+                "evidence_id": "7cd620b6c218453ff499f6073a9d0b277731540d08a1d326c8d7fe85897edd92",
+                "path": "src/gateway/authorize.js",
+                "start_line": 1,
+                "end_line": 1,
+                "symbol": "createAuthorizer"
+              },
+              {
+                "evidence_id": "d003a18d10da2c2fde541085c9fc8e1fbcaf12e0012ef70b6c0127f5f30c7c8f",
+                "path": "test/change-isolation.test.js",
+                "start_line": 1,
+                "end_line": 2,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "21a15cdfae5909cc4ba5d0b88c6acc9427f2ae613b59fda853714fefb2e992b5",
+                "path": "test/authorize-boundary.test.js",
+                "start_line": 5,
+                "end_line": 16,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "security_by_design": {
+        "score": 15,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "threat_model_and_mitigations",
+            "rating": 3,
+            "points_available": 20,
+            "points_awarded": 15,
+            "confidence": "medium",
+            "summary": "Token confusion and replay threats map to signature, claim, scope, and replay controls with negative tests across verification and authorization. Shared-store and key-custody risks are explicit.",
+            "limitations": "Strict encoding and claim-type validation are incomplete; malformed inputs, signature mismatch, and audit failure receive limited test evidence. Static review does not establish runtime security.",
+            "evidence": [
+              {
+                "evidence_id": "2f8a068eacfa3fe24665d02919409efadbd54455a6fffdfe593ea6028fff8307",
+                "path": "docs/security/threat-model.md",
+                "start_line": 3,
+                "end_line": 13,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "cf0f8000145f9708125531465afaf4ba3f1ca1ac02792fc78be7896ac5d2ae0c",
+                "path": "src/token/verify.js",
+                "start_line": 4,
+                "end_line": 13,
+                "symbol": "verify"
+              },
+              {
+                "evidence_id": "7cd620b6c218453ff499f6073a9d0b277731540d08a1d326c8d7fe85897edd92",
+                "path": "src/gateway/authorize.js",
+                "start_line": 1,
+                "end_line": 1,
+                "symbol": "createAuthorizer"
+              },
+              {
+                "evidence_id": "5fd610500941292040991ad966848df155081877ee07e308885534181cc158c1",
+                "path": "test/adversarial-token.test.js",
+                "start_line": 1,
+                "end_line": 3,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "21a15cdfae5909cc4ba5d0b88c6acc9427f2ae613b59fda853714fefb2e992b5",
+                "path": "test/authorize-boundary.test.js",
+                "start_line": 5,
+                "end_line": 23,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "b4bc0f98b7e07db74e42317253d71b4a2589d8219bb391ee9879ae79bb00a23c",
+                "path": "test/replay-boundary.test.js",
+                "start_line": 1,
+                "end_line": 3,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "testing_evidence": {
+        "score": 11.25,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "test_strategy_and_coverage",
+            "rating": 3,
+            "points_available": 15,
+            "points_awarded": 11.25,
+            "confidence": "medium",
+            "summary": "Committed assertions cover invalid audience, expiration, algorithm confusion, replay expiry and capacity, plus authorization-level verification failure, missing scopes, replay denial, and audit payload exclusion.",
+            "limitations": "No execution results are supplied. Store exceptions through authorization, audit exceptions, malformed encoding, signature mismatch, and clock-skew boundaries lack focused coverage.",
+            "evidence": [
+              {
+                "evidence_id": "5fd610500941292040991ad966848df155081877ee07e308885534181cc158c1",
+                "path": "test/adversarial-token.test.js",
+                "start_line": 1,
+                "end_line": 3,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "b4bc0f98b7e07db74e42317253d71b4a2589d8219bb391ee9879ae79bb00a23c",
+                "path": "test/replay-boundary.test.js",
+                "start_line": 1,
+                "end_line": 3,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "21a15cdfae5909cc4ba5d0b88c6acc9427f2ae613b59fda853714fefb2e992b5",
+                "path": "test/authorize-boundary.test.js",
+                "start_line": 5,
+                "end_line": 23,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "d003a18d10da2c2fde541085c9fc8e1fbcaf12e0012ef70b6c0127f5f30c7c8f",
+                "path": "test/change-isolation.test.js",
+                "start_line": 1,
+                "end_line": 2,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "documentation_operations": {
+        "score": 5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "operational_clarity",
+            "rating": 2,
+            "points_available": 10,
+            "points_awarded": 5,
+            "confidence": "medium",
+            "summary": "Documentation supplies Node prerequisites, installation and test commands, configuration concepts, an authorization example, and explicit single-process and key-custody limitations.",
+            "limitations": "The example omits concrete wiring. Recovery guidance is generic and provides no actionable key-rotation, replay-store restoration, or rollback procedure.",
+            "evidence": [
+              {
+                "evidence_id": "b38e2597e4f9ae9a5ae7f35ccf4c528a04863e66af48f09179c314f310b67f3a",
+                "path": "README.md",
+                "start_line": 7,
+                "end_line": 35,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "10b3537fa2c50ce009613a8ac7d89e9149d47b61a43796bce75e350a1e871b4a",
+                "path": "docs/runbook.md",
+                "start_line": 1,
+                "end_line": 11,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "repository_hygiene": {
+        "score": 7.5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "dependency_and_repository_hygiene",
+            "rating": 3,
+            "points_available": 10,
+            "points_awarded": 7.5,
+            "confidence": "medium",
+            "summary": "The manifest and lock establish a dependency-free Node package, an MIT license grants reuse rights, scoped CI declares installation and tests, and contribution and artifact policies address boundary changes and sensitive files.",
+            "limitations": "Automation execution is unverified; artifact-policy enforcement, release provenance, and dependency-review automation are not demonstrated.",
+            "evidence": [
+              {
+                "evidence_id": "9e849fcf8d9778ef8545cb122d9dbe345258d3f8a5f317b5672b2332d37cc0a2",
+                "path": "package.json",
+                "start_line": 1,
+                "end_line": 14,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "2229923c22f0c4055d7a4636c664bac73c1958fe86f703ad62d7814bd3bb0f4c",
+                "path": "package-lock.json",
+                "start_line": 1,
+                "end_line": 17,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "a1f6f4dcb6b0174dd813443eebf8d4dd8bc892b9a2b4abecd98ec3e4942e3081",
+                "path": "LICENSE",
+                "start_line": 1,
+                "end_line": 21,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "a15029fc640a8bca652bf11756758e4269baae88ca614cdd108ddf2bd2ae7c55",
+                "path": ".github/workflows/ci.yml",
+                "start_line": 1,
+                "end_line": 15,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "66440dcc95d5eaa9e311c88c66a06c22718615535ac1daf5932a716d993b8f49",
+                "path": "CONTRIBUTING.md",
+                "start_line": 1,
+                "end_line": 3,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "46dabe5423aeac9c8c762453384f203a23512d928c5d549eb06904a76c361d62",
+                "path": ".artifact-policy.json",
+                "start_line": 1,
+                "end_line": 6,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "core_score": 72.5,
+    "confidence": "medium",
+    "track_alignment": {
+      "status": "demonstrated",
+      "summary": "The primary purpose addresses concrete token-verification bypass, replay, and scope-escalation threats through authorization controls and corresponding negative tests.",
+      "evidence": [
+        {
+          "evidence_id": "cf0f8000145f9708125531465afaf4ba3f1ca1ac02792fc78be7896ac5d2ae0c",
+          "path": "src/token/verify.js",
+          "start_line": 4,
+          "end_line": 13,
+          "symbol": "verify"
+        },
+        {
+          "evidence_id": "7cd620b6c218453ff499f6073a9d0b277731540d08a1d326c8d7fe85897edd92",
+          "path": "src/gateway/authorize.js",
+          "start_line": 1,
+          "end_line": 1,
+          "symbol": "createAuthorizer"
+        },
+        {
+          "evidence_id": "5fd610500941292040991ad966848df155081877ee07e308885534181cc158c1",
+          "path": "test/adversarial-token.test.js",
+          "start_line": 1,
+          "end_line": 3,
+          "symbol": ""
+        },
+        {
+          "evidence_id": "21a15cdfae5909cc4ba5d0b88c6acc9427f2ae613b59fda853714fefb2e992b5",
+          "path": "test/authorize-boundary.test.js",
+          "start_line": 5,
+          "end_line": 23,
+          "symbol": ""
+        }
+      ],
+      "questions_for_organizer": []
+    },
+    "not_tested": [
+      "Whether the project builds or starts",
+      "Whether tests pass",
+      "Runtime correctness",
+      "Performance, scaling, or reliability under load",
+      "Runtime accessibility behavior",
+      "Debugging ability",
+      "Ability to extend the system safely",
+      "Deployment correctness"
+    ]
+  },
+  "critic": {
+    "valid": true,
+    "errors": []
+  }
+}

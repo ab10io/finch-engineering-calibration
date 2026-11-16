@@ -1,0 +1,375 @@
+{
+  "fixture_slug": "oss-strong-plugin-kit",
+  "run": 2,
+  "model": "gpt-6.1-sol",
+  "critic_model": "gpt-6.1-terra",
+  "prompt_version": "2.0",
+  "snapshot_hash": "c66981c83d888cba144d29087ac7f4521926c1b95c50c2b26cd601ab95845663",
+  "recorded_at": "2026-11-16",
+  "accepted": true,
+  "validation": {
+    "production_schema_valid": true,
+    "critic_valid": true,
+    "errors": []
+  },
+  "assessment": {
+    "categories": {
+      "design_reasoning": {
+        "score": 18.75,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "alternatives_and_tradeoffs",
+            "rating": 3,
+            "points_available": 25,
+            "points_awarded": 18.75,
+            "confidence": "medium",
+            "summary": "The in-process protocol decision compares credible alternatives and explicitly accepts the lack of hostile-code isolation. Version validation and lifecycle orchestration trace the selected approach into implementation and committed compatibility and failure tests.",
+            "limitations": "Reconsideration triggers are explicit, but compatibility windows and migration mechanics are not developed enough for rating 4. Committed tests do not establish runtime success.",
+            "evidence": [
+              {
+                "evidence_id": "6b031783982a3b8d2f60111fdf3d8bcac7f9b687b078177c3fe887c093b08dac",
+                "path": "docs/decisions/001-plugin-protocol.md",
+                "start_line": 3,
+                "end_line": 13,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "dc36e867e02c3882edefe3a35606f7fe35dc5499213ec0031ffee91525816add",
+                "path": "src/host/plugin-host.js",
+                "start_line": 1,
+                "end_line": 2,
+                "symbol": "PluginHost"
+              },
+              {
+                "evidence_id": "2cee860efe2162009b1ae7c7e579b841c25012812fb7b6daec58b7b8b49b98b9",
+                "path": "test/compatibility.test.js",
+                "start_line": 1,
+                "end_line": 2,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "ace9a949127958ae6c212bff136a680731133cab26a3fdfd735869004e1540ef",
+                "path": "test/host-capability-boundary.test.js",
+                "start_line": 12,
+                "end_line": 19,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "architecture_maintainability": {
+        "score": 15,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "boundaries_and_coupling",
+            "rating": 3,
+            "points_available": 20,
+            "points_awarded": 15,
+            "confidence": "medium",
+            "summary": "Manifest validation, capability authorization, and host orchestration have distinct responsibilities. A committed change-isolation test varies host policy while retaining manifest rejection, and orchestration tests cover pre-initialization denial and reverse cleanup.",
+            "limitations": "Lifecycle hooks lack structural validation, and a cleanup exception can interrupt remaining cleanup. Migration guidance does not specify a detailed interface evolution strategy.",
+            "evidence": [
+              {
+                "evidence_id": "83d1f6ebf75863e20c277303b2abcb333121d5362d87f366ee81c97ba90fc697",
+                "path": "src/protocol/manifest.js",
+                "start_line": 1,
+                "end_line": 2,
+                "symbol": "validateManifest"
+              },
+              {
+                "evidence_id": "b5c7081769c234c3d6792a2bb03c010e86565908bea77f8a8a6c31c0b0c43910",
+                "path": "src/host/capability-policy.js",
+                "start_line": 1,
+                "end_line": 1,
+                "symbol": "authorizeCapabilities"
+              },
+              {
+                "evidence_id": "dc36e867e02c3882edefe3a35606f7fe35dc5499213ec0031ffee91525816add",
+                "path": "src/host/plugin-host.js",
+                "start_line": 1,
+                "end_line": 2,
+                "symbol": "PluginHost"
+              },
+              {
+                "evidence_id": "28348d929cae4d7fde2d1eda495a21172921488d999d4eb1219df25530f6ec12",
+                "path": "test/change-isolation.test.js",
+                "start_line": 5,
+                "end_line": 12,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "ace9a949127958ae6c212bff136a680731133cab26a3fdfd735869004e1540ef",
+                "path": "test/host-capability-boundary.test.js",
+                "start_line": 5,
+                "end_line": 19,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "28f1ff765ddfe10e7bcbaff69053f3930f66c48966b7f556d00480d67d7bbad4",
+                "path": "docs/migration.md",
+                "start_line": 3,
+                "end_line": 3,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "security_by_design": {
+        "score": 15,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "threat_model_and_mitigations",
+            "rating": 3,
+            "points_available": 20,
+            "points_awarded": 15,
+            "confidence": "medium",
+            "summary": "The bounded threat model connects forbidden capability requests and partial initialization to host authorization and reverse cleanup. Negative orchestration tests assert denial before hooks and cleanup order; process isolation and registry verification remain explicit residual risks.",
+            "limitations": "Capability checks do not sandbox trusted in-process code. Cleanup has no timeout or exception containment, so documented bounded cleanup is not fully supported by implementation.",
+            "evidence": [
+              {
+                "evidence_id": "3f2d8ed05cb64f243fe675fe9656f16a73627c1fbdc39984756ee88e22a097cb",
+                "path": "docs/security/threat-model.md",
+                "start_line": 3,
+                "end_line": 13,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "b5c7081769c234c3d6792a2bb03c010e86565908bea77f8a8a6c31c0b0c43910",
+                "path": "src/host/capability-policy.js",
+                "start_line": 1,
+                "end_line": 1,
+                "symbol": "authorizeCapabilities"
+              },
+              {
+                "evidence_id": "dc36e867e02c3882edefe3a35606f7fe35dc5499213ec0031ffee91525816add",
+                "path": "src/host/plugin-host.js",
+                "start_line": 1,
+                "end_line": 2,
+                "symbol": "PluginHost"
+              },
+              {
+                "evidence_id": "ace9a949127958ae6c212bff136a680731133cab26a3fdfd735869004e1540ef",
+                "path": "test/host-capability-boundary.test.js",
+                "start_line": 5,
+                "end_line": 19,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "testing_evidence": {
+        "score": 11.25,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "test_strategy_and_coverage",
+            "rating": 3,
+            "points_available": 15,
+            "points_awarded": 11.25,
+            "confidence": "medium",
+            "summary": "Committed assertions cover current and future protocol versions, malformed identifiers, forbidden capabilities, frozen grants, policy change isolation, denial before lifecycle execution, and multi-hook rollback after initialization failure.",
+            "limitations": "No execution results are provided. Deprecated versions, duplicate capabilities, malformed hooks, cleanup rejection, and hanging hooks lack committed assertions in the supplied tests.",
+            "evidence": [
+              {
+                "evidence_id": "2cee860efe2162009b1ae7c7e579b841c25012812fb7b6daec58b7b8b49b98b9",
+                "path": "test/compatibility.test.js",
+                "start_line": 1,
+                "end_line": 2,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "ad1bf45150cd8e51f1d8dffe65069992651bb8c917e475e153a6296a4c2565fc",
+                "path": "test/capability-policy.test.js",
+                "start_line": 1,
+                "end_line": 2,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "28348d929cae4d7fde2d1eda495a21172921488d999d4eb1219df25530f6ec12",
+                "path": "test/change-isolation.test.js",
+                "start_line": 5,
+                "end_line": 12,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "ace9a949127958ae6c212bff136a680731133cab26a3fdfd735869004e1540ef",
+                "path": "test/host-capability-boundary.test.js",
+                "start_line": 5,
+                "end_line": 19,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "documentation_operations": {
+        "score": 5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "operational_clarity",
+            "rating": 2,
+            "points_available": 10,
+            "points_awarded": 5,
+            "confidence": "medium",
+            "summary": "Documentation identifies Node prerequisites, installation and test commands, allowlist configuration, a host usage example, and residual limitations. Recovery and migration guidance exists but remains generic.",
+            "limitations": "The example omits imports and hook definitions. Recovery references quarantine, rollback, stored state, and audit records without concrete procedures or corresponding host interfaces; compatibility windows are unspecified.",
+            "evidence": [
+              {
+                "evidence_id": "c9dd5770de3d18cc544ae70aa57f5b789da5d548aef616b9700f65ac0533e159",
+                "path": "README.md",
+                "start_line": 7,
+                "end_line": 34,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "db5d657e00250a73e80d0020263ca33c7f93e326016a1fc9278301811697789e",
+                "path": "docs/runbook.md",
+                "start_line": 3,
+                "end_line": 11,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "28f1ff765ddfe10e7bcbaff69053f3930f66c48966b7f556d00480d67d7bbad4",
+                "path": "docs/migration.md",
+                "start_line": 3,
+                "end_line": 3,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "dc36e867e02c3882edefe3a35606f7fe35dc5499213ec0031ffee91525816add",
+                "path": "src/host/plugin-host.js",
+                "start_line": 1,
+                "end_line": 2,
+                "symbol": "PluginHost"
+              }
+            ]
+          }
+        ]
+      },
+      "repository_hygiene": {
+        "score": 7.5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "dependency_and_repository_hygiene",
+            "rating": 3,
+            "points_available": 10,
+            "points_awarded": 7.5,
+            "confidence": "medium",
+            "summary": "The dependency-free Node manifest and lock agree on package identity and engine requirements. MIT licensing, read-only CI permissions, contribution expectations, and an explicit generated-artifact and secret policy provide consistent maintenance evidence.",
+            "limitations": "CI execution is unverified. Actions use version tags rather than immutable hashes, artifact policy lacks automated enforcement, and the release workflow only performs a package dry run rather than generating provenance.",
+            "evidence": [
+              {
+                "evidence_id": "2ac6cf880364dbfb67e6db9a40b03dddd53cc0775e22a97ff3ee4b78b2c8f8cc",
+                "path": "package.json",
+                "start_line": 1,
+                "end_line": 13,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "bc0850269313a12e2d5c9a219ceeb223483b00d521b145f2f308015639bf9743",
+                "path": "package-lock.json",
+                "start_line": 1,
+                "end_line": 16,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "a1f6f4dcb6b0174dd813443eebf8d4dd8bc892b9a2b4abecd98ec3e4942e3081",
+                "path": "LICENSE",
+                "start_line": 1,
+                "end_line": 12,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "a15029fc640a8bca652bf11756758e4269baae88ca614cdd108ddf2bd2ae7c55",
+                "path": ".github/workflows/ci.yml",
+                "start_line": 1,
+                "end_line": 15,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "66440dcc95d5eaa9e311c88c66a06c22718615535ac1daf5932a716d993b8f49",
+                "path": "CONTRIBUTING.md",
+                "start_line": 3,
+                "end_line": 3,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "46dabe5423aeac9c8c762453384f203a23512d928c5d549eb06904a76c361d62",
+                "path": ".artifact-policy.json",
+                "start_line": 1,
+                "end_line": 6,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "7e4ddf5370a6660af96034b52cd4484f5ad0e5e3ad3eebc2e45bb3e0ed409079",
+                "path": ".github/workflows/release.yml",
+                "start_line": 1,
+                "end_line": 13,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "core_score": 72.5,
+    "confidence": "medium",
+    "track_alignment": {
+      "status": "demonstrated",
+      "summary": "The exported plugin host provides a reusable developer surface with committed consumer-style policy tests. Installation, configuration, and usage guidance support adoption, and the MIT license permits use, modification, and redistribution.",
+      "evidence": [
+        {
+          "evidence_id": "dc36e867e02c3882edefe3a35606f7fe35dc5499213ec0031ffee91525816add",
+          "path": "src/host/plugin-host.js",
+          "start_line": 1,
+          "end_line": 2,
+          "symbol": "PluginHost"
+        },
+        {
+          "evidence_id": "28348d929cae4d7fde2d1eda495a21172921488d999d4eb1219df25530f6ec12",
+          "path": "test/change-isolation.test.js",
+          "start_line": 1,
+          "end_line": 12,
+          "symbol": ""
+        },
+        {
+          "evidence_id": "c9dd5770de3d18cc544ae70aa57f5b789da5d548aef616b9700f65ac0533e159",
+          "path": "README.md",
+          "start_line": 7,
+          "end_line": 25,
+          "symbol": ""
+        },
+        {
+          "evidence_id": "a1f6f4dcb6b0174dd813443eebf8d4dd8bc892b9a2b4abecd98ec3e4942e3081",
+          "path": "LICENSE",
+          "start_line": 1,
+          "end_line": 12,
+          "symbol": ""
+        }
+      ],
+      "questions_for_organizer": []
+    },
+    "not_tested": [
+      "Whether the project builds or starts",
+      "Whether tests pass",
+      "Runtime correctness",
+      "Performance, scaling, or reliability under load",
+      "Runtime accessibility behavior",
+      "Debugging ability",
+      "Ability to extend the system safely",
+      "Deployment correctness"
+    ]
+  },
+  "critic": {
+    "valid": true,
+    "errors": []
+  }
+}
