@@ -1,0 +1,221 @@
+{
+  "fixture_slug": "privacy-weak-consent-banner",
+  "run": 2,
+  "model": "gpt-6.1-sol",
+  "critic_model": "gpt-6.1-terra",
+  "prompt_version": "2.0",
+  "snapshot_hash": "0abe2a43a8c8c227fb3dfb6830f333eceb244c4d0b60f5b2219a74f9b0513f7c",
+  "recorded_at": "2026-11-16",
+  "accepted": true,
+  "validation": {
+    "production_schema_valid": true,
+    "critic_valid": true,
+    "errors": []
+  },
+  "assessment": {
+    "categories": {
+      "design_reasoning": {
+        "score": 6.25,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "alternatives_and_tradeoffs",
+            "rating": 1,
+            "points_available": 25,
+            "points_awarded": 6.25,
+            "confidence": "medium",
+            "summary": "The consent constraint and implementation choice are stated, but no credible alternative is evaluated.",
+            "limitations": "Missing granular purposes and revocation are acknowledged without comparative reasoning or validation.",
+            "evidence": [
+              {
+                "evidence_id": "3cd98ce55a550441c10a49f9576af009ab6b339280edadf815845790c5da6ba8",
+                "path": "docs/decisions.md",
+                "start_line": 3,
+                "end_line": 17,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "architecture_maintainability": {
+        "score": 5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "boundaries_and_coupling",
+            "rating": 1,
+            "points_available": 20,
+            "points_awarded": 5,
+            "confidence": "medium",
+            "summary": "A small component combines rendering, browser storage, and a global analytics dependency without explicit interfaces.",
+            "limitations": "The documented storage read and conditional banner flow are absent from the supplied implementation; isolation evidence is absent.",
+            "evidence": [
+              {
+                "evidence_id": "ed86539f73897bff1e7d442d5db06cf1fca34189a594d49fa251ef0e70c92865",
+                "path": "src/banner.tsx",
+                "start_line": 1,
+                "end_line": 5,
+                "symbol": "Banner"
+              },
+              {
+                "evidence_id": "bbf31149b5bafc2451d939afafc549422764a83c4582c6b8ec528468d82fe079",
+                "path": "docs/architecture.md",
+                "start_line": 5,
+                "end_line": 13,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "security_by_design": {
+        "score": 10,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "threat_model_and_mitigations",
+            "rating": 2,
+            "points_available": 20,
+            "points_awarded": 10,
+            "confidence": "medium",
+            "summary": "A bounded consent threat maps to an acceptance-triggered SDK call, with explicit residual risks.",
+            "limitations": "The control covers only this call. Tracker inventory, withdrawal, consent integrity, and negative tests are missing.",
+            "evidence": [
+              {
+                "evidence_id": "04f3db08a28ae2341c09cd9307787eb516b8c1b5cd4189f3dac7cbd212bfac56",
+                "path": "docs/security.md",
+                "start_line": 3,
+                "end_line": 13,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "ed86539f73897bff1e7d442d5db06cf1fca34189a594d49fa251ef0e70c92865",
+                "path": "src/banner.tsx",
+                "start_line": 2,
+                "end_line": 4,
+                "symbol": "Banner"
+              }
+            ]
+          }
+        ]
+      },
+      "testing_evidence": {
+        "score": 0,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "test_strategy_and_coverage",
+            "rating": 0,
+            "points_available": 15,
+            "points_awarded": 0,
+            "confidence": "medium",
+            "summary": "One reported manual acceptance click provides no meaningful committed test strategy or assertions.",
+            "limitations": "No automated tests or negative-path records are supplied; the manual claim does not establish runtime success.",
+            "evidence": [
+              {
+                "evidence_id": "62193ce3bbf1eb27f94b75af7e1fa8e2d84a09b028aa67c2a6ae40d12b007e87",
+                "path": "docs/testing.md",
+                "start_line": 1,
+                "end_line": 7,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "documentation_operations": {
+        "score": 0,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "operational_clarity",
+            "rating": 0,
+            "points_available": 10,
+            "points_awarded": 0,
+            "confidence": "medium",
+            "summary": "Purpose and limitations are documented, but installation and operational guidance are absent.",
+            "limitations": "No prerequisites, configuration, startup instructions, diagnosis, or recovery procedure are provided.",
+            "evidence": [
+              {
+                "evidence_id": "dc4487ca9af82914295982fe5d5791f2ead75673d962a3c714c3f2e5e6335e2b",
+                "path": "README.md",
+                "start_line": 5,
+                "end_line": 21,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "repository_hygiene": {
+        "score": 0,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "dependency_and_repository_hygiene",
+            "rating": 0,
+            "points_available": 10,
+            "points_awarded": 0,
+            "confidence": "medium",
+            "summary": "The manifest omits the imported React dependency and supplies no scripts or license declaration; no recognized license or maintenance automation is supplied.",
+            "limitations": "The frozen catalogue contains no lockfile, contribution guidance, or dependency controls.",
+            "evidence": [
+              {
+                "evidence_id": "89a673b46bccaebcd5a88930a77ddb2663f13fef43fd83c7589f97d848c60f0c",
+                "path": "package.json",
+                "start_line": 1,
+                "end_line": 7,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "ed86539f73897bff1e7d442d5db06cf1fca34189a594d49fa251ef0e70c92865",
+                "path": "src/banner.tsx",
+                "start_line": 1,
+                "end_line": 1,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "core_score": 21.25,
+    "confidence": "medium",
+    "track_alignment": {
+      "status": "not_demonstrated",
+      "summary": "Privacy is incidental to the general analytics dashboard. A single acceptance button does not demonstrate that the product's primary purpose materially improves privacy or user agency.",
+      "evidence": [
+        {
+          "evidence_id": "dc4487ca9af82914295982fe5d5791f2ead75673d962a3c714c3f2e5e6335e2b",
+          "path": "README.md",
+          "start_line": 5,
+          "end_line": 13,
+          "symbol": ""
+        },
+        {
+          "evidence_id": "cd11260e1b6356961cd656fe67c1eb29537510635de54b14ada1c99cd2e7d426",
+          "path": "submission://track_alignment_explanation",
+          "start_line": 1,
+          "end_line": 1,
+          "symbol": ""
+        }
+      ],
+      "questions_for_organizer": []
+    },
+    "not_tested": [
+      "Whether the project builds or starts",
+      "Whether tests pass",
+      "Runtime correctness",
+      "Performance, scaling, or reliability under load",
+      "Runtime accessibility behavior",
+      "Debugging ability",
+      "Ability to extend the system safely",
+      "Deployment correctness"
+    ]
+  },
+  "critic": {
+    "valid": true,
+    "errors": []
+  }
+}

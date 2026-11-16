@@ -1,0 +1,237 @@
+{
+  "fixture_slug": "accessible-incomplete-color-dashboard",
+  "run": 3,
+  "model": "gpt-6.1-sol",
+  "critic_model": "gpt-6.1-terra",
+  "prompt_version": "2.0",
+  "snapshot_hash": "2bbf0ad4a57225542b2b50bb6563e9164533f3cffc73ce2275ced77aec225364",
+  "recorded_at": "2026-11-16",
+  "accepted": true,
+  "validation": {
+    "production_schema_valid": true,
+    "critic_valid": true,
+    "errors": []
+  },
+  "assessment": {
+    "categories": {
+      "design_reasoning": {
+        "score": 6.25,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "alternatives_and_tradeoffs",
+            "rating": 1,
+            "points_available": 25,
+            "points_awarded": 6.25,
+            "confidence": "medium",
+            "summary": "The palette decision identifies a visual concern and acknowledges limitations, but considers no credible alternative or defined access need.",
+            "limitations": "Implementation traceability reaches only CSS variables; one reported screenshot inspection provides limited validation evidence.",
+            "evidence": [
+              {
+                "evidence_id": "eb1653899b6645c50599f84d45692349ad2cfb3e7d0bd0b0174efa1b6b8e5909",
+                "path": "docs/decisions.md",
+                "start_line": 3,
+                "end_line": 29,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "afdca74d7a824cfbfaac9fbdb16bf6d2ccf06fe190715ada152adaf72da66157",
+                "path": "src/theme.css",
+                "start_line": 1,
+                "end_line": 3,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "architecture_maintainability": {
+        "score": 5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "boundaries_and_coupling",
+            "rating": 1,
+            "points_available": 20,
+            "points_awarded": 5,
+            "confidence": "medium",
+            "summary": "The documented class-to-variable flow is understandable, but the evidence demonstrates only a stylesheet, with no implemented toggle or chart integration establishing responsibility boundaries.",
+            "limitations": "No interfaces or change-isolation tests support the architectural narrative.",
+            "evidence": [
+              {
+                "evidence_id": "48348bb3d812cc02fdd3a06ea60940b8318ff7d3c7c2cbcf50fbf75faccf18e8",
+                "path": "docs/architecture.md",
+                "start_line": 3,
+                "end_line": 13,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "afdca74d7a824cfbfaac9fbdb16bf6d2ccf06fe190715ada152adaf72da66157",
+                "path": "src/theme.css",
+                "start_line": 1,
+                "end_line": 3,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "security_by_design": {
+        "score": 0,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "threat_model_and_mitigations",
+            "rating": 0,
+            "points_available": 20,
+            "points_awarded": 0,
+            "confidence": "medium",
+            "summary": "The evidence explicitly states that no threat analysis or mitigations were documented.",
+            "limitations": "Assets, trust boundaries, misuse cases, and residual-risk decisions are unspecified; security cannot be assessed dynamically.",
+            "evidence": [
+              {
+                "evidence_id": "92b554a18bd62863a4e71f4915217f84ebff3ac9f346ef5b4e0c8f2a80f6f19c",
+                "path": "docs/security.md",
+                "start_line": 3,
+                "end_line": 13,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "testing_evidence": {
+        "score": 0,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "test_strategy_and_coverage",
+            "rating": 0,
+            "points_available": 15,
+            "points_awarded": 0,
+            "confidence": "medium",
+            "summary": "No meaningful committed test implementation or actionable test strategy is demonstrated.",
+            "limitations": "The reported visual inspection has no committed assertions, boundary coverage, or assistive-technology validation.",
+            "evidence": [
+              {
+                "evidence_id": "7fe148d4a1171aab887017f0dd87774d98c5c125293bfafee3191330e39c1c34",
+                "path": "docs/testing.md",
+                "start_line": 1,
+                "end_line": 7,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "eb1653899b6645c50599f84d45692349ad2cfb3e7d0bd0b0174efa1b6b8e5909",
+                "path": "docs/decisions.md",
+                "start_line": 23,
+                "end_line": 25,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "documentation_operations": {
+        "score": 0,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "operational_clarity",
+            "rating": 0,
+            "points_available": 10,
+            "points_awarded": 0,
+            "confidence": "medium",
+            "summary": "Purpose and limitations are documented, but installation, prerequisites, primary operation, diagnosis, and recovery guidance are absent.",
+            "limitations": "The manifest supplies no operational scripts, and the documentation does not establish a usable setup procedure.",
+            "evidence": [
+              {
+                "evidence_id": "95820e29215a060f1a6d9efb6190d45c838072dfb2841b4fe380b6deefa72d4a",
+                "path": "README.md",
+                "start_line": 1,
+                "end_line": 21,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "2b8fbad5a988ae10ae435e0c4f6ac69414bee375e7b7e74c50449e17624b6f62",
+                "path": "package.json",
+                "start_line": 1,
+                "end_line": 7,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "repository_hygiene": {
+        "score": 2.5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "dependency_and_repository_hygiene",
+            "rating": 1,
+            "points_available": 10,
+            "points_awarded": 2.5,
+            "confidence": "medium",
+            "summary": "A minimal package manifest and MIT-labeled license provide basic structure and licensing intent, but automation and maintenance guidance are absent.",
+            "limitations": "No dependencies are declared, so dependency pinning is not a material concern here. The abbreviated license and lack of contribution or artifact policies limit hygiene evidence.",
+            "evidence": [
+              {
+                "evidence_id": "2b8fbad5a988ae10ae435e0c4f6ac69414bee375e7b7e74c50449e17624b6f62",
+                "path": "package.json",
+                "start_line": 1,
+                "end_line": 7,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "740f92543817bbed84679dce474e4b5b090f72eabe8b911eab7b3ca46db5cb97",
+                "path": "LICENSE",
+                "start_line": 1,
+                "end_line": 7,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "core_score": 13.75,
+    "confidence": "medium",
+    "track_alignment": {
+      "status": "not_demonstrated",
+      "summary": "An alternate palette for users who prefer higher contrast does not establish a defined access need or demonstrate improved access or autonomy. Documented pointer-only controls and absent text alternatives further limit alignment evidence.",
+      "evidence": [
+        {
+          "evidence_id": "95820e29215a060f1a6d9efb6190d45c838072dfb2841b4fe380b6deefa72d4a",
+          "path": "README.md",
+          "start_line": 5,
+          "end_line": 13,
+          "symbol": ""
+        },
+        {
+          "evidence_id": "48348bb3d812cc02fdd3a06ea60940b8318ff7d3c7c2cbcf50fbf75faccf18e8",
+          "path": "docs/architecture.md",
+          "start_line": 11,
+          "end_line": 13,
+          "symbol": ""
+        }
+      ],
+      "questions_for_organizer": [
+        "Which defined access need is the dashboard intended to address, and what evidence demonstrates improved access for those users?"
+      ]
+    },
+    "not_tested": [
+      "Whether the project builds or starts",
+      "Whether tests pass",
+      "Runtime correctness",
+      "Performance, scaling, or reliability under load",
+      "Runtime accessibility behavior",
+      "Debugging ability",
+      "Ability to extend the system safely",
+      "Deployment correctness"
+    ]
+  },
+  "critic": {
+    "valid": true,
+    "errors": []
+  }
+}

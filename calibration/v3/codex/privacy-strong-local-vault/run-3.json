@@ -1,0 +1,325 @@
+{
+  "fixture_slug": "privacy-strong-local-vault",
+  "run": 3,
+  "model": "gpt-6.1-sol",
+  "critic_model": "gpt-6.1-terra",
+  "prompt_version": "2.0",
+  "snapshot_hash": "5e46fefd13d0925e510c0a0e69df21d2b8cdc38ca52e7a7dd5b4eecab4b60f82",
+  "recorded_at": "2026-11-16",
+  "accepted": false,
+  "validation": {
+    "production_schema_valid": true,
+    "critic_valid": false,
+    "errors": [
+      "design_reasoning rates alternatives_and_tradeoffs at 3, but the cited implementation and test do not trace the recovery and synchronization trade-offs consistently through implementation, tests, and limitations. The assessment itself acknowledges that recovery is not integrated and synchronization is not demonstrated.",
+      "testing_evidence rates test_strategy_and_coverage at 3 despite missing service-level tests for expired reads and purge, the central retention risk identified in the threat model. The committed retention tests exercise helper functions rather than those service failure paths."
+    ]
+  },
+  "assessment": {
+    "categories": {
+      "design_reasoning": {
+        "score": 18.75,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "alternatives_and_tradeoffs",
+            "rating": 3,
+            "points_available": 25,
+            "points_awarded": 18.75,
+            "confidence": "medium",
+            "summary": "Credible custody alternatives identify recovery, search, and delivery trade-offs, with a concrete reconsideration condition and implementation-linked confidentiality tests.",
+            "limitations": "Recovery and synchronization claims exceed the demonstrated service integration; changing custody assumptions and migration consequences are not developed.",
+            "evidence": [
+              {
+                "evidence_id": "9cf44510a4121ea892b53a5e45aafe7a63ffafebb5bbcb91103e7adf98a861a0",
+                "path": "docs/decisions/001-local-custody.md",
+                "start_line": 3,
+                "end_line": 13,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "e1f414f3319b268d7c52dde3305c0277eb63dcf15c7753a2cc7ea44649ba191e",
+                "path": "src/vault/service.js",
+                "start_line": 4,
+                "end_line": 18,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "9b0a288ce4e5d5396c8829d395f56b33ceaa7c1d263ae0bbf3ad150544988b0d",
+                "path": "test/service-boundary.test.js",
+                "start_line": 1,
+                "end_line": 2,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "architecture_maintainability": {
+        "score": 10,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "boundaries_and_coupling",
+            "rating": 2,
+            "points_available": 20,
+            "points_awarded": 10,
+            "confidence": "medium",
+            "summary": "Encryption, retention, recovery, and orchestration have understandable module boundaries; storage, time, and IV generation are injected.",
+            "limitations": "Recovery is not integrated with the service record shape, adapter contracts are implicit, and tests do not demonstrate change isolation across important service failure paths.",
+            "evidence": [
+              {
+                "evidence_id": "e1f414f3319b268d7c52dde3305c0277eb63dcf15c7753a2cc7ea44649ba191e",
+                "path": "src/vault/service.js",
+                "start_line": 1,
+                "end_line": 19,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "9a82d8067808e298b099df8bf2de7bfc0f7a311994b61f80f0f311a3acab2a52",
+                "path": "src/vault/recovery.js",
+                "start_line": 3,
+                "end_line": 20,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "9b0a288ce4e5d5396c8829d395f56b33ceaa7c1d263ae0bbf3ad150544988b0d",
+                "path": "test/service-boundary.test.js",
+                "start_line": 1,
+                "end_line": 2,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "security_by_design": {
+        "score": 10,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "threat_model_and_mitigations",
+            "rating": 2,
+            "points_available": 20,
+            "points_awarded": 10,
+            "confidence": "medium",
+            "summary": "The bounded threat model connects storage tampering and retention to authenticated encryption and pre-decryption expiry checks, with explicit memory and device-compromise residual risks.",
+            "limitations": "Retention metadata remains outside authenticated data, reads do not bind the requested storage identifier to the envelope identifier, and IV uniqueness is delegated without a documented enforcement contract. Negative tests do not address these boundaries.",
+            "evidence": [
+              {
+                "evidence_id": "8fb1a35d595445931a718f9d9d1f37ef4f261cf7b9f6895fca20af5639a489fc",
+                "path": "docs/security/threat-model.md",
+                "start_line": 7,
+                "end_line": 13,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "35427539294051b23adced27472224ec752de96bdf18f0bf4a7609bfc2568b99",
+                "path": "src/vault/envelope.js",
+                "start_line": 8,
+                "end_line": 24,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "e1f414f3319b268d7c52dde3305c0277eb63dcf15c7753a2cc7ea44649ba191e",
+                "path": "src/vault/service.js",
+                "start_line": 5,
+                "end_line": 15,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "e3bebe9731bf769317fdb612b85c7c32def8718f7f0ac24c580ea7c4fd19edcf",
+                "path": "test/vault-adversarial.test.js",
+                "start_line": 1,
+                "end_line": 4,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "testing_evidence": {
+        "score": 11.25,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "test_strategy_and_coverage",
+            "rating": 3,
+            "points_available": 15,
+            "points_awarded": 11.25,
+            "confidence": "medium",
+            "summary": "Committed assertions cover ciphertext and metadata tampering, wrong keys, unsupported versions, exact expiry boundaries, selective purge, recovery corruption, duplicate identifiers, and plaintext exclusion from storage.",
+            "limitations": "Service-level expired reads and purge, malformed retention policies, storage failures, recovery integration, and tampered retention metadata lack coverage. Test execution is unverified.",
+            "evidence": [
+              {
+                "evidence_id": "e3bebe9731bf769317fdb612b85c7c32def8718f7f0ac24c580ea7c4fd19edcf",
+                "path": "test/vault-adversarial.test.js",
+                "start_line": 1,
+                "end_line": 4,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "c9e56a6c019affc43870ddb9a25107ef9321296799080eb742e60982d1c8fd28",
+                "path": "test/retention-boundary.test.js",
+                "start_line": 1,
+                "end_line": 3,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "3f1378a2ffe3a0694eeae3b9da3680eef3d84fc5663fdac22a9e2708efa8f541",
+                "path": "test/recovery-boundary.test.js",
+                "start_line": 5,
+                "end_line": 17,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "9b0a288ce4e5d5396c8829d395f56b33ceaa7c1d263ae0bbf3ad150544988b0d",
+                "path": "test/service-boundary.test.js",
+                "start_line": 1,
+                "end_line": 2,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "documentation_operations": {
+        "score": 5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "operational_clarity",
+            "rating": 2,
+            "points_available": 10,
+            "points_awarded": 5,
+            "confidence": "medium",
+            "summary": "Prerequisites, installation commands, constructor configuration, retention semantics, basic usage, and privacy limitations are documented.",
+            "limitations": "The runbook offers generic steps without concrete failure-code diagnosis, backup restoration, key recovery, rollback procedures, or the referenced audit-record mechanism.",
+            "evidence": [
+              {
+                "evidence_id": "273b6912e60e900cfb5b02c1233066aac65db88d7e05c3484179e52d86cea33d",
+                "path": "README.md",
+                "start_line": 7,
+                "end_line": 35,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "82c65ce7a502cbfc2918473b449e3bdb869d0a23fe83b75181f46eac10e3d158",
+                "path": "docs/runbook.md",
+                "start_line": 3,
+                "end_line": 11,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "repository_hygiene": {
+        "score": 7.5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "dependency_and_repository_hygiene",
+            "rating": 3,
+            "points_available": 10,
+            "points_awarded": 7.5,
+            "confidence": "medium",
+            "summary": "A dependency-free manifest and committed lock, MIT licensing, read-scoped CI, contribution expectations, artifact exclusions, and a security policy provide consistent maintenance evidence.",
+            "limitations": "CI actions use mutable major-version references; release provenance, automated artifact-policy enforcement, and detailed security-reporting procedures are not demonstrated.",
+            "evidence": [
+              {
+                "evidence_id": "d65acbfe70f1f706f504b2313d0597c4c60a6bdc1cb7008eb82aace1a97cb1df",
+                "path": "package-lock.json",
+                "start_line": 1,
+                "end_line": 16,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "a1f6f4dcb6b0174dd813443eebf8d4dd8bc892b9a2b4abecd98ec3e4942e3081",
+                "path": "LICENSE",
+                "start_line": 1,
+                "end_line": 12,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "a15029fc640a8bca652bf11756758e4269baae88ca614cdd108ddf2bd2ae7c55",
+                "path": ".github/workflows/ci.yml",
+                "start_line": 1,
+                "end_line": 15,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "66440dcc95d5eaa9e311c88c66a06c22718615535ac1daf5932a716d993b8f49",
+                "path": "CONTRIBUTING.md",
+                "start_line": 3,
+                "end_line": 3,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "46dabe5423aeac9c8c762453384f203a23512d928c5d549eb06904a76c361d62",
+                "path": ".artifact-policy.json",
+                "start_line": 2,
+                "end_line": 5,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "19cb67ebc9f94d3188a66dfab9ef66f96d64c5f49e251928990087a61a814fc8",
+                "path": "SECURITY.md",
+                "start_line": 3,
+                "end_line": 3,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "core_score": 62.5,
+    "confidence": "medium",
+    "track_alignment": {
+      "status": "demonstrated",
+      "summary": "Privacy is the primary purpose: local custody, encrypted records, and retention controls directly address sensitive household-record disclosure. This establishes purpose and implementation intent, not runtime security.",
+      "evidence": [
+        {
+          "evidence_id": "48d8ad377c812c7f7569a04525ebc59dfa488630abe6d18121426b251f7abe4b",
+          "path": "submission://intended_users",
+          "start_line": 1,
+          "end_line": 1,
+          "symbol": ""
+        },
+        {
+          "evidence_id": "273b6912e60e900cfb5b02c1233066aac65db88d7e05c3484179e52d86cea33d",
+          "path": "README.md",
+          "start_line": 5,
+          "end_line": 17,
+          "symbol": ""
+        },
+        {
+          "evidence_id": "e1f414f3319b268d7c52dde3305c0277eb63dcf15c7753a2cc7ea44649ba191e",
+          "path": "src/vault/service.js",
+          "start_line": 6,
+          "end_line": 18,
+          "symbol": ""
+        }
+      ],
+      "questions_for_organizer": []
+    },
+    "not_tested": [
+      "Whether the project builds or starts",
+      "Whether tests pass",
+      "Runtime correctness",
+      "Performance, scaling, or reliability under load",
+      "Runtime accessibility behavior",
+      "Debugging ability",
+      "Ability to extend the system safely",
+      "Deployment correctness"
+    ]
+  },
+  "critic": {
+    "valid": false,
+    "errors": [
+      "design_reasoning rates alternatives_and_tradeoffs at 3, but the cited implementation and test do not trace the recovery and synchronization trade-offs consistently through implementation, tests, and limitations. The assessment itself acknowledges that recovery is not integrated and synchronization is not demonstrated.",
+      "testing_evidence rates test_strategy_and_coverage at 3 despite missing service-level tests for expired reads and purge, the central retention risk identified in the threat model. The committed retention tests exercise helper functions rather than those service failure paths."
+    ]
+  }
+}

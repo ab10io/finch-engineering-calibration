@@ -1,0 +1,298 @@
+{
+  "fixture_slug": "accessible-strong-transit-guide",
+  "run": 3,
+  "model": "gpt-6.1-sol",
+  "critic_model": "gpt-6.1-terra",
+  "prompt_version": "2.0",
+  "snapshot_hash": "0407f851a38c56517e16fc0c0056b61b3e3b49c5c80e6c7159909086ecd55266",
+  "recorded_at": "2026-11-16",
+  "accepted": true,
+  "validation": {
+    "production_schema_valid": true,
+    "critic_valid": true,
+    "errors": []
+  },
+  "assessment": {
+    "categories": {
+      "design_reasoning": {
+        "score": 18.75,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "alternatives_and_tradeoffs",
+            "rating": 3,
+            "points_available": 25,
+            "points_awarded": 18.75,
+            "confidence": "medium",
+            "summary": "Concrete interface alternatives and access constraints trace into semantic cues, disruption warnings, and preference isolation tests.",
+            "limitations": "Reconsideration depends on future research; stale-data handling, cognitive-load adaptation, and low-connectivity behavior lack corresponding implementation evidence.",
+            "evidence": [
+              {
+                "evidence_id": "e728a3d89d7d97a74717438ea820cf0658312e31366c31f4f5b3d261772b8113",
+                "path": "docs/decisions/001-access-needs.md",
+                "start_line": 3,
+                "end_line": 14,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "1abb687855d7a1290efe7e18ae25054a8d18f41187f77ccdaeee7cf5b00fd17f",
+                "path": "src/guide/build-guide.js",
+                "start_line": 1,
+                "end_line": 2,
+                "symbol": "buildGuide"
+              },
+              {
+                "evidence_id": "5d83b3101e598dd0be4ab9cc832d7eda1f8eca66e875fb4263ec1c7715d02349",
+                "path": "test/preference-boundary.test.js",
+                "start_line": 5,
+                "end_line": 12,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "architecture_maintainability": {
+        "score": 15,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "boundaries_and_coupling",
+            "rating": 3,
+            "points_available": 20,
+            "points_awarded": 15,
+            "confidence": "medium",
+            "summary": "Validation, disruption policy, and presentation composition have clear responsibilities; cross-boundary assertions cover preservation of route facts and outage warnings.",
+            "limitations": "Contracts remain implicit, preferences and disruptions lack validation, and rendering is only illustrated in documentation. No migration strategy is evidenced.",
+            "evidence": [
+              {
+                "evidence_id": "1abb687855d7a1290efe7e18ae25054a8d18f41187f77ccdaeee7cf5b00fd17f",
+                "path": "src/guide/build-guide.js",
+                "start_line": 1,
+                "end_line": 2,
+                "symbol": "buildGuide"
+              },
+              {
+                "evidence_id": "e6c82b6d4c7e18ae820cd1f8a26220d68b156c342b68fd804176ce23ffbfbdd9",
+                "path": "src/guide/disruptions.js",
+                "start_line": 1,
+                "end_line": 1,
+                "symbol": "applyDisruptions"
+              },
+              {
+                "evidence_id": "5d83b3101e598dd0be4ab9cc832d7eda1f8eca66e875fb4263ec1c7715d02349",
+                "path": "test/preference-boundary.test.js",
+                "start_line": 5,
+                "end_line": 12,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "security_by_design": {
+        "score": 10,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "threat_model_and_mitigations",
+            "rating": 2,
+            "points_available": 20,
+            "points_awarded": 10,
+            "confidence": "medium",
+            "summary": "A bounded privacy model connects malicious route text and sensitive preferences to validation and request-local processing, with explicit residual risks.",
+            "limitations": "Validation only checks nonempty steps, truthy IDs, string text, and angle brackets. Unknown step fields are copied into output; size bounds, disruption validation, and privacy leakage tests are absent.",
+            "evidence": [
+              {
+                "evidence_id": "e17adba5a8a7ad9e07ed57f4204a9b89bec78fb96392c756612f25f1d72804c5",
+                "path": "docs/security/privacy-model.md",
+                "start_line": 3,
+                "end_line": 13,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "d0df984b1f9bd7c23098796dbdd9f5de364ad12f42eb7c862036ffd30bf1e135",
+                "path": "src/input/validate-route.js",
+                "start_line": 1,
+                "end_line": 1,
+                "symbol": "validateRoute"
+              },
+              {
+                "evidence_id": "06586d5d7e58bd631e00e9919d7319ff432015493cac30e28701b75a006dd340",
+                "path": "test/disruption-boundaries.test.js",
+                "start_line": 3,
+                "end_line": 3,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "testing_evidence": {
+        "score": 7.5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "test_strategy_and_coverage",
+            "rating": 2,
+            "points_available": 15,
+            "points_awarded": 7.5,
+            "confidence": "medium",
+            "summary": "Focused deterministic assertions cover nonvisual cues, reduced-motion output, presentation isolation, elevator outages, empty routes, and markup rejection.",
+            "limitations": "Coverage omits malformed preferences and disruptions, duplicate or missing IDs, stale facts, conflicting disruptions, and broader multi-step cue assertions. Committed tests provide no execution results.",
+            "evidence": [
+              {
+                "evidence_id": "5707ea4bbe45805b59a2b67810bcf9ac03c8a9ef0dcce7fc3d506d95f3240747",
+                "path": "test/access-needs.test.js",
+                "start_line": 1,
+                "end_line": 2,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "06586d5d7e58bd631e00e9919d7319ff432015493cac30e28701b75a006dd340",
+                "path": "test/disruption-boundaries.test.js",
+                "start_line": 1,
+                "end_line": 3,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "5d83b3101e598dd0be4ab9cc832d7eda1f8eca66e875fb4263ec1c7715d02349",
+                "path": "test/preference-boundary.test.js",
+                "start_line": 5,
+                "end_line": 12,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "documentation_operations": {
+        "score": 5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "operational_clarity",
+            "rating": 2,
+            "points_available": 10,
+            "points_awarded": 5,
+            "confidence": "medium",
+            "summary": "Prerequisites, installation commands, representative configuration, usage, and static-review limitations are documented.",
+            "limitations": "The example lacks imports and complete input fixtures. Recovery instructions reference rollback, quarantine, stored state, and audit records without concrete procedures or corresponding implementation.",
+            "evidence": [
+              {
+                "evidence_id": "85802e019e1cccc6b4dc687c055429f46ac8c38a735520bcf1d5445ef4a3ab8d",
+                "path": "README.md",
+                "start_line": 7,
+                "end_line": 33,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "94af55266ea39a55e1e496e5ef8dc3d2dfd4442172bfc22e9e7ef40fb2595765",
+                "path": "docs/runbook.md",
+                "start_line": 3,
+                "end_line": 11,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "repository_hygiene": {
+        "score": 7.5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "dependency_and_repository_hygiene",
+            "rating": 3,
+            "points_available": 10,
+            "points_awarded": 7.5,
+            "confidence": "medium",
+            "summary": "A dependency-free manifest and lockfile, MIT license, read-only CI permissions, contribution expectations, and artifact policy form consistent maintenance evidence.",
+            "limitations": "CI actions use mutable major-version tags. Artifact exclusions are policy rather than demonstrated enforcement; release provenance and dependency-review automation are absent.",
+            "evidence": [
+              {
+                "evidence_id": "f0c41dfa9f6c0f322692797b129f8beb16cd0546e72c924aea650812a443e0d5",
+                "path": "package-lock.json",
+                "start_line": 2,
+                "end_line": 15,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "a1f6f4dcb6b0174dd813443eebf8d4dd8bc892b9a2b4abecd98ec3e4942e3081",
+                "path": "LICENSE",
+                "start_line": 1,
+                "end_line": 13,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "a15029fc640a8bca652bf11756758e4269baae88ca614cdd108ddf2bd2ae7c55",
+                "path": ".github/workflows/ci.yml",
+                "start_line": 3,
+                "end_line": 15,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "66440dcc95d5eaa9e311c88c66a06c22718615535ac1daf5932a716d993b8f49",
+                "path": "CONTRIBUTING.md",
+                "start_line": 3,
+                "end_line": 3,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "46dabe5423aeac9c8c762453384f203a23512d928c5d549eb06904a76c361d62",
+                "path": ".artifact-policy.json",
+                "start_line": 2,
+                "end_line": 5,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "core_score": 63.75,
+    "confidence": "medium",
+    "track_alignment": {
+      "status": "demonstrated",
+      "summary": "The defined audience is blind and low-vision transit riders. Ordered nonvisual cues and explicit elevator-outage warnings substantiate an access and autonomy purpose; runtime accessibility remains unverified.",
+      "evidence": [
+        {
+          "evidence_id": "45bd6d615aaf58daecbcfe1c312b68e90a8a995c6ea14cc770d80ae0c169061b",
+          "path": "submission://intended_users",
+          "start_line": 1,
+          "end_line": 1,
+          "symbol": ""
+        },
+        {
+          "evidence_id": "5707ea4bbe45805b59a2b67810bcf9ac03c8a9ef0dcce7fc3d506d95f3240747",
+          "path": "test/access-needs.test.js",
+          "start_line": 2,
+          "end_line": 2,
+          "symbol": ""
+        },
+        {
+          "evidence_id": "e6c82b6d4c7e18ae820cd1f8a26220d68b156c342b68fd804176ce23ffbfbdd9",
+          "path": "src/guide/disruptions.js",
+          "start_line": 1,
+          "end_line": 1,
+          "symbol": "applyDisruptions"
+        }
+      ],
+      "questions_for_organizer": []
+    },
+    "not_tested": [
+      "Whether the project builds or starts",
+      "Whether tests pass",
+      "Runtime correctness",
+      "Performance, scaling, or reliability under load",
+      "Runtime accessibility behavior",
+      "Debugging ability",
+      "Ability to extend the system safely",
+      "Deployment correctness"
+    ]
+  },
+  "critic": {
+    "valid": true,
+    "errors": []
+  }
+}
