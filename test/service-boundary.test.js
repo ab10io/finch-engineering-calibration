@@ -1,0 +1,2 @@
+import test from 'node:test'; import assert from 'node:assert/strict'; import { VaultService } from '../src/vault/service.js'
+test('keeps plaintext out of persisted records', () => { const storage = new Map(); const vault = new VaultService({ storage, key: Buffer.alloc(32, 1), clock: () => 10, ivSource: () => Buffer.alloc(12, 2) }); vault.put({ id: 'a', plaintext: 'secret', retentionMs: 100 }); assert.equal(vault.read('a'), 'secret'); assert.doesNotMatch(JSON.stringify(storage.get('a')), /secret/) })
