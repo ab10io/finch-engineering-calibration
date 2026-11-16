@@ -4,7 +4,7 @@
   "summary": "A typed plugin SDK and test harness for building versioned event-processing extensions.",
   "intended_users": "Open-source maintainers and application developers embedding third-party event processors.",
   "repository_url": "https://github.com/ab10io/finch-engineering-calibration",
-  "commit_sha": "0000000000000000000000000000000000000000",
+  "commit_sha": "3b0d36cc59837b44301e536ec2d9a5fbdd7a5bec",
   "demo_url": null,
   "selected_track_slug": "open-source-developer-tools",
   "diagram_type": "repository_path",

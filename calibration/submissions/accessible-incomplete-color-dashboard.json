@@ -4,7 +4,7 @@
   "summary": "A dashboard that adds a high-contrast color palette toggle.",
   "intended_users": "Dashboard users who prefer higher contrast.",
   "repository_url": "https://github.com/ab10io/finch-engineering-calibration",
-  "commit_sha": "0000000000000000000000000000000000000000",
+  "commit_sha": "ffdb4349b6aa40302c5a55c29a82b343587facb5",
   "demo_url": null,
   "selected_track_slug": "accessible-inclusive-technology",
   "diagram_type": "repository_path",

@@ -4,7 +4,7 @@
   "summary": "A bounded assistant that helps benefits caseworkers locate supporting policy passages while preserving human decisions and uncertainty.",
   "intended_users": "Public-benefit caseworkers reviewing complex eligibility documents with accountable human sign-off.",
   "repository_url": "https://github.com/ab10io/finch-engineering-calibration",
-  "commit_sha": "0000000000000000000000000000000000000000",
+  "commit_sha": "a4b2b5b3641f188fc4ab0600397e63cf930ffc35",
   "demo_url": null,
   "selected_track_slug": "human-scale-ai",
   "diagram_type": "repository_path",

@@ -4,7 +4,7 @@
   "summary": "A small command-line wrapper that pretty-prints JSON.",
   "intended_users": "Developers who want formatted JSON.",
   "repository_url": "https://github.com/ab10io/finch-engineering-calibration",
-  "commit_sha": "0000000000000000000000000000000000000000",
+  "commit_sha": "832a19505220e6778cf823d5e5b53926b97de008",
   "demo_url": null,
   "selected_track_slug": "open-source-developer-tools",
   "diagram_type": "repository_path",

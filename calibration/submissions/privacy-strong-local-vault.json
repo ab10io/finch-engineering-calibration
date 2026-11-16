@@ -4,7 +4,7 @@
   "summary": "An offline-first personal document vault that minimizes collection and keeps decryption keys on the user device.",
   "intended_users": "People storing sensitive household records on shared or intermittently connected devices.",
   "repository_url": "https://github.com/ab10io/finch-engineering-calibration",
-  "commit_sha": "0000000000000000000000000000000000000000",
+  "commit_sha": "1bde607b277df00a4da9831fc5a043268bf42927",
   "demo_url": null,
   "selected_track_slug": "privacy-by-design",
   "diagram_type": "repository_path",

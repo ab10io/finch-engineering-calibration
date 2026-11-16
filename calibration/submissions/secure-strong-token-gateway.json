@@ -4,7 +4,7 @@
   "summary": "A narrowly scoped gateway that verifies signed workload tokens, enforces audience policy, and emits privacy-bounded audit decisions.",
   "intended_users": "Platform teams connecting short-lived internal workloads across trust zones.",
   "repository_url": "https://github.com/ab10io/finch-engineering-calibration",
-  "commit_sha": "0000000000000000000000000000000000000000",
+  "commit_sha": "25552ef6f334e12628f1ff768ac08ff3336289c2",
   "demo_url": null,
   "selected_track_slug": "secure-systems",
   "diagram_type": "repository_path",

@@ -4,7 +4,7 @@
   "summary": "A generic chat box that forwards user text to a hosted language model.",
   "intended_users": "Anyone who wants chatbot responses.",
   "repository_url": "https://github.com/ab10io/finch-engineering-calibration",
-  "commit_sha": "0000000000000000000000000000000000000000",
+  "commit_sha": "9887ac9104656b763cd457df72eef9c4f9b52714",
   "demo_url": null,
   "selected_track_slug": "human-scale-ai",
   "diagram_type": "repository_path",

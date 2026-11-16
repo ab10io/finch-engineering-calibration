@@ -4,7 +4,7 @@
   "summary": "A generic analytics dashboard with a configurable cookie banner.",
   "intended_users": "Small website operators who want a banner before loading analytics.",
   "repository_url": "https://github.com/ab10io/finch-engineering-calibration",
-  "commit_sha": "0000000000000000000000000000000000000000",
+  "commit_sha": "6c75835aec71602f51fee9887495664511f5259f",
   "demo_url": null,
   "selected_track_slug": "privacy-by-design",
   "diagram_type": "repository_path",

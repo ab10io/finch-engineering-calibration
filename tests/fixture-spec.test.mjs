@@ -34,11 +34,12 @@ test('covers strong, weak, incomplete, and adversarial calibration behavior', as
   assert.ok(spec.fixtures.some(({ adversarial_tags: tags }) => tags.includes('secret-shaped-token')))
 })
 
-test('pins each fixture to an isolated branch and exact commit placeholder', async () => {
+test('pins each fixture to an isolated branch and exact non-placeholder commit', async () => {
   const spec = await loadSpec()
   for (const fixture of spec.fixtures) {
     assert.equal(fixture.branch, `fixture/${fixture.slug}`)
     assert.match(fixture.commit_sha, /^[0-9a-f]{40}$/)
+    assert.notEqual(fixture.commit_sha, '0'.repeat(40))
     assert.match(fixture.repository_url, /^https:\/\/github\.com\/ab10io\/finch-engineering-calibration$/)
     assert.ok(Number.isFinite(fixture.expected_score_range?.min))
     assert.ok(Number.isFinite(fixture.expected_score_range?.max))

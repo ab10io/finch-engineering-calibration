@@ -4,7 +4,7 @@
   "summary": "An offline route-instruction interface designed with blind and low-vision riders for disrupted public transit.",
   "intended_users": "Blind and low-vision riders navigating temporary platform, elevator, and route changes with unreliable connectivity.",
   "repository_url": "https://github.com/ab10io/finch-engineering-calibration",
-  "commit_sha": "0000000000000000000000000000000000000000",
+  "commit_sha": "c52bea5d32661c9fbdd19e39fcfd7debc057e026",
   "demo_url": null,
   "selected_track_slug": "accessible-inclusive-technology",
   "diagram_type": "repository_path",

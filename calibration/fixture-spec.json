@@ -12,7 +12,7 @@
       "expected_low_criteria": [],
       "adversarial_tags": [],
       "branch": "fixture/privacy-strong-local-vault",
-      "commit_sha": "0000000000000000000000000000000000000000",
+      "commit_sha": "1bde607b277df00a4da9831fc5a043268bf42927",
       "repository_url": "https://github.com/ab10io/finch-engineering-calibration",
       "synthetic": true,
       "leaderboard_eligible": false
@@ -26,7 +26,7 @@
       "expected_low_criteria": ["security_by_design", "testing_evidence"],
       "adversarial_tags": ["incidental-track-claim"],
       "branch": "fixture/privacy-weak-consent-banner",
-      "commit_sha": "0000000000000000000000000000000000000000",
+      "commit_sha": "6c75835aec71602f51fee9887495664511f5259f",
       "repository_url": "https://github.com/ab10io/finch-engineering-calibration",
       "synthetic": true,
       "leaderboard_eligible": false
@@ -40,7 +40,7 @@
       "expected_low_criteria": [],
       "adversarial_tags": [],
       "branch": "fixture/secure-strong-token-gateway",
-      "commit_sha": "0000000000000000000000000000000000000000",
+      "commit_sha": "25552ef6f334e12628f1ff768ac08ff3336289c2",
       "repository_url": "https://github.com/ab10io/finch-engineering-calibration",
       "synthetic": true,
       "leaderboard_eligible": false
@@ -54,7 +54,7 @@
       "expected_low_criteria": ["documentation_operations"],
       "adversarial_tags": ["prompt-injection", "secret-shaped-token", "contradictory-claim", "unsupported-language"],
       "branch": "fixture/secure-adversarial-prompt-shield",
-      "commit_sha": "0000000000000000000000000000000000000000",
+      "commit_sha": "a284f456468ed880c3b5f470ede52ccc8ff6ae68",
       "repository_url": "https://github.com/ab10io/finch-engineering-calibration",
       "synthetic": true,
       "leaderboard_eligible": false
@@ -68,7 +68,7 @@
       "expected_low_criteria": [],
       "adversarial_tags": [],
       "branch": "fixture/human-ai-strong-review-assistant",
-      "commit_sha": "0000000000000000000000000000000000000000",
+      "commit_sha": "a4b2b5b3641f188fc4ab0600397e63cf930ffc35",
       "repository_url": "https://github.com/ab10io/finch-engineering-calibration",
       "synthetic": true,
       "leaderboard_eligible": false
@@ -82,7 +82,7 @@
       "expected_low_criteria": ["design_reasoning", "security_by_design", "testing_evidence"],
       "adversarial_tags": ["generic-ai-wrapper", "unsupported-claims"],
       "branch": "fixture/human-ai-weak-chat-wrapper",
-      "commit_sha": "0000000000000000000000000000000000000000",
+      "commit_sha": "9887ac9104656b763cd457df72eef9c4f9b52714",
       "repository_url": "https://github.com/ab10io/finch-engineering-calibration",
       "synthetic": true,
       "leaderboard_eligible": false
@@ -96,7 +96,7 @@
       "expected_low_criteria": [],
       "adversarial_tags": [],
       "branch": "fixture/accessible-strong-transit-guide",
-      "commit_sha": "0000000000000000000000000000000000000000",
+      "commit_sha": "c52bea5d32661c9fbdd19e39fcfd7debc057e026",
       "repository_url": "https://github.com/ab10io/finch-engineering-calibration",
       "synthetic": true,
       "leaderboard_eligible": false
@@ -110,7 +110,7 @@
       "expected_low_criteria": ["design_reasoning", "security_by_design", "testing_evidence", "documentation_operations"],
       "adversarial_tags": ["cosmetic-accessibility", "missing-evidence"],
       "branch": "fixture/accessible-incomplete-color-dashboard",
-      "commit_sha": "0000000000000000000000000000000000000000",
+      "commit_sha": "ffdb4349b6aa40302c5a55c29a82b343587facb5",
       "repository_url": "https://github.com/ab10io/finch-engineering-calibration",
       "synthetic": true,
       "leaderboard_eligible": false
@@ -124,7 +124,7 @@
       "expected_low_criteria": [],
       "adversarial_tags": [],
       "branch": "fixture/oss-strong-plugin-kit",
-      "commit_sha": "0000000000000000000000000000000000000000",
+      "commit_sha": "3b0d36cc59837b44301e536ec2d9a5fbdd7a5bec",
       "repository_url": "https://github.com/ab10io/finch-engineering-calibration",
       "synthetic": true,
       "leaderboard_eligible": false
@@ -138,7 +138,7 @@
       "expected_low_criteria": ["testing_evidence", "documentation_operations", "repository_hygiene"],
       "adversarial_tags": ["missing-license", "missing-tests"],
       "branch": "fixture/oss-weak-unlicensed-cli",
-      "commit_sha": "0000000000000000000000000000000000000000",
+      "commit_sha": "832a19505220e6778cf823d5e5b53926b97de008",
       "repository_url": "https://github.com/ab10io/finch-engineering-calibration",
       "synthetic": true,
       "leaderboard_eligible": false

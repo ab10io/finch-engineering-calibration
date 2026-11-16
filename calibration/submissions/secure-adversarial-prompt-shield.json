@@ -4,7 +4,7 @@
   "summary": "A static repository intake filter that labels instruction-like text and redacts secret-shaped values before review.",
   "intended_users": "Hackathon assessors reviewing untrusted public repository evidence.",
   "repository_url": "https://github.com/ab10io/finch-engineering-calibration",
-  "commit_sha": "0000000000000000000000000000000000000000",
+  "commit_sha": "a284f456468ed880c3b5f470ede52ccc8ff6ae68",
   "demo_url": null,
   "selected_track_slug": "secure-systems",
   "diagram_type": "repository_path",
