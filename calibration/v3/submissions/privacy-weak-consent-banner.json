@@ -1,0 +1,42 @@
+{
+  "fixture_slug": "privacy-weak-consent-banner",
+  "title": "Consent Banner Plus",
+  "summary": "A generic analytics dashboard with a configurable cookie banner.",
+  "intended_users": "Small website operators who want a banner before loading analytics.",
+  "repository_url": "https://github.com/ab10io/finch-engineering-calibration",
+  "commit_sha": "6c75835aec71602f51fee9887495664511f5259f",
+  "demo_url": null,
+  "selected_track_slug": "privacy-by-design",
+  "diagram_type": "repository_path",
+  "diagram_text": null,
+  "diagram_path": "docs/architecture.md",
+  "diagram_image_ref": null,
+  "design_decisions": [
+    {
+      "problem_or_constraint": "The site needs a visible consent choice before analytics initialization.",
+      "alternatives_considered": "No alternatives were documented beyond using the existing vendor SDK.",
+      "chosen_approach_and_rationale": "Gate vendor initialization on a local boolean.",
+      "accepted_trade_off": "The implementation does not provide granular purposes, revocation UI, or server-side enforcement.",
+      "repository_evidence": "src/banner.tsx",
+      "validation_approach": "Manual browser clicking only; no automated evidence is included.",
+      "reconsideration_conditions": "Reconsider if the analytics vendor changes its API."
+    }
+  ],
+  "testing_strategy": "The team manually clicked accept once. There are no automated tests or negative-path records.",
+  "security_threat": "Analytics collection could occur without meaningful consent. The client delays one SDK initialization call until acceptance. Residual risk: No inventory of other trackers, retention limits, data minimization, withdrawal flow, or consent integrity controls exists.",
+  "production_limitation": "Consent state is browser-local and other scripts can bypass the component.",
+  "technical_debt": "Add revocation, purpose-specific controls, server enforcement, and a tracker inventory.",
+  "track_alignment_explanation": "The submission claims Privacy by Design because it has a banner, but privacy is incidental to a general analytics dashboard and the repository contains no broader privacy architecture.",
+  "ai_disclosure": {
+    "tools_used": [
+      "OpenAI Codex"
+    ],
+    "purposes": "Codex was used to author this deliberately synthetic calibration fixture and its structured submission answers.",
+    "substantially_generated_areas": "All fixture source, documentation, tests, and submission narratives are synthetic and AI-assisted.",
+    "review_validation": "The calibration operator reviews files for intended evidence strength, consistency, and absence of real secrets before pinning the commit.",
+    "rejected_or_changed_suggestion": "Generic claims of runtime correctness were rejected because Finch performs static evidence review only."
+  },
+  "ai_disclosure_narrative": "This entire project is synthetic AI-assisted test data. It represents no participant, deployed product, or real credential.",
+  "synthetic": true,
+  "leaderboard_eligible": false
+}

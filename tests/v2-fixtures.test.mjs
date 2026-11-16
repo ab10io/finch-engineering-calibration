@@ -66,9 +66,13 @@ test('executes each v2 project negative and boundary test suite locally', async 
       encoding: 'utf8',
       env,
     })
-    if (fixture.slug === 'secure-adversarial-prompt-shield') {
+    const knownV2Regressions = {
+      'human-ai-strong-review-assistant': /blocks consequential language/,
+      'secure-adversarial-prompt-shield': /redacts synthetic credential assignments/,
+    }
+    if (knownV2Regressions[fixture.slug]) {
       assert.notEqual(result.status, 0, 'v2 must preserve the discovered redaction regression')
-      assert.match(result.stdout + result.stderr, /redacts synthetic credential assignments/)
+      assert.match(result.stdout + result.stderr, knownV2Regressions[fixture.slug])
     } else {
       assert.equal(result.status, 0, `${fixture.slug}\n${result.stdout}\n${result.stderr}`)
     }

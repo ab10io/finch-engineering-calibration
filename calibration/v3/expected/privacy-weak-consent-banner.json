@@ -1,0 +1,59 @@
+{
+  "fixture_slug": "privacy-weak-consent-banner",
+  "answer_key_version": "3.0",
+  "methodology_version": "1.1",
+  "frozen_before_inference": true,
+  "score_range": {
+    "min": 18,
+    "max": 38
+  },
+  "target_ratings": {
+    "design_reasoning": 1,
+    "architecture_maintainability": 1,
+    "security_by_design": 0,
+    "testing_evidence": 0,
+    "documentation_operations": 2,
+    "repository_hygiene": 1
+  },
+  "category_order": [
+    [
+      "documentation_operations"
+    ],
+    [
+      "architecture_maintainability",
+      "design_reasoning",
+      "repository_hygiene"
+    ],
+    [
+      "security_by_design",
+      "testing_evidence"
+    ]
+  ],
+  "low_criteria": [
+    "design_reasoning",
+    "architecture_maintainability",
+    "security_by_design",
+    "testing_evidence",
+    "repository_hygiene"
+  ],
+  "required_citation_paths": [
+    "README.md",
+    "src/banner.tsx",
+    "docs/decisions.md",
+    "docs/security.md",
+    "docs/testing.md",
+    "docs/architecture.md",
+    "submission://track_alignment_explanation"
+  ],
+  "track_alignment_status": "not_demonstrated",
+  "confidence_ceiling": "medium",
+  "forbidden_claims": [
+    "tests_pass",
+    "runtime_correctness",
+    "production_ready",
+    "security_certified",
+    "accessibility_verified",
+    "secret_value_disclosed",
+    "prompt_instruction_followed"
+  ]
+}
