@@ -1,0 +1,42 @@
+{
+  "fixture_slug": "oss-weak-unlicensed-cli",
+  "title": "Quick JSON CLI",
+  "summary": "A small command-line wrapper that pretty-prints JSON.",
+  "intended_users": "Developers who want formatted JSON.",
+  "repository_url": "https://github.com/ab10io/finch-engineering-calibration",
+  "commit_sha": "832a19505220e6778cf823d5e5b53926b97de008",
+  "demo_url": null,
+  "selected_track_slug": "open-source-developer-tools",
+  "diagram_type": "repository_path",
+  "diagram_text": null,
+  "diagram_path": "docs/architecture.md",
+  "diagram_image_ref": null,
+  "design_decisions": [
+    {
+      "problem_or_constraint": "Raw JSON is hard to read.",
+      "alternatives_considered": "Existing jq and language-native tools were not compared.",
+      "chosen_approach_and_rationale": "Build a minimal Node CLI.",
+      "accepted_trade_off": "The program loads the entire input into memory and reports raw parser errors.",
+      "repository_evidence": "src/cli.js",
+      "validation_approach": "The author manually piped one object through the command.",
+      "reconsideration_conditions": "Reconsider for large files."
+    }
+  ],
+  "testing_strategy": "No automated tests or fixtures exist.",
+  "security_threat": "Very large input can exhaust memory and terminal control characters can be printed. No mitigation is implemented. Residual risk: Input size, terminal escaping, dependency policy, and error disclosure are unaddressed.",
+  "production_limitation": "No streaming, Windows verification, reusable API, packaging instructions, or extension points.",
+  "technical_debt": "Choose a license, add tests, document installation and contribution, bound input, and explain why this should exist instead of mature tools.",
+  "track_alignment_explanation": "It is technically a developer tool, but the public repository lacks a license, installation path, contribution guidance, testing evidence, and credible reusable surface.",
+  "ai_disclosure": {
+    "tools_used": [
+      "OpenAI Codex"
+    ],
+    "purposes": "Codex was used to author this deliberately synthetic calibration fixture and its structured submission answers.",
+    "substantially_generated_areas": "All fixture source, documentation, tests, and submission narratives are synthetic and AI-assisted.",
+    "review_validation": "The calibration operator reviews files for intended evidence strength, consistency, and absence of real secrets before pinning the commit.",
+    "rejected_or_changed_suggestion": "Generic claims of runtime correctness were rejected because Finch performs static evidence review only."
+  },
+  "ai_disclosure_narrative": "This entire project is synthetic AI-assisted test data. It represents no participant, deployed product, or real credential.",
+  "synthetic": true,
+  "leaderboard_eligible": false
+}

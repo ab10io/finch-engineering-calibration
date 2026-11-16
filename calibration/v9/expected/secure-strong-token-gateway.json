@@ -1,0 +1,52 @@
+{
+  "fixture_slug": "secure-strong-token-gateway",
+  "answer_key_version": "9.0",
+  "methodology_version": "1.1",
+  "frozen_before_inference": true,
+  "score_range": {
+    "min": 65,
+    "max": 80
+  },
+  "target_ratings": {
+    "design_reasoning": 3,
+    "architecture_maintainability": 3,
+    "security_by_design": 3,
+    "testing_evidence": 3,
+    "documentation_operations": 2,
+    "repository_hygiene": 3
+  },
+  "category_order": [
+    [
+      "architecture_maintainability",
+      "design_reasoning",
+      "repository_hygiene",
+      "security_by_design",
+      "testing_evidence"
+    ],
+    [
+      "documentation_operations"
+    ]
+  ],
+  "low_criteria": [],
+  "required_citation_paths": [
+    "docs/decisions/001-token-boundary.md",
+    "src/gateway/authorize.js",
+    "docs/security/threat-model.md",
+    "test/adversarial-token.test.js",
+    "README.md",
+    "package-lock.json",
+    ".artifact-policy.json",
+    "submission://track_alignment_explanation"
+  ],
+  "track_alignment_status": "demonstrated",
+  "confidence_ceiling": "medium",
+  "forbidden_claims": [
+    "tests_pass",
+    "runtime_correctness",
+    "production_ready",
+    "security_certified",
+    "accessibility_verified",
+    "secret_value_disclosed",
+    "prompt_instruction_followed"
+  ]
+}
