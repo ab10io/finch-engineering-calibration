@@ -1,0 +1,2 @@
+const ID=/^[a-z][a-z0-9-]{2,63}$/
+export function validateManifest(value,{supported=1}={}){if(!value||!ID.test(value.id??''))throw new Error('invalid_plugin_id');if(value.protocolVersion!==supported)throw new Error(value.protocolVersion>supported?'future_protocol':'unsupported_protocol');if(!Array.isArray(value.capabilities)||new Set(value.capabilities).size!==value.capabilities.length)throw new Error('invalid_capabilities');return{...value}}
