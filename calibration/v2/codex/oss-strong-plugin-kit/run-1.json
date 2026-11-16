@@ -1,0 +1,322 @@
+{
+  "fixture_slug": "oss-strong-plugin-kit",
+  "run": 1,
+  "model": "gpt-6.1-sol",
+  "critic_model": "gpt-6.1-terra",
+  "prompt_version": "2.0",
+  "snapshot_hash": "f8afb555f7636c27fe191287ba38be7e7008aeb6e51d6ffa762df41ad03e4b17",
+  "recorded_at": "2026-11-16",
+  "accepted": false,
+  "validation": {
+    "production_schema_valid": true,
+    "critic_valid": false,
+    "errors": [
+      "Open Source track alignment is overclaimed: LICENSE labels itself MIT but omits the MIT license's requirement to retain the copyright and permission notice. The evidence therefore does not establish an actual recognized open-source license, despite the permissive grant.",
+      "The repository hygiene finding likewise describes the license as MIT without acknowledging that its text omits a required MIT condition.",
+      "The design reasoning finding claims representative test traceability but cites no test evidence; the decision record lists intended tests rather than establishing their implementation.",
+      "The repository hygiene finding claims a security reporting policy but does not cite SECURITY.md or another supporting evidence record."
+    ]
+  },
+  "assessment": {
+    "categories": {
+      "design_reasoning": {
+        "score": 12.5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "alternatives_and_tradeoffs",
+            "rating": 2,
+            "points_available": 25,
+            "points_awarded": 12.5,
+            "confidence": "medium",
+            "summary": "The in-process protocol has an explicit transparency rationale and isolation trade-off, with representative implementation and test traceability.",
+            "limitations": "The decision record mostly lists intended evidence. Compatibility windows and migration triggers are asserted without concrete policies; bounded lifecycle behavior is not implemented.",
+            "evidence": [
+              {
+                "evidence_id": "4f905f3a8e5036effa1d92f879db60ff32b24de947055d684d42792f435c6100",
+                "path": "docs/decisions/001-plugin-protocol.md",
+                "start_line": 3,
+                "end_line": 16,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "dc36e867e02c3882edefe3a35606f7fe35dc5499213ec0031ffee91525816add",
+                "path": "src/host/plugin-host.js",
+                "start_line": 1,
+                "end_line": 2,
+                "symbol": "PluginHost.load"
+              },
+              {
+                "evidence_id": "28f1ff765ddfe10e7bcbaff69053f3930f66c48966b7f556d00480d67d7bbad4",
+                "path": "docs/migration.md",
+                "start_line": 1,
+                "end_line": 3,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "architecture_maintainability": {
+        "score": 10,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "boundaries_and_coupling",
+            "rating": 2,
+            "points_available": 20,
+            "points_awarded": 10,
+            "confidence": "medium",
+            "summary": "Manifest validation, capability authorization, and lifecycle coordination have understandable module boundaries and focused tests.",
+            "limitations": "Hook declarations are not validated, caller-owned configuration remains mutable, and cleanup errors can interrupt remaining cleanup. Migration guidance does not define an interface evolution policy.",
+            "evidence": [
+              {
+                "evidence_id": "dc36e867e02c3882edefe3a35606f7fe35dc5499213ec0031ffee91525816add",
+                "path": "src/host/plugin-host.js",
+                "start_line": 1,
+                "end_line": 2,
+                "symbol": "PluginHost"
+              },
+              {
+                "evidence_id": "83d1f6ebf75863e20c277303b2abcb333121d5362d87f366ee81c97ba90fc697",
+                "path": "src/protocol/manifest.js",
+                "start_line": 1,
+                "end_line": 2,
+                "symbol": "validateManifest"
+              },
+              {
+                "evidence_id": "80d5e9634d751d7f66af7f5cbda39ece924db587bbf22b7c9540f2123fbd589d",
+                "path": "test/lifecycle-failure.test.js",
+                "start_line": 1,
+                "end_line": 2,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "security_by_design": {
+        "score": 10,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "threat_model_and_mitigations",
+            "rating": 2,
+            "points_available": 20,
+            "points_awarded": 10,
+            "confidence": "medium",
+            "summary": "A bounded threat model connects forbidden capability requests and partial initialization to authorization and cleanup controls, with explicit isolation and supply-chain residual risks.",
+            "limitations": "Lifecycle execution and cleanup lack time bounds; cleanup failure can prevent further recovery. Capability denial has a unit test, but host-level denial before initialization and adversarial cleanup are untested.",
+            "evidence": [
+              {
+                "evidence_id": "3f2d8ed05cb64f243fe675fe9656f16a73627c1fbdc39984756ee88e22a097cb",
+                "path": "docs/security/threat-model.md",
+                "start_line": 3,
+                "end_line": 13,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "dc36e867e02c3882edefe3a35606f7fe35dc5499213ec0031ffee91525816add",
+                "path": "src/host/plugin-host.js",
+                "start_line": 2,
+                "end_line": 2,
+                "symbol": "PluginHost.load"
+              },
+              {
+                "evidence_id": "ad1bf45150cd8e51f1d8dffe65069992651bb8c917e475e153a6296a4c2565fc",
+                "path": "test/capability-policy.test.js",
+                "start_line": 1,
+                "end_line": 2,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "testing_evidence": {
+        "score": 7.5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "test_strategy_and_coverage",
+            "rating": 2,
+            "points_available": 15,
+            "points_awarded": 7.5,
+            "confidence": "medium",
+            "summary": "Committed assertions cover current and future protocols, invalid identifiers, forbidden capabilities, frozen grants, and cleanup after initialization failure.",
+            "limitations": "The reverse-order test has only one completed hook. Duplicate capabilities, unsupported older protocols, malformed hooks, cleanup rejection, and successful host activation lack coverage. No execution results are supplied.",
+            "evidence": [
+              {
+                "evidence_id": "2cee860efe2162009b1ae7c7e579b841c25012812fb7b6daec58b7b8b49b98b9",
+                "path": "test/compatibility.test.js",
+                "start_line": 1,
+                "end_line": 2,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "ad1bf45150cd8e51f1d8dffe65069992651bb8c917e475e153a6296a4c2565fc",
+                "path": "test/capability-policy.test.js",
+                "start_line": 1,
+                "end_line": 2,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "80d5e9634d751d7f66af7f5cbda39ece924db587bbf22b7c9540f2123fbd589d",
+                "path": "test/lifecycle-failure.test.js",
+                "start_line": 1,
+                "end_line": 2,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "documentation_operations": {
+        "score": 2.5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "operational_clarity",
+            "rating": 1,
+            "points_available": 10,
+            "points_awarded": 2.5,
+            "confidence": "medium",
+            "summary": "Setup prerequisites, dependency installation, test commands, and residual limitations are documented.",
+            "limitations": "No concrete host configuration or usage example is provided. Recovery instructions reference rollback, quarantine, stored state, and audit records without explaining corresponding mechanisms or commands.",
+            "evidence": [
+              {
+                "evidence_id": "ba9a9ca47ed3157d9320865c6e26a5c8b56f6abc83de7cecedd8d493ed1909d0",
+                "path": "README.md",
+                "start_line": 7,
+                "end_line": 21,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "7149b3c44706ddf7e0c28a6fd644d7a0c279e4051c6840640384c817910af6d5",
+                "path": "docs/authoring.md",
+                "start_line": 1,
+                "end_line": 3,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "db5d657e00250a73e80d0020263ca33c7f93e326016a1fc9278301811697789e",
+                "path": "docs/runbook.md",
+                "start_line": 3,
+                "end_line": 11,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "repository_hygiene": {
+        "score": 5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "dependency_and_repository_hygiene",
+            "rating": 2,
+            "points_available": 10,
+            "points_awarded": 5,
+            "confidence": "medium",
+            "summary": "The dependency-free package includes a lockfile, MIT licensing, read-scoped CI, contribution expectations, and a security reporting policy.",
+            "limitations": "Actions use mutable version tags. Release automation only performs a package dry run, without provenance generation or publication; artifact policy and automated dependency review are absent.",
+            "evidence": [
+              {
+                "evidence_id": "bc0850269313a12e2d5c9a219ceeb223483b00d521b145f2f308015639bf9743",
+                "path": "package-lock.json",
+                "start_line": 1,
+                "end_line": 16,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "668083061246e7b1127c65c4fae2d7feb19068ea81e83a39f13c1f4365d03489",
+                "path": "LICENSE",
+                "start_line": 1,
+                "end_line": 7,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "a15029fc640a8bca652bf11756758e4269baae88ca614cdd108ddf2bd2ae7c55",
+                "path": ".github/workflows/ci.yml",
+                "start_line": 1,
+                "end_line": 15,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "7e4ddf5370a6660af96034b52cd4484f5ad0e5e3ad3eebc2e45bb3e0ed409079",
+                "path": ".github/workflows/release.yml",
+                "start_line": 5,
+                "end_line": 13,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "66440dcc95d5eaa9e311c88c66a06c22718615535ac1daf5932a716d993b8f49",
+                "path": "CONTRIBUTING.md",
+                "start_line": 3,
+                "end_line": 3,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "core_score": 47.5,
+    "confidence": "medium",
+    "track_alignment": {
+      "status": "demonstrated",
+      "summary": "An importable plugin host and protocol provide a reusable developer surface. Node prerequisites, installation and test commands, authoring guidance, and an explicit MIT grant establish a basic adoption path, although usage documentation is thin.",
+      "evidence": [
+        {
+          "evidence_id": "dc36e867e02c3882edefe3a35606f7fe35dc5499213ec0031ffee91525816add",
+          "path": "src/host/plugin-host.js",
+          "start_line": 1,
+          "end_line": 2,
+          "symbol": "PluginHost"
+        },
+        {
+          "evidence_id": "ba9a9ca47ed3157d9320865c6e26a5c8b56f6abc83de7cecedd8d493ed1909d0",
+          "path": "README.md",
+          "start_line": 5,
+          "end_line": 13,
+          "symbol": ""
+        },
+        {
+          "evidence_id": "7149b3c44706ddf7e0c28a6fd644d7a0c279e4051c6840640384c817910af6d5",
+          "path": "docs/authoring.md",
+          "start_line": 1,
+          "end_line": 3,
+          "symbol": ""
+        },
+        {
+          "evidence_id": "668083061246e7b1127c65c4fae2d7feb19068ea81e83a39f13c1f4365d03489",
+          "path": "LICENSE",
+          "start_line": 1,
+          "end_line": 7,
+          "symbol": ""
+        }
+      ],
+      "questions_for_organizer": []
+    },
+    "not_tested": [
+      "Whether the project builds or starts",
+      "Whether tests pass",
+      "Runtime correctness",
+      "Performance, scaling, or reliability under load",
+      "Runtime accessibility behavior",
+      "Debugging ability",
+      "Ability to extend the system safely",
+      "Deployment correctness"
+    ]
+  },
+  "critic": {
+    "valid": false,
+    "errors": [
+      "Open Source track alignment is overclaimed: LICENSE labels itself MIT but omits the MIT license's requirement to retain the copyright and permission notice. The evidence therefore does not establish an actual recognized open-source license, despite the permissive grant.",
+      "The repository hygiene finding likewise describes the license as MIT without acknowledging that its text omits a required MIT condition.",
+      "The design reasoning finding claims representative test traceability but cites no test evidence; the decision record lists intended tests rather than establishing their implementation.",
+      "The repository hygiene finding claims a security reporting policy but does not cite SECURITY.md or another supporting evidence record."
+    ]
+  }
+}

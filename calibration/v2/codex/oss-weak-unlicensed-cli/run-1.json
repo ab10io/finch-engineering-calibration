@@ -1,0 +1,200 @@
+{
+  "fixture_slug": "oss-weak-unlicensed-cli",
+  "run": 1,
+  "model": "gpt-6.1-sol",
+  "critic_model": "gpt-6.1-terra",
+  "prompt_version": "2.0",
+  "snapshot_hash": "4ee0fcded81cab9d00649f632dd0fe7da47a6801589365f75d28085a8a4e7035",
+  "recorded_at": "2026-11-16",
+  "accepted": true,
+  "validation": {
+    "production_schema_valid": true,
+    "critic_valid": true,
+    "errors": []
+  },
+  "assessment": {
+    "categories": {
+      "design_reasoning": {
+        "score": 6.25,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "alternatives_and_tradeoffs",
+            "rating": 1,
+            "points_available": 25,
+            "points_awarded": 6.25,
+            "confidence": "medium",
+            "summary": "The minimal CLI choice identifies a need and memory trade-off, but provides no comparison with existing tools or substantive rationale.",
+            "limitations": "The reported manual example does not establish runtime behavior.",
+            "evidence": [
+              {
+                "evidence_id": "aec8ef0a3a0b0c9e1479ba52068b358837542a1e2c2c3be69a2ef583c376b2eb",
+                "path": "docs/decisions.md",
+                "start_line": 3,
+                "end_line": 17,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "architecture_maintainability": {
+        "score": 5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "boundaries_and_coupling",
+            "rating": 1,
+            "points_available": 20,
+            "points_awarded": 5,
+            "confidence": "medium",
+            "summary": "The small data flow is understandable, but input collection, parsing, formatting, and output are coupled directly without module interfaces or an extension boundary.",
+            "limitations": "The bounded scope makes a single file reasonable, but does not demonstrate responsibility-enforcing boundaries.",
+            "evidence": [
+              {
+                "evidence_id": "8318ba9915773af96dc9ceae6ec964f30e49b1d7134b68438f06b4810f08c371",
+                "path": "src/cli.js",
+                "start_line": 1,
+                "end_line": 3,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "security_by_design": {
+        "score": 5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "threat_model_and_mitigations",
+            "rating": 1,
+            "points_available": 20,
+            "points_awarded": 5,
+            "confidence": "medium",
+            "summary": "The documentation identifies input exhaustion and output-related threats, but explicitly states that no mitigation is implemented.",
+            "limitations": "Threat identification provides minimal evidence; controls and negative tests are absent.",
+            "evidence": [
+              {
+                "evidence_id": "67f2315dd72be4822ba470a2137f85c8dab4cb01d4d2797f90cb33069e1b344e",
+                "path": "docs/security.md",
+                "start_line": 3,
+                "end_line": 13,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "testing_evidence": {
+        "score": 0,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "test_strategy_and_coverage",
+            "rating": 0,
+            "points_available": 15,
+            "points_awarded": 0,
+            "confidence": "medium",
+            "summary": "No automated tests, fixtures, or meaningful committed assertions are present.",
+            "limitations": "A reported manual happy-path example supplies no reproducible coverage evidence.",
+            "evidence": [
+              {
+                "evidence_id": "0e4260517c4012b5d4b4f98d3d28390b3830de41646e861486a50b4909051b8a",
+                "path": "docs/testing.md",
+                "start_line": 1,
+                "end_line": 3,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "documentation_operations": {
+        "score": 0,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "operational_clarity",
+            "rating": 0,
+            "points_available": 10,
+            "points_awarded": 0,
+            "confidence": "medium",
+            "summary": "The README describes purpose and limitations but supplies no installation command, invocation example, prerequisites, or failure and recovery guidance.",
+            "limitations": "Describing stdin and stdout does not provide usable onboarding instructions.",
+            "evidence": [
+              {
+                "evidence_id": "8fb3a3bfde6dda9b335ed6f26222b6e04058a58c43c1987b8709f1bb189bcf6e",
+                "path": "README.md",
+                "start_line": 1,
+                "end_line": 22,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "repository_hygiene": {
+        "score": 0,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "dependency_and_repository_hygiene",
+            "rating": 0,
+            "points_available": 10,
+            "points_awarded": 0,
+            "confidence": "medium",
+            "summary": "A minimal package manifest exists, but recognized licensing and basic maintenance guidance are absent.",
+            "limitations": "No third-party dependencies are declared, so dependency pinning is not the principal gap; missing licensing is decisive under the category anchor.",
+            "evidence": [
+              {
+                "evidence_id": "e29f9911d882c191b656781a7c22bec298dc4ee420c0443a758965fc8cc56bf1",
+                "path": "package.json",
+                "start_line": 1,
+                "end_line": 8,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "da07d77921a83d54c696cc3a691f25fee184ba6eca520af1128f59f738120ce8",
+                "path": "submission://technical_debt",
+                "start_line": 1,
+                "end_line": 1,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "core_score": 16.25,
+    "confidence": "medium",
+    "track_alignment": {
+      "status": "not_demonstrated",
+      "summary": "Developer intent is evident, but credible installation and reuse guidance and a recognized license granting use, modification, and redistribution are missing.",
+      "evidence": [
+        {
+          "evidence_id": "2ca20dc877769e868c72766d59c5f8bbd63ac61de52e103f26f2915a86499f48",
+          "path": "submission://track_alignment_explanation",
+          "start_line": 1,
+          "end_line": 1,
+          "symbol": ""
+        }
+      ],
+      "questions_for_organizer": []
+    },
+    "not_tested": [
+      "Whether the project builds or starts",
+      "Whether tests pass",
+      "Runtime correctness",
+      "Performance, scaling, or reliability under load",
+      "Runtime accessibility behavior",
+      "Debugging ability",
+      "Ability to extend the system safely",
+      "Deployment correctness"
+    ]
+  },
+  "critic": {
+    "valid": true,
+    "errors": []
+  }
+}

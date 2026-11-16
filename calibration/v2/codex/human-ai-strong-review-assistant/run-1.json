@@ -1,0 +1,336 @@
+{
+  "fixture_slug": "human-ai-strong-review-assistant",
+  "run": 1,
+  "model": "gpt-6.1-sol",
+  "critic_model": "gpt-6.1-terra",
+  "prompt_version": "2.0",
+  "snapshot_hash": "146ef1537357e9e0992e20d10bbcee0cb7334227f41e8b1390d8716ee8aaf6a3",
+  "recorded_at": "2026-11-16",
+  "accepted": false,
+  "validation": {
+    "production_schema_valid": true,
+    "critic_valid": false,
+    "errors": [
+      "design_reasoning: Rating 3 is not supported by the category anchor. The decision record names alternatives but does not explain their comparative trade-offs; implementation and tests trace human authority, not a consistent analysis of the alternatives.",
+      "testing_evidence: Rating 3 overstates the stated-risk coverage. The tests contain useful negative assertions, but they do not exercise confidence boundaries, adapter or orchestration failures, or several transition paths.",
+      "documentation_operations: Rating 2 is not supported by the category anchor. Setup commands are documented, but there is no representative adapter configuration or primary-operation example.",
+      "repository_hygiene: The LICENSE is labeled MIT but omits the standard MIT requirement to include the copyright and permission notice. The assessment's claim of MIT licensing and its rating 3 reliance on recognized licensing are therefore unsupported."
+    ]
+  },
+  "assessment": {
+    "categories": {
+      "design_reasoning": {
+        "score": 18.75,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "alternatives_and_tradeoffs",
+            "rating": 3,
+            "points_available": 25,
+            "points_awarded": 18.75,
+            "confidence": "medium",
+            "summary": "Bounded suggestions are chosen over autonomous decisions and generic chat, with human authority traced into implementation and negative tests.",
+            "limitations": "Alternative analysis is brief. Reconsideration thresholds lack concrete domain evaluation criteria, and retrieval bounding is asserted rather than implemented in the supplied adapter interface.",
+            "evidence": [
+              {
+                "evidence_id": "449f5299401006e40c36fba9e20f4943e3490ae8af4a1e9d7bd46bca70969295",
+                "path": "docs/decisions/001-human-authority.md",
+                "start_line": 3,
+                "end_line": 16,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "830ae0be71c2367f884510b9afa58c0989f03bf57bc147701e349a1da1f8ccf8",
+                "path": "src/review/state-machine.js",
+                "start_line": 1,
+                "end_line": 2,
+                "symbol": "transition"
+              },
+              {
+                "evidence_id": "a11f949c6402615c7a9a12f6ed3a7df3f78dcb182094111fc77d329b6f1ccdcf",
+                "path": "test/review-state.test.js",
+                "start_line": 2,
+                "end_line": 3,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "architecture_maintainability": {
+        "score": 10,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "boundaries_and_coupling",
+            "rating": 2,
+            "points_available": 20,
+            "points_awarded": 10,
+            "confidence": "medium",
+            "summary": "Input minimization, suggestion policy, orchestration, and review transitions have understandable boundaries. Adapter and clock dependencies are injected.",
+            "limitations": "No orchestration tests establish change isolation. Adapter result validation, failure containment, persistence interfaces, and migration strategy are absent.",
+            "evidence": [
+              {
+                "evidence_id": "a91b1010e2c884d1930cd894064087392342bf6cffb66b37fda8eede302e7a44",
+                "path": "src/review/service.js",
+                "start_line": 1,
+                "end_line": 2,
+                "symbol": "createProposal"
+              },
+              {
+                "evidence_id": "9fc3d0f448c5d509a4fc1425e77885c3753be31462c900aa700f144aa5a68df8",
+                "path": "src/review/policy.js",
+                "start_line": 1,
+                "end_line": 1,
+                "symbol": "assessSuggestion"
+              },
+              {
+                "evidence_id": "830ae0be71c2367f884510b9afa58c0989f03bf57bc147701e349a1da1f8ccf8",
+                "path": "src/review/state-machine.js",
+                "start_line": 1,
+                "end_line": 2,
+                "symbol": "transition"
+              }
+            ]
+          }
+        ]
+      },
+      "security_by_design": {
+        "score": 15,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "threat_model_and_mitigations",
+            "rating": 3,
+            "points_available": 20,
+            "points_awarded": 15,
+            "confidence": "medium",
+            "summary": "Unauthorized review decisions and unnecessary identifying input map to explicit controls and negative tests. Model quality and domain evaluation remain stated residual risks.",
+            "limitations": "Reviewer identity is trusted caller input. Nested scrubbing uses a short field denylist and preserves identifying free text. Provenance checks establish only a nonempty array; recovery controls remain procedural.",
+            "evidence": [
+              {
+                "evidence_id": "c5913dc2a86424f4716a803255b88785a7f5f874dd667eec71e195fd8a2fd5df",
+                "path": "docs/security/threat-model.md",
+                "start_line": 3,
+                "end_line": 13,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "b20f5e5b7b2d3efbe17bce9fd9d99c347bc4d07daea42b6e77461a1ad0f009b2",
+                "path": "src/input/minimize.js",
+                "start_line": 1,
+                "end_line": 3,
+                "symbol": "minimizeInput"
+              },
+              {
+                "evidence_id": "27b161a6d0be9b198247f9ce2e098b96976ebc15b6e6d49041fcbccd93733b04",
+                "path": "test/minimization.test.js",
+                "start_line": 2,
+                "end_line": 2,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "a11f949c6402615c7a9a12f6ed3a7df3f78dcb182094111fc77d329b6f1ccdcf",
+                "path": "test/review-state.test.js",
+                "start_line": 2,
+                "end_line": 3,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "9fc3d0f448c5d509a4fc1425e77885c3753be31462c900aa700f144aa5a68df8",
+                "path": "src/review/policy.js",
+                "start_line": 1,
+                "end_line": 1,
+                "symbol": "assessSuggestion"
+              }
+            ]
+          }
+        ]
+      },
+      "testing_evidence": {
+        "score": 11.25,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "test_strategy_and_coverage",
+            "rating": 3,
+            "points_available": 15,
+            "points_awarded": 11.25,
+            "confidence": "medium",
+            "summary": "Focused assertions cover unauthorized approval, invalid transitions, missing provenance, low confidence, consequential language, and nested identity removal across the principal policy boundaries.",
+            "limitations": "No service orchestration or adapter failure tests are supplied. Exact confidence thresholds, malformed adapter responses, array minimization, and additional transition paths lack coverage. Committed tests provide no execution evidence.",
+            "evidence": [
+              {
+                "evidence_id": "f40ad80054bee61ddd86b1660e894172bfeb8345b8d08d384e80f46ddcf44480",
+                "path": "test/review-policy.test.js",
+                "start_line": 1,
+                "end_line": 3,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "a11f949c6402615c7a9a12f6ed3a7df3f78dcb182094111fc77d329b6f1ccdcf",
+                "path": "test/review-state.test.js",
+                "start_line": 1,
+                "end_line": 3,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "27b161a6d0be9b198247f9ce2e098b96976ebc15b6e6d49041fcbccd93733b04",
+                "path": "test/minimization.test.js",
+                "start_line": 1,
+                "end_line": 2,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "documentation_operations": {
+        "score": 5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "operational_clarity",
+            "rating": 2,
+            "points_available": 10,
+            "points_awarded": 5,
+            "confidence": "medium",
+            "summary": "Node prerequisites, installation and test commands, intended use, excluded decisions, and evaluation limitations are documented, with a basic failure triage sequence.",
+            "limitations": "Adapter configuration and a normal-use example are missing. Recovery references rollback, quarantine, stored state, and audit records without concrete procedures or corresponding persistence implementation.",
+            "evidence": [
+              {
+                "evidence_id": "c5f0634524817a8207281dab03df56f6bb67c7762f1e100acbfa048094e461f9",
+                "path": "README.md",
+                "start_line": 7,
+                "end_line": 27,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "f0d1f91824b80418cac1941fc2293c2a791a377eb99f4d9d9102982d182b8d36",
+                "path": "docs/runbook.md",
+                "start_line": 3,
+                "end_line": 11,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "bf2e1ffe236f633abf781578bf259a08686c75020ced0a23f0f26a9ce7c9762a",
+                "path": "MODEL_CARD.md",
+                "start_line": 3,
+                "end_line": 3,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "repository_hygiene": {
+        "score": 7.5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "dependency_and_repository_hygiene",
+            "rating": 3,
+            "points_available": 10,
+            "points_awarded": 7.5,
+            "confidence": "medium",
+            "summary": "A dependency-free manifest and lockfile, MIT licensing, read-only CI permissions, script-disabled installation, contribution requirements, and a sensitive-data commit policy provide consistent hygiene evidence.",
+            "limitations": "CI actions use mutable major-version tags. Release provenance, automated dependency review, and detailed governance are absent; private security reporting lacks a concrete contact.",
+            "evidence": [
+              {
+                "evidence_id": "848a5c7c2806afab300215352150dd2f2ff97e8cc3de5fd6e2181b8dcd13c282",
+                "path": "package-lock.json",
+                "start_line": 1,
+                "end_line": 17,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "668083061246e7b1127c65c4fae2d7feb19068ea81e83a39f13c1f4365d03489",
+                "path": "LICENSE",
+                "start_line": 1,
+                "end_line": 7,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "a15029fc640a8bca652bf11756758e4269baae88ca614cdd108ddf2bd2ae7c55",
+                "path": ".github/workflows/ci.yml",
+                "start_line": 1,
+                "end_line": 15,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "66440dcc95d5eaa9e311c88c66a06c22718615535ac1daf5932a716d993b8f49",
+                "path": "CONTRIBUTING.md",
+                "start_line": 3,
+                "end_line": 3,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "19cb67ebc9f94d3188a66dfab9ef66f96d64c5f49e251928990087a61a814fc8",
+                "path": "SECURITY.md",
+                "start_line": 3,
+                "end_line": 3,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "core_score": 67.5,
+    "confidence": "medium",
+    "track_alignment": {
+      "status": "demonstrated",
+      "summary": "AI suggestions address complex document review for public-benefit caseworkers, with deliberately bounded proposal authority, human review, input minimization, and escalation. Domain effectiveness and model quality remain unevaluated.",
+      "evidence": [
+        {
+          "evidence_id": "086798c41ca5afeb9191ee3cb51d004e12ede56b601a547da7d511f8af9be6c7",
+          "path": "submission://intended_users",
+          "start_line": 1,
+          "end_line": 1,
+          "symbol": ""
+        },
+        {
+          "evidence_id": "449f5299401006e40c36fba9e20f4943e3490ae8af4a1e9d7bd46bca70969295",
+          "path": "docs/decisions/001-human-authority.md",
+          "start_line": 3,
+          "end_line": 3,
+          "symbol": ""
+        },
+        {
+          "evidence_id": "a91b1010e2c884d1930cd894064087392342bf6cffb66b37fda8eede302e7a44",
+          "path": "src/review/service.js",
+          "start_line": 1,
+          "end_line": 2,
+          "symbol": "createProposal"
+        },
+        {
+          "evidence_id": "bf2e1ffe236f633abf781578bf259a08686c75020ced0a23f0f26a9ce7c9762a",
+          "path": "MODEL_CARD.md",
+          "start_line": 3,
+          "end_line": 3,
+          "symbol": ""
+        }
+      ],
+      "questions_for_organizer": []
+    },
+    "not_tested": [
+      "Whether the project builds or starts",
+      "Whether tests pass",
+      "Runtime correctness",
+      "Performance, scaling, or reliability under load",
+      "Runtime accessibility behavior",
+      "Debugging ability",
+      "Ability to extend the system safely",
+      "Deployment correctness"
+    ]
+  },
+  "critic": {
+    "valid": false,
+    "errors": [
+      "design_reasoning: Rating 3 is not supported by the category anchor. The decision record names alternatives but does not explain their comparative trade-offs; implementation and tests trace human authority, not a consistent analysis of the alternatives.",
+      "testing_evidence: Rating 3 overstates the stated-risk coverage. The tests contain useful negative assertions, but they do not exercise confidence boundaries, adapter or orchestration failures, or several transition paths.",
+      "documentation_operations: Rating 2 is not supported by the category anchor. Setup commands are documented, but there is no representative adapter configuration or primary-operation example.",
+      "repository_hygiene: The LICENSE is labeled MIT but omits the standard MIT requirement to include the copyright and permission notice. The assessment's claim of MIT licensing and its rating 3 reliance on recognized licensing are therefore unsupported."
+    ]
+  }
+}

@@ -1,0 +1,281 @@
+{
+  "fixture_slug": "secure-strong-token-gateway",
+  "run": 2,
+  "model": "gpt-6.1-sol",
+  "critic_model": "gpt-6.1-terra",
+  "prompt_version": "2.0",
+  "snapshot_hash": "842c0ab1bfc0722f4500267cc005830c54685fba6f019e0ee3d1a62e715e73e6",
+  "recorded_at": "2026-11-16",
+  "accepted": false,
+  "validation": {
+    "production_schema_valid": true,
+    "critic_valid": false,
+    "errors": [
+      "Repository hygiene claims MIT licensing and applies the rating 3 anchor for recognized licensing, but LICENSE contains an abbreviated text that omits the standard MIT license's notice-retention condition and other terms. The MIT label alone does not establish that the repository includes the recognized MIT license."
+    ]
+  },
+  "assessment": {
+    "categories": {
+      "design_reasoning": {
+        "score": 12.5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "alternatives_and_tradeoffs",
+            "rating": 2,
+            "points_available": 25,
+            "points_awarded": 12.5,
+            "confidence": "medium",
+            "summary": "Centralized authorization is compared with duplicated libraries, with explicit replay availability and deployment trade-offs that trace to injected policies.",
+            "limitations": "The traceability checklist asserts broader comparisons than it supplies. Token format, revocation, and clock-skew alternatives receive little substantive analysis.",
+            "evidence": [
+              {
+                "evidence_id": "ea4bff8d93da2bc18c3ca52d382403194399b226d226f0fbb437d73fb7d19042",
+                "path": "docs/decisions/001-token-boundary.md",
+                "start_line": 3,
+                "end_line": 15,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "7cd620b6c218453ff499f6073a9d0b277731540d08a1d326c8d7fe85897edd92",
+                "path": "src/gateway/authorize.js",
+                "start_line": 1,
+                "end_line": 1,
+                "symbol": "createAuthorizer"
+              }
+            ]
+          }
+        ]
+      },
+      "architecture_maintainability": {
+        "score": 10,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "boundaries_and_coupling",
+            "rating": 2,
+            "points_available": 20,
+            "points_awarded": 10,
+            "confidence": "medium",
+            "summary": "Verification, replay storage, and authorization have understandable boundaries; verification, replay, and audit dependencies are injected.",
+            "limitations": "The isolation test covers only verifier rejection. Interfaces and shared-store migration semantics are implicit; authorization directly couples to wall-clock time, and audit failures lack explicit containment.",
+            "evidence": [
+              {
+                "evidence_id": "7cd620b6c218453ff499f6073a9d0b277731540d08a1d326c8d7fe85897edd92",
+                "path": "src/gateway/authorize.js",
+                "start_line": 1,
+                "end_line": 1,
+                "symbol": "createAuthorizer"
+              },
+              {
+                "evidence_id": "d003a18d10da2c2fde541085c9fc8e1fbcaf12e0012ef70b6c0127f5f30c7c8f",
+                "path": "test/change-isolation.test.js",
+                "start_line": 1,
+                "end_line": 2,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "security_by_design": {
+        "score": 10,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "threat_model_and_mitigations",
+            "rating": 2,
+            "points_available": 20,
+            "points_awarded": 10,
+            "confidence": "medium",
+            "summary": "Algorithm confusion and replay threats map to signature and claim checks, bounded replay storage, negative tests, and explicit deployment residual risks.",
+            "limitations": "Encoding and claim validation are less strict than the narrative suggests: canonical encoding, identifier types, and finite not-before values are not enforced. Negative tests omit malformed tokens, signature mismatch, scope escalation, and audit failure.",
+            "evidence": [
+              {
+                "evidence_id": "2f8a068eacfa3fe24665d02919409efadbd54455a6fffdfe593ea6028fff8307",
+                "path": "docs/security/threat-model.md",
+                "start_line": 3,
+                "end_line": 13,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "cf0f8000145f9708125531465afaf4ba3f1ca1ac02792fc78be7896ac5d2ae0c",
+                "path": "src/token/verify.js",
+                "start_line": 5,
+                "end_line": 12,
+                "symbol": "verify"
+              },
+              {
+                "evidence_id": "5fd610500941292040991ad966848df155081877ee07e308885534181cc158c1",
+                "path": "test/adversarial-token.test.js",
+                "start_line": 1,
+                "end_line": 3,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "testing_evidence": {
+        "score": 7.5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "test_strategy_and_coverage",
+            "rating": 2,
+            "points_available": 15,
+            "points_awarded": 7.5,
+            "confidence": "medium",
+            "summary": "Focused assertions cover audience rejection, expiration, algorithm confusion, replay duplication, expiry boundaries, capacity failure, and verifier rejection through authorization.",
+            "limitations": "Coverage omits successful authorization, scope denial, malformed encoding, signature mismatch, not-before and skew boundaries, and replay or audit failures through the authorizer. Committed tests provide no execution results.",
+            "evidence": [
+              {
+                "evidence_id": "5fd610500941292040991ad966848df155081877ee07e308885534181cc158c1",
+                "path": "test/adversarial-token.test.js",
+                "start_line": 1,
+                "end_line": 3,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "b4bc0f98b7e07db74e42317253d71b4a2589d8219bb391ee9879ae79bb00a23c",
+                "path": "test/replay-boundary.test.js",
+                "start_line": 1,
+                "end_line": 3,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "d003a18d10da2c2fde541085c9fc8e1fbcaf12e0012ef70b6c0127f5f30c7c8f",
+                "path": "test/change-isolation.test.js",
+                "start_line": 1,
+                "end_line": 2,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "documentation_operations": {
+        "score": 2.5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "operational_clarity",
+            "rating": 1,
+            "points_available": 10,
+            "points_awarded": 2.5,
+            "confidence": "medium",
+            "summary": "Documentation identifies Node prerequisites, installation and test commands, deployment limitations, and general recovery precautions.",
+            "limitations": "No concrete integration or policy configuration example is supplied. The runbook references rollback and quarantine without actionable procedures; key rotation, denial diagnosis, and replay-store recovery remain unspecified.",
+            "evidence": [
+              {
+                "evidence_id": "cbec4c4760f115a1dace3174099d257e5ee4666bed65cc2cc1aea0cbb76ad3f3",
+                "path": "README.md",
+                "start_line": 7,
+                "end_line": 22,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "10b3537fa2c50ce009613a8ac7d89e9149d47b61a43796bce75e350a1e871b4a",
+                "path": "docs/runbook.md",
+                "start_line": 3,
+                "end_line": 11,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "repository_hygiene": {
+        "score": 7.5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "dependency_and_repository_hygiene",
+            "rating": 3,
+            "points_available": 10,
+            "points_awarded": 7.5,
+            "confidence": "medium",
+            "summary": "A dependency-free manifest and matching lockfile accompany MIT licensing, read-only CI permissions, script-disabled installation, contribution requirements, and a policy against committing credentials or participant data.",
+            "limitations": "Actions use version tags rather than immutable revisions. Release provenance and dependency-review enforcement are absent; private vulnerability reporting lacks a concrete contact.",
+            "evidence": [
+              {
+                "evidence_id": "2229923c22f0c4055d7a4636c664bac73c1958fe86f703ad62d7814bd3bb0f4c",
+                "path": "package-lock.json",
+                "start_line": 1,
+                "end_line": 17,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "668083061246e7b1127c65c4fae2d7feb19068ea81e83a39f13c1f4365d03489",
+                "path": "LICENSE",
+                "start_line": 1,
+                "end_line": 7,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "a15029fc640a8bca652bf11756758e4269baae88ca614cdd108ddf2bd2ae7c55",
+                "path": ".github/workflows/ci.yml",
+                "start_line": 1,
+                "end_line": 15,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "66440dcc95d5eaa9e311c88c66a06c22718615535ac1daf5932a716d993b8f49",
+                "path": "CONTRIBUTING.md",
+                "start_line": 3,
+                "end_line": 3,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "19cb67ebc9f94d3188a66dfab9ef66f96d64c5f49e251928990087a61a814fc8",
+                "path": "SECURITY.md",
+                "start_line": 3,
+                "end_line": 3,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "core_score": 50,
+    "confidence": "medium",
+    "track_alignment": {
+      "status": "demonstrated",
+      "summary": "The primary purpose is preventing token verification bypass, unauthorized scope use, and replay at an authorization boundary. Implementation and focused negative tests substantiate this security purpose without establishing runtime effectiveness.",
+      "evidence": [
+        {
+          "evidence_id": "2f8a068eacfa3fe24665d02919409efadbd54455a6fffdfe593ea6028fff8307",
+          "path": "docs/security/threat-model.md",
+          "start_line": 7,
+          "end_line": 8,
+          "symbol": ""
+        },
+        {
+          "evidence_id": "7cd620b6c218453ff499f6073a9d0b277731540d08a1d326c8d7fe85897edd92",
+          "path": "src/gateway/authorize.js",
+          "start_line": 1,
+          "end_line": 1,
+          "symbol": "createAuthorizer"
+        }
+      ],
+      "questions_for_organizer": []
+    },
+    "not_tested": [
+      "Whether the project builds or starts",
+      "Whether tests pass",
+      "Runtime correctness",
+      "Performance, scaling, or reliability under load",
+      "Runtime accessibility behavior",
+      "Debugging ability",
+      "Ability to extend the system safely",
+      "Deployment correctness"
+    ]
+  },
+  "critic": {
+    "valid": false,
+    "errors": [
+      "Repository hygiene claims MIT licensing and applies the rating 3 anchor for recognized licensing, but LICENSE contains an abbreviated text that omits the standard MIT license's notice-retention condition and other terms. The MIT label alone does not establish that the repository includes the recognized MIT license."
+    ]
+  }
+}

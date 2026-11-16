@@ -1,0 +1,270 @@
+{
+  "fixture_slug": "secure-strong-token-gateway",
+  "run": 1,
+  "model": "gpt-6.1-sol",
+  "critic_model": "gpt-6.1-terra",
+  "prompt_version": "2.0",
+  "snapshot_hash": "842c0ab1bfc0722f4500267cc005830c54685fba6f019e0ee3d1a62e715e73e6",
+  "recorded_at": "2026-11-16",
+  "accepted": true,
+  "validation": {
+    "production_schema_valid": true,
+    "critic_valid": true,
+    "errors": []
+  },
+  "assessment": {
+    "categories": {
+      "design_reasoning": {
+        "score": 12.5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "alternatives_and_tradeoffs",
+            "rating": 2,
+            "points_available": 25,
+            "points_awarded": 12.5,
+            "confidence": "medium",
+            "summary": "The centralized boundary is compared with duplicated libraries, with an explicit availability trade-off and multi-region reconsideration trigger.",
+            "limitations": "The traceability list asserts broader comparisons and coverage than the committed implementation and tests demonstrate. Session-versus-token alternatives are listed without substantive analysis.",
+            "evidence": [
+              {
+                "evidence_id": "ea4bff8d93da2bc18c3ca52d382403194399b226d226f0fbb437d73fb7d19042",
+                "path": "docs/decisions/001-token-boundary.md",
+                "start_line": 3,
+                "end_line": 15,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "7cd620b6c218453ff499f6073a9d0b277731540d08a1d326c8d7fe85897edd92",
+                "path": "src/gateway/authorize.js",
+                "start_line": 1,
+                "end_line": 1,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "architecture_maintainability": {
+        "score": 10,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "boundaries_and_coupling",
+            "rating": 2,
+            "points_available": 20,
+            "points_awarded": 10,
+            "confidence": "medium",
+            "summary": "Verification, replay storage, and authorization have understandable boundaries, with verifier, replay, and audit dependencies injected into the authorizer.",
+            "limitations": "Change isolation has only one denial-path test. Direct wall-clock access, synchronous adapter assumptions, and audit exceptions leave important coupling and failure behavior implicit.",
+            "evidence": [
+              {
+                "evidence_id": "7cd620b6c218453ff499f6073a9d0b277731540d08a1d326c8d7fe85897edd92",
+                "path": "src/gateway/authorize.js",
+                "start_line": 1,
+                "end_line": 1,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "d003a18d10da2c2fde541085c9fc8e1fbcaf12e0012ef70b6c0127f5f30c7c8f",
+                "path": "test/change-isolation.test.js",
+                "start_line": 1,
+                "end_line": 2,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "security_by_design": {
+        "score": 10,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "threat_model_and_mitigations",
+            "rating": 2,
+            "points_available": 20,
+            "points_awarded": 10,
+            "confidence": "medium",
+            "summary": "Token confusion and replay threats map to explicit verification and bounded replay controls, with shared-store and key-custody residual risks documented.",
+            "limitations": "Negative tests cover only part of the relevant boundary. Strict encoding and claim-type validation are incomplete; signature mismatch, malformed tokens, scope escalation, and audit failures lack committed tests.",
+            "evidence": [
+              {
+                "evidence_id": "2f8a068eacfa3fe24665d02919409efadbd54455a6fffdfe593ea6028fff8307",
+                "path": "docs/security/threat-model.md",
+                "start_line": 7,
+                "end_line": 13,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "cf0f8000145f9708125531465afaf4ba3f1ca1ac02792fc78be7896ac5d2ae0c",
+                "path": "src/token/verify.js",
+                "start_line": 5,
+                "end_line": 12,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "5fd610500941292040991ad966848df155081877ee07e308885534181cc158c1",
+                "path": "test/adversarial-token.test.js",
+                "start_line": 1,
+                "end_line": 3,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "testing_evidence": {
+        "score": 7.5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "test_strategy_and_coverage",
+            "rating": 2,
+            "points_available": 15,
+            "points_awarded": 7.5,
+            "confidence": "medium",
+            "summary": "Focused assertions cover wrong audience, expiration, algorithm confusion, verifier denial, replay reuse, expiry, and capacity exhaustion.",
+            "limitations": "Coverage omits successful integrated authorization, scope denial, signature mismatch, malformed encoding, not-before bounds, concurrency, and adapter failures. Committed tests do not establish execution success.",
+            "evidence": [
+              {
+                "evidence_id": "5fd610500941292040991ad966848df155081877ee07e308885534181cc158c1",
+                "path": "test/adversarial-token.test.js",
+                "start_line": 1,
+                "end_line": 3,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "d003a18d10da2c2fde541085c9fc8e1fbcaf12e0012ef70b6c0127f5f30c7c8f",
+                "path": "test/change-isolation.test.js",
+                "start_line": 1,
+                "end_line": 2,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "b4bc0f98b7e07db74e42317253d71b4a2589d8219bb391ee9879ae79bb00a23c",
+                "path": "test/replay-boundary.test.js",
+                "start_line": 1,
+                "end_line": 3,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "documentation_operations": {
+        "score": 2.5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "operational_clarity",
+            "rating": 1,
+            "points_available": 10,
+            "points_awarded": 2.5,
+            "confidence": "medium",
+            "summary": "Node prerequisites, installation and test commands, and deployment limitations are stated.",
+            "limitations": "There is no concrete integration or configuration example. Recovery steps refer to unspecified rollback boundaries; key rotation, error diagnosis, and restoration procedures are not developed.",
+            "evidence": [
+              {
+                "evidence_id": "cbec4c4760f115a1dace3174099d257e5ee4666bed65cc2cc1aea0cbb76ad3f3",
+                "path": "README.md",
+                "start_line": 7,
+                "end_line": 22,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "10b3537fa2c50ce009613a8ac7d89e9149d47b61a43796bce75e350a1e871b4a",
+                "path": "docs/runbook.md",
+                "start_line": 3,
+                "end_line": 11,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "repository_hygiene": {
+        "score": 5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "dependency_and_repository_hygiene",
+            "rating": 2,
+            "points_available": 10,
+            "points_awarded": 5,
+            "confidence": "medium",
+            "summary": "A dependency-free manifest and lockfile, read-only CI permissions, test automation, contribution guidance, and a license grant provide basic maintenance evidence.",
+            "limitations": "The MIT-labeled license is abbreviated, CI actions use mutable major-version references, and artifact policy and release provenance are undeveloped. The claimed lint and policy checks are absent from CI.",
+            "evidence": [
+              {
+                "evidence_id": "2229923c22f0c4055d7a4636c664bac73c1958fe86f703ad62d7814bd3bb0f4c",
+                "path": "package-lock.json",
+                "start_line": 1,
+                "end_line": 16,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "a15029fc640a8bca652bf11756758e4269baae88ca614cdd108ddf2bd2ae7c55",
+                "path": ".github/workflows/ci.yml",
+                "start_line": 1,
+                "end_line": 15,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "668083061246e7b1127c65c4fae2d7feb19068ea81e83a39f13c1f4365d03489",
+                "path": "LICENSE",
+                "start_line": 1,
+                "end_line": 7,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "66440dcc95d5eaa9e311c88c66a06c22718615535ac1daf5932a716d993b8f49",
+                "path": "CONTRIBUTING.md",
+                "start_line": 3,
+                "end_line": 3,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "core_score": 47.5,
+    "confidence": "medium",
+    "track_alignment": {
+      "status": "demonstrated",
+      "summary": "The primary developer surface addresses concrete authorization-bypass and token-replay threats through verification, scope checks, and replay consumption.",
+      "evidence": [
+        {
+          "evidence_id": "7cd620b6c218453ff499f6073a9d0b277731540d08a1d326c8d7fe85897edd92",
+          "path": "src/gateway/authorize.js",
+          "start_line": 1,
+          "end_line": 1,
+          "symbol": ""
+        },
+        {
+          "evidence_id": "2f8a068eacfa3fe24665d02919409efadbd54455a6fffdfe593ea6028fff8307",
+          "path": "docs/security/threat-model.md",
+          "start_line": 7,
+          "end_line": 8,
+          "symbol": ""
+        }
+      ],
+      "questions_for_organizer": []
+    },
+    "not_tested": [
+      "Whether the project builds or starts",
+      "Whether tests pass",
+      "Runtime correctness",
+      "Performance, scaling, or reliability under load",
+      "Runtime accessibility behavior",
+      "Debugging ability",
+      "Ability to extend the system safely",
+      "Deployment correctness"
+    ]
+  },
+  "critic": {
+    "valid": true,
+    "errors": []
+  }
+}

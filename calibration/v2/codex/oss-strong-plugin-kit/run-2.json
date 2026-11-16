@@ -1,0 +1,322 @@
+{
+  "fixture_slug": "oss-strong-plugin-kit",
+  "run": 2,
+  "model": "gpt-6.1-sol",
+  "critic_model": "gpt-6.1-terra",
+  "prompt_version": "2.0",
+  "snapshot_hash": "f8afb555f7636c27fe191287ba38be7e7008aeb6e51d6ffa762df41ad03e4b17",
+  "recorded_at": "2026-11-16",
+  "accepted": false,
+  "validation": {
+    "production_schema_valid": true,
+    "critic_valid": false,
+    "errors": [
+      "The documentation_operations rating of 2 requires representative configuration, but the assessment itself acknowledges that no concrete host configuration or plugin example is provided.",
+      "The security_by_design rating of 3 overstates the evidence against its anchor: the claimed undeclared-access boundary has no corresponding negative test or enforcement against in-process plugin behavior, and bounded cleanup is not implemented or tested.",
+      "The repository_hygiene rating of 3 requires a consistent artifact policy, but the cited contribution guidance only prohibits committing credentials or participant data; it does not establish an artifact policy.",
+      "The LICENSE is labeled MIT but omits the MIT license's condition requiring preservation of the copyright and permission notices. The assessment's unqualified MIT licensing claim and demonstrated Open Source track alignment therefore overstate the evidence for an actual recognized license."
+    ]
+  },
+  "assessment": {
+    "categories": {
+      "design_reasoning": {
+        "score": 12.5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "alternatives_and_tradeoffs",
+            "rating": 2,
+            "points_available": 25,
+            "points_awarded": 12.5,
+            "confidence": "medium",
+            "summary": "The in-process design identifies transparency and testing benefits, an isolation alternative, and an explicit trust limitation, with implementation traceability.",
+            "limitations": "The traceability list exceeds the demonstrated detail: compatibility windows, deprecation policy, and concrete reconsideration triggers are not specified.",
+            "evidence": [
+              {
+                "evidence_id": "4f905f3a8e5036effa1d92f879db60ff32b24de947055d684d42792f435c6100",
+                "path": "docs/decisions/001-plugin-protocol.md",
+                "start_line": 1,
+                "end_line": 15,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "dc36e867e02c3882edefe3a35606f7fe35dc5499213ec0031ffee91525816add",
+                "path": "src/host/plugin-host.js",
+                "start_line": 1,
+                "end_line": 2,
+                "symbol": "PluginHost"
+              }
+            ]
+          }
+        ]
+      },
+      "architecture_maintainability": {
+        "score": 10,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "boundaries_and_coupling",
+            "rating": 2,
+            "points_available": 20,
+            "points_awarded": 10,
+            "confidence": "medium",
+            "summary": "Manifest validation, capability authorization, and lifecycle orchestration have understandable module boundaries and explicit dependencies.",
+            "limitations": "Lifecycle declarations are not validated, hook execution and cleanup are unbounded, and a cleanup exception can interrupt remaining cleanup. Migration guidance lacks a concrete compatibility contract.",
+            "evidence": [
+              {
+                "evidence_id": "dc36e867e02c3882edefe3a35606f7fe35dc5499213ec0031ffee91525816add",
+                "path": "src/host/plugin-host.js",
+                "start_line": 1,
+                "end_line": 2,
+                "symbol": "PluginHost"
+              },
+              {
+                "evidence_id": "83d1f6ebf75863e20c277303b2abcb333121d5362d87f366ee81c97ba90fc697",
+                "path": "src/protocol/manifest.js",
+                "start_line": 1,
+                "end_line": 2,
+                "symbol": "validateManifest"
+              },
+              {
+                "evidence_id": "28f1ff765ddfe10e7bcbaff69053f3930f66c48966b7f556d00480d67d7bbad4",
+                "path": "docs/migration.md",
+                "start_line": 1,
+                "end_line": 3,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "security_by_design": {
+        "score": 15,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "threat_model_and_mitigations",
+            "rating": 3,
+            "points_available": 20,
+            "points_awarded": 15,
+            "confidence": "medium",
+            "summary": "Capability escalation and partial initialization threats map to implementation controls and negative tests. Process isolation and publisher verification remain explicit consumer responsibilities.",
+            "limitations": "The documented bounded cleanup is not implemented with execution limits. Cleanup failures, malformed capability elements, and diagnostic disclosure lack adversarial coverage.",
+            "evidence": [
+              {
+                "evidence_id": "3f2d8ed05cb64f243fe675fe9656f16a73627c1fbdc39984756ee88e22a097cb",
+                "path": "docs/security/threat-model.md",
+                "start_line": 7,
+                "end_line": 13,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "b5c7081769c234c3d6792a2bb03c010e86565908bea77f8a8a6c31c0b0c43910",
+                "path": "src/host/capability-policy.js",
+                "start_line": 1,
+                "end_line": 1,
+                "symbol": "authorizeCapabilities"
+              },
+              {
+                "evidence_id": "ad1bf45150cd8e51f1d8dffe65069992651bb8c917e475e153a6296a4c2565fc",
+                "path": "test/capability-policy.test.js",
+                "start_line": 1,
+                "end_line": 2,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "80d5e9634d751d7f66af7f5cbda39ece924db587bbf22b7c9540f2123fbd589d",
+                "path": "test/lifecycle-failure.test.js",
+                "start_line": 1,
+                "end_line": 2,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "testing_evidence": {
+        "score": 11.25,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "test_strategy_and_coverage",
+            "rating": 3,
+            "points_available": 15,
+            "points_awarded": 11.25,
+            "confidence": "medium",
+            "summary": "Focused assertions cover current and future protocols, invalid identifiers, forbidden capabilities, immutable grants, and cleanup after initialization failure across the core modules.",
+            "limitations": "Coverage omits duplicate capabilities, deprecated and malformed versions, cleanup exceptions, and execution bounds. The cleanup fixture has only one completed hook, so it does not distinguish reverse from forward cleanup order. No execution results are supplied.",
+            "evidence": [
+              {
+                "evidence_id": "2cee860efe2162009b1ae7c7e579b841c25012812fb7b6daec58b7b8b49b98b9",
+                "path": "test/compatibility.test.js",
+                "start_line": 1,
+                "end_line": 2,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "ad1bf45150cd8e51f1d8dffe65069992651bb8c917e475e153a6296a4c2565fc",
+                "path": "test/capability-policy.test.js",
+                "start_line": 1,
+                "end_line": 2,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "80d5e9634d751d7f66af7f5cbda39ece924db587bbf22b7c9540f2123fbd589d",
+                "path": "test/lifecycle-failure.test.js",
+                "start_line": 1,
+                "end_line": 2,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "documentation_operations": {
+        "score": 5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "operational_clarity",
+            "rating": 2,
+            "points_available": 10,
+            "points_awarded": 5,
+            "confidence": "medium",
+            "summary": "Documentation provides Node prerequisites, dependency installation and test commands, authoring expectations, recovery steps, and explicit operational limits.",
+            "limitations": "No concrete host configuration or plugin example is provided. Recovery refers to rollback, quarantine, stored state, and audit records without explaining their implementation or actionable procedures.",
+            "evidence": [
+              {
+                "evidence_id": "ba9a9ca47ed3157d9320865c6e26a5c8b56f6abc83de7cecedd8d493ed1909d0",
+                "path": "README.md",
+                "start_line": 7,
+                "end_line": 23,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "7149b3c44706ddf7e0c28a6fd644d7a0c279e4051c6840640384c817910af6d5",
+                "path": "docs/authoring.md",
+                "start_line": 1,
+                "end_line": 3,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "db5d657e00250a73e80d0020263ca33c7f93e326016a1fc9278301811697789e",
+                "path": "docs/runbook.md",
+                "start_line": 3,
+                "end_line": 11,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "repository_hygiene": {
+        "score": 7.5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "dependency_and_repository_hygiene",
+            "rating": 3,
+            "points_available": 10,
+            "points_awarded": 7.5,
+            "confidence": "medium",
+            "summary": "The dependency-free package has a consistent lockfile, MIT licensing, scoped CI permissions, script-disabled installation, contribution requirements, and a policy against committing credentials or participant data.",
+            "limitations": "The release workflow only performs a package dry run; its provenance job name does not establish release attestation or immutable publication. Actions use version tags, and artifact enforcement and governance remain limited.",
+            "evidence": [
+              {
+                "evidence_id": "bc0850269313a12e2d5c9a219ceeb223483b00d521b145f2f308015639bf9743",
+                "path": "package-lock.json",
+                "start_line": 1,
+                "end_line": 16,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "668083061246e7b1127c65c4fae2d7feb19068ea81e83a39f13c1f4365d03489",
+                "path": "LICENSE",
+                "start_line": 1,
+                "end_line": 7,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "a15029fc640a8bca652bf11756758e4269baae88ca614cdd108ddf2bd2ae7c55",
+                "path": ".github/workflows/ci.yml",
+                "start_line": 1,
+                "end_line": 15,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "66440dcc95d5eaa9e311c88c66a06c22718615535ac1daf5932a716d993b8f49",
+                "path": "CONTRIBUTING.md",
+                "start_line": 1,
+                "end_line": 3,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "7e4ddf5370a6660af96034b52cd4484f5ad0e5e3ad3eebc2e45bb3e0ed409079",
+                "path": ".github/workflows/release.yml",
+                "start_line": 5,
+                "end_line": 13,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "core_score": 61.25,
+    "confidence": "medium",
+    "track_alignment": {
+      "status": "demonstrated",
+      "summary": "The exported plugin host and validation functions provide a reusable developer surface. Node installation guidance, authoring instructions, and an MIT permission grant support adoption, although usage examples would improve onboarding.",
+      "evidence": [
+        {
+          "evidence_id": "dc36e867e02c3882edefe3a35606f7fe35dc5499213ec0031ffee91525816add",
+          "path": "src/host/plugin-host.js",
+          "start_line": 1,
+          "end_line": 2,
+          "symbol": "PluginHost"
+        },
+        {
+          "evidence_id": "ba9a9ca47ed3157d9320865c6e26a5c8b56f6abc83de7cecedd8d493ed1909d0",
+          "path": "README.md",
+          "start_line": 5,
+          "end_line": 13,
+          "symbol": ""
+        },
+        {
+          "evidence_id": "7149b3c44706ddf7e0c28a6fd644d7a0c279e4051c6840640384c817910af6d5",
+          "path": "docs/authoring.md",
+          "start_line": 1,
+          "end_line": 3,
+          "symbol": ""
+        },
+        {
+          "evidence_id": "668083061246e7b1127c65c4fae2d7feb19068ea81e83a39f13c1f4365d03489",
+          "path": "LICENSE",
+          "start_line": 1,
+          "end_line": 7,
+          "symbol": ""
+        }
+      ],
+      "questions_for_organizer": []
+    },
+    "not_tested": [
+      "Whether the project builds or starts",
+      "Whether tests pass",
+      "Runtime correctness",
+      "Performance, scaling, or reliability under load",
+      "Runtime accessibility behavior",
+      "Debugging ability",
+      "Ability to extend the system safely",
+      "Deployment correctness"
+    ]
+  },
+  "critic": {
+    "valid": false,
+    "errors": [
+      "The documentation_operations rating of 2 requires representative configuration, but the assessment itself acknowledges that no concrete host configuration or plugin example is provided.",
+      "The security_by_design rating of 3 overstates the evidence against its anchor: the claimed undeclared-access boundary has no corresponding negative test or enforcement against in-process plugin behavior, and bounded cleanup is not implemented or tested.",
+      "The repository_hygiene rating of 3 requires a consistent artifact policy, but the cited contribution guidance only prohibits committing credentials or participant data; it does not establish an artifact policy.",
+      "The LICENSE is labeled MIT but omits the MIT license's condition requiring preservation of the copyright and permission notices. The assessment's unqualified MIT licensing claim and demonstrated Open Source track alignment therefore overstate the evidence for an actual recognized license."
+    ]
+  }
+}

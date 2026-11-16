@@ -1,0 +1,292 @@
+{
+  "fixture_slug": "secure-adversarial-prompt-shield",
+  "run": 2,
+  "model": "gpt-6.1-sol",
+  "critic_model": "gpt-6.1-terra",
+  "prompt_version": "2.0",
+  "snapshot_hash": "9ee43304576186633971a5af99c7fe00003536ce4ea83b40509b03161f4becf4",
+  "recorded_at": "2026-11-16",
+  "accepted": false,
+  "validation": {
+    "production_schema_valid": true,
+    "critic_valid": false,
+    "errors": [
+      "documentation_operations assigns rating 2 even though the category anchor requires documented primary operation with representative configuration. The assessment itself identifies the absence of an API usage or configuration example, and the cited documentation provides none.",
+      "architecture_maintainability states that normalization and audit stages are claimed in the submission but does not cite the submission evidence supporting that limitation.",
+      "repository_hygiene claims matching package and lock metadata without citing package.json; the cited lockfile alone cannot establish the match."
+    ]
+  },
+  "assessment": {
+    "categories": {
+      "design_reasoning": {
+        "score": 12.5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "alternatives_and_tradeoffs",
+            "rating": 2,
+            "points_available": 25,
+            "points_awarded": 12.5,
+            "confidence": "medium",
+            "summary": "The decision record compares deterministic classification with prompt-only defenses and dropping prose, explains auditability and incomplete detection, and traces the choice to implementation.",
+            "limitations": "The traceability list claims obfuscation and unsupported-language coverage absent from the supplied tests. Reconsideration conditions do not specify actionable thresholds.",
+            "evidence": [
+              {
+                "evidence_id": "47b98feeda7ef83ab340c757460f563f0e372798a8ebf39856800c4689f89e61",
+                "path": "docs/decisions/001-bounded-shield.md",
+                "start_line": 3,
+                "end_line": 14,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "b386c2d0f26ad4364d78b67dee6a47cc0138ab82eb377e91a5718a017c735ed7",
+                "path": "src/shield/policy.js",
+                "start_line": 1,
+                "end_line": 2,
+                "symbol": "classify"
+              },
+              {
+                "evidence_id": "fc2a76fd7257cad34f622bb908787a1bc780ea0dc7f74fd15eb3e3bce6edfd5d",
+                "path": "test/adversarial-corpus.test.js",
+                "start_line": 1,
+                "end_line": 4,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "architecture_maintainability": {
+        "score": 10,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "boundaries_and_coupling",
+            "rating": 2,
+            "points_available": 20,
+            "points_awarded": 10,
+            "confidence": "medium",
+            "summary": "Classification and redaction have distinct interfaces, composed by a small pipeline returning structured evidence.",
+            "limitations": "Tests do not demonstrate integration change isolation or failure containment. Pipeline options receive limited validation, and normalization and audit stages claimed in the submission are not separately implemented.",
+            "evidence": [
+              {
+                "evidence_id": "23c9a96c3f4b6972a57aef3cca1d0aa4c2a06ce8894a0b6eb7f9a39b7c741e7a",
+                "path": "src/shield/pipeline.js",
+                "start_line": 1,
+                "end_line": 2,
+                "symbol": "inspectEvidence"
+              },
+              {
+                "evidence_id": "b81601c5669e3873829790bd2d87ed83dd3db02e79a26d1592d0fdcab1a2446f",
+                "path": "src/shield/redact.js",
+                "start_line": 1,
+                "end_line": 2,
+                "symbol": "redact"
+              },
+              {
+                "evidence_id": "f4ec7022c73294491fdae7a46f77a663b99afc7206b2f5da82dfcd9fed199469",
+                "path": "test/pipeline-boundary.test.js",
+                "start_line": 1,
+                "end_line": 2,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "security_by_design": {
+        "score": 10,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "threat_model_and_mitigations",
+            "rating": 2,
+            "points_available": 20,
+            "points_awarded": 10,
+            "confidence": "medium",
+            "summary": "A bounded threat model connects untrusted repository instructions and credential exposure to classification and redaction, while acknowledging semantic and language bypass risks.",
+            "limitations": "The supplied redaction expression uses literal s characters where whitespace handling appears intended. Quarantine is a returned label requiring downstream enforcement; integrated negative tests and recovery controls are limited.",
+            "evidence": [
+              {
+                "evidence_id": "2c81299609bed4196c1b79a7ff1783a8ea045bb47ae8c8f1e372fc448b1703f4",
+                "path": "docs/security/threat-model.md",
+                "start_line": 3,
+                "end_line": 13,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "b81601c5669e3873829790bd2d87ed83dd3db02e79a26d1592d0fdcab1a2446f",
+                "path": "src/shield/redact.js",
+                "start_line": 1,
+                "end_line": 2,
+                "symbol": "ASSIGNMENT"
+              },
+              {
+                "evidence_id": "23c9a96c3f4b6972a57aef3cca1d0aa4c2a06ce8894a0b6eb7f9a39b7c741e7a",
+                "path": "src/shield/pipeline.js",
+                "start_line": 2,
+                "end_line": 2,
+                "symbol": "inspectEvidence"
+              }
+            ]
+          }
+        ]
+      },
+      "testing_evidence": {
+        "score": 7.5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "test_strategy_and_coverage",
+            "rating": 2,
+            "points_available": 15,
+            "points_awarded": 7.5,
+            "confidence": "medium",
+            "summary": "Committed assertions cover three policy outcomes, excerpt truncation, path preservation, and benign identifier preservation.",
+            "limitations": "Invalid inputs, obfuscation, non-English content, repeated credentials, and integrated redaction/classification are not covered. The supplied credential-test excerpt is malformed, limiting assessment of that case; no execution results are available.",
+            "evidence": [
+              {
+                "evidence_id": "fc2a76fd7257cad34f622bb908787a1bc780ea0dc7f74fd15eb3e3bce6edfd5d",
+                "path": "test/adversarial-corpus.test.js",
+                "start_line": 1,
+                "end_line": 4,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "f4ec7022c73294491fdae7a46f77a663b99afc7206b2f5da82dfcd9fed199469",
+                "path": "test/pipeline-boundary.test.js",
+                "start_line": 1,
+                "end_line": 2,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "0838b7c07dad1ff5de46fa0f1f196bbaa396a469b0b9bcaced4fd5e09b261b1a",
+                "path": "test/redaction.test.js",
+                "start_line": 1,
+                "end_line": 3,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "documentation_operations": {
+        "score": 5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "operational_clarity",
+            "rating": 2,
+            "points_available": 10,
+            "points_awarded": 5,
+            "confidence": "medium",
+            "summary": "Documentation identifies Node prerequisites, installation and test commands, classification rationale, and explicit detection limitations.",
+            "limitations": "There is no concrete API usage or configuration example. Recovery steps refer generically to failure codes, rollback, stored state, and audit records without implementation-specific procedures; README also references an absent runbook.",
+            "evidence": [
+              {
+                "evidence_id": "fc25448126724c8f75cd647e8b93183025d9acf20c959e846cad3b7051a1c8dd",
+                "path": "README.md",
+                "start_line": 7,
+                "end_line": 23,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "578084561325d212cdc8f8c7348a2415a6d1dac931ec69ac31b7d4fc1c8dacc9",
+                "path": "docs/triage.md",
+                "start_line": 1,
+                "end_line": 11,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      },
+      "repository_hygiene": {
+        "score": 7.5,
+        "confidence": "medium",
+        "findings": [
+          {
+            "criterion": "dependency_and_repository_hygiene",
+            "rating": 3,
+            "points_available": 10,
+            "points_awarded": 7.5,
+            "confidence": "medium",
+            "summary": "The dependency-free package has matching lock metadata, MIT licensing, read-only CI permissions, script-disabled installation, contribution requirements, and a policy against committing credentials or participant data.",
+            "limitations": "Actions use mutable major-version tags. Release provenance, automated artifact enforcement, dependency review, and a concrete private security contact are not demonstrated.",
+            "evidence": [
+              {
+                "evidence_id": "4aa962e2434d5dd5b25ce0167977e9a88861a9e98673f1f942c8cde243e12956",
+                "path": "package-lock.json",
+                "start_line": 1,
+                "end_line": 16,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "668083061246e7b1127c65c4fae2d7feb19068ea81e83a39f13c1f4365d03489",
+                "path": "LICENSE",
+                "start_line": 1,
+                "end_line": 7,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "a15029fc640a8bca652bf11756758e4269baae88ca614cdd108ddf2bd2ae7c55",
+                "path": ".github/workflows/ci.yml",
+                "start_line": 1,
+                "end_line": 15,
+                "symbol": ""
+              },
+              {
+                "evidence_id": "66440dcc95d5eaa9e311c88c66a06c22718615535ac1daf5932a716d993b8f49",
+                "path": "CONTRIBUTING.md",
+                "start_line": 3,
+                "end_line": 3,
+                "symbol": ""
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "core_score": 52.5,
+    "confidence": "medium",
+    "track_alignment": {
+      "status": "demonstrated",
+      "summary": "The primary purpose addresses concrete prompt-influence and credential-exposure threats through evidence classification and redaction. This establishes purpose alignment without establishing runtime effectiveness.",
+      "evidence": [
+        {
+          "evidence_id": "2c81299609bed4196c1b79a7ff1783a8ea045bb47ae8c8f1e372fc448b1703f4",
+          "path": "docs/security/threat-model.md",
+          "start_line": 3,
+          "end_line": 13,
+          "symbol": ""
+        },
+        {
+          "evidence_id": "b386c2d0f26ad4364d78b67dee6a47cc0138ab82eb377e91a5718a017c735ed7",
+          "path": "src/shield/policy.js",
+          "start_line": 1,
+          "end_line": 2,
+          "symbol": "classify"
+        }
+      ],
+      "questions_for_organizer": []
+    },
+    "not_tested": [
+      "Whether the project builds or starts",
+      "Whether tests pass",
+      "Runtime correctness",
+      "Performance, scaling, or reliability under load",
+      "Runtime accessibility behavior",
+      "Debugging ability",
+      "Ability to extend the system safely",
+      "Deployment correctness"
+    ]
+  },
+  "critic": {
+    "valid": false,
+    "errors": [
+      "documentation_operations assigns rating 2 even though the category anchor requires documented primary operation with representative configuration. The assessment itself identifies the absence of an API usage or configuration example, and the cited documentation provides none.",
+      "architecture_maintainability states that normalization and audit stages are claimed in the submission but does not cite the submission evidence supporting that limitation.",
+      "repository_hygiene claims matching package and lock metadata without citing package.json; the cited lockfile alone cannot establish the match."
+    ]
+  }
+}
