@@ -1,0 +1,2 @@
+import { minimizeInput } from '../input/minimize.js'; import { assessSuggestion } from './policy.js'
+export async function createProposal({input,adapter,clock}){const bounded=minimizeInput(input);const suggestion=await adapter.suggest(bounded);const policy=assessSuggestion(suggestion);return{id:suggestion.id,status:policy.action==='propose'?'proposed':'escalated',suggestion,policy,createdAt:clock()}}
