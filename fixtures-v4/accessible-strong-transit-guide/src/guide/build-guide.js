@@ -1,0 +1,2 @@
+import{validateRoute}from'../input/validate-route.js';import{applyDisruptions}from'./disruptions.js'
+export function buildGuide({route,preferences={},disruptions=[]}){const valid=validateRoute(route);const steps=applyDisruptions(valid.steps,disruptions).map((step)=>({...step,cue:preferences.nonVisual?('Step '+(step.order+1)+': '+step.text):step.text}));return{routeId:valid.id,steps,reducedMotion:Boolean(preferences.reducedMotion),storesHistory:false}}

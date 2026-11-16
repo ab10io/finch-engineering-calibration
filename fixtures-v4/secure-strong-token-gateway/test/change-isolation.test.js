@@ -1,0 +1,2 @@
+import test from 'node:test'; import assert from 'node:assert/strict'; import { createAuthorizer } from '../src/gateway/authorize.js'
+test('policy replacement cannot bypass verification', () => { const events=[]; const authorize=createAuthorizer({verifyToken:()=>{throw new Error('signature_rejected')},replay:{consume:()=>true},audit:(event)=>events.push(event)}); assert.deepEqual(authorize({token:'x',requiredScopes:[]}),{allowed:false,reason:'signature_rejected'}); assert.equal(events[0].decision,'deny') })
