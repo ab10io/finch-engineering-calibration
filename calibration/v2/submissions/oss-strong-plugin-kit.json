@@ -1,0 +1,42 @@
+{
+  "fixture_slug": "oss-strong-plugin-kit",
+  "title": "Plugin Kit",
+  "summary": "A typed plugin SDK and test harness for building versioned event-processing extensions.",
+  "intended_users": "Open-source maintainers and application developers embedding third-party event processors.",
+  "repository_url": "https://github.com/ab10io/finch-engineering-calibration",
+  "commit_sha": "e0f34dd11f4abfddea27e2584bed8eb938d77896",
+  "demo_url": null,
+  "selected_track_slug": "open-source-developer-tools",
+  "diagram_type": "repository_path",
+  "diagram_text": null,
+  "diagram_path": "docs/decisions/001-plugin-protocol.md",
+  "diagram_image_ref": null,
+  "design_decisions": [
+    {
+      "problem_or_constraint": "The plugin protocol compares in-process and isolated execution and defines compatibility and deprecation trade-offs.",
+      "alternatives_considered": "The committed decision record compares credible alternatives and their security, access, maintenance, or operational trade-offs.",
+      "chosen_approach_and_rationale": "Discovery, manifest validation, capability policy, lifecycle, and diagnostics use stable public interfaces.",
+      "accepted_trade_off": "The reference host validates capabilities but does not provide operating-system process isolation.",
+      "repository_evidence": "docs/decisions/001-plugin-protocol.md, src/host/plugin-host.js",
+      "validation_approach": "Reject a plugin manifest using an unsupported future protocol version. Reject plugin initialization when a requested capability is forbidden by the host. Clean up completed lifecycle hooks after a later initialization hook fails.",
+      "reconsideration_conditions": "The reference host validates capabilities but does not provide operating-system process isolation. Package registry signature and publisher identity verification remain consumer responsibilities."
+    }
+  ],
+  "testing_strategy": "Committed negative and boundary evidence: test/compatibility.test.js, test/capability-policy.test.js, test/lifecycle-failure.test.js. Finch static review does not establish that these tests pass.",
+  "security_threat": "A plugin requests undeclared or host-forbidden access during initialization. Control: The host intersects manifest declarations with an explicit host allowlist before invoking lifecycle hooks. A partially initialized plugin leaves earlier resources active after a later hook fails. Control: The host records completed hooks and invokes bounded reverse-order cleanup after initialization failure.",
+  "production_limitation": "The reference host validates capabilities but does not provide operating-system process isolation. Package registry signature and publisher identity verification remain consumer responsibilities.",
+  "technical_debt": "Address the documented residual risks and add deployment-specific runtime evaluation before production use.",
+  "track_alignment_explanation": "The project is a reusable, documented, licensed developer toolkit with a stable plugin surface and credible adoption path.",
+  "ai_disclosure": {
+    "tools_used": [
+      "OpenAI Codex"
+    ],
+    "purposes": "Codex was used to author this deliberately synthetic calibration fixture and its structured submission answers.",
+    "substantially_generated_areas": "All fixture source, documentation, tests, and submission narratives are synthetic and AI-assisted.",
+    "review_validation": "The calibration operator reviews files for intended evidence strength, consistency, and absence of real secrets before pinning the commit.",
+    "rejected_or_changed_suggestion": "Generic claims of runtime correctness were rejected because Finch performs static evidence review only."
+  },
+  "ai_disclosure_narrative": "This entire project is synthetic AI-assisted test data. It represents no participant, deployed product, or real credential.",
+  "synthetic": true,
+  "leaderboard_eligible": false
+}

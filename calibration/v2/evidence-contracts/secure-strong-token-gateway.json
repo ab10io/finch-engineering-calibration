@@ -8,7 +8,7 @@
   "prose_only_requirements_allowed": false,
   "category_targets": {
     "design_reasoning": {
-      "target_rating": 4,
+      "target_rating": 3,
       "rationale": "Token format, revocation, replay, and clock-skew decisions compare alternatives and define reconsideration triggers.",
       "required_paths": ["docs/decisions/001-token-boundary.md", "src/gateway/authorize.js"],
       "observable_requirements": [

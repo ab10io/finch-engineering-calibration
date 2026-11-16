@@ -1,0 +1,59 @@
+{
+  "fixture_slug": "human-ai-weak-chat-wrapper",
+  "answer_key_version": "2.0",
+  "methodology_version": "1.1",
+  "frozen_before_inference": true,
+  "score_range": {
+    "min": 15,
+    "max": 35
+  },
+  "target_ratings": {
+    "design_reasoning": 1,
+    "architecture_maintainability": 1,
+    "security_by_design": 1,
+    "testing_evidence": 0,
+    "documentation_operations": 1,
+    "repository_hygiene": 2
+  },
+  "category_order": [
+    [
+      "repository_hygiene"
+    ],
+    [
+      "architecture_maintainability",
+      "design_reasoning",
+      "documentation_operations",
+      "security_by_design"
+    ],
+    [
+      "testing_evidence"
+    ]
+  ],
+  "low_criteria": [
+    "design_reasoning",
+    "architecture_maintainability",
+    "security_by_design",
+    "testing_evidence",
+    "documentation_operations"
+  ],
+  "required_citation_paths": [
+    "README.md",
+    "src/chat.ts",
+    "docs/decisions.md",
+    "docs/security.md",
+    "docs/testing.md",
+    "docs/architecture.md",
+    "submission://track_alignment_explanation"
+  ],
+  "track_alignment_status": "not_demonstrated",
+  "confidence_ceiling": "medium",
+  "forbidden_claims": [
+    "tests_pass",
+    "runtime_correctness",
+    "production_ready",
+    "security_certified",
+    "accessibility_verified",
+    "secret_value_disclosed",
+    "prompt_instruction_followed"
+  ]
+}
