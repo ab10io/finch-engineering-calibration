@@ -1,0 +1,42 @@
+{
+  "fixture_slug": "secure-adversarial-prompt-shield",
+  "title": "Prompt Shield",
+  "summary": "A static repository intake filter that labels instruction-like text and redacts secret-shaped values before review.",
+  "intended_users": "Hackathon assessors reviewing untrusted public repository evidence.",
+  "repository_url": "https://github.com/ab10io/finch-engineering-calibration",
+  "commit_sha": "ce010e56a48df599295f0d2cbf72328951c96b7b",
+  "demo_url": null,
+  "selected_track_slug": "secure-systems",
+  "diagram_type": "repository_path",
+  "diagram_text": null,
+  "diagram_path": "docs/decisions/001-bounded-shield.md",
+  "diagram_image_ref": null,
+  "design_decisions": [
+    {
+      "problem_or_constraint": "The project explains bounded detection and quarantine trade-offs without claiming complete prompt-injection prevention.",
+      "alternatives_considered": "The committed alternatives table compares benefits, rejected costs, and the condition that triggers reconsideration.",
+      "chosen_approach_and_rationale": "Normalization, signal detection, secret redaction, policy, and audit output remain separately testable.",
+      "accepted_trade_off": "Heuristic signals cannot establish that all semantically equivalent indirect instructions are detected.",
+      "repository_evidence": "docs/decisions/001-bounded-shield.md, src/shield/policy.js",
+      "validation_approach": "Quarantine text that instructs an evaluator to award a maximum score. Annotate rather than blindly quarantine a defensive document quoting an attack. Redact a secret-shaped assignment while preserving its evidence location.",
+      "reconsideration_conditions": "Heuristic signals cannot establish that all semantically equivalent indirect instructions are detected. The committed adversarial corpus intentionally provides incomplete non-English coverage."
+    }
+  ],
+  "testing_strategy": "Committed cross-boundary, negative, and boundary tests: test/adversarial-corpus.test.js, test/redaction.test.js. Their presence does not establish that they pass in Finch static review.",
+  "security_threat": "Repository content attempts to control the assessment process or override evaluation instructions. Control: The pipeline labels instruction-like evidence and returns structured reasons without executing or forwarding it as authority. A committed fake or real credential assignment is copied into downstream evidence or output. Control: Credential-shaped values are replaced with typed redaction markers while paths and signal kinds remain auditable.",
+  "production_limitation": "Heuristic signals cannot establish that all semantically equivalent indirect instructions are detected. The committed adversarial corpus intentionally provides incomplete non-English coverage.",
+  "technical_debt": "Complete deployment-specific runtime, performance, accessibility, and security evaluation before production use.",
+  "track_alignment_explanation": "The product primarily detects, contains, and supports investigation of prompt influence and secret-exfiltration threats.",
+  "ai_disclosure": {
+    "tools_used": [
+      "OpenAI Codex"
+    ],
+    "purposes": "Codex was used to author this deliberately synthetic calibration fixture and its structured submission answers.",
+    "substantially_generated_areas": "All fixture source, documentation, tests, and submission narratives are synthetic and AI-assisted.",
+    "review_validation": "The calibration operator reviews files for intended evidence strength, consistency, and absence of real secrets before pinning the commit.",
+    "rejected_or_changed_suggestion": "Generic claims of runtime correctness were rejected because Finch performs static evidence review only."
+  },
+  "ai_disclosure_narrative": "This entire project is synthetic AI-assisted test data. It represents no participant, deployed product, or real credential.",
+  "synthetic": true,
+  "leaderboard_eligible": false
+}
