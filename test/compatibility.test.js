@@ -1,0 +1,2 @@
+import test from'node:test';import assert from'node:assert/strict';import{validateManifest}from'../src/protocol/manifest.js'
+test('accepts current protocol and rejects future or malformed manifests',()=>{assert.equal(validateManifest({id:'good-plugin',protocolVersion:1,capabilities:[]}).id,'good-plugin');assert.throws(()=>validateManifest({id:'good-plugin',protocolVersion:2,capabilities:[]}),/future_protocol/);assert.throws(()=>validateManifest({id:'X',protocolVersion:1,capabilities:[]}),/invalid_plugin_id/)})
