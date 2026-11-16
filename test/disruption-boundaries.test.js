@@ -1,0 +1,3 @@
+import test from'node:test';import assert from'node:assert/strict';import{buildGuide}from'../src/guide/build-guide.js';import{validateRoute}from'../src/input/validate-route.js'
+test('marks elevator outages without inventing an alternative',()=>{const guide=buildGuide({route:{id:'r',steps:[{id:'lift',text:'Take elevator'}]},disruptions:[{kind:'elevator_outage',stepId:'lift'}]});assert.equal(guide.steps[0].available,false);assert.match(guide.steps[0].warning,/request/)})
+test('rejects missing and unsafe route facts',()=>{assert.throws(()=>validateRoute({steps:[]}),/steps_required/);assert.throws(()=>validateRoute({steps:[{id:'a',text:'<script>'}]}),/unsafe_route_step/)})
